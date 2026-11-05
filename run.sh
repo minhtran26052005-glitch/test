@@ -7,6 +7,12 @@ export ZIPFORMER_MODEL_PATH="${ZIPFORMER_MODEL_PATH:-models/zipformer-150M-6000h
 export ASR_CACHE_ONLY="${ASR_CACHE_ONLY:-0}" ASR_REVIEW_HISTORY="${ASR_REVIEW_HISTORY:-0}"
 # 1: agent also sees the raw ASR hypotheses (final turn + history) and gets the ASR-evidence rules below.
 export AGENT_ASR_EVIDENCE="${AGENT_ASR_EVIDENCE:-0}"
+# Agent options, all off by default (prompt and payload then match the original benchmark):
+# AGENT_TASK_RULES=1 rules for multi-step completeness and when to ask; AGENT_REPEAT_GUARD=1 warn instead of re-running an identical call;
+# AGENT_FEWSHOT_K=N add N solved train requests similar to this one (pool from build_fewshot_pool.py; AGENT_FEWSHOT_EXCLUDE=split manifest
+# drops same-group examples when benchmarking on train); AGENT_THINKING=1 Qwen reasons before each decision (raise AGENT_MAX_NEW_TOKENS).
+export AGENT_TASK_RULES="${AGENT_TASK_RULES:-0}" AGENT_REPEAT_GUARD="${AGENT_REPEAT_GUARD:-0}" AGENT_THINKING="${AGENT_THINKING:-0}"
+export AGENT_FEWSHOT_K="${AGENT_FEWSHOT_K:-0}" AGENT_FEWSHOT_POOL="${AGENT_FEWSHOT_POOL:-outputs/fewshot/pool.jsonl}" AGENT_FEWSHOT_EXCLUDE="${AGENT_FEWSHOT_EXCLUDE:-}"
 export FUSION_SELECTOR_PATH="${FUSION_SELECTOR_PATH:-outputs/timestamp_word_fusion/selector.json}" ASR_TIMED_CACHE_DIR="${ASR_TIMED_CACHE_DIR:-outputs/asr_timed_v1}"
 export LLM_MODEL_PATH="${LLM_MODEL_PATH:-models/Qwen3.5-4B}" LLM_BACKEND="${LLM_BACKEND:-transformers}" LLM_DTYPE="${LLM_DTYPE:-bfloat16}" LLM_QUANTIZATION="${LLM_QUANTIZATION:-none}" LLM_CONTEXT_TOKENS="${LLM_CONTEXT_TOKENS:-16384}" LLM_TEMPERATURE="${LLM_TEMPERATURE:-0}" NORMALIZE_MAX_NEW_TOKENS="${NORMALIZE_MAX_NEW_TOKENS:-512}" AGENT_MAX_NEW_TOKENS="${AGENT_MAX_NEW_TOKENS:-1024}"
 export LLM_GPU_MAX_MEMORY="${LLM_GPU_MAX_MEMORY-7GiB}" LLM_CPU_MAX_MEMORY="${LLM_CPU_MAX_MEMORY:-24GiB}"
@@ -56,11 +62,38 @@ Bằng chứng ASR:
 - Không hỏi lại chỉ vì các bản ASR khác nhau; sys.ask_missing_info vẫn theo quy tắc thiếu tham số bắt buộc ở trên.
 PROMPT
 )"
+agent_task_rules="$(cat <<'PROMPT'
+Làm đủ yêu cầu:
+- Xác định mọi việc người dùng yêu cầu trong câu, kể cả việc phụ nối bằng "với", "rồi", "luôn", "tiện thì", "sau đó", và mọi nhánh "nếu ... thì ..., không thì ...".
+- Với điều kiện, gọi tool đọc cần thiết để kiểm tra trước, rồi chỉ làm nhánh đúng theo observation; nhánh không xảy ra thì bỏ qua.
+- Nếu người dùng đổi ý ("à mà thôi", "khoan", "đừng ... nữa"), chỉ làm theo ý sau cùng. Câu chỉ hỏi thông tin thì chỉ gọi tool đọc.
+- Chỉ finish khi mọi việc đã thực hiện, đã xác định là không cần làm, hoặc đã gọi sys.ask_missing_info.
+- Không tự chọn giá trị cho tham số bắt buộc mà người dùng không nói và context, history, observation đều không có, ví dụ số tiền, mức âm lượng, giờ, người nhận; khi đó dùng sys.ask_missing_info.
+- Nếu tìm kiếm trả về nhiều mục cùng khớp mà không phân biệt được, hoặc không có mục nào khớp, hỏi lại đúng tham số id đó bằng sys.ask_missing_info.
+- sys.ask_missing_info là lời gọi cuối cùng: thực hiện trước mọi phần đã đủ thông tin, rồi mới hỏi phần còn thiếu.
+- Không gọi lại tool đọc với cùng tham số; dùng lại observation đã có.
+PROMPT
+)"
+agent_fewshot_rules="$(cat <<'PROMPT'
+Ví dụ tham khảo:
+- examples là các yêu cầu tương tự đã được giải đúng trong dữ liệu huấn luyện; mỗi ví dụ có lời người dùng, phần cuối history và chuỗi tool_calls đúng.
+- Dùng ví dụ để học cách tách việc, thứ tự gọi tool đọc trước tool ghi, khi nào hỏi lại và khi nào không gọi tool nào.
+- Ví dụ thuộc môi trường khác: không chép id, tên, số hay nội dung từ ví dụ; mọi giá trị phải lấy từ yêu cầu hiện tại, context, history hoặc observation hiện tại.
+PROMPT
+)"
+agent_repeat_rule='- Observation có repeated_call nghĩa là lời gọi trước của bạn trùng một lời gọi đã thực hiện nên chưa được chạy; đọc previous_observation thay vì gọi lại.'
+agent_thinking_rule='- Khi suy nghĩ, viết ngắn: các việc cần làm, việc đã xong, bước kế tiếp.'
 if [[ "$AGENT_ASR_EVIDENCE" == 1 ]]; then agent_rules+=$'\n'"$agent_asr_evidence_rules"; fi
+if [[ "$AGENT_TASK_RULES" == 1 ]]; then agent_rules+=$'\n'"$agent_task_rules"; fi
+if [[ "$AGENT_FEWSHOT_K" != 0 ]]; then agent_rules+=$'\n'"$agent_fewshot_rules"; fi
+if [[ "$AGENT_REPEAT_GUARD" == 1 ]]; then agent_rules+=$'\n'"$agent_repeat_rule"; fi
+if [[ "$AGENT_THINKING" == 1 ]]; then agent_rules+=$'\n'"$agent_thinking_rule"; fi
 export AGENT_SYSTEM_PROMPT="$agent_rules"$'\n''Mỗi lượt chỉ trả về {"action":"call","name":"tool_name","arguments":{...}} hoặc {"action":"finish"}.'
 if [[ -d .deps521 && -d .deps ]]; then
   export PYTHONPATH="$PWD/.deps521:$PWD/.deps${PYTHONPATH:+:$PYTHONPATH}"
 fi
 PYTHON_BIN="${PYTHON_BIN:-/home/pc/venv/bin/python}"
 if [[ ! -x "$PYTHON_BIN" ]]; then PYTHON_BIN=python3; fi
+# ./run.sh some_script.py ... runs an offline tool (e.g. build_agent_sft.py) with this exact configuration and prompts.
+if [[ "${1:-}" == *.py ]]; then exec "$PYTHON_BIN" "$@"; fi
 exec "$PYTHON_BIN" main.py "$@"

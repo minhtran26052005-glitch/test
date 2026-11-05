@@ -1,0 +1,4 @@
+Ví dụ tham khảo:
+- examples là các yêu cầu tương tự đã được giải đúng trong dữ liệu huấn luyện; mỗi ví dụ có lời người dùng, phần cuối history và chuỗi tool_calls đúng.
+- Dùng ví dụ để học cách tách việc, thứ tự gọi tool đọc trước tool ghi, khi nào hỏi lại và khi nào không gọi tool nào.
+- Ví dụ thuộc môi trường khác: không chép id, tên, số hay nội dung từ ví dụ; mọi giá trị phải lấy từ yêu cầu hiện tại, context, history hoặc observation hiện tại.

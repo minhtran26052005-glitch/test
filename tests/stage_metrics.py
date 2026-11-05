@@ -47,6 +47,8 @@ done_false=0
 agent_turns=0
 invalid_decisions=0
 cases_invalid=0
+step_limit_stops=0
+repeat_warnings=0
 for row in rows:
     trace_path=b/'samples'/row['id']/'trace.jsonl'
     trace=[json.loads(line) for line in trace_path.read_text().splitlines() if line.strip()] if trace_path.is_file() else []
@@ -54,6 +56,8 @@ for row in rows:
     invalid_decisions+=len(errors)
     cases_invalid+=bool(errors)
     agent_turns+=sum(entry['stage']=='agent' for entry in trace)
+    step_limit_stops+=any(entry['stage']=='agent_step_limit' for entry in trace)
+    repeat_warnings+=sum(entry['stage']=='agent_repeat' for entry in trace)
     for entry in trace:
         if entry['stage']=='tool':
             tool_calls+=1
@@ -62,6 +66,7 @@ for row in rows:
             done_false+=observation.get('done') is False
 agent={'samples':len(rows), 'completed':sum('error' not in row for row in rows),
        'step_limit_errors':sum('Agent chưa hoàn tất sau 12 bước' in row.get('error','') for row in rows),
+       'step_limit_stops':step_limit_stops, 'repeat_warnings':repeat_warnings,
        'agent_model_turns':agent_turns, 'invalid_decisions':invalid_decisions, 'samples_with_invalid_decision':cases_invalid,
        'executed_calls':tool_calls, 'official_schema_rejections':rejected, 'tool_observations_done_false':done_false,
        'exact_tool_names':sum(row['names_match'] for row in rows), 'exact_calls':sum(row['exact_calls'] for row in rows),

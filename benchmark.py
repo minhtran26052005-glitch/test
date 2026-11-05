@@ -10,6 +10,17 @@ from pathlib import Path
 from main import process
 
 
+def reference_state(source, item):
+    """Expected final environment state of a labeled train sample (initial state + label final_state)."""
+    initial = json.loads((source / 'train_environment' / item['id'] / 'state.json').read_text())
+    state = {k: v for k, v in initial.items() if k != '_meta'}
+    for name in initial['_meta']['tools']:
+        app = name.split('.', 1)[0]
+        if app != 'sys': state.setdefault(app, {})
+    state.update(item['label']['final_state'])
+    return state
+
+
 def run_benchmark(args):
     if args.benchmark < 1:
         raise ValueError('--benchmark phải lớn hơn 0')
@@ -36,13 +47,18 @@ def run_benchmark(args):
         or key in ('DATA_ROOT', 'DATA_SPLIT', 'MAX_AGENT_STEPS', 'STRICT_COMPETITION', 'ENV_MODE')}
     if os.environ.get('ASR_COMBINE')!='timestamp_word':
         configuration.pop('ASR_TIMED_CACHE_DIR',None)
-    for optional in ('ASR_CACHE_ONLY', 'ASR_REVIEW_HISTORY', 'AGENT_ASR_EVIDENCE'):
+    for optional in ('ASR_CACHE_ONLY', 'ASR_REVIEW_HISTORY', 'AGENT_ASR_EVIDENCE', 'AGENT_TASK_RULES', 'AGENT_REPEAT_GUARD', 'AGENT_THINKING', 'AGENT_FEWSHOT_K'):
         if configuration.get(optional) == '0':
             configuration.pop(optional)
+    if configuration.get('AGENT_FEWSHOT_K') is None:
+        configuration.pop('AGENT_FEWSHOT_POOL', None)
+        configuration.pop('AGENT_FEWSHOT_EXCLUDE', None)
     identity = {'configuration': configuration, 'seed': args.seed, 'sample_count': args.benchmark,
                 'asr_model_fingerprint': model_fingerprint(model_spec(os.environ['ASR_PRIMARY'])[1])}
     if os.environ.get('ASR_MODE', 'single') == 'dual':
         identity['secondary_asr_model_fingerprint'] = model_fingerprint(model_spec(os.environ['ASR_SECONDARY'])[1])
+    if configuration.get('AGENT_FEWSHOT_K') is not None:
+        identity['fewshot_pool_fingerprint'] = model_fingerprint(os.environ['AGENT_FEWSHOT_POOL'])
     if os.environ.get('ASR_COMBINE')=='timestamp_word':
         identity['fusion_selector_fingerprint']=model_fingerprint(os.environ['FUSION_SELECTOR_PATH'])
     identity = json.loads(json.dumps(identity))
@@ -58,7 +74,9 @@ def run_benchmark(args):
         if os.environ.get('ASR_MODE', 'single') == 'dual':
             files += ['prepare_dual_asr.py', 'run_dual_asr_benchmark.sh', 'compare_dual_asr.py']
         if os.environ.get('AGENT_ASR_EVIDENCE') == '1':
-            files += ['run_agent_asr_evidence_benchmark.sh', 'compare_benchmark_runs.py']
+            files += ['run_agent_asr_evidence_benchmark.sh', 'run_agent_v2_benchmark.sh', 'compare_benchmark_runs.py']
+        if configuration.get('AGENT_FEWSHOT_K') is not None:
+            files += ['fewshot.py', 'build_fewshot_pool.py']
         atomic_json(metadata, {'identity': identity, 'created_at_unix': time.time(),
                     'python': sys.version, 'code_sha256': {name: hashlib.sha256(Path(name).read_bytes()).hexdigest() for name in files},
                     'dataset_sha256': hashlib.sha256((source / 'train.jsonl').read_bytes()).hexdigest()})
@@ -116,15 +134,9 @@ def run_benchmark(args):
             sample_started = time.monotonic()
             try:
                 result = process(case, args, llm_holder)
-                initial = json.loads((source / 'train_environment' / sid / 'state.json').read_text())
-                reference_state = {k: v for k, v in initial.items() if k != '_meta'}
-                for name in initial['_meta']['tools']:
-                    app = name.split('.', 1)[0]
-                    if app != 'sys': reference_state.setdefault(app, {})
-                reference_state.update(item['label']['final_state'])
                 gold = item['label']['tool_calls']
                 pred = result['tool_calls']
-                entry.update(state_match=result['state_hash'] == state_hash(reference_state), exact_calls=pred == gold,
+                entry.update(state_match=result['state_hash'] == state_hash(reference_state(source, item)), exact_calls=pred == gold,
                              names_match=[x['name'] for x in pred] == [x['name'] for x in gold],
                              predicted_tool_calls=pred, expected_tool_calls=gold,
                              asr_text=result['asr_text'], normalized_text=result['normalized_text'], reference_text=item['audio_text'])

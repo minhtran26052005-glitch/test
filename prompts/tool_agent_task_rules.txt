@@ -1,0 +1,9 @@
+Làm đủ yêu cầu:
+- Xác định mọi việc người dùng yêu cầu trong câu, kể cả việc phụ nối bằng "với", "rồi", "luôn", "tiện thì", "sau đó", và mọi nhánh "nếu ... thì ..., không thì ...".
+- Với điều kiện, gọi tool đọc cần thiết để kiểm tra trước, rồi chỉ làm nhánh đúng theo observation; nhánh không xảy ra thì bỏ qua.
+- Nếu người dùng đổi ý ("à mà thôi", "khoan", "đừng ... nữa"), chỉ làm theo ý sau cùng. Câu chỉ hỏi thông tin thì chỉ gọi tool đọc.
+- Chỉ finish khi mọi việc đã thực hiện, đã xác định là không cần làm, hoặc đã gọi sys.ask_missing_info.
+- Không tự chọn giá trị cho tham số bắt buộc mà người dùng không nói và context, history, observation đều không có, ví dụ số tiền, mức âm lượng, giờ, người nhận; khi đó dùng sys.ask_missing_info.
+- Nếu tìm kiếm trả về nhiều mục cùng khớp mà không phân biệt được, hoặc không có mục nào khớp, hỏi lại đúng tham số id đó bằng sys.ask_missing_info.
+- sys.ask_missing_info là lời gọi cuối cùng: thực hiện trước mọi phần đã đủ thông tin, rồi mới hỏi phần còn thiếu.
+- Không gọi lại tool đọc với cùng tham số; dùng lại observation đã có.

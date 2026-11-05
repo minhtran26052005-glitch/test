@@ -1,0 +1,72 @@
+{
+  "variants": 10980,
+  "seeds": 1098,
+  "asr_use": {
+    "edit": 26,
+    "ok": 10867,
+    "reject": 87
+  },
+  "asr_reject_reasons": {
+    "manual_reject": 47,
+    "foreign_script": 51,
+    "confirmed_spoken_corruption": 32
+  },
+  "agent_use_final_turn": {
+    "reject": 46,
+    "label_safe_free_text": 822,
+    "needs_new_label": 465,
+    "label_safe": 2027
+  },
+  "history_paraphrase_variants": 7620,
+  "final_turn_samples_total": 1545,
+  "final_turn_samples_covered": 336,
+  "final_turn_samples_label_safe": 330,
+  "label_safe_variants_in_fit_split": 1916,
+  "gold_profile_all_samples": {
+    "1_loi_goi": 309,
+    "4+_loi_goi": 251,
+    "hoi_lai": 217,
+    "3_loi_goi": 301,
+    "2_loi_goi": 356,
+    "khong_goi_tool": 111
+  },
+  "gold_profile_label_safe_samples": {
+    "4+_loi_goi": 104,
+    "3_loi_goi": 86,
+    "hoi_lai": 68,
+    "2_loi_goi": 29,
+    "1_loi_goi": 31,
+    "khong_goi_tool": 12
+  },
+  "apps_without_label_safe_variant": [
+    "appliances",
+    "bike_rental",
+    "calculator",
+    "door_lock",
+    "email",
+    "exchange_rate",
+    "fitness",
+    "flights",
+    "fuel_price",
+    "home_automation",
+    "home_energy",
+    "home_security",
+    "household_chores",
+    "learning",
+    "library",
+    "lottery",
+    "loyalty",
+    "maps",
+    "music",
+    "news",
+    "notes",
+    "package_tracking",
+    "podcast_radio",
+    "robot_vacuum",
+    "shopping_list",
+    "subscriptions",
+    "tasks",
+    "video_meeting"
+  ],
+  "note": "Automatic screen. label_safe means the anchor tokens survived, not that meaning was verified; label_safe_free_text keeps the seed free-text arguments (message/reminder content), which may not match the paraphrase."
+}

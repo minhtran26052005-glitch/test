@@ -29,7 +29,9 @@ class Qwen:
 
     def generate(self, system: str, payload: dict, max_tokens: int, stage: str) -> str:
         messages = [{'role': 'system', 'content': system}, {'role': 'user', 'content': json.dumps(payload, ensure_ascii=False)}]
-        prompt = self.processor.apply_chat_template(messages, tokenize=False, add_generation_prompt=True, enable_thinking=False)
+        # AGENT_THINKING=1: let the agent stage reason before its JSON decision; normalization never thinks.
+        thinking = stage == 'agent' and os.environ.get('AGENT_THINKING', '0') == '1'
+        prompt = self.processor.apply_chat_template(messages, tokenize=False, add_generation_prompt=True, enable_thinking=thinking)
         inputs = self.processor(text=[prompt], return_tensors='pt').to(self.model.device)
         limit = min(int(os.environ['LLM_CONTEXT_TOKENS']), 16384)
         if inputs['input_ids'].shape[-1] + max_tokens > limit:
@@ -41,12 +43,25 @@ class Qwen:
         with self.torch.inference_mode():
             output = self.model.generate(**inputs, **kwargs)
         raw = self.processor.batch_decode(output[:, inputs['input_ids'].shape[-1]:], skip_special_tokens=True)[0].strip()
+        reasoning = None
+        if thinking:
+            # The template already opened <think>; an output without </think> was cut off and fails JSON parsing upstream.
+            reasoning, raw = split_thinking(raw)
         memory = {}
         if self.torch.cuda.is_available():
             free, total = self.torch.cuda.mem_get_info()
             memory = {'cuda_allocated_bytes': self.torch.cuda.memory_allocated(), 'cuda_peak_bytes': self.torch.cuda.max_memory_allocated(), 'cuda_free_bytes': free, 'cuda_total_bytes': total}
-        self.trace(stage=stage, model=os.environ['LLM_MODEL_PATH'], prompt=prompt, input=payload, output=raw, latency=time.monotonic()-start, **memory)
+        extra = {'reasoning': reasoning} if thinking else {}
+        self.trace(stage=stage, model=os.environ['LLM_MODEL_PATH'], prompt=prompt, input=payload, output=raw, latency=time.monotonic()-start, **extra, **memory)
         return raw
+
+
+def split_thinking(raw):
+    """(reasoning, answer) from a thinking-mode output; (None, raw) when the reasoning never closed."""
+    if '</think>' not in raw:
+        return None, raw
+    reasoning, answer = raw.rsplit('</think>', 1)
+    return reasoning.replace('<think>', '').strip(), answer.strip()
 
 
 def check_competition(llm, trace):

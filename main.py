@@ -221,7 +221,15 @@ def process(case, args, llm_holder):
         llm_holder[0].trace = trace
         try:
             raw = asr_evidence(hypotheses, result['normalized_text']) if evidence else None
-            result['tool_calls'] = run_agent(llm_holder[0], env, result['normalized_text'], case.get('context', {}), history, trace, int(os.environ['MAX_AGENT_STEPS']), debug, asr_transcripts=raw)
+            examples = None
+            if int(os.environ.get('AGENT_FEWSHOT_K') or 0) > 0:
+                from fewshot import select_examples
+                # Retrieval sees only this sample's own ASR/normalized text and tools, never its label.
+                ids, examples = select_examples(os.environ['AGENT_FEWSHOT_POOL'], [result['normalized_text'], *hypotheses.values()],
+                                                list(env.schemas), int(os.environ['AGENT_FEWSHOT_K']), sid,
+                                                os.environ.get('AGENT_FEWSHOT_EXCLUDE') or None)
+                trace(stage='fewshot', example_ids=ids)
+            result['tool_calls'] = run_agent(llm_holder[0], env, result['normalized_text'], case.get('context', {}), history, trace, int(os.environ['MAX_AGENT_STEPS']), debug, asr_transcripts=raw, examples=examples)
         finally:
             if save and hasattr(env, 'get_state'):
                 (folder / 'environment_final.json').write_text(json.dumps(env.get_state(), ensure_ascii=False, indent=2))

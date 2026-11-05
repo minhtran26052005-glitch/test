@@ -76,6 +76,13 @@ Bằng chứng ASR cho agent: `AGENT_ASR_EVIDENCE=1` đưa các bản ASR thô (
 rồi chạy `compare_benchmark_runs.py` để xuất `outputs/agent_asr_evidence/comparison/` (đổi kết quả theo cặp, theo nhóm từ khoá ASR giữ/lệch, theo số tool call).
 Cache `asr_timestamp_word` nay lưu cả text ghép và hai bản gốc; cache dạng chỉ-text cũ sẽ được tính lại từ timed cache, không chạy lại model.
 
+Agent v2: `bash run_agent_v2_benchmark.sh` bật `AGENT_ASR_EVIDENCE`, `AGENT_TASK_RULES`, `AGENT_REPEAT_GUARD`, `AGENT_FEWSHOT_K=3`
+trên cấu hình dual; tự dựng `outputs/fewshot/pool.jsonl` nếu thiếu (cần devkit), xuất `outputs/agent_v2/comparison/` so với lượt dual.
+Few-shot chỉ dùng text ASR/normalize và danh sách tool của chính mẫu để tìm; luôn loại chính mẫu và nhóm của nó (split manifest).
+Đo trước không cần GPU: `python eval_fewshot_retrieval.py` (ví dụ top-1 có đúng chuỗi tool gold ở 31,5% mẫu, ngẫu nhiên 1,2%;
+agent hiện đúng chuỗi tên tool ở 20,8%). Trace có thêm `fewshot`, `agent_repeat`, `agent_step_limit`; `tests/stage_metrics.py` đếm hai loại sau.
+Data fine-tune: [DATA_FINETUNE.md](DATA_FINETUNE.md).
+
 Thử model hynt ZipFormer 150M: `ASR_PRIMARY=zipformer ./run.sh asr --id train_1474`.
 Checkpoint FP32 được lưu tại `models/zipformer-150M-6000h`; revision, checksum và số tham số nằm trong `download_manifest.json`.
 `config.json` của repo này chứa bảng 2.000 token; `tokens.txt` là bản sao nguyên nội dung đã kiểm tra ID.

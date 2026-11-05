@@ -11,20 +11,22 @@ Code, prompt và snapshot kết quả nghiên cứu cho Zalo AI Challenge LifeMa
 - [Khảo sát lỗi ASR để gen data](outputs/asr_datagen_targets/KHAO_SAT_DE_GEN_DATA.md).
 - [So sánh từ khoá khi ghép hai ASR](outputs/timestamp_word_fusion/comparison/BAO_CAO_GHEP_TU.md).
 - [Kiểm tra chất lượng câu sinh](outputs/asr_datagen_quality_20261104/BAO_CAO_CHAT_LUONG.md) và [252 câu đã chấm](outputs/asr_datagen_quality_20261104/reviewed_examples.csv).
+- [Data để fine-tune: data đã gen dùng được cho ASR/agent đến đâu, data có sẵn, nguồn ngoài](docs/DATA_FINETUNE.md).
 - [Text sinh hiện tại](outputs/asr_datagen_api/generated.csv): **10.980 câu / 1.098 seed**, tại snapshot 09:06 ngày 05/11/2026 (UTC+7). Đây là dữ liệu thô cần rà, chưa phải bộ audio hoặc ASR đã fine-tune.
 
 ## Code và prompt
 
 | Phần | File |
 | --- | --- |
-| Điều phối, config, chuẩn hoá và tool agent | `main.py`, `run.sh`, `agent.py`, `llm_qwen.py`, `env_adapter.py` |
+| Điều phối, config, chuẩn hoá và tool agent | `main.py`, `run.sh`, `agent.py`, `llm_qwen.py`, `env_adapter.py`, `fewshot.py` |
 | ASR, timestamp và ghép từ | `asr/`, `cache_timed_asr.py`, `train_word_fusion.py`, `apply_word_fusion.py` |
 | Benchmark và khảo sát lỗi | `benchmark.py`, `compare_benchmark_runs.py`, `compare_asr_domains.py`, `compare_word_fusion.py`, `asr_datagen_audit.py` |
 | Sinh text qua Gemini/Gemma, quota và resume | `generate_asr_data_api.py`, `asr_datagen_api_config.json`, `run_asr_datagen_api.sh` |
-| Kiểm tra chất lượng text đã sinh | `audit_generated_asr_data.py`, `finalize_asr_datagen_quality.py` |
+| Kiểm tra chất lượng text đã sinh | `audit_generated_asr_data.py`, `finalize_asr_datagen_quality.py`, `audit_finetune_data.py` |
+| Data fine-tune Qwen (agent + normalizer), few-shot pool | `build_agent_sft.py`, `build_fewshot_pool.py`, `eval_fewshot_retrieval.py`; xem [docs/DATA_FINETUNE.md](docs/DATA_FINETUNE.md) |
 | Prompt sinh dữ liệu | [`prompts/asr_datagen_system.txt`](prompts/asr_datagen_system.txt) |
 | Prompt chuẩn hoá | [`prompts/normalization_system.txt`](prompts/normalization_system.txt) |
-| Prompt gọi tool | [`prompts/tool_agent_system.txt`](prompts/tool_agent_system.txt); khối thêm khi `AGENT_ASR_EVIDENCE=1`: [`prompts/tool_agent_asr_evidence.txt`](prompts/tool_agent_asr_evidence.txt) |
+| Prompt gọi tool | [`prompts/tool_agent_system.txt`](prompts/tool_agent_system.txt); khối bật theo cờ: [`tool_agent_asr_evidence.txt`](prompts/tool_agent_asr_evidence.txt), [`tool_agent_task_rules.txt`](prompts/tool_agent_task_rules.txt), [`tool_agent_fewshot.txt`](prompts/tool_agent_fewshot.txt) |
 
 Hai prompt Qwen trong `prompts/` là bản tách để đọc; **`run.sh` là nguồn đang được thực thi**. Prompt và payload thực tế của từng lần gọi API/Qwen được lưu trong archive kết quả đầy đủ.
 
@@ -40,7 +42,7 @@ export PYTHON_BIN="$PWD/.venv/bin/python"
 python -m unittest discover -s tests -v
 ```
 
-55 unit tests dùng mock, không yêu cầu tải trọng số hay gọi API. Để chỉ chạy tests:
+71 unit tests dùng mock, không yêu cầu tải trọng số hay gọi API. Để chỉ chạy tests:
 
 ```bash
 pip install requests jsonschema num2words==0.5.14
@@ -66,6 +68,17 @@ ASR_MODE=dual ASR_PRIMARY=zipformer ASR_SECONDARY=gipformer ASR_COMBINE=timestam
 ```bash
 bash run_agent_asr_evidence_benchmark.sh
 ```
+
+Các cờ cải thiện agent (đều mặc định 0, tắt thì prompt/payload như cũ):
+
+| Cờ | Tác dụng |
+| --- | --- |
+| `AGENT_TASK_RULES=1` | Quy tắc làm đủ mọi việc trong câu, nhánh điều kiện, đổi ý, khi nào hỏi lại; `sys.ask_missing_info` là bước cuối |
+| `AGENT_REPEAT_GUARD=1` | Lời gọi trùng y hệt lần trước không chạy lại mà trả kết quả cũ kèm cảnh báo; gửi lại ngay thì mới chạy (tối đa 2 lần, như `redeem` hai lần trong gold) |
+| `AGENT_FEWSHOT_K=3` | Thêm 3 yêu cầu train đã giải đúng, gần giống nhất (`outputs/fewshot/pool.jsonl` từ `build_fewshot_pool.py`); `AGENT_FEWSHOT_EXCLUDE=<split manifest>` loại cùng mẫu/nhóm khi benchmark trên train |
+| `AGENT_THINKING=1` | Qwen suy nghĩ trước mỗi quyết định; chậm hơn nhiều, cần `AGENT_MAX_NEW_TOKENS` lớn hơn |
+
+Hết bước mà agent chưa `finish` thì giữ các lời gọi đã chạy và state hash thật, không còn báo lỗi mất mẫu (trace `agent_step_limit`). Chạy toàn bộ cấu hình mới: `bash run_agent_v2_benchmark.sh` (ghi vào `outputs/agent_v2/`; tắt từng cờ bằng biến môi trường để ablation). `./run.sh <script>.py ...` chạy script offline với đúng cấu hình/prompt này.
 
 Lệnh benchmark ghi vào `outputs/agent_asr_evidence/` và cần `outputs/dual_asr_qwen/asr_cache` (từ `prepare_dual_asr.py`). Lệnh `timestamp_word` ở trên cần khôi phục archive cache trước; fingerprint của model và đường dẫn audio phải khớp cấu hình. Đọc [hướng dẫn chi tiết của workspace](docs/WORKSPACE_README.md) để xem các mode, cấu hình bộ nhớ, benchmark và giới hạn cuộc thi.
 

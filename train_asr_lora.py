@@ -5,7 +5,10 @@
              duplicates each batch and masks the two copies independently (icefall AsrModel use_cr_ctc=True).
 
 LoRA placement/initialisation/optimiser follow icefall egs/librispeech/ASR/zipformer_lora (see asr_lora/lora.py):
-only lora_A/lora_B train, the base network runs in eval mode, ScaledAdam + Eden with base lr 0.0045.
+only lora_A/lora_B train, the base network runs in eval mode, ScaledAdam + Eden with base lr 0.045 (the
+zipformer_lora/finetune.py default). 0.0045 is icefall's *full* fine-tuning lr; it is too small for LoRA under
+ScaledAdam, whose step is scaled by max(RMS(param), 1e-5): lora_B starts at zero, so it grows by about a factor
+(1 + lr) per step at most, which at 0.0045 leaves the adapter near zero after a few hundred steps of a small set.
 
 Needs a CUDA machine with icefall (pinned commit in asr_lora/models.py), k2, lhotse, sentencepiece:
 
@@ -23,7 +26,7 @@ import shutil
 import time
 from pathlib import Path
 
-from asr_lora.lora import DEFAULT_TARGETS, EXTENDED_TARGETS, add_lora, lora_state_dict, set_lora_train_mode, trainable_summary
+from asr_lora.lora import add_lora, lora_state_dict, lora_targets, set_lora_train_mode, trainable_summary
 from asr_lora.models import ICEFALL_COMMIT, load_model, setup_icefall
 
 PRESETS = {
@@ -50,10 +53,13 @@ def get_parser():
     parser.add_argument('--lora-dropout', type=float, default=0.05)
     parser.add_argument('--lora-targets', choices=['icefall', 'extended'], default='icefall',
                         help='icefall: attention in_proj + feed-forward (zipformer_lora); extended: + nonlin attention, conv, attn out_proj')
+    parser.add_argument('--lora-joiner', action='store_true',
+                        help='also adapt the joint network (encoder_proj, decoder_proj, output_linear): rare-word scoring, more drift')
     parser.add_argument('--num-epochs', type=int, default=15)
     parser.add_argument('--max-duration', type=float, default=300.0, help='seconds of audio per batch')
     parser.add_argument('--optimizer', choices=['scaled_adam', 'adamw'], default='scaled_adam')
-    parser.add_argument('--base-lr', type=float, default=0.0045, help='0.0045 for ScaledAdam (icefall); ~5e-4 for AdamW')
+    parser.add_argument('--base-lr', type=float, default=None,
+                        help='default 0.045 for ScaledAdam (icefall zipformer_lora), 5e-4 for AdamW')
     parser.add_argument('--lr-batches', type=float, default=100000.0)
     parser.add_argument('--lr-epochs', type=float, default=100.0)
     parser.add_argument('--warmup-batches', type=float, default=100.0)
@@ -76,6 +82,13 @@ def get_parser():
                         help='stop if more than this fraction of an epoch\'s batches had non-finite loss/gradients '
                              '(fp16 loss-scale overflows while the scale is still > 1 are expected and not counted)')
     return parser
+
+
+def default_lr(optimizer, base_lr=None):
+    """icefall zipformer_lora lr for ScaledAdam (relative step, see module docstring); a usual LoRA lr for AdamW."""
+    if base_lr is not None:
+        return base_lr
+    return 0.045 if optimizer == 'scaled_adam' else 5e-4
 
 
 def loss_scales(args, batch_idx):
@@ -161,6 +174,7 @@ def validate(model, params, sp, loader, device, args, greedy_search_batch, amp):
 
 def main():
     args = get_parser().parse_args()
+    args.base_lr = default_lr(args.optimizer, args.base_lr)
     import random
     import sentencepiece as spm
     import torch
@@ -183,8 +197,10 @@ def main():
     if preset['use_cr_ctc'] and not params.use_ctc:
         logging.warning('Checkpoint has no CTC head: CR-CTC disabled, training with RNN-T only')
     params.update(time_mask_ratio=args.time_mask_ratio, attention_decoder_loss_scale=0.8)
-    targets = DEFAULT_TARGETS if args.lora_targets == 'icefall' else EXTENDED_TARGETS
-    wrapped = add_lora(model, args.lora_r, args.lora_alpha, args.lora_dropout, targets)
+    config = {'r': args.lora_r, 'alpha': args.lora_alpha, 'dropout': args.lora_dropout, 'targets': args.lora_targets,
+              'joiner': args.lora_joiner}
+    targets, scope = lora_targets(config)
+    wrapped = add_lora(model, args.lora_r, args.lora_alpha, args.lora_dropout, targets, scope)
     logging.info('LoRA on %d projections; %s', len(wrapped), trainable_summary(model))
     device = torch.device(args.device)
     model.to(device)
@@ -213,7 +229,6 @@ def main():
         return torch.autocast(device_type=device.type, dtype=dtype, enabled=dtype is not None)
     scaler = torch.amp.GradScaler(device.type, enabled=args.precision == 'fp16')
 
-    config = {'r': args.lora_r, 'alpha': args.lora_alpha, 'dropout': args.lora_dropout, 'targets': args.lora_targets}
     history = [{'epoch': 0, **validate(model, params, sp, valid_loader, device, args, greedy_search_batch, amp)}]
     logging.info('Before fine-tuning: %s', history[-1])
     archive_best_adapter(exp_dir)

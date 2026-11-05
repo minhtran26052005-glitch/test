@@ -12,6 +12,8 @@ alone. After training, merge_qwen_lora.py folds the adapter into a bf16 checkpoi
   python train_qwen_lora.py --model-path models/Qwen3.5-4B --train outputs/agent_sft/train.jsonl \
       --train outputs/qwen_sft/normalize/train.jsonl --valid outputs/agent_sft/validation.jsonl --out-dir outputs/qwen_lora
 Use --load-in-4bit to reduce weight memory (QLoRA; the merge still goes into bf16 weights).
+Small-data options (see docs/RESEARCH_LOW_DATA_DOMAIN_FINETUNE.md): --neftune-alpha 5 (noisy embeddings),
+--use-rslora (alpha/sqrt(r) scaling for higher ranks), --use-dora, --early-stopping-patience N (on eval loss).
 Required training VRAM depends on sequence length and has not been measured by the CPU smoke tests.
 Install flash-linear-attention and causal-conv1d for fast Gated DeltaNet kernels.
 """
@@ -172,6 +174,11 @@ def main():
     parser.add_argument('--warmup-ratio', type=float, default=0.03)
     parser.add_argument('--weight-decay', type=float, default=0.0)
     parser.add_argument('--load-in-4bit', action='store_true')
+    parser.add_argument('--neftune-alpha', type=float, default=0.0, help='NEFTune embedding noise (e.g. 5); 0 = off')
+    parser.add_argument('--use-rslora', action='store_true', help='rank-stabilised scaling alpha/sqrt(r)')
+    parser.add_argument('--use-dora', action='store_true', help='weight-decomposed LoRA (slower; merge_qwen_lora --scale must stay 1)')
+    parser.add_argument('--early-stopping-patience', type=int, default=0,
+                        help='stop after N evaluations without a lower eval loss (needs --valid); 0 = train all epochs')
     parser.add_argument('--no-gradient-checkpointing', action='store_true')
     parser.add_argument('--eval-steps', type=int, default=200)
     parser.add_argument('--save-steps', type=int, default=200)
@@ -180,10 +187,12 @@ def main():
     parser.add_argument('--device-map', default='auto')
     parser.add_argument('--seed', type=int, default=42)
     args = parser.parse_args()
+    if args.early_stopping_patience and not args.valid:
+        parser.error('--early-stopping-patience needs --valid')
 
     import torch
     from peft import LoraConfig, get_peft_model, prepare_model_for_kbit_training
-    from transformers import AutoModelForImageTextToText, AutoProcessor, Trainer, TrainingArguments
+    from transformers import AutoModelForImageTextToText, AutoProcessor, EarlyStoppingCallback, Trainer, TrainingArguments
 
     out = Path(args.out_dir)
     out.mkdir(parents=True, exist_ok=True)
@@ -216,7 +225,8 @@ def main():
         model.gradient_checkpointing_enable(gradient_checkpointing_kwargs={'use_reentrant': False})
         model.enable_input_require_grads()
     lora = LoraConfig(r=args.lora_r, lora_alpha=args.lora_alpha, lora_dropout=args.lora_dropout, bias='none',
-                      target_modules=target_regex(tuple(args.lora_groups.split(','))), task_type='CAUSAL_LM')
+                      target_modules=target_regex(tuple(args.lora_groups.split(','))), task_type='CAUSAL_LM',
+                      use_rslora=args.use_rslora, use_dora=args.use_dora)
     model = get_peft_model(model, lora)
     targeted = sorted({re.sub(r'\.\d+\.', '.N.', n) for n, m in model.named_modules() if hasattr(m, 'lora_A') and n})
     print(json.dumps({'lora_modules': targeted}, ensure_ascii=False), flush=True)
@@ -229,15 +239,21 @@ def main():
         logging_steps=10, save_steps=args.save_steps, save_total_limit=3, eval_strategy='steps' if len(valid_set) else 'no',
         eval_steps=args.eval_steps, load_best_model_at_end=bool(len(valid_set)), metric_for_best_model='eval_loss',
         greater_is_better=False, report_to='none', remove_unused_columns=False, group_by_length=True, seed=args.seed,
-        dataloader_num_workers=2, gradient_checkpointing=False, use_cpu=not torch.cuda.is_available()))
+        dataloader_num_workers=2, gradient_checkpointing=False, use_cpu=not torch.cuda.is_available(),
+        neftune_noise_alpha=args.neftune_alpha or None))
+    if args.early_stopping_patience and not len(valid_set):
+        parser.error('--early-stopping-patience needs --valid records')
+    callbacks = [EarlyStoppingCallback(early_stopping_patience=args.early_stopping_patience)] if args.early_stopping_patience else []
     trainer = Trainer(model=model, args=training, train_dataset=train_set, eval_dataset=valid_set if len(valid_set) else None,
-                      data_collator=collate(tokenizer.pad_token_id))
+                      data_collator=collate(tokenizer.pad_token_id), callbacks=callbacks)
     trainer.train()
     adapter = out / 'adapter'
     model.save_pretrained(adapter)
     processor.save_pretrained(adapter)
     summary = {**stats, 'base_model': args.model_path, 'lora': {'r': args.lora_r, 'alpha': args.lora_alpha, 'dropout': args.lora_dropout,
-               'groups': args.lora_groups}, 'generation_stop_ids': stop_ids, 'log_history': trainer.state.log_history[-5:]}
+               'groups': args.lora_groups, 'rslora': args.use_rslora, 'dora': args.use_dora},
+               'neftune_alpha': args.neftune_alpha, 'early_stopping_patience': args.early_stopping_patience,
+               'best_eval_loss': trainer.state.best_metric, 'generation_stop_ids': stop_ids, 'log_history': trainer.state.log_history[-5:]}
     if args.generate_eval and valid_records:
         model.config.use_cache = True
         summary['generation_check'] = generation_check(model, tokenizer, random.Random(args.seed).sample(valid_records, min(args.generate_eval, len(valid_records))))

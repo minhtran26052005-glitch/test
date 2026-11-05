@@ -9,6 +9,7 @@ import csv
 import json
 import sys
 from collections import Counter, defaultdict
+from math import comb
 from pathlib import Path
 
 KEYWORD_EVIDENCE = 'outputs/timestamp_word_fusion/comparison/keyword_evidence.csv'
@@ -28,6 +29,18 @@ def keyword_groups(path):
             gip, zip_ = row['gipformer_flagged'] == 'True', row['zipformer_flagged'] == 'True'
             flags[row['id']].add('mot_asr_giu_duoc' if gip != zip_ else 'ca_hai_asr_lech' if gip else 'khong_lech')
     return {sid: next(group for group in GROUPS if group in found) for sid, found in flags.items()}
+
+
+def mcnemar_exact(improved, regressed):
+    """Two-sided exact McNemar p-value on the samples whose outcome changed (both runs on the same samples).
+
+    Only flips carry evidence: with 4 improved and 1 regressed, p = 0.375, i.e. the change is still noise. On a
+    test split of a few hundred samples, small fine-tuning gains need this check before they are believed."""
+    flips = improved + regressed
+    if not flips:
+        return 1.0
+    tail = sum(comb(flips, k) for k in range(min(improved, regressed) + 1)) / 2 ** flips
+    return round(min(1.0, 2 * tail), 4)
 
 
 def outcome(before, after):
@@ -68,7 +81,10 @@ def compare(base, new, groups, splits=None):
     def totals(selected):
         return {'samples': len(selected), 'state_match': sum(bool(r['state_match']) for r in selected),
                 'exact_calls': sum(bool(r['exact_calls']) for r in selected), 'errors': sum('error' in r for r in selected)}
+    for bucket in by_split.values():
+        bucket['mcnemar_exact_p'] = mcnemar_exact(bucket['improved'], bucket['regressed'])
     summary = {'base': totals([base[r['id']] for r in new]), 'new': totals(new), 'state_outcome_changes': dict(changes),
+               'mcnemar_exact_p': mcnemar_exact(changes['improved'], changes['regressed']),
                'by_keyword_group': {k: dict(v) for k, v in sorted(by_group.items())},
                'by_gold_calls': {k: dict(v) for k, v in sorted(by_calls.items())},
                'by_split': {k: dict(v) for k, v in sorted(by_split.items())},
@@ -92,7 +108,7 @@ def main():
         writer.writeheader()
         writer.writerows(rows)
     (out / 'summary.json').write_text(json.dumps(summary, ensure_ascii=False, indent=2))
-    print(json.dumps({k: summary[k] for k in ('base', 'new', 'state_outcome_changes')}, ensure_ascii=False), flush=True)
+    print(json.dumps({k: summary[k] for k in ('base', 'new', 'state_outcome_changes', 'mcnemar_exact_p')}, ensure_ascii=False), flush=True)
 
 
 if __name__ == '__main__':

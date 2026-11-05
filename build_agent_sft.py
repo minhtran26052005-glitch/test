@@ -12,6 +12,14 @@ Input sources for the agent's final-turn text (repeat --source):
   reference            clean reference transcript and history (upper bound, no ASR noise)
   run:DIR              exact inputs a saved benchmark run gave the agent (ASR-noisy normalized text, raw
                        hypotheses, history), read from DIR/samples/<id>/trace.jsonl
+  self:DIR             rejection sampling (RFT / ReST-EM): the calls the agent itself made in a saved run
+                       (DIR/results.jsonl, state_match only), on the same inputs as run:DIR, replayed in a fresh
+                       devkit session and kept only if the final state hash equals the label's. fit samples
+                       only, so validation/test stay gold. Run several sampled passes (LLM_TEMPERATURE > 0, one
+                       OUTPUT_DIR each) and pass each as self:DIR; identical trajectories are kept once.
+                       The devkit checks the final state, not the call sequence: if the official score also
+                       compares tool_calls with the gold list, prefer those passes as run:DIR (diverse inputs,
+                       gold targets); summary.json counts kept_self_differs_from_gold.
   generated[:CSV]      label-safe paraphrases from audit_finetune_data.py (default outputs/finetune_data_audit/variants.csv)
   synthetic[:JSONL]    hand-written paraphrase / missing-info / cancel records from build_synthetic_agent.py, each with its own label
 
@@ -105,6 +113,14 @@ def saved_hypotheses(folder, prefix, order=()):
     return ordered(result, order)
 
 
+def self_calls(run_dir):
+    """{sample id: tool calls the agent executed} for the samples a saved run solved (state hash matched)."""
+    path = Path(run_dir) / 'results.jsonl'
+    if not path.is_file():
+        raise FileNotFoundError(f'{path} not found: self:DIR needs a finished benchmark run')
+    return {row['id']: row.get('predicted_tool_calls') or [] for row in jsonl(path) if row.get('state_match') and not row.get('error')}
+
+
 def generated_variants(path, allow_free_text, allow_unreviewed=False):
     allowed = {'label_safe', 'label_safe_free_text'} if allow_free_text else {'label_safe'}
     by_sample = {}
@@ -169,10 +185,17 @@ def synthetic_records(path):
     return by_sample
 
 
-def agent_records(item, starts, make_env, expected_hash, system):
-    """(records, Counter of outcomes) for one sample over all its input variants."""
-    records, outcome = [], Counter()
+def agent_records(item, starts, make_env, expected_hash, system, dedupe=True, max_trajectories=0):
+    """(records, Counter of outcomes) for one sample over all its input variants.
+
+    dedupe: a trajectory whose every (payload, decision) equals one already kept (same input text, history,
+    evidence and calls, e.g. two runs whose ASR agreed) is dropped, so a sample's weight is its number of
+    distinct trajectories, not its number of sources. max_trajectories > 0 caps the kept ones per sample."""
+    records, outcome, kept = [], Counter(), set()
     for source, start in starts:
+        if max_trajectories and outcome['kept_trajectories'] >= max_trajectories:
+            outcome['skipped_over_cap'] += 1
+            continue
         env = make_env(item)
         # A start may carry its own label (synthetic records); the label state hash only applies to the seed's gold.
         gold = start.get('tool_calls', item['label']['tool_calls'])
@@ -187,7 +210,16 @@ def agent_records(item, starts, make_env, expected_hash, system):
         if start.get('verify_state', True) and expected_hash is not None and env.get_state_hash() != expected_hash:
             outcome['skipped_state_mismatch'] += 1
             continue
+        fingerprint = hashlib.sha256(json.dumps(steps, ensure_ascii=False).encode()).hexdigest()
+        if dedupe and fingerprint in kept:
+            outcome['skipped_duplicate'] += 1
+            continue
+        kept.add(fingerprint)
         outcome['kept_trajectories'] += 1
+        if source.startswith('self:'):
+            outcome['kept_self_trajectories'] += 1
+            # State-correct but not the gold call sequence: useful only if the score is the state, see the docstring.
+            outcome['kept_self_differs_from_gold'] += gold != item['label']['tool_calls']
         for step, (user, decision) in enumerate(steps):
             records.append({'id': f"{item['id']}:{source}:{step}", 'task': 'agent', 'sample_id': item['id'], 'source': source,
                             'step': step, 'messages': chat(system, user, decision)})
@@ -250,6 +282,8 @@ def main():
     parser.add_argument('--allow-unreviewed-generated', action='store_true',
                         help='experimental: reuse labels based on anchor matching alone; default requires a manual pass')
     parser.add_argument('--drop-examples', action='store_true', help='remove few-shot examples copied from run traces')
+    parser.add_argument('--keep-duplicates', action='store_true', help='keep identical trajectories from different sources')
+    parser.add_argument('--max-trajectories-per-sample', type=int, default=0, help='cap per sample, in --source order (0 = no cap)')
     parser.add_argument('--manifest', default='outputs/timestamp_word_fusion/split_manifest.json')
     parser.add_argument('--out', default='outputs/agent_sft')
     parser.add_argument('--limit', type=int)
@@ -279,8 +313,10 @@ def main():
             from benchmark import reference_state
             from env_adapter import OfficialEnvironment
             system = os.environ['AGENT_SYSTEM_PROMPT']
-            generated, synthetic = {}, {}
+            generated, synthetic, solved = {}, {}, {}
             for spec in args.source:
+                if spec.startswith('self:'):
+                    solved[spec] = self_calls(spec[5:])
                 if spec.startswith('synthetic'):
                     synthetic = synthetic_records(spec.split(':', 1)[1] if ':' in spec else 'outputs/synthetic_agent/synthetic.jsonl')
                 if spec.startswith('generated'):
@@ -295,6 +331,14 @@ def main():
                         start = run_base(spec[4:], item, args.drop_examples)
                         if start: starts.append((spec, start))
                         else: stats['missing_run_trace'] += 1
+                    elif spec.startswith('self:'):
+                        if splits.get(item['id']) != 'fit' or item['id'] not in solved[spec]:
+                            continue  # only solved fit samples; validation/test keep gold targets
+                        start = run_base(spec[5:], item, args.drop_examples)
+                        if start:
+                            start.update(tool_calls=solved[spec][item['id']], verify_state=True)
+                            starts.append((spec, start))
+                        else: stats['missing_run_trace'] += 1
                     elif spec.startswith('synthetic'):
                         for record in synthetic.get(item['id'], []):
                             start = base(record['text'], item)
@@ -305,7 +349,8 @@ def main():
                     else:
                         parser.error(f'--source không hợp lệ: {spec}')
                 records, outcome = agent_records(item, starts, lambda item: OfficialEnvironment({'id': item['id']}),
-                                                 state_hash(reference_state(source_dir, item)), system)
+                                                 state_hash(reference_state(source_dir, item)), system,
+                                                 not args.keep_duplicates, args.max_trajectories_per_sample)
                 stats.update(outcome)
                 for record in records:
                     write(record)

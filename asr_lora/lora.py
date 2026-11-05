@@ -26,6 +26,17 @@ EXTENDED_TARGETS = {
     'NonlinAttention': ('in_proj', 'out_proj'),
     'ConvolutionModule': ('in_proj',),
 }
+# The transducer joint network (icefall joiner.py); with scope ('encoder.', 'joiner.') it adapts the token output
+# mapping too, where rare in-domain words (SJC, ZALO) are scored. Opt-in: it moves every output, so check drift.
+JOINER_TARGETS = {'Joiner': ('encoder_proj', 'decoder_proj', 'output_linear')}
+
+
+def lora_targets(config):
+    """(targets, scope) of a saved lora_config, so export re-creates exactly the trained wrapping."""
+    targets = dict(DEFAULT_TARGETS if config['targets'] == 'icefall' else EXTENDED_TARGETS)
+    if config.get('joiner'):
+        return {**targets, **JOINER_TARGETS}, ('encoder.', 'joiner.')
+    return targets, 'encoder.'
 
 
 def _swoosh_l(x):
@@ -109,8 +120,9 @@ def _wrap(module: nn.Module, r: int, alpha: float, dropout: float) -> nn.Module:
     raise TypeError(f'Cannot add LoRA to {type(module).__name__}')
 
 
-def add_lora(model: nn.Module, r: int = 16, alpha: float = 32.0, dropout: float = 0.0, targets=None, scope: str = 'encoder.'):
-    """Freeze the whole model and wrap the target projections under `scope`. Returns the wrapped names."""
+def add_lora(model: nn.Module, r: int = 16, alpha: float = 32.0, dropout: float = 0.0, targets=None, scope='encoder.'):
+    """Freeze the whole model and wrap the target projections under `scope` (a prefix or a tuple of prefixes).
+    Returns the wrapped names."""
     targets = DEFAULT_TARGETS if targets is None else targets
     for parameter in model.parameters():
         parameter.requires_grad_(False)
@@ -150,6 +162,20 @@ def load_lora_state_dict(model: nn.Module, state):
         missing, extra = sorted(expected - set(state)), sorted(set(state) - expected)
         raise ValueError(f'LoRA adapter does not match the model: missing {missing[:3]}, unexpected {extra[:3]}')
     model.load_state_dict(state, strict=False)
+
+
+def scale_lora(model: nn.Module, scale: float) -> int:
+    """Multiply every adapter's update by `scale`: 0 is the original checkpoint, 1 the fine-tuned model.
+
+    Weight-space interpolation between the two (WiSE-FT): with a small in-domain set the update overshoots on
+    what the domain data does not cover, and a scale picked on validation (e.g. 0.5-0.8) keeps most of the
+    domain gain with less drift. Applies to the forward pass and to merge_lora. Returns how many were scaled."""
+    if not 0.0 <= scale <= 2.0:
+        raise ValueError('LoRA scale must be in [0, 2]')
+    modules = lora_modules(model)
+    for _, module in modules:
+        module.scaling = module.alpha / module.r * scale
+    return len(modules)
 
 
 def merge_lora(model: nn.Module) -> int:

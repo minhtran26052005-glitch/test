@@ -3,8 +3,10 @@
 #   ./run_finetune.sh data        rebuild ASR manifests + normalizer SFT (already in the repo) and the agent SFT (devkit)
 #   ./run_finetune.sh tts         synthesize the generated sentences with the seed speakers' voices (VieNeu-TTS)
 #   ./run_finetune.sh qc          both ASRs listen to the TTS audio; only what says its label is kept (*_qc.jsonl)
+#   ./run_finetune.sh hotwords    no training: domain hotword lists from the fit split, greedy vs beam vs hotwords on validation
 #   ./run_finetune.sh gipformer   LoRA RNN-T fine-tune, export, test-split WER vs the base model
 #   ./run_finetune.sh zipformer   LoRA CR-CTC + CTC + RNN-T fine-tune, export, test-split WER vs the base model
+#   ./run_finetune.sh scales KIND merge 1.0/0.7/0.5 of the trained ASR adapter (LORA_SCALES), compare on validation
 #   ./run_finetune.sh qwen        LoRA SFT of Qwen3.5-4B on agent + normalizer records, merge to bf16
 # Afterwards point run.sh at the exported dirs (GIPFORMER_MODEL_PATH / ZIPFORMER_MODEL_PATH / LLM_MODEL_PATH) and
 # rerun the agent benchmark with the same AGENT_* flags used to build the SFT data; compare on split=test only.
@@ -53,6 +55,30 @@ case "${1:-}" in
       [[ -f "$manifest" ]] || continue
       "$PYTHON_BIN" qc_tts_asr.py --manifest "$manifest" --model "gipformer=$GIP_DIR" --model "zipformer=$ZIP_DIR"
     done
+    ;;
+  hotwords)
+    # Contextual biasing needs no training and leaves the weights alone; check it before any fine-tuning.
+    "$PYTHON_BIN" build_hotwords.py --out outputs/asr_hotwords
+    for kind in gipformer zipformer; do
+      dir="$GIP_DIR"; [[ "$kind" == zipformer ]] && dir="$ZIP_DIR"
+      "$PYTHON_BIN" eval_asr_onnx.py --manifest outputs/asr_finetune/validation.jsonl --model "$kind=$dir" \
+        --model "$kind=$dir@decoding=modified_beam_search" \
+        --model "$kind=$dir@decoding=modified_beam_search,hotwords=outputs/asr_hotwords/$kind.txt,hotwords_score=${HOTWORDS_SCORE:-1.5}" \
+        --out "outputs/asr_hotwords/validation_$kind"
+    done
+    ;;
+  scales)
+    # WiSE-FT interpolation of a trained adapter; choose the scale on validation, then score only that one on test.
+    kind="${2:-}"; [[ "$kind" == gipformer || "$kind" == zipformer ]] || { echo 'usage: ./run_finetune.sh scales gipformer|zipformer' >&2; exit 1; }
+    dir="$GIP_DIR"; [[ "$kind" == zipformer ]] && dir="$ZIP_DIR"
+    need "outputs/asr_lora/$kind/lora-best.pt" "./run_finetune.sh $kind"
+    models=(--model "$kind=$dir")
+    for scale in ${LORA_SCALES:-1.0 0.7 0.5}; do
+      "$PYTHON_BIN" export_asr_lora.py --model "$kind" --model-dir "$dir" --icefall-dir "$ICEFALL_DIR" \
+        --lora "outputs/asr_lora/$kind/lora-best.pt" --scale "$scale" --out-dir "${dir}-lora-s$scale"
+      models+=(--model "$kind=${dir}-lora-s$scale")
+    done
+    "$PYTHON_BIN" eval_asr_onnx.py --manifest outputs/asr_finetune/validation.jsonl "${models[@]}" --out "outputs/asr_lora/$kind/scales_validation"
     ;;
   gipformer)
     need "$GIP_DIR/model.pt" "huggingface-cli download g-group-ai-lab/gipformer1.5-68M-rnnt model.pt bpe.model --local-dir $GIP_DIR"

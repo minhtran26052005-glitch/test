@@ -57,14 +57,18 @@ def asr_evidence(hypotheses, chosen):
     return cleaned
 
 
-def asr_cache_key(name, fingerprint, audio, device):
-    return digest([name, fingerprint, hashlib.sha256(Path(audio).read_bytes()).hexdigest(), device])
+def asr_cache_key(name, fingerprint, audio, device, decoding=None):
+    # decoding=None (greedy) keeps the key of every cache saved before beam search / hotwords existed.
+    parts = [name, fingerprint, hashlib.sha256(Path(audio).read_bytes()).hexdigest(), device]
+    return digest(parts + [decoding] if decoding else parts)
 
 
 def recognize(audio, name, folder, stage, trace, resume, save, history=False):
-    from asr import model_spec
+    from asr import decoding_spec, model_spec
+    from asr.gipformer import decoding_identity
     Model, path = model_spec(name)
-    key = asr_cache_key(name, model_fingerprint(path), audio, os.environ['ASR_DEVICE'])
+    decoding = decoding_spec(name)
+    key = asr_cache_key(name, model_fingerprint(path), audio, os.environ['ASR_DEVICE'], decoding_identity(decoding))
     value = stage_cache(folder, stage, key, resume)
     shared = Path(os.environ['ASR_CACHE_DIR']) if os.environ.get('ASR_CACHE_DIR') else None
     if value is None and shared:
@@ -75,7 +79,7 @@ def recognize(audio, name, folder, stage, trace, resume, save, history=False):
         if os.environ.get('ASR_CACHE_ONLY') == '1':
             raise RuntimeError(f'Thiếu ASR cache đã xác minh cho {name}: {audio}; ASR_CACHE_ONLY=1 chặn chạy lại model')
         start = time.monotonic()
-        model = Model(path, os.environ['ASR_DEVICE'])
+        model = Model(path, os.environ['ASR_DEVICE'], decoding) if decoding else Model(path, os.environ['ASR_DEVICE'])
         try:
             value = model.transcribe(str(audio))
         finally:
@@ -100,6 +104,9 @@ def recognize_fused(audio,folder,stage,trace,resume,save):
         raise ValueError('timestamp_word cần dual GipFormer + ZipFormer')
     if os.environ['ASR_DEVICE']!='cpu':
         raise ValueError('timestamp_word hiện dùng cache/decoder CPU đã hiệu chỉnh')
+    from asr import decoding_spec
+    if decoding_spec('gipformer') or decoding_spec('zipformer'):
+        raise ValueError('timestamp_word selector được hiệu chỉnh trên greedy_search; bỏ *_DECODING/*_HOTWORDS hoặc dùng ASR_COMBINE khác')
     from asr.word_fusion import transcribe_fused,VERSION
     selector=os.environ['FUSION_SELECTOR_PATH']
     paths={'gipformer':os.environ['GIPFORMER_MODEL_PATH'],'zipformer':os.environ['ZIPFORMER_MODEL_PATH']}

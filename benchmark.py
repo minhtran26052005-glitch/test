@@ -61,6 +61,12 @@ def run_benchmark(args):
         identity['fewshot_pool_fingerprint'] = model_fingerprint(os.environ['AGENT_FEWSHOT_POOL'])
     if os.environ.get('ASR_COMBINE')=='timestamp_word':
         identity['fusion_selector_fingerprint']=model_fingerprint(os.environ['FUSION_SELECTOR_PATH'])
+    from asr import decoding_spec
+    from asr.gipformer import decoding_identity
+    for name in {os.environ['ASR_PRIMARY'], os.environ.get('ASR_SECONDARY')} if os.environ.get('ASR_MODE', 'single') == 'dual' else {os.environ['ASR_PRIMARY']}:
+        decoding = decoding_identity(decoding_spec(name))
+        if decoding:  # beam search / hotwords: the hotword list's content, not only its path, defines the run
+            identity[f'{name}_decoding'] = decoding
     identity = json.loads(json.dumps(identity))
     if metadata.exists():
         saved = json.loads(metadata.read_text())

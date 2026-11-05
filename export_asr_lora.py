@@ -8,6 +8,10 @@ The output directory replaces GIPFORMER_MODEL_PATH / ZIPFORMER_MODEL_PATH in run
 After merging, the architecture and parameter count are exactly the base model's. The script checks that the
 merged model reproduces the adapter model, and that the ONNX encoder reproduces PyTorch, before writing the report.
 
+--scale s merges s times the adapter's update (WiSE-FT interpolation: 0 = base checkpoint, 1 = fine-tuned). With
+little in-domain data, export a few scales (e.g. 1.0, 0.7, 0.5), pick one on the validation split with
+eval_asr_onnx.py (WER, foreign-word recall, broken utterances) and only then score the chosen one on test.
+
   python export_asr_lora.py --model zipformer --model-dir models/zipformer-150M-6000h \
       --lora outputs/asr_lora/zipformer/lora-best.pt --out-dir models/zipformer-150M-6000h-lora
 """
@@ -18,7 +22,7 @@ import json
 import shutil
 from pathlib import Path
 
-from asr_lora.lora import DEFAULT_TARGETS, EXTENDED_TARGETS, add_lora, load_lora_state_dict, merge_lora
+from asr_lora.lora import add_lora, load_lora_state_dict, lora_targets, merge_lora, scale_lora
 from asr_lora.models import load_model, setup_icefall
 
 
@@ -45,6 +49,7 @@ def main():
     parser.add_argument('--out-dir', required=True)
     parser.add_argument('--icefall-dir', default='~/.cache/icefall')
     parser.add_argument('--model-config', help='same JSON override used for training, if any')
+    parser.add_argument('--scale', type=float, default=1.0, help='fraction of the adapter update to merge (0 = base, 1 = fine-tuned)')
     parser.add_argument('--tolerance', type=float, default=2e-3)
     parser.add_argument('--num-threads', type=int, default=2, help='CPU threads for ONNX verification')
     args = parser.parse_args()
@@ -58,8 +63,10 @@ def main():
     model, params, report = load_model(train, args.model, args.model_dir, override)
     base_parameters = sum(p.numel() for p in model.parameters())
     config = checkpoint['lora_config']
-    add_lora(model, config['r'], config['alpha'], 0.0, DEFAULT_TARGETS if config['targets'] == 'icefall' else EXTENDED_TARGETS)
+    targets, scope = lora_targets(config)
+    add_lora(model, config['r'], config['alpha'], 0.0, targets, scope)
     load_lora_state_dict(model, checkpoint['lora'])
+    scale_lora(model, args.scale)
     model.eval()
 
     generator = torch.Generator().manual_seed(0)
@@ -115,7 +122,7 @@ def main():
     onnx_diff = float((torch.from_numpy(onnx_out) - merged_out).abs().max())
     if onnx_diff > args.tolerance * max(1.0, float(merged_out.abs().max())) or not (torch.from_numpy(onnx_lens) == merged_lens).all():
         raise RuntimeError(f'ONNX encoder differs from PyTorch by {onnx_diff}')
-    summary = {'model': args.model, 'base_model_dir': args.model_dir, 'lora': args.lora, 'merged_projections': merged,
+    summary = {'model': args.model, 'base_model_dir': args.model_dir, 'lora': args.lora, 'scale': args.scale, 'merged_projections': merged,
                'parameters': parameters, 'merge_max_abs_diff': merge_diff, 'onnx_encoder_max_abs_diff': onnx_diff,
                'adapter_epoch': checkpoint.get('epoch'), 'adapter_valid': checkpoint.get('valid'), 'model_config': report['config']}
     (out / 'merge_report.json').write_text(json.dumps(summary, ensure_ascii=False, indent=2))

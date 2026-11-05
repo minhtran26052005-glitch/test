@@ -4,7 +4,7 @@ from .gipformer import GipFormer
 
 
 class ZipFormer(GipFormer):
-    def __init__(self, model_path: str, device: str = 'cpu'):
+    def __init__(self, model_path: str, device: str = 'cpu', decoding: dict = None):
         path = Path(model_path)
         if not path.is_dir() or not (path / 'tokens.txt').is_file():
             raise RuntimeError(
@@ -12,4 +12,4 @@ class ZipFormer(GipFormer):
                 'Với checkpoint hynt, config.json thực chất là bảng token; '
                 'kiểm tra rồi sao chép nguyên nội dung sang tokens.txt khi tải model.'
             )
-        super().__init__(str(path), device)
+        super().__init__(str(path), device, decoding)

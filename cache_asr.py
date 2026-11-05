@@ -4,7 +4,8 @@ import json
 import os
 import time
 from pathlib import Path
-from asr import model_spec
+from asr import decoding_spec, model_spec
+from asr.gipformer import decoding_identity
 from main import asr_cache_key, model_fingerprint, save_cache, stage_cache
 
 
@@ -36,6 +37,7 @@ def run_precache(args):
     Model, model_path = model_spec(os.environ['ASR_PRIMARY'])
     fingerprint = model_fingerprint(model_path)
     name, device = os.environ['ASR_PRIMARY'], os.environ['ASR_DEVICE']
+    decoding = decoding_spec(name)  # same key and decoder as main.recognize
     records = []
     model = None
     started = time.time()
@@ -47,12 +49,12 @@ def run_precache(args):
         for index, task in enumerate(tasks, 1):
             record = dict(task, model=model_path, asr_name=name)
             try:
-                key = asr_cache_key(name, fingerprint, task['audio'], device)
+                key = asr_cache_key(name, fingerprint, task['audio'], device, decoding_identity(decoding))
                 value = stage_cache(shared, key, key, True)
                 record.update(cache_key=key, from_cache=value is not None)
                 if value is None:
                     if model is None:
-                        model = Model(model_path, device)
+                        model = Model(model_path, device, decoding) if decoding else Model(model_path, device)
                     start = time.monotonic()
                     value = model.transcribe(task['audio'])
                     save_cache(shared, key, key, value)

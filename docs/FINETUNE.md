@@ -90,7 +90,7 @@ Script tự kiểm tra hai điều: merge khớp model còn LoRA, và ONNX khớ
 ```
 
 - **ASR**: script chấm WER validation trước khi train, rồi chấm lại sau mỗi epoch, và giữ `lora-best.pt`. Nếu không epoch nào tốt hơn model gốc thì không có `lora-best.pt`: giữ model gốc. Sau export, `eval_asr_onnx.py` so WER trên split `test` bằng đúng giải mã sherpa-onnx của pipeline.
-  - Mặc định: r 16, alpha 32, dropout 0,05, 15 epoch, `--max-duration` 300 giây (200 cho Zip).
+  - Mặc định: r 16, alpha 32, dropout 0,05, 15 epoch, `--max-duration` 300 giây (200 cho Zip), ScaledAdam lr 0,045 như icefall `zipformer_lora`. Mức cũ 0,0045 là lr full fine-tune; với LoRA nó gần như không học, xem [nghiên cứu ít data](RESEARCH_LOW_DATA_DOMAIN_FINETUNE.md#32-bậc-1-lora-nhỏ-audio-thật-làm-chủ).
   - `--lora-targets extended` gắn thêm LoRA vào nonlin attention, conv và `out_proj` của attention.
 - **Qwen**: prompt render đúng như `llm_qwen.generate`; loss chỉ tính trên JSON đích + `<|im_end|>`. LoRA gắn vào q/k/v/o, Gated DeltaNet (`in_proj_qkv`, `in_proj_z`, `out_proj`) và MLP; không đụng vision tower và MTP.
   - Mặc định: r 16, alpha 32, lr 1e-4, 2 epoch, batch 1 × gom gradient 16, bản ghi normalize lấy một nửa.
@@ -137,6 +137,19 @@ Sau khi export, `eval_asr_onnx.py` so model mới với model gốc trên split 
 - `wer_percent` trên `test` phải giảm;
 - `broken_utterances` (gốc đúng, nay sai) phải nhỏ hơn rõ so với `fixed_utterances`; nhiều câu bị làm sai là dấu hiệu học lệch;
 - `changed_words_per_100` trên `public_test`: model gốc đã tốt trên giọng nói chung, nên mỗi 100 từ chỉ nên đổi vài từ. Đổi nhiều thì đọc file hypothesis xem đổi theo hướng nào (ví dụ chèn từ miền thi vào khắp nơi).
+
+## 4c. Ít data, một domain
+
+Bằng chứng và lộ trình đầy đủ: [RESEARCH_LOW_DATA_DOMAIN_FINETUNE.md](RESEARCH_LOW_DATA_DOMAIN_FINETUNE.md). Mọi tuỳ chọn mặc định tắt.
+
+| Bước | Lệnh | Ghi chú |
+| --- | --- | --- |
+| Hotwords, không train | `./run_finetune.sh hotwords` | Danh sách theo model từ split fit (`outputs/asr_hotwords/`); so greedy, beam và beam + hotword trên validation. Bật trong pipeline: `GIPFORMER_DECODING=modified_beam_search GIPFORMER_HOTWORDS=outputs/asr_hotwords/gipformer.txt` (tương tự `ZIPFORMER_*`) |
+| Nội suy adapter ASR | `./run_finetune.sh scales gipformer` | Merge 1,0 / 0,7 / 0,5 lần cập nhật LoRA (`LORA_SCALES`), so trên validation, chọn rồi mới chấm test |
+| LoRA joint network | `train_asr_lora.py --lora-joiner` | Thí nghiệm riêng; đổi mọi output nên xem drift |
+| Qwen | `QWEN_ARGS="--early-stopping-patience 3"` (tuỳ chọn `--neftune-alpha 5`, `--use-rslora`, `--use-dora`); `merge_qwen_lora.py --scale 0.7` | Chọn theo state match validation |
+| Rejection sampling | `build_agent_sft.py --source self:RUN_DIR …` | Quỹ đạo đúng do chính model tạo, devkit kiểm lại, chỉ mẫu fit; bỏ quỹ đạo trùng; `--max-trajectories-per-sample` |
+| Kiểm định | `compare_benchmark_runs.py` → `mcnemar_exact_p` | 248 mẫu test: cần tăng ròng khoảng 5–6,5 điểm khi có 10–20 mẫu bị làm hỏng |
 
 ## 5. Mức độ đã kiểm tra
 

@@ -13,6 +13,7 @@ Code, prompt và snapshot kết quả nghiên cứu cho Zalo AI Challenge LifeMa
 - [Kiểm tra chất lượng câu sinh](outputs/asr_datagen_quality_20261104/BAO_CAO_CHAT_LUONG.md) và [252 câu đã chấm](outputs/asr_datagen_quality_20261104/reviewed_examples.csv).
 - [Data để fine-tune: data đã gen dùng được cho ASR/agent đến đâu, data có sẵn, nguồn ngoài](docs/DATA_FINETUNE.md).
 - [Fine-tune LoRA 3 model (GipFormer RNN-T, ZipFormer CR-CTC, Qwen3.5-4B) và data đã tạo](docs/FINETUNE.md).
+- [Train ASR và Qwen với ít data một domain: nghiên cứu, công thức, hotwords, nội suy, rejection sampling](docs/RESEARCH_LOW_DATA_DOMAIN_FINETUNE.md).
 - [Review code Claude, các lỗi đã sửa và kết quả test CPU ngày 05/11/2026](docs/CLAUDE_REVIEW_20261105.md).
 - [Text sinh hiện tại](outputs/asr_datagen_api/generated.csv): **10.980 câu / 1.098 seed**, tại snapshot 09:06 ngày 05/11/2026 (UTC+7). Đây là dữ liệu thô cần rà, chưa phải bộ audio hoặc ASR đã fine-tune.
 
@@ -26,7 +27,8 @@ Code, prompt và snapshot kết quả nghiên cứu cho Zalo AI Challenge LifeMa
 | Sinh text qua Gemini/Gemma, quota và resume | `generate_asr_data_api.py`, `asr_datagen_api_config.json`, `run_asr_datagen_api.sh` |
 | Kiểm tra chất lượng text đã sinh | `audit_generated_asr_data.py`, `finalize_asr_datagen_quality.py`, `audit_finetune_data.py` |
 | Data fine-tune Qwen (agent + normalizer), few-shot pool | `build_agent_sft.py`, `build_fewshot_pool.py`, `eval_fewshot_retrieval.py`; xem [docs/DATA_FINETUNE.md](docs/DATA_FINETUNE.md) |
-| Data + LoRA ASR (icefall Zipformer) | `prepare_asr_finetune_data.py`, `synthesize_tts.py`, `qc_tts_asr.py` (hai ASR nghe lại TTS trước khi train), `asr_lora/`, `train_asr_lora.py`, `export_asr_lora.py`, `eval_asr_onnx.py` (WER + câu sửa/làm hỏng + độ trôi) |
+| Data + LoRA ASR (icefall Zipformer) | `prepare_asr_finetune_data.py`, `synthesize_tts.py`, `qc_tts_asr.py` (hai ASR nghe lại TTS trước khi train), `asr_lora/`, `train_asr_lora.py`, `export_asr_lora.py` (`--scale`), `eval_asr_onnx.py` (WER + từ ngoại/mã + câu sửa/làm hỏng + độ trôi) |
+| Hotwords ASR (không train) | `build_hotwords.py`, `GIPFORMER_DECODING`/`GIPFORMER_HOTWORDS` (và `ZIPFORMER_*`) trong `asr/gipformer.py` |
 | LoRA Qwen3.5-4B | `train_qwen_lora.py`, `merge_qwen_lora.py`; mọi bước: `run_finetune.sh`, xem [docs/FINETUNE.md](docs/FINETUNE.md) |
 | Data agent viết tay (diễn đạt lại / thiếu thông tin / đổi ý) | `outputs/synthetic_agent/authored/`, `build_synthetic_agent.py` |
 | Prompt sinh dữ liệu | [`prompts/asr_datagen_system.txt`](prompts/asr_datagen_system.txt) |

@@ -1,0 +1,745 @@
+{
+  "source": "outputs/zipformer_150m/asr_comparison.csv",
+  "split": "fit",
+  "utterances": 3558,
+  "min_count": 3,
+  "min_miss_rate": 0.3,
+  "models": {
+    "gipformer": {
+      "hotwords": 81,
+      "candidate_words": 330,
+      "missed_occurrences_covered": 456,
+      "missed_occurrences_total": 738,
+      "words": [
+        {
+          "word": "SJC",
+          "utterances": 74,
+          "missed": 55
+        },
+        {
+          "word": "ZALO",
+          "utterances": 63,
+          "missed": 22
+        },
+        {
+          "word": "CHECK",
+          "utterances": 31,
+          "missed": 21
+        },
+        {
+          "word": "SMS",
+          "utterances": 51,
+          "missed": 16
+        },
+        {
+          "word": "MR",
+          "utterances": 15,
+          "missed": 15
+        },
+        {
+          "word": "MEETING",
+          "utterances": 15,
+          "missed": 13
+        },
+        {
+          "word": "NOTE",
+          "utterances": 12,
+          "missed": 12
+        },
+        {
+          "word": "SARAH",
+          "utterances": 10,
+          "missed": 10
+        },
+        {
+          "word": "GRACE",
+          "utterances": 9,
+          "missed": 9
+        },
+        {
+          "word": "PIZZA",
+          "utterances": 12,
+          "missed": 9
+        },
+        {
+          "word": "VOUCHER",
+          "utterances": 14,
+          "missed": 8
+        },
+        {
+          "word": "WORKSHOP",
+          "utterances": 8,
+          "missed": 8
+        },
+        {
+          "word": "EXAMPLE",
+          "utterances": 7,
+          "missed": 7
+        },
+        {
+          "word": "NAKAMURA",
+          "utterances": 8,
+          "missed": 7
+        },
+        {
+          "word": "PRIYA",
+          "utterances": 7,
+          "missed": 7
+        },
+        {
+          "word": "TANAKA",
+          "utterances": 11,
+          "missed": 7
+        },
+        {
+          "word": "CINEVIỆT",
+          "utterances": 6,
+          "missed": 6
+        },
+        {
+          "word": "DEADLINE",
+          "utterances": 9,
+          "missed": 6
+        },
+        {
+          "word": "FOODS",
+          "utterances": 6,
+          "missed": 6
+        },
+        {
+          "word": "INVOICE",
+          "utterances": 6,
+          "missed": 6
+        },
+        {
+          "word": "MINHPOINT",
+          "utterances": 6,
+          "missed": 6
+        },
+        {
+          "word": "PODCAST",
+          "utterances": 13,
+          "missed": 6
+        },
+        {
+          "word": "SCTV",
+          "utterances": 8,
+          "missed": 6
+        },
+        {
+          "word": "TASK",
+          "utterances": 8,
+          "missed": 6
+        },
+        {
+          "word": "BOOK",
+          "utterances": 8,
+          "missed": 5
+        },
+        {
+          "word": "CHILL",
+          "utterances": 5,
+          "missed": 5
+        },
+        {
+          "word": "GARA",
+          "utterances": 9,
+          "missed": 5
+        },
+        {
+          "word": "JETXANH",
+          "utterances": 5,
+          "missed": 5
+        },
+        {
+          "word": "LAPTOP",
+          "utterances": 13,
+          "missed": 5
+        },
+        {
+          "word": "LIST",
+          "utterances": 9,
+          "missed": 5
+        },
+        {
+          "word": "SHARMA",
+          "utterances": 5,
+          "missed": 5
+        },
+        {
+          "word": "SKYLINE",
+          "utterances": 5,
+          "missed": 5
+        },
+        {
+          "word": "SPORT",
+          "utterances": 9,
+          "missed": 5
+        },
+        {
+          "word": "TAIPEI",
+          "utterances": 5,
+          "missed": 5
+        },
+        {
+          "word": "TOUR",
+          "utterances": 14,
+          "missed": 5
+        },
+        {
+          "word": "APP",
+          "utterances": 6,
+          "missed": 4
+        },
+        {
+          "word": "BOOKING",
+          "utterances": 5,
+          "missed": 4
+        },
+        {
+          "word": "DESIGN",
+          "utterances": 8,
+          "missed": 4
+        },
+        {
+          "word": "LAURA",
+          "utterances": 4,
+          "missed": 4
+        },
+        {
+          "word": "LUCAS",
+          "utterances": 7,
+          "missed": 4
+        },
+        {
+          "word": "MINHMART",
+          "utterances": 4,
+          "missed": 4
+        },
+        {
+          "word": "PLAYLIST",
+          "utterances": 4,
+          "missed": 4
+        },
+        {
+          "word": "PRO",
+          "utterances": 4,
+          "missed": 4
+        },
+        {
+          "word": "BROWN",
+          "utterances": 3,
+          "missed": 3
+        },
+        {
+          "word": "BRUNCH",
+          "utterances": 3,
+          "missed": 3
+        },
+        {
+          "word": "COMBO",
+          "utterances": 5,
+          "missed": 3
+        },
+        {
+          "word": "DANIEL",
+          "utterances": 3,
+          "missed": 3
+        },
+        {
+          "word": "DAVID",
+          "utterances": 6,
+          "missed": 3
+        },
+        {
+          "word": "EMILY",
+          "utterances": 4,
+          "missed": 3
+        },
+        {
+          "word": "HALE",
+          "utterances": 3,
+          "missed": 3
+        },
+        {
+          "word": "HANSEN",
+          "utterances": 3,
+          "missed": 3
+        },
+        {
+          "word": "JAMES",
+          "utterances": 3,
+          "missed": 3
+        },
+        {
+          "word": "LOUNGE",
+          "utterances": 3,
+          "missed": 3
+        },
+        {
+          "word": "OAKWOOD",
+          "utterances": 3,
+          "missed": 3
+        },
+        {
+          "word": "OLIVIA",
+          "utterances": 4,
+          "missed": 3
+        },
+        {
+          "word": "PARK",
+          "utterances": 4,
+          "missed": 3
+        },
+        {
+          "word": "PETER",
+          "utterances": 5,
+          "missed": 3
+        },
+        {
+          "word": "PLUS",
+          "utterances": 5,
+          "missed": 3
+        },
+        {
+          "word": "RESIDENCE",
+          "utterances": 3,
+          "missed": 3
+        },
+        {
+          "word": "ROOFTOP",
+          "utterances": 3,
+          "missed": 3
+        },
+        {
+          "word": "SAPIENS",
+          "utterances": 3,
+          "missed": 3
+        },
+        {
+          "word": "SLIDE",
+          "utterances": 5,
+          "missed": 3
+        },
+        {
+          "word": "SPRINT",
+          "utterances": 3,
+          "missed": 3
+        },
+        {
+          "word": "TALKAI",
+          "utterances": 3,
+          "missed": 3
+        },
+        {
+          "word": "TEST",
+          "utterances": 7,
+          "missed": 3
+        },
+        {
+          "word": "WONG",
+          "utterances": 3,
+          "missed": 3
+        },
+        {
+          "word": "CLOUD",
+          "utterances": 4,
+          "missed": 2
+        },
+        {
+          "word": "COSTA",
+          "utterances": 4,
+          "missed": 2
+        },
+        {
+          "word": "DIESEL",
+          "utterances": 3,
+          "missed": 2
+        },
+        {
+          "word": "EVERGREEN",
+          "utterances": 4,
+          "missed": 2
+        },
+        {
+          "word": "HOMESTAY",
+          "utterances": 3,
+          "missed": 2
+        },
+        {
+          "word": "KEVIN",
+          "utterances": 3,
+          "missed": 2
+        },
+        {
+          "word": "LINK",
+          "utterances": 3,
+          "missed": 2
+        },
+        {
+          "word": "LUMINA",
+          "utterances": 4,
+          "missed": 2
+        },
+        {
+          "word": "REPORT",
+          "utterances": 3,
+          "missed": 2
+        },
+        {
+          "word": "STUDIO",
+          "utterances": 4,
+          "missed": 2
+        },
+        {
+          "word": "SYDNEY",
+          "utterances": 3,
+          "missed": 2
+        },
+        {
+          "word": "CANCEL",
+          "utterances": 3,
+          "missed": 1
+        },
+        {
+          "word": "OFFLINE",
+          "utterances": 3,
+          "missed": 1
+        },
+        {
+          "word": "QR",
+          "utterances": 3,
+          "missed": 1
+        },
+        {
+          "word": "RIVERSIDE",
+          "utterances": 3,
+          "missed": 1
+        }
+      ]
+    },
+    "zipformer": {
+      "hotwords": 63,
+      "candidate_words": 330,
+      "missed_occurrences_covered": 400,
+      "missed_occurrences_total": 644,
+      "words": [
+        {
+          "word": "SJC",
+          "utterances": 74,
+          "missed": 63
+        },
+        {
+          "word": "TIVI",
+          "utterances": 53,
+          "missed": 52
+        },
+        {
+          "word": "ZALO",
+          "utterances": 63,
+          "missed": 27
+        },
+        {
+          "word": "CHECK",
+          "utterances": 31,
+          "missed": 16
+        },
+        {
+          "word": "MAIL",
+          "utterances": 24,
+          "missed": 10
+        },
+        {
+          "word": "GRACE",
+          "utterances": 9,
+          "missed": 9
+        },
+        {
+          "word": "NOTE",
+          "utterances": 12,
+          "missed": 9
+        },
+        {
+          "word": "PODCAST",
+          "utterances": 13,
+          "missed": 8
+        },
+        {
+          "word": "TASK",
+          "utterances": 8,
+          "missed": 8
+        },
+        {
+          "word": "EXAMPLE",
+          "utterances": 7,
+          "missed": 7
+        },
+        {
+          "word": "BOOK",
+          "utterances": 8,
+          "missed": 6
+        },
+        {
+          "word": "CINEVIỆT",
+          "utterances": 6,
+          "missed": 6
+        },
+        {
+          "word": "FOODS",
+          "utterances": 6,
+          "missed": 6
+        },
+        {
+          "word": "GARA",
+          "utterances": 9,
+          "missed": 6
+        },
+        {
+          "word": "INVOICE",
+          "utterances": 6,
+          "missed": 6
+        },
+        {
+          "word": "LIST",
+          "utterances": 9,
+          "missed": 6
+        },
+        {
+          "word": "MINHPOINT",
+          "utterances": 6,
+          "missed": 6
+        },
+        {
+          "word": "PRIYA",
+          "utterances": 7,
+          "missed": 6
+        },
+        {
+          "word": "SARAH",
+          "utterances": 10,
+          "missed": 6
+        },
+        {
+          "word": "CHILL",
+          "utterances": 5,
+          "missed": 5
+        },
+        {
+          "word": "JETXANH",
+          "utterances": 5,
+          "missed": 5
+        },
+        {
+          "word": "MEETING",
+          "utterances": 15,
+          "missed": 5
+        },
+        {
+          "word": "NAKAMURA",
+          "utterances": 8,
+          "missed": 5
+        },
+        {
+          "word": "SHARMA",
+          "utterances": 5,
+          "missed": 5
+        },
+        {
+          "word": "SPORT",
+          "utterances": 9,
+          "missed": 5
+        },
+        {
+          "word": "TAIPEI",
+          "utterances": 5,
+          "missed": 5
+        },
+        {
+          "word": "TOUR",
+          "utterances": 14,
+          "missed": 5
+        },
+        {
+          "word": "DESIGN",
+          "utterances": 8,
+          "missed": 4
+        },
+        {
+          "word": "MINHMART",
+          "utterances": 4,
+          "missed": 4
+        },
+        {
+          "word": "SKYLINE",
+          "utterances": 5,
+          "missed": 4
+        },
+        {
+          "word": "TANAKA",
+          "utterances": 11,
+          "missed": 4
+        },
+        {
+          "word": "APP",
+          "utterances": 6,
+          "missed": 3
+        },
+        {
+          "word": "BROWN",
+          "utterances": 3,
+          "missed": 3
+        },
+        {
+          "word": "BRUNCH",
+          "utterances": 3,
+          "missed": 3
+        },
+        {
+          "word": "COSTA",
+          "utterances": 4,
+          "missed": 3
+        },
+        {
+          "word": "DEMO",
+          "utterances": 7,
+          "missed": 3
+        },
+        {
+          "word": "HALE",
+          "utterances": 3,
+          "missed": 3
+        },
+        {
+          "word": "HANSEN",
+          "utterances": 3,
+          "missed": 3
+        },
+        {
+          "word": "LAURA",
+          "utterances": 4,
+          "missed": 3
+        },
+        {
+          "word": "LINK",
+          "utterances": 3,
+          "missed": 3
+        },
+        {
+          "word": "LOUNGE",
+          "utterances": 3,
+          "missed": 3
+        },
+        {
+          "word": "OAKWOOD",
+          "utterances": 3,
+          "missed": 3
+        },
+        {
+          "word": "PRO",
+          "utterances": 4,
+          "missed": 3
+        },
+        {
+          "word": "RESIDENCE",
+          "utterances": 3,
+          "missed": 3
+        },
+        {
+          "word": "ROOFTOP",
+          "utterances": 3,
+          "missed": 3
+        },
+        {
+          "word": "SAPIENS",
+          "utterances": 3,
+          "missed": 3
+        },
+        {
+          "word": "SCTV",
+          "utterances": 8,
+          "missed": 3
+        },
+        {
+          "word": "SPRINT",
+          "utterances": 3,
+          "missed": 3
+        },
+        {
+          "word": "TALKAI",
+          "utterances": 3,
+          "missed": 3
+        },
+        {
+          "word": "WONG",
+          "utterances": 3,
+          "missed": 3
+        },
+        {
+          "word": "WORKSHOP",
+          "utterances": 8,
+          "missed": 3
+        },
+        {
+          "word": "BILL",
+          "utterances": 4,
+          "missed": 2
+        },
+        {
+          "word": "BOOKING",
+          "utterances": 5,
+          "missed": 2
+        },
+        {
+          "word": "CANCEL",
+          "utterances": 3,
+          "missed": 2
+        },
+        {
+          "word": "CLOUD",
+          "utterances": 4,
+          "missed": 2
+        },
+        {
+          "word": "DAVID",
+          "utterances": 6,
+          "missed": 2
+        },
+        {
+          "word": "JAMES",
+          "utterances": 3,
+          "missed": 2
+        },
+        {
+          "word": "LUMINA",
+          "utterances": 4,
+          "missed": 2
+        },
+        {
+          "word": "PLAYLIST",
+          "utterances": 4,
+          "missed": 2
+        },
+        {
+          "word": "SLIDE",
+          "utterances": 5,
+          "missed": 2
+        },
+        {
+          "word": "DANIEL",
+          "utterances": 3,
+          "missed": 1
+        },
+        {
+          "word": "KEVIN",
+          "utterances": 3,
+          "missed": 1
+        },
+        {
+          "word": "REPORT",
+          "utterances": 3,
+          "missed": 1
+        }
+      ]
+    }
+  }
+}

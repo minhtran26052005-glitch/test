@@ -149,22 +149,42 @@ def normalize_records(item, run_dir, system, single):
     return records
 
 
+def normalize_csv_records(rows, system, single, order=('zipformer', 'gipformer')):
+    """Saved hypotheses of both ASRs for every audio (e.g. outputs/zipformer_150m/asr_comparison.csv) -> reference.
+
+    The default order matches the dual run (primary zipformer, secondary gipformer) so the payload is identical
+    to what agent.normalize receives with ASR_COMBINE=llm_review; --normalize-single adds one record per ASR.
+    """
+    for row in rows:
+        hypotheses = {name: row[f'{name}_asr'] for name in order if row.get(f'{name}_asr', '').strip()}
+        turn = row['turn'] + (f"_{row['history_index']}" if row.get('history_index') else '')
+        inputs = [hypotheses] if len(hypotheses) > 1 else []
+        if single or len(hypotheses) == 1:
+            inputs += [{name: text} for name, text in hypotheses.items()]
+        for index, transcripts in enumerate(inputs):
+            yield {'id': f"{row['id']}:{turn}:normalize:{index}", 'task': 'normalize', 'sample_id': row['id'],
+                   'source': 'asr_csv', 'step': 0,
+                   'messages': chat(system, json.dumps({'transcripts': transcripts}, ensure_ascii=False),
+                                    {'normalized_text': row['reference']})}
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument('--source', action='append', default=[], help='reference | run:DIR | generated[:CSV]')
     parser.add_argument('--normalize-run', action='append', default=[], help='benchmark run dir with ASR caches')
     parser.add_argument('--normalize-single', action='store_true', help='also one record per single ASR hypothesis')
+    parser.add_argument('--normalize-csv', help='CSV with id, turn, history_index, reference, <asr>_asr columns (no devkit needed)')
     parser.add_argument('--free-text', action='store_true', help='keep generated variants whose gold has free-text arguments')
     parser.add_argument('--drop-examples', action='store_true', help='remove few-shot examples copied from run traces')
     parser.add_argument('--manifest', default='outputs/timestamp_word_fusion/split_manifest.json')
     parser.add_argument('--out', default='outputs/agent_sft')
     parser.add_argument('--limit', type=int)
     args = parser.parse_args()
-    if not args.source and not args.normalize_run:
-        parser.error('cần ít nhất một --source hoặc --normalize-run')
+    if not args.source and not args.normalize_run and not args.normalize_csv:
+        parser.error('cần ít nhất một --source, --normalize-run hoặc --normalize-csv')
     root = Path(os.environ.get('DATA_ROOT', 'data/train+public_test')).resolve()
     source_dir = root / 'train'
-    items = jsonl(source_dir / 'train.jsonl')[:args.limit]
+    items = jsonl(source_dir / 'train.jsonl')[:args.limit] if args.source or args.normalize_run else []
     splits = {sid: entry['split'] for sid, entry in json.loads(Path(args.manifest).read_text()).items()}
     out = Path(args.out)
     out.mkdir(parents=True, exist_ok=True)
@@ -207,6 +227,11 @@ def main():
                 stats.update(outcome)
                 for record in records:
                     write(record)
+        if args.normalize_csv:
+            with Path(args.normalize_csv).open(encoding='utf-8-sig', newline='') as handle:
+                rows = list(csv.DictReader(handle))[:args.limit]
+            for record in normalize_csv_records(rows, os.environ['NORMALIZE_SYSTEM_PROMPT'], args.normalize_single):
+                write(record)
         if args.normalize_run:
             system = os.environ['NORMALIZE_SYSTEM_PROMPT']
             for item in items:
@@ -219,7 +244,7 @@ def main():
     summary = {'samples': len(items), **dict(sorted(stats.items())),
                'agent_system_prompt_sha256': hashlib.sha256(os.environ.get('AGENT_SYSTEM_PROMPT', '').encode()).hexdigest(),
                'normalize_system_prompt_sha256': hashlib.sha256(os.environ.get('NORMALIZE_SYSTEM_PROMPT', '').encode()).hexdigest(),
-               'sources': args.source, 'normalize_runs': args.normalize_run,
+               'sources': args.source, 'normalize_runs': args.normalize_run, 'normalize_csv': args.normalize_csv,
                'note': 'Train on train.jsonl only; validation for early stopping; test is held out for the agent benchmark.'}
     (out / 'summary.json').write_text(json.dumps(summary, ensure_ascii=False, indent=2))
     print(json.dumps(summary, ensure_ascii=False, indent=2))

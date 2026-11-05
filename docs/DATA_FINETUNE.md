@@ -90,6 +90,8 @@ Như vậy một lần TTS phục vụ được cả hai phía.
 
 ## 4. Nguồn ngoài (cần tự kiểm tra license và luật thi)
 
+> **Cập nhật:** đã chốt không dùng các nguồn dưới đây. Các bộ ASR công khai phần lớn đã có trong data train của ZipFormer-150M. Các bộ function-calling không đúng task: một lượt, không có observation, không hỏi lại, tool khác devkit. Lý do chi tiết và data thay thế nằm ở [FINETUNE.md](FINETUNE.md). Bảng giữ lại để tham khảo.
+
 Chưa tìm thấy văn bản luật chính thức nói về data ngoài và việc fine-tune. Các repo của đội khác ghi giới hạn tổng < 6B tham số, LLM < 5B, context 16K, inference offline. Nhiều đội có fine-tune LoRA cho Qwen và PhoWhisper, nhưng đó là nguồn thứ cấp: **cần đối chiếu với thể lệ chính thức** trên [challenge.zalo.ai](https://challenge.zalo.ai/). (`task.md` ghi "Không fine-tune model" là phạm vi của nhiệm vụ code ban đầu, không phải luật thi.)
 
 | Nguồn | Dùng cho | Quy mô | License (theo tìm kiếm, cần xác minh) |

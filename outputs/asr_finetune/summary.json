@@ -1,0 +1,15 @@
+{
+  "real_audio": {
+    "test": 829,
+    "validation": 649,
+    "train": 3558
+  },
+  "tts_requests_fit_only": 7496,
+  "tts_by_turn": {
+    "last": 2209,
+    "history": 5287
+  },
+  "tts_without_speaker_audio": 0,
+  "target_format": "uppercase spoken syllables, no punctuation (asr_spoken_text.spoken_tokens)",
+  "note": "Paths are relative to the repo root. tts_requests need synthesize_tts.py before training."
+}

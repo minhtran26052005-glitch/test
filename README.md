@@ -12,6 +12,7 @@ Code, prompt và snapshot kết quả nghiên cứu cho Zalo AI Challenge LifeMa
 - [So sánh từ khoá khi ghép hai ASR](outputs/timestamp_word_fusion/comparison/BAO_CAO_GHEP_TU.md).
 - [Kiểm tra chất lượng câu sinh](outputs/asr_datagen_quality_20261104/BAO_CAO_CHAT_LUONG.md) và [252 câu đã chấm](outputs/asr_datagen_quality_20261104/reviewed_examples.csv).
 - [Data để fine-tune: data đã gen dùng được cho ASR/agent đến đâu, data có sẵn, nguồn ngoài](docs/DATA_FINETUNE.md).
+- [Fine-tune LoRA 3 model (GipFormer RNN-T, ZipFormer CR-CTC, Qwen3.5-4B) và data đã tạo](docs/FINETUNE.md).
 - [Text sinh hiện tại](outputs/asr_datagen_api/generated.csv): **10.980 câu / 1.098 seed**, tại snapshot 09:06 ngày 05/11/2026 (UTC+7). Đây là dữ liệu thô cần rà, chưa phải bộ audio hoặc ASR đã fine-tune.
 
 ## Code và prompt
@@ -24,6 +25,8 @@ Code, prompt và snapshot kết quả nghiên cứu cho Zalo AI Challenge LifeMa
 | Sinh text qua Gemini/Gemma, quota và resume | `generate_asr_data_api.py`, `asr_datagen_api_config.json`, `run_asr_datagen_api.sh` |
 | Kiểm tra chất lượng text đã sinh | `audit_generated_asr_data.py`, `finalize_asr_datagen_quality.py`, `audit_finetune_data.py` |
 | Data fine-tune Qwen (agent + normalizer), few-shot pool | `build_agent_sft.py`, `build_fewshot_pool.py`, `eval_fewshot_retrieval.py`; xem [docs/DATA_FINETUNE.md](docs/DATA_FINETUNE.md) |
+| Data + LoRA ASR (icefall Zipformer) | `prepare_asr_finetune_data.py`, `synthesize_tts.py`, `asr_lora/`, `train_asr_lora.py`, `export_asr_lora.py`, `eval_asr_onnx.py` |
+| LoRA Qwen3.5-4B | `train_qwen_lora.py`, `merge_qwen_lora.py`; mọi bước: `run_finetune.sh`, xem [docs/FINETUNE.md](docs/FINETUNE.md) |
 | Prompt sinh dữ liệu | [`prompts/asr_datagen_system.txt`](prompts/asr_datagen_system.txt) |
 | Prompt chuẩn hoá | [`prompts/normalization_system.txt`](prompts/normalization_system.txt) |
 | Prompt gọi tool | [`prompts/tool_agent_system.txt`](prompts/tool_agent_system.txt); khối bật theo cờ: [`tool_agent_asr_evidence.txt`](prompts/tool_agent_asr_evidence.txt), [`tool_agent_task_rules.txt`](prompts/tool_agent_task_rules.txt), [`tool_agent_fewshot.txt`](prompts/tool_agent_fewshot.txt) |
@@ -42,7 +45,7 @@ export PYTHON_BIN="$PWD/.venv/bin/python"
 python -m unittest discover -s tests -v
 ```
 
-71 unit tests dùng mock, không yêu cầu tải trọng số hay gọi API. Để chỉ chạy tests:
+85 unit tests dùng mock (test LoRA/lhotse/transformers tự bỏ qua nếu chưa cài torch), không yêu cầu tải trọng số hay gọi API. Để chỉ chạy tests:
 
 ```bash
 pip install requests jsonschema num2words==0.5.14

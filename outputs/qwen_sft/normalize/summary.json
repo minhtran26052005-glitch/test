@@ -1,0 +1,12 @@
+{
+  "samples": 0,
+  "normalize_records_test": 2487,
+  "normalize_records_train": 10674,
+  "normalize_records_validation": 1947,
+  "agent_system_prompt_sha256": "1be8b14ab04b64c55079d9392b29a337938bc35530b537db0547bb5f8868f363",
+  "normalize_system_prompt_sha256": "41c61947e7c18ad745abb8e4266fed30930cb51544a56e5aa277325cc120e47b",
+  "sources": [],
+  "normalize_runs": [],
+  "normalize_csv": "outputs/zipformer_150m/asr_comparison.csv",
+  "note": "Train on train.jsonl only; validation for early stopping; test is held out for the agent benchmark."
+}

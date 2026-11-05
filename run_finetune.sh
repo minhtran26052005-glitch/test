@@ -2,6 +2,7 @@
 # Fine-tuning steps for the three models, run one at a time on the GPU machine that has data/, models/ and icefall.
 #   ./run_finetune.sh data        rebuild ASR manifests + normalizer SFT (already in the repo) and the agent SFT (devkit)
 #   ./run_finetune.sh tts         synthesize the generated sentences with the seed speakers' voices (VieNeu-TTS)
+#   ./run_finetune.sh qc          both ASRs listen to the TTS audio; only what says its label is kept (*_qc.jsonl)
 #   ./run_finetune.sh gipformer   LoRA RNN-T fine-tune, export, test-split WER vs the base model
 #   ./run_finetune.sh zipformer   LoRA CR-CTC + CTC + RNN-T fine-tune, export, test-split WER vs the base model
 #   ./run_finetune.sh qwen        LoRA SFT of Qwen3.5-4B on agent + normalizer records, merge to bf16
@@ -20,8 +21,11 @@ QWEN_DIR="${LLM_MODEL_PATH:-models/Qwen3.5-4B}"
 export AGENT_ASR_EVIDENCE="${AGENT_ASR_EVIDENCE:-1}" AGENT_TASK_RULES="${AGENT_TASK_RULES:-1}" AGENT_REPEAT_GUARD="${AGENT_REPEAT_GUARD:-1}"
 export AGENT_FEWSHOT_K="${AGENT_FEWSHOT_K:-0}"
 ASR_TRAIN=(--train-manifest outputs/asr_finetune/train.jsonl)
-if [[ -f outputs/asr_finetune/tts/train.jsonl ]]; then ASR_TRAIN+=(--train-manifest outputs/asr_finetune/tts/train.jsonl); fi
-if [[ -f outputs/synthetic_agent/tts/train.jsonl ]]; then ASR_TRAIN+=(--train-manifest outputs/synthetic_agent/tts/train.jsonl); fi
+# TTS audio is used only after './run_finetune.sh qc' kept it (*_qc.jsonl); real speech stays >= TTS (--max-tts-ratio 1).
+if [[ -f outputs/asr_finetune/tts/train_qc.jsonl ]]; then ASR_TRAIN+=(--train-manifest outputs/asr_finetune/tts/train_qc.jsonl); fi
+if [[ -f outputs/synthetic_agent/tts/train_qc.jsonl ]]; then ASR_TRAIN+=(--train-manifest outputs/synthetic_agent/tts/train_qc.jsonl); fi
+EVAL_MANIFESTS=(--manifest outputs/asr_finetune/test.jsonl)
+if [[ -f outputs/asr_finetune/public_test_unlabeled.jsonl ]]; then EVAL_MANIFESTS+=(--manifest outputs/asr_finetune/public_test_unlabeled.jsonl); fi
 
 need() { [[ -e "$1" ]] || { echo "Thiếu $1: $2" >&2; exit 1; }; }
 
@@ -43,6 +47,13 @@ case "${1:-}" in
     "$PYTHON_BIN" synthesize_tts.py --requests outputs/asr_finetune/tts_requests.jsonl --out outputs/asr_finetune/tts
     "$PYTHON_BIN" synthesize_tts.py --requests outputs/synthetic_agent/tts_requests.jsonl --out outputs/synthetic_agent/tts
     ;;
+  qc)
+    # Both ASRs listen to every TTS wav; keep only audio that says its label, then listen to listen_sample.csv.
+    for manifest in outputs/asr_finetune/tts/train.jsonl outputs/synthetic_agent/tts/train.jsonl; do
+      [[ -f "$manifest" ]] || continue
+      "$PYTHON_BIN" qc_tts_asr.py --manifest "$manifest" --model "gipformer=$GIP_DIR" --model "zipformer=$ZIP_DIR"
+    done
+    ;;
   gipformer)
     need "$GIP_DIR/model.pt" "huggingface-cli download g-group-ai-lab/gipformer1.5-68M-rnnt model.pt bpe.model --local-dir $GIP_DIR"
     need "$GIP_DIR/bpe.model" "huggingface-cli download g-group-ai-lab/gipformer1.5-68M-rnnt bpe.model --local-dir $GIP_DIR"
@@ -53,7 +64,7 @@ case "${1:-}" in
     fi
     "$PYTHON_BIN" export_asr_lora.py --model gipformer --model-dir "$GIP_DIR" --icefall-dir "$ICEFALL_DIR" \
       --lora outputs/asr_lora/gipformer/lora-best.pt --out-dir "${GIP_DIR}-lora"
-    "$PYTHON_BIN" eval_asr_onnx.py --manifest outputs/asr_finetune/test.jsonl --model "gipformer=$GIP_DIR" --model "gipformer=${GIP_DIR}-lora" \
+    "$PYTHON_BIN" eval_asr_onnx.py "${EVAL_MANIFESTS[@]}" --model "gipformer=$GIP_DIR" --model "gipformer=${GIP_DIR}-lora" \
       --out outputs/asr_lora/gipformer/test_eval
     ;;
   zipformer)
@@ -65,7 +76,7 @@ case "${1:-}" in
     fi
     "$PYTHON_BIN" export_asr_lora.py --model zipformer --model-dir "$ZIP_DIR" --icefall-dir "$ICEFALL_DIR" \
       --lora outputs/asr_lora/zipformer/lora-best.pt --out-dir "${ZIP_DIR}-lora"
-    "$PYTHON_BIN" eval_asr_onnx.py --manifest outputs/asr_finetune/test.jsonl --model "zipformer=$ZIP_DIR" --model "zipformer=${ZIP_DIR}-lora" \
+    "$PYTHON_BIN" eval_asr_onnx.py "${EVAL_MANIFESTS[@]}" --model "zipformer=$ZIP_DIR" --model "zipformer=${ZIP_DIR}-lora" \
       --out outputs/asr_lora/zipformer/test_eval
     ;;
   qwen)

@@ -128,6 +128,26 @@ def tts_requests(variants, generated, references, splits):
                'turn': row['turn'], 'target_model': row['target_model'], 'domain': row['domain'], 'source': 'tts', 'split': 'train'}
 
 
+def unlabeled_public_test(data_root):
+    """public_test audio (final turn + user history) without text: only used to measure drift after fine-tuning."""
+    source = Path(data_root) / 'public_test' / 'public_test.jsonl'
+    if not source.is_file():
+        return []
+    records = []
+    for line in source.read_text(encoding='utf-8').splitlines():
+        item = json.loads(line) if line.strip() else None
+        if not item:
+            continue
+        audios = [(f"{item['id']}:last", item.get('audio'))]
+        audios += [(f"{item['id']}:history:{i}", turn.get('audio')) for i, turn in enumerate(item.get('history', []))
+                   if turn.get('role') == 'user' and turn.get('audio')]
+        for uid, audio in audios:
+            if audio:
+                path = Path(audio) if Path(audio).is_absolute() else Path(data_root) / 'public_test' / audio
+                records.append({'id': uid, 'audio': str(path), 'sample_id': item['id'], 'source': 'public_test_unlabeled'})
+    return records
+
+
 def write(path, records):
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open('w', encoding='utf-8') as handle:
@@ -138,6 +158,7 @@ def write(path, records):
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument('--out', default='outputs/asr_finetune')
+    parser.add_argument('--data-root', default='data/train+public_test', help='for the unlabeled public_test drift manifest')
     args = parser.parse_args()
     out = Path(args.out)
     splits = {sid: item['split'] for sid, item in json.loads(Path(MANIFEST).read_text()).items()}
@@ -151,7 +172,10 @@ def main():
     references = {relative_audio(row['audio']): row['reference'] for row in utterances}
     tts = list(tts_requests(rows(VARIANTS), rows(GENERATED), references, splits))
     write(out / 'tts_requests.jsonl', tts)
-    summary = {'real_audio': dict(Counter(r['split'] for r in real)),
+    drift = unlabeled_public_test(args.data_root)
+    if drift:
+        write(out / 'public_test_unlabeled.jsonl', drift)
+    summary = {'real_audio': dict(Counter(r['split'] for r in real)), 'public_test_unlabeled': len(drift),
                'tts_requests_fit_only': len(tts), 'tts_by_turn': dict(Counter(r['turn'] for r in tts)),
                'tts_without_speaker_audio': sum(not r['speaker_audio'] for r in tts),
                'target_format': 'real audio: reference with numbers read out; TTS: the words the TTS reads, Latin spellings kept from the written text',

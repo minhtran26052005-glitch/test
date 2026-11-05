@@ -102,6 +102,42 @@ Script tự kiểm tra hai điều: merge khớp model còn LoRA, và ONNX khớ
   - Máy hiện tại đã có `model.pt`, `bpe.model` của Gip và `jit_script.pt`, `bpe.model` của Zip. Dùng đường dẫn hiện có; máy khác cần tải các file tương ứng.
   - Qwen cần `peft` và transformers hỗ trợ Qwen3.5. Môi trường review riêng dùng torch 2.10.0, transformers 5.21.0, peft 0.21.2; không thay môi trường dùng chung.
 
+## 4b. Kiểm tra TTS trước khi train và chống học lệch
+
+Hai model đã học hàng nghìn giờ; mấy nghìn câu trong miền thi có thể kéo chúng lệch theo giọng TTS hoặc các mẫu câu lặp lại. Quy trình:
+
+1. `./run_finetune.sh tts`, rồi `./run_finetune.sh qc`. Hai ASR nghe từng file TTS như hai người nghe độc lập (`qc_tts_asr.py`):
+
+   | Nhóm | Điều kiện | Xử lý |
+   | --- | --- | --- |
+   | `tts_failed` | Mọi ASR WER ≥ 50% | Loại: audio hỏng, bị cắt, hoặc đọc câu khác |
+   | `tts_misread` | Hai ASR nghe giống nhau nhưng khác nhãn (WER ≥ 20%) | Loại: TTS gần như chắc đã đọc khác nhãn |
+   | `uncertain` | Còn lại | Không dùng, nghe trước |
+   | `asr_learnable` | Ít nhất một ASR gần đúng (WER ≤ 30%), có ASR sai | Giữ: audio nghe được, model còn chỗ để học |
+   | `asr_already_right` | Mọi ASR đã đúng | Giữ, nhưng học được ít |
+
+2. Đọc `summary.json`, so `tts_profile` với `real_audio_profile`. Trên 5.036 audio thật:
+
+   | Chỉ số | Audio thật | TTS thì đáng ngờ khi |
+   | --- | ---: | --- |
+   | WER Gip / Zip | 15,2% / 14,0% | Thấp hơn hẳn: TTS quá sạch, học được ít, dễ lệch về giọng TTS. Cao hơn hẳn: TTS kém |
+   | Cả hai ASR sai y hệt nhau | 11,7% | Cao hơn hẳn: TTS đọc khác chữ |
+   | `tts_failed` + `tts_misread` + `uncertain` | 1,85% + 6,18% + 4,75% = 12,8% | Đó là mức loại oan của chính quy tắc trên giọng thật; TTS bị loại nhiều hơn hẳn là TTS có vấn đề |
+
+3. Nghe `listen_sample.csv` (20 câu mỗi nhóm), điền cột `nghe_dung_nhan`. Nếu câu ở nhóm bị loại thực ra nghe đúng thì nới ngưỡng (`--misread-wer`, `--fail-wer`); nếu câu ở nhóm giữ lại nghe sai thì siết lại. Chỉ file `*_qc.jsonl` được dùng để train; `train_asr_lora.py` từ chối manifest TTS chưa qua QC (`--allow-unchecked-tts` để bỏ qua).
+
+Khi train:
+
+- **Audio thật luôn chiếm đa số:** `--max-tts-ratio 1` (mặc định), tức tối đa một câu TTS cho mỗi câu thật, lấy mẫu cố định theo seed. Nên chạy trước một lần chỉ audio thật (`--max-tts-ratio 0`) làm mốc, rồi mới thêm TTS.
+- **Chọn epoch trên audio thật:** validation chỉ gồm audio thật. Không epoch nào tốt hơn model gốc thì không có `lora-best.pt` và không export.
+- LoRA giữ nguyên trọng số gốc; chỉ khoảng 1% tham số được học, lr theo icefall. Batch không hữu hạn vượt 5% thì dừng.
+
+Sau khi export, `eval_asr_onnx.py` so model mới với model gốc trên split `test` và, nếu có data, trên audio `public_test` không nhãn (`public_test_unlabeled.jsonl` do `prepare_asr_finetune_data.py` tạo):
+
+- `wer_percent` trên `test` phải giảm;
+- `broken_utterances` (gốc đúng, nay sai) phải nhỏ hơn rõ so với `fixed_utterances`; nhiều câu bị làm sai là dấu hiệu học lệch;
+- `changed_words_per_100` trên `public_test`: model gốc đã tốt trên giọng nói chung, nên mỗi 100 từ chỉ nên đổi vài từ. Đổi nhiều thì đọc file hypothesis xem đổi theo hướng nào (ví dụ chèn từ miền thi vào khắp nơi).
+
 ## 5. Mức độ đã kiểm tra
 
 - **Qwen**: train → lưu adapter → merge đã chạy trọn trên một Qwen3.5 thu nhỏ khởi tạo ngẫu nhiên, cùng kiến trúc, với tokenizer thật, trên CPU. Đã xác nhận:

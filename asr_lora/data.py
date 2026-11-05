@@ -4,6 +4,7 @@ Features are 80-dim kaldi fbank computed on the fly (lhotse FbankConfig defaults
 high_freq -400), the same front end sherpa-onnx uses at inference.
 """
 import json
+import random
 from pathlib import Path
 
 
@@ -25,6 +26,30 @@ def read_manifests(paths, audio_root='.', target_model=None):
     if len(set(ids)) != len(ids):
         raise ValueError('Duplicate utterance ids across manifests')
     return records
+
+
+def check_tts_reviewed(paths, allow_unchecked=False):
+    """TTS audio enters training only after qc_tts_asr.py (its kept manifest is named *_qc.jsonl)."""
+    for path in paths:
+        if Path(path).name.endswith('_qc.jsonl') or allow_unchecked:
+            continue
+        for line in Path(path).read_text(encoding='utf-8').splitlines():
+            if line.strip() and json.loads(line).get('source') == 'tts':
+                raise ValueError(f'{path} contains TTS audio that was not checked: run qc_tts_asr.py and train on its '
+                                 '*_qc.jsonl, or pass --allow-unchecked-tts')
+            break
+
+
+def cap_tts(records, max_ratio, seed=42):
+    """Keep real speech the majority: at most max_ratio TTS utterances per real one (deterministic subsample).
+    A small in-domain set is otherwise dominated by one synthetic voice/style; max_ratio < 0 disables the cap."""
+    real = [r for r in records if r.get('source') != 'tts']
+    tts = [r for r in records if r.get('source') == 'tts']
+    if max_ratio < 0 or len(tts) <= max_ratio * len(real):
+        return records, {'real': len(real), 'tts': len(tts), 'tts_dropped': 0}
+    keep = set(id(r) for r in random.Random(seed).sample(tts, int(max_ratio * len(real))))
+    kept = [r for r in records if r.get('source') != 'tts' or id(r) in keep]
+    return kept, {'real': len(real), 'tts': len(keep), 'tts_dropped': len(tts) - len(keep)}
 
 
 def to_cuts(records, sample_rate=16000):

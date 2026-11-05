@@ -26,7 +26,7 @@ Code, prompt và snapshot kết quả nghiên cứu cho Zalo AI Challenge LifeMa
 | Sinh text qua Gemini/Gemma, quota và resume | `generate_asr_data_api.py`, `asr_datagen_api_config.json`, `run_asr_datagen_api.sh` |
 | Kiểm tra chất lượng text đã sinh | `audit_generated_asr_data.py`, `finalize_asr_datagen_quality.py`, `audit_finetune_data.py` |
 | Data fine-tune Qwen (agent + normalizer), few-shot pool | `build_agent_sft.py`, `build_fewshot_pool.py`, `eval_fewshot_retrieval.py`; xem [docs/DATA_FINETUNE.md](docs/DATA_FINETUNE.md) |
-| Data + LoRA ASR (icefall Zipformer) | `prepare_asr_finetune_data.py`, `synthesize_tts.py`, `asr_lora/`, `train_asr_lora.py`, `export_asr_lora.py`, `eval_asr_onnx.py` |
+| Data + LoRA ASR (icefall Zipformer) | `prepare_asr_finetune_data.py`, `synthesize_tts.py`, `qc_tts_asr.py` (hai ASR nghe lại TTS trước khi train), `asr_lora/`, `train_asr_lora.py`, `export_asr_lora.py`, `eval_asr_onnx.py` (WER + câu sửa/làm hỏng + độ trôi) |
 | LoRA Qwen3.5-4B | `train_qwen_lora.py`, `merge_qwen_lora.py`; mọi bước: `run_finetune.sh`, xem [docs/FINETUNE.md](docs/FINETUNE.md) |
 | Data agent viết tay (diễn đạt lại / thiếu thông tin / đổi ý) | `outputs/synthetic_agent/authored/`, `build_synthetic_agent.py` |
 | Prompt sinh dữ liệu | [`prompts/asr_datagen_system.txt`](prompts/asr_datagen_system.txt) |

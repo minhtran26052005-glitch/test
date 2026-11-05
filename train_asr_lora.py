@@ -39,6 +39,9 @@ def get_parser():
     parser.add_argument('--model-config', help='JSON of icefall model arguments overriding the recovered architecture')
     parser.add_argument('--icefall-dir', default='~/.cache/icefall')
     parser.add_argument('--train-manifest', action='append', required=True)
+    parser.add_argument('--max-tts-ratio', type=float, default=1.0,
+                        help='at most this many TTS utterances per real one (real speech stays the majority); -1 = no cap')
+    parser.add_argument('--allow-unchecked-tts', action='store_true', help='accept TTS manifests not filtered by qc_tts_asr.py')
     parser.add_argument('--valid-manifest', action='append', required=True)
     parser.add_argument('--audio-root', default='.')
     parser.add_argument('--exp-dir', required=True)
@@ -170,7 +173,7 @@ def main():
     train = setup_icefall(args.icefall_dir)
     from beam_search import greedy_search_batch  # icefall zipformer recipe
     from optim import Eden, ScaledAdam
-    from asr_lora.data import dataloader, read_manifests, to_cuts
+    from asr_lora.data import cap_tts, check_tts_reviewed, dataloader, read_manifests, to_cuts
 
     override = json.loads(args.model_config) if args.model_config else None
     model, params, report = load_model(train, args.model, args.model_dir, override)
@@ -188,7 +191,10 @@ def main():
     sp = spm.SentencePieceProcessor()
     sp.load(str(Path(args.model_dir) / 'bpe.model'))
 
-    train_cuts = to_cuts(read_manifests(args.train_manifest, args.audio_root, target_model=args.model))
+    check_tts_reviewed(args.train_manifest, args.allow_unchecked_tts)
+    train_records, mix = cap_tts(read_manifests(args.train_manifest, args.audio_root, target_model=args.model), args.max_tts_ratio, args.seed)
+    logging.info('Training mix: %s', mix)
+    train_cuts = to_cuts(train_records)
     valid_cuts = to_cuts(read_manifests(args.valid_manifest, args.audio_root))
     train_loader = dataloader(train_cuts, args.max_duration, True, preset['spec_augment_in_dataset'] or not params.use_cr_ctc,
                               args.num_workers, args.speed_perturb, args.seed)

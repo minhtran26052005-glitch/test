@@ -26,10 +26,12 @@ def normalize(llm, transcripts, trace):
     raise ValueError('Qwen không trả JSON normalization hợp lệ sau 2 lần')
 
 
-def run_agent(llm, env, text, context, history, trace, max_steps, debug=False):
+def run_agent(llm, env, text, context, history, trace, max_steps, debug=False, asr_transcripts=None):
     calls, observations = [], []
+    # Raw ASR hypotheses of the final turn (AGENT_ASR_EVIDENCE=1) let the agent recover words the normalizer dropped.
+    evidence = {'asr_transcripts': asr_transcripts} if asr_transcripts else {}
     for _ in range(max_steps):
-        payload = {'normalized_text': text, 'context': context, 'history': history, 'available_tools': list(env.schemas), 'tool_schemas': getattr(env, 'specs', env.schemas), 'observations': observations}
+        payload = {'normalized_text': text, **evidence, 'context': context, 'history': history, 'available_tools': list(env.schemas), 'tool_schemas': getattr(env, 'specs', env.schemas), 'observations': observations}
         raw = llm.generate(os.environ['AGENT_SYSTEM_PROMPT'], payload, int(os.environ['AGENT_MAX_NEW_TOKENS']), 'agent')
         try:
             decision = parse_json(raw)

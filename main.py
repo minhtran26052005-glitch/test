@@ -3,8 +3,10 @@ import gc
 import hashlib
 import json
 import os
+import re
 import sys
 import time
+import unicodedata
 from pathlib import Path
 from agent import normalize, run_agent
 from env_adapter import make_environment
@@ -41,6 +43,18 @@ def model_fingerprint(path):
             return [path, None, time.time_ns()]
     files = [p] if p.is_file() else sorted(f for f in p.rglob('*') if f.is_file())
     return [str(p.resolve()), [(str(f.relative_to(p)) if p.is_dir() else f.name, f.stat().st_size, f.stat().st_mtime_ns) for f in files]]
+
+
+def comparable(text):
+    return ' '.join(re.findall(r'[^\W_]+', unicodedata.normalize('NFC', text).casefold()))
+
+
+def asr_evidence(hypotheses, chosen):
+    """Raw ASR hypotheses for the agent, only when they differ from the chosen text beyond case/punctuation."""
+    cleaned = {name: text.strip() for name, text in hypotheses.items() if isinstance(text, str) and text.strip()}
+    if not cleaned or all(comparable(text) == comparable(chosen or '') for text in cleaned.values()):
+        return None
+    return cleaned
 
 
 def asr_cache_key(name, fingerprint, audio, device):
@@ -89,19 +103,20 @@ def recognize_fused(audio,folder,stage,trace,resume,save):
     from asr.word_fusion import transcribe_fused,VERSION
     selector=os.environ['FUSION_SELECTOR_PATH']
     paths={'gipformer':os.environ['GIPFORMER_MODEL_PATH'],'zipformer':os.environ['ZIPFORMER_MODEL_PATH']}
-    key=digest([VERSION,model_fingerprint(selector),model_fingerprint('asr/word_fusion.py'),
+    # The cached value holds the fused text plus both raw hypotheses; the marker keeps text-only entries out.
+    key=digest(['text+transcripts',VERSION,model_fingerprint(selector),model_fingerprint('asr/word_fusion.py'),
                 model_fingerprint('asr/timed.py'),{name:model_fingerprint(path) for name,path in paths.items()},
                 hashlib.sha256(Path(audio).read_bytes()).hexdigest()])
     value=stage_cache(folder,stage,key,resume)
     if value is None:
         start=time.monotonic()
         result=transcribe_fused(audio,selector,os.environ['ASR_TIMED_CACHE_DIR'],paths,os.environ.get('ASR_CACHE_ONLY')=='1')
-        value=result['text']
-        trace(stage='asr_timestamp_fusion',input=str(audio),output=value,transcripts=result['transcripts'],
+        value={'text':result['text'],'transcripts':result['transcripts']}
+        trace(stage='asr_timestamp_fusion',input=str(audio),output=value['text'],transcripts=result['transcripts'],
               decisions=result['decisions'],selector=selector,latency=time.monotonic()-start)
         if save:save_cache(folder,stage,key,value)
     else:
-        trace(stage='asr_fusion_cache_hit',input=str(audio),output=value,cache_key=key)
+        trace(stage='asr_fusion_cache_hit',input=str(audio),output=value['text'],cache_key=key)
     return value
 
 
@@ -117,10 +132,14 @@ def process(case, args, llm_holder):
     debug = args.debug or os.environ['DEBUG'] == '1'
     resume = args.resume or os.environ['RESUME'] == '1'
     save = os.environ['SAVE_INTERMEDIATE'] == '1'
+    if os.environ.get('AGENT_ASR_EVIDENCE', '0') not in ('0', '1'):
+        raise ValueError('AGENT_ASR_EVIDENCE chỉ nhận 0 hoặc 1')
+    evidence = os.environ.get('AGENT_ASR_EVIDENCE', '0') == '1'
     result = {'id': sid, 'asr_text': None, 'normalized_text': None, 'tool_calls': [], 'state_hash': None}
     text = args.text if args.text is not None else case.get('text')
     audio = args.audio or case.get('audio')
     transcripts = {}
+    hypotheses = {}  # every raw ASR output for the final turn; empty when text is given directly
     if text is not None:
         transcripts['provided'] = text
     else:
@@ -129,12 +148,15 @@ def process(case, args, llm_holder):
         if os.environ['ASR_MODE'] not in ('single', 'dual') or os.environ['ASR_COMBINE'] not in ('primary', 'llm_review', 'timestamp_word'):
             raise ValueError('ASR_MODE hoặc ASR_COMBINE không hợp lệ')
         if os.environ['ASR_COMBINE']=='timestamp_word':
-            transcripts['timestamp_word']=recognize_fused(audio,folder,'asr_timestamp_word',trace,resume,save)
+            fused=recognize_fused(audio,folder,'asr_timestamp_word',trace,resume,save)
+            transcripts['timestamp_word']=fused['text']
+            hypotheses.update(fused['transcripts'])
         else:
             names = [os.environ['ASR_PRIMARY']]
             if os.environ['ASR_MODE'] == 'dual': names.append(os.environ['ASR_SECONDARY'])
             for name in names:
                 transcripts[name] = recognize(audio, name, folder, 'asr_' + name, trace, resume, save)
+        hypotheses = {**transcripts, **hypotheses}
     result['asr_text'] = next(iter(transcripts.values()))
     if debug: print('[ASR]', json.dumps(transcripts, ensure_ascii=False))
     if args.mode != 'asr':
@@ -153,6 +175,7 @@ def process(case, args, llm_holder):
         if debug: print('[NORMALIZED]', value)
     if args.mode in ('agent', 'all'):
         history = []
+        dual = os.environ.get('ASR_MODE', 'single') == 'dual'
         for index, original in enumerate(case.get('history', [])):
             turn = {k: v for k, v in original.items() if k != 'audio_text'}
             if turn.get('role') == 'user' and turn.get('audio') and not turn.get('text'):
@@ -162,12 +185,17 @@ def process(case, args, llm_holder):
                     audio_path = Path(os.environ['DATA_ROOT']) / os.environ['DATA_SPLIT'] / audio_path
                 stage = f'history_{index}_{name}'
                 if os.environ['ASR_COMBINE']=='timestamp_word':
-                    value=recognize_fused(audio_path,folder,f'history_{index}_timestamp_word',trace,resume,save)
+                    fused=recognize_fused(audio_path,folder,f'history_{index}_timestamp_word',trace,resume,save)
+                    value=fused['text']
+                    alternatives={'timestamp_word':value,**fused['transcripts']}
                 else:
                     value = recognize(audio_path, name, folder, stage, trace, resume, save, history=True)
-                if os.environ.get('ASR_REVIEW_HISTORY') == '1' and os.environ['ASR_MODE'] == 'dual' and os.environ['ASR_COMBINE'] == 'llm_review':
+                    alternatives = {name: value}
+                review = os.environ.get('ASR_REVIEW_HISTORY') == '1' and dual and os.environ['ASR_COMBINE'] == 'llm_review'
+                if dual and os.environ['ASR_COMBINE'] != 'timestamp_word' and (review or evidence):
                     secondary = os.environ['ASR_SECONDARY']
-                    alternatives = {name: value, secondary: recognize(audio_path, secondary, folder, f'history_{index}_{secondary}', trace, resume, save, history=True)}
+                    alternatives[secondary] = recognize(audio_path, secondary, folder, f'history_{index}_{secondary}', trace, resume, save, history=True)
+                if review:
                     stage = f'history_{index}_normalize'
                     key = digest([model_fingerprint(os.environ['LLM_MODEL_PATH']), os.environ['NORMALIZE_SYSTEM_PROMPT'], alternatives, os.environ['LLM_DTYPE'], os.environ['LLM_TEMPERATURE'], os.environ['NORMALIZE_MAX_NEW_TOKENS']])
                     value = stage_cache(folder, stage, key, resume)
@@ -180,6 +208,8 @@ def process(case, args, llm_holder):
                             save_cache(folder, stage, key, value)
                 turn['text'] = value
                 turn.pop('audio', None)
+                if evidence and (raw := asr_evidence(alternatives, value)):
+                    turn['asr_alternatives'] = raw
             history.append(turn)
         env = make_environment(os.environ['ENV_MODE'], case)
         if save and hasattr(env, 'get_state'):
@@ -190,7 +220,8 @@ def process(case, args, llm_holder):
             check_competition(llm_holder[0], trace)
         llm_holder[0].trace = trace
         try:
-            result['tool_calls'] = run_agent(llm_holder[0], env, result['normalized_text'], case.get('context', {}), history, trace, int(os.environ['MAX_AGENT_STEPS']), debug)
+            raw = asr_evidence(hypotheses, result['normalized_text']) if evidence else None
+            result['tool_calls'] = run_agent(llm_holder[0], env, result['normalized_text'], case.get('context', {}), history, trace, int(os.environ['MAX_AGENT_STEPS']), debug, asr_transcripts=raw)
         finally:
             if save and hasattr(env, 'get_state'):
                 (folder / 'environment_final.json').write_text(json.dumps(env.get_state(), ensure_ascii=False, indent=2))

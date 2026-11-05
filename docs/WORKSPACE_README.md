@@ -69,6 +69,13 @@ Service nền: `lifemate-dual-asr-benchmark.service`; log `run.log`; tiến đ�
 Kết thúc tự xuất `comparison.csv` và `comparison_summary.json` so sánh GipFormer, ZipFormer và Qwen kết hợp.
 Lượt kết hợp có thêm review history, nên cần đọc đây là thử nghiệm cả luồng kết hợp với cấu hình đã ghi trong run_metadata.json.
 
+Bằng chứng ASR cho agent: `AGENT_ASR_EVIDENCE=1` đưa các bản ASR thô (không qua normalizer) vào payload agent: `asr_transcripts` cho lượt cuối,
+`asr_alternatives` cho lượt user trong history (chỉ khi khác bản đã chọn ngoài chữ hoa/dấu câu), và nối khối quy tắc trong `run.sh`
+(bản sao đọc: `prompts/tool_agent_asr_evidence.txt`). Ở dual mode, history luôn nhận dạng thêm ASR phụ khi cờ bật; `timestamp_word` đưa cả hai bản gốc.
+`bash run_agent_asr_evidence_benchmark.sh` giữ nguyên cấu hình của `run_dual_asr_benchmark.sh`, chỉ bật cờ này, dùng lại cache ASR đã xác minh,
+rồi chạy `compare_benchmark_runs.py` để xuất `outputs/agent_asr_evidence/comparison/` (đổi kết quả theo cặp, theo nhóm từ khoá ASR giữ/lệch, theo số tool call).
+Cache `asr_timestamp_word` nay lưu cả text ghép và hai bản gốc; cache dạng chỉ-text cũ sẽ được tính lại từ timed cache, không chạy lại model.
+
 Thử model hynt ZipFormer 150M: `ASR_PRIMARY=zipformer ./run.sh asr --id train_1474`.
 Checkpoint FP32 được lưu tại `models/zipformer-150M-6000h`; revision, checksum và số tham số nằm trong `download_manifest.json`.
 `config.json` của repo này chứa bảng 2.000 token; `tokens.txt` là bản sao nguyên nội dung đã kiểm tra ID.

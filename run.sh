@@ -5,6 +5,8 @@ export ASR_MODE="${ASR_MODE:-single}" ASR_PRIMARY="${ASR_PRIMARY:-gipformer}" AS
 export GIPFORMER_MODEL_PATH="${GIPFORMER_MODEL_PATH:-models/gipformer1.5-68M-rnnt}" PHOWHISPER_MODEL_PATH="${PHOWHISPER_MODEL_PATH:-vinai/PhoWhisper-large}"
 export ZIPFORMER_MODEL_PATH="${ZIPFORMER_MODEL_PATH:-models/zipformer-150M-6000h}" ASR_CACHE_DIR="${ASR_CACHE_DIR:-}"
 export ASR_CACHE_ONLY="${ASR_CACHE_ONLY:-0}" ASR_REVIEW_HISTORY="${ASR_REVIEW_HISTORY:-0}"
+# 1: agent also sees the raw ASR hypotheses (final turn + history) and gets the ASR-evidence rules below.
+export AGENT_ASR_EVIDENCE="${AGENT_ASR_EVIDENCE:-0}"
 export FUSION_SELECTOR_PATH="${FUSION_SELECTOR_PATH:-outputs/timestamp_word_fusion/selector.json}" ASR_TIMED_CACHE_DIR="${ASR_TIMED_CACHE_DIR:-outputs/asr_timed_v1}"
 export LLM_MODEL_PATH="${LLM_MODEL_PATH:-models/Qwen3.5-4B}" LLM_BACKEND="${LLM_BACKEND:-transformers}" LLM_DTYPE="${LLM_DTYPE:-bfloat16}" LLM_QUANTIZATION="${LLM_QUANTIZATION:-none}" LLM_CONTEXT_TOKENS="${LLM_CONTEXT_TOKENS:-16384}" LLM_TEMPERATURE="${LLM_TEMPERATURE:-0}" NORMALIZE_MAX_NEW_TOKENS="${NORMALIZE_MAX_NEW_TOKENS:-512}" AGENT_MAX_NEW_TOKENS="${AGENT_MAX_NEW_TOKENS:-1024}"
 export LLM_GPU_MAX_MEMORY="${LLM_GPU_MAX_MEMORY-7GiB}" LLM_CPU_MAX_MEMORY="${LLM_CPU_MAX_MEMORY:-24GiB}"
@@ -25,7 +27,7 @@ Nhiệm vụ:
 Chỉ trả về JSON có khóa normalized_text. Không giải thích.
 PROMPT
 )"
-export AGENT_SYSTEM_PROMPT="$(cat <<'PROMPT'
+agent_rules="$(cat <<'PROMPT'
 Bạn là LifeMate, một AI Agent thực hiện yêu cầu của người dùng bằng các công cụ có sẵn.
 Mục tiêu là đạt đúng trạng thái cuối của môi trường.
 Quy tắc:
@@ -41,9 +43,21 @@ Quy tắc:
 - Nếu không có ứng dụng nào đáp ứng yêu cầu, kết thúc với danh sách tool rỗng.
 - Khi đã hoàn thành nhiệm vụ thì kết thúc.
 - Không sinh lời giải thích ngoài JSON.
-Mỗi lượt chỉ trả về {"action":"call","name":"tool_name","arguments":{...}} hoặc {"action":"finish"}.
 PROMPT
 )"
+agent_asr_evidence_rules="$(cat <<'PROMPT'
+Bằng chứng ASR:
+- normalized_text là bản đã chuẩn hóa của lượt nói cuối, có thể đã sửa sai hoặc làm rơi mất từ. asr_transcripts là các bản nhận dạng thô của chính lượt nói đó; lượt user trong history có thể có asr_alternatives.
+- Bản thô có thể viết hoa toàn bộ, thiếu dấu câu, đọc số bằng chữ, nghe nhầm từ gần âm, tên riêng hoặc từ tiếng Anh. Không mặc định bản nào đúng; đối chiếu các bản với nhau, với history, context và observation.
+- Chi tiết như tên người, số tiền, giờ, số lượng, điều kiện, phủ định hoặc yêu cầu phụ chỉ xuất hiện trong một bản vẫn là bằng chứng; không bỏ qua chỉ vì normalized_text thiếu nó.
+- Tên người, liên hệ, quán, món, thiết bị, phòng, kênh, khóa học, thuốc có thể bị nghe sai theo âm. Khi observation trả về danh sách, chọn mục có cách đọc gần nhất với các bản ASR và dùng đúng id, tên trong observation; không dùng nguyên chữ ASR sai làm id.
+- Nếu tìm theo tên nghe được không có kết quả, thử lại một lần với cách viết từ bản ASR khác hoặc cách viết gần âm trước khi kết luận thiếu thông tin.
+- Với nội dung tự do như tin nhắn hoặc nhắc nhở, viết theo ý đã đối chiếu, không chép nguyên lỗi ASR.
+- Không hỏi lại chỉ vì các bản ASR khác nhau; sys.ask_missing_info vẫn theo quy tắc thiếu tham số bắt buộc ở trên.
+PROMPT
+)"
+if [[ "$AGENT_ASR_EVIDENCE" == 1 ]]; then agent_rules+=$'\n'"$agent_asr_evidence_rules"; fi
+export AGENT_SYSTEM_PROMPT="$agent_rules"$'\n''Mỗi lượt chỉ trả về {"action":"call","name":"tool_name","arguments":{...}} hoặc {"action":"finish"}.'
 if [[ -d .deps521 && -d .deps ]]; then
   export PYTHONPATH="$PWD/.deps521:$PWD/.deps${PYTHONPATH:+:$PYTHONPATH}"
 fi

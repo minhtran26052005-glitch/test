@@ -19,12 +19,12 @@ Code, prompt và snapshot kết quả nghiên cứu cho Zalo AI Challenge LifeMa
 | --- | --- |
 | Điều phối, config, chuẩn hoá và tool agent | `main.py`, `run.sh`, `agent.py`, `llm_qwen.py`, `env_adapter.py` |
 | ASR, timestamp và ghép từ | `asr/`, `cache_timed_asr.py`, `train_word_fusion.py`, `apply_word_fusion.py` |
-| Benchmark và khảo sát lỗi | `benchmark.py`, `compare_asr_domains.py`, `compare_word_fusion.py`, `asr_datagen_audit.py` |
+| Benchmark và khảo sát lỗi | `benchmark.py`, `compare_benchmark_runs.py`, `compare_asr_domains.py`, `compare_word_fusion.py`, `asr_datagen_audit.py` |
 | Sinh text qua Gemini/Gemma, quota và resume | `generate_asr_data_api.py`, `asr_datagen_api_config.json`, `run_asr_datagen_api.sh` |
 | Kiểm tra chất lượng text đã sinh | `audit_generated_asr_data.py`, `finalize_asr_datagen_quality.py` |
 | Prompt sinh dữ liệu | [`prompts/asr_datagen_system.txt`](prompts/asr_datagen_system.txt) |
 | Prompt chuẩn hoá | [`prompts/normalization_system.txt`](prompts/normalization_system.txt) |
-| Prompt gọi tool | [`prompts/tool_agent_system.txt`](prompts/tool_agent_system.txt) |
+| Prompt gọi tool | [`prompts/tool_agent_system.txt`](prompts/tool_agent_system.txt); khối thêm khi `AGENT_ASR_EVIDENCE=1`: [`prompts/tool_agent_asr_evidence.txt`](prompts/tool_agent_asr_evidence.txt) |
 
 Hai prompt Qwen trong `prompts/` là bản tách để đọc; **`run.sh` là nguồn đang được thực thi**. Prompt và payload thực tế của từng lần gọi API/Qwen được lưu trong archive kết quả đầy đủ.
 
@@ -40,7 +40,7 @@ export PYTHON_BIN="$PWD/.venv/bin/python"
 python -m unittest discover -s tests -v
 ```
 
-47 unit tests dùng mock, không yêu cầu tải trọng số hay gọi API. Để chỉ chạy tests:
+55 unit tests dùng mock, không yêu cầu tải trọng số hay gọi API. Để chỉ chạy tests:
 
 ```bash
 pip install requests jsonschema num2words==0.5.14
@@ -61,7 +61,13 @@ ENV_MODE=official DATA_SPLIT=train ./run.sh all --id train_0002
 ASR_MODE=dual ASR_PRIMARY=zipformer ASR_SECONDARY=gipformer ASR_COMBINE=timestamp_word ASR_CACHE_ONLY=1 ./run.sh asr --id train_0001
 ```
 
-Lệnh cuối cần khôi phục archive cache trước; fingerprint của model và đường dẫn audio phải khớp cấu hình. Đọc [hướng dẫn chi tiết của workspace](docs/WORKSPACE_README.md) để xem các mode, cấu hình bộ nhớ, benchmark và giới hạn cuộc thi.
+Đưa bản ASR thô cho agent: `AGENT_ASR_EVIDENCE=1` (mặc định 0). Agent nhận thêm `asr_transcripts` của lượt cuối và `asr_alternatives` cho lượt user trong history, kèm khối quy tắc đối chiếu/khớp tên gần âm. Mục đích là giữ lại từ khoá mà normalizer làm rơi hoặc chỉ một ASR nghe đúng. Khi tắt, prompt và payload giống hệt trước. Benchmark so cặp với lượt dual cũ, không chạy lại ASR:
+
+```bash
+bash run_agent_asr_evidence_benchmark.sh
+```
+
+Lệnh benchmark ghi vào `outputs/agent_asr_evidence/` và cần `outputs/dual_asr_qwen/asr_cache` (từ `prepare_dual_asr.py`). Lệnh `timestamp_word` ở trên cần khôi phục archive cache trước; fingerprint của model và đường dẫn audio phải khớp cấu hình. Đọc [hướng dẫn chi tiết của workspace](docs/WORKSPACE_README.md) để xem các mode, cấu hình bộ nhớ, benchmark và giới hạn cuộc thi.
 
 ## Khôi phục đầy đủ kết quả
 

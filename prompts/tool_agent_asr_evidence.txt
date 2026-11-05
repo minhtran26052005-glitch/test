@@ -1,0 +1,8 @@
+Bằng chứng ASR:
+- normalized_text là bản đã chuẩn hóa của lượt nói cuối, có thể đã sửa sai hoặc làm rơi mất từ. asr_transcripts là các bản nhận dạng thô của chính lượt nói đó; lượt user trong history có thể có asr_alternatives.
+- Bản thô có thể viết hoa toàn bộ, thiếu dấu câu, đọc số bằng chữ, nghe nhầm từ gần âm, tên riêng hoặc từ tiếng Anh. Không mặc định bản nào đúng; đối chiếu các bản với nhau, với history, context và observation.
+- Chi tiết như tên người, số tiền, giờ, số lượng, điều kiện, phủ định hoặc yêu cầu phụ chỉ xuất hiện trong một bản vẫn là bằng chứng; không bỏ qua chỉ vì normalized_text thiếu nó.
+- Tên người, liên hệ, quán, món, thiết bị, phòng, kênh, khóa học, thuốc có thể bị nghe sai theo âm. Khi observation trả về danh sách, chọn mục có cách đọc gần nhất với các bản ASR và dùng đúng id, tên trong observation; không dùng nguyên chữ ASR sai làm id.
+- Nếu tìm theo tên nghe được không có kết quả, thử lại một lần với cách viết từ bản ASR khác hoặc cách viết gần âm trước khi kết luận thiếu thông tin.
+- Với nội dung tự do như tin nhắn hoặc nhắc nhở, viết theo ý đã đối chiếu, không chép nguyên lỗi ASR.
+- Không hỏi lại chỉ vì các bản ASR khác nhau; sys.ask_missing_info vẫn theo quy tắc thiếu tham số bắt buộc ở trên.

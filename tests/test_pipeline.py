@@ -110,7 +110,7 @@ class PipelineTests(unittest.TestCase):
             env={'OUTPUT_DIR':tmp,'DEBUG':'0','RESUME':'0','SAVE_INTERMEDIATE':'0',
                  'ASR_COMBINE':'timestamp_word','ASR_PRIMARY':'zipformer','DATA_ROOT':tmp,'DATA_SPLIT':'train',
                  'LLM_MODEL_PATH':tmp,'LLM_DTYPE':'bfloat16','LLM_TEMPERATURE':'0','ENV_MODE':'mock','MAX_AGENT_STEPS':'12'}
-            with patch.dict(os.environ,env),patch('main.recognize_fused',return_value='giữ đủ số và tên') as fused,patch('main.recognize') as single:
+            with patch.dict(os.environ,env),patch('main.recognize_fused',return_value={'text':'giữ đủ số và tên','transcripts':{'gipformer':'GIỮ ĐỦ SỐ VÀ TÊN','zipformer':'GIỮ ĐỦ SỐ VÀ TÊM'}}) as fused,patch('main.recognize') as single:
                 process(case,args,[llm])
                 fused.assert_called_once();single.assert_not_called()
             self.assertEqual(llm.inputs[-1]['history'],[{'role':'user','text':'giữ đủ số và tên'}])

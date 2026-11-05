@@ -36,7 +36,7 @@ def run_benchmark(args):
         or key in ('DATA_ROOT', 'DATA_SPLIT', 'MAX_AGENT_STEPS', 'STRICT_COMPETITION', 'ENV_MODE')}
     if os.environ.get('ASR_COMBINE')!='timestamp_word':
         configuration.pop('ASR_TIMED_CACHE_DIR',None)
-    for optional in ('ASR_CACHE_ONLY', 'ASR_REVIEW_HISTORY'):
+    for optional in ('ASR_CACHE_ONLY', 'ASR_REVIEW_HISTORY', 'AGENT_ASR_EVIDENCE'):
         if configuration.get(optional) == '0':
             configuration.pop(optional)
     identity = {'configuration': configuration, 'seed': args.seed, 'sample_count': args.benchmark,
@@ -57,6 +57,8 @@ def run_benchmark(args):
                  'run_zipformer_benchmark.sh', 'export_debug_csv.py', 'compare_asr_runs.py']
         if os.environ.get('ASR_MODE', 'single') == 'dual':
             files += ['prepare_dual_asr.py', 'run_dual_asr_benchmark.sh', 'compare_dual_asr.py']
+        if os.environ.get('AGENT_ASR_EVIDENCE') == '1':
+            files += ['run_agent_asr_evidence_benchmark.sh', 'compare_benchmark_runs.py']
         atomic_json(metadata, {'identity': identity, 'created_at_unix': time.time(),
                     'python': sys.version, 'code_sha256': {name: hashlib.sha256(Path(name).read_bytes()).hexdigest() for name in files},
                     'dataset_sha256': hashlib.sha256((source / 'train.jsonl').read_bytes()).hexdigest()})

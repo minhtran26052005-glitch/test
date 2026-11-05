@@ -1,0 +1,21 @@
+# index (in missing.json) | variant 1 | variant 2   — the value of the listed parameter was removed on purpose
+0|Nhắc dùm chị ra sân bay nha.|Nhớ nhắc chị đi ra sân bay với nghen.
+1|Nhớ nhắc mình gọi lại cho khách nhé.|Em nhắc mình gọi lại cho khách giùm với.
+2|Đặt giùm tui cái báo thức nha.|Mai đặt báo thức kêu tui dậy nghen.
+3|Nhắc mình gọi lại cho khách với nhé.|Đặt nhắc gọi lại cho khách giúp mình nha.
+4|Nhắc mình gọi lại cho khách nha em.|Tạo cho mình lời nhắc gọi lại cho khách nhé.
+5|Nhắc tôi gọi lại cho khách nhé.|Em nhớ nhắc tôi gọi lại cho khách giùm.
+6|Nhắc tôi uống thuốc với.|Nhớ nhắc tôi uống thuốc nghen em.
+8|Nhắc em gọi lại cho khách nhé ạ.|Đặt giùm em lời nhắc gọi lại cho khách nha.
+9|Nhắc mình gọi lại cho khách nhé.|Em nhắc mình gọi lại khách giúp nha.
+10|Nhắc em gọi lại cho khách nha.|Nhớ nhắc em gọi điện lại cho khách nghen.
+11|Nhắc chị gọi lại cho khách nhé.|Lát nhắc chị gọi lại cho khách với em.
+12|Nhắc chị tắt bếp nhé.|Nhớ nhắc chị tắt bếp giùm nghen.
+13|Nhớ nhắc tôi uống thuốc với nhé.|Em đặt nhắc tôi uống thuốc giùm nha.
+14|Nhắc mình tắt bếp nha.|Tạo lời nhắc tắt bếp cho mình nhé.
+15|Đặt báo thức giúp chị nhé.|Em hẹn cho chị cái báo thức với.
+16|Nhắc tôi uống thuốc nha.|Nhớ nhắc tôi uống thuốc giùm em.
+19|Chuyển ít tiền qua ví cho Yến giúp chị nha.|Em chuyển ví cho Yến chút tiền giùm chị nghen.
+30|Vậy chiều hôm đó thêm cho tôi cái lịch gọi cho đội thi công nhé.|Thế hôm đó thêm giùm tôi lịch gọi cho đội thi công nghen.
+31|Ờ, con tắt cái ti vi nớ đi... à không, đừng tắt, vặn nhỏ lại thôi, ông xã còn ngủ.|Đừng tắt ti vi nghe con, chỉnh âm lượng nhỏ lại chút thôi, ông xã đang ngủ.
+41|Coi tủ bếp còn bánh quy London không con, à thôi khỏi, nhắc cô ra tiệm lấy bánh sale nha.|À thôi khỏi coi tủ bếp, con nhắc cô ra tiệm lấy bánh sale nghe.

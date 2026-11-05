@@ -18,7 +18,7 @@ from asr_spoken_text import spoken_tokens
 GENERATED = Path('outputs/asr_datagen_api/generated.csv')
 QUALITY = Path('outputs/asr_datagen_quality_20261104')
 RUNS = ['outputs/benchmark_seed42_n1545', 'outputs/zipformer_150m/benchmark_seed42_n1545', 'outputs/dual_asr_qwen/benchmark_seed42_n1545']
-FREE_TEXT = {'content', 'message', 'text', 'note', 'title', 'body', 'description', 'label', 'question'}
+FREE_TEXT = {'content', 'message', 'text', 'note', 'title', 'subject', 'body', 'description', 'label', 'question'}
 FOREIGN = re.compile(r'[Ѐ-ӿ؀-ۿ֐-׿぀-ヿ一-鿿฀-๿]')
 # Unit words come from spoken timestamps ("09:00" -> "chín giờ") and match the reference by accident.
 STOP = set('anh em chị cho tôi mình của và với là thì có không cái này đó nhé nha giúp vào ra lên ở đi rồi được từ giờ phút giây ngày tháng năm'.split())

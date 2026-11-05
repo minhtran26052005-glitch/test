@@ -27,6 +27,7 @@ Code, prompt và snapshot kết quả nghiên cứu cho Zalo AI Challenge LifeMa
 | Data fine-tune Qwen (agent + normalizer), few-shot pool | `build_agent_sft.py`, `build_fewshot_pool.py`, `eval_fewshot_retrieval.py`; xem [docs/DATA_FINETUNE.md](docs/DATA_FINETUNE.md) |
 | Data + LoRA ASR (icefall Zipformer) | `prepare_asr_finetune_data.py`, `synthesize_tts.py`, `asr_lora/`, `train_asr_lora.py`, `export_asr_lora.py`, `eval_asr_onnx.py` |
 | LoRA Qwen3.5-4B | `train_qwen_lora.py`, `merge_qwen_lora.py`; mọi bước: `run_finetune.sh`, xem [docs/FINETUNE.md](docs/FINETUNE.md) |
+| Data agent viết tay (diễn đạt lại / thiếu thông tin / đổi ý) | `outputs/synthetic_agent/authored/`, `build_synthetic_agent.py` |
 | Prompt sinh dữ liệu | [`prompts/asr_datagen_system.txt`](prompts/asr_datagen_system.txt) |
 | Prompt chuẩn hoá | [`prompts/normalization_system.txt`](prompts/normalization_system.txt) |
 | Prompt gọi tool | [`prompts/tool_agent_system.txt`](prompts/tool_agent_system.txt); khối bật theo cờ: [`tool_agent_asr_evidence.txt`](prompts/tool_agent_asr_evidence.txt), [`tool_agent_task_rules.txt`](prompts/tool_agent_task_rules.txt), [`tool_agent_fewshot.txt`](prompts/tool_agent_fewshot.txt) |
@@ -45,7 +46,7 @@ export PYTHON_BIN="$PWD/.venv/bin/python"
 python -m unittest discover -s tests -v
 ```
 
-85 unit tests dùng mock (test LoRA/lhotse/transformers tự bỏ qua nếu chưa cài torch), không yêu cầu tải trọng số hay gọi API. Để chỉ chạy tests:
+93 unit tests dùng mock (test LoRA/lhotse/transformers tự bỏ qua nếu chưa cài torch), không yêu cầu tải trọng số hay gọi API. Để chỉ chạy tests:
 
 ```bash
 pip install requests jsonschema num2words==0.5.14

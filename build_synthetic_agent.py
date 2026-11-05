@@ -22,7 +22,7 @@ from collections import Counter
 from pathlib import Path
 from asr_spoken_text import spoken_text, spoken_tokens
 from audit_finetune_data import anchors, gold_labels
-from prepare_asr_finetune_data import relative_audio, target_text
+from prepare_asr_finetune_data import relative_audio, tts_label
 
 AUTHORED = Path('outputs/synthetic_agent/authored')
 MANIFEST = 'outputs/timestamp_word_fusion/split_manifest.json'
@@ -186,7 +186,7 @@ def main():
         for record in records:
             if record['check_ok']:
                 spoken = spoken_text(record['text'])
-                handle.write(json.dumps({'id': record['id'].replace(':', '_'), 'tts_text': spoken, 'text': target_text(record['text']),
+                handle.write(json.dumps({'id': record['id'].replace(':', '_'), 'tts_text': spoken, 'text': tts_label(spoken, record['text']),
                                          'speaker_audio': speaker[record['sample_id']], 'speaker_text': record['source_text'],
                                          'sample_id': record['sample_id'], 'turn': 'last', 'source': 'tts_synthetic_agent',
                                          'kind': record['kind'], 'target_model': args.tts_target_model, 'split': 'train'}, ensure_ascii=False) + '\n')

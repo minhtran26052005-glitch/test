@@ -91,3 +91,18 @@ sha256sum -c outputs/agent_sft/SHA256SUMS
 ```
 
 Log/JSON nhẹ để đọc trực tiếp nằm ở [`reports/claude_review_20261105/`](../reports/claude_review_20261105/). Toàn bộ log và artifact smoke cục bộ ở `/home/pc/zalo_ai_challenge/outputs/claude_review_20261105/`; không đưa trọng số smoke lên Git. Khi có lịch train GPU, dùng [FINETUNE.md](FINETUNE.md), theo dõi gradient/validation rồi mới so sánh ASR và agent trên split test.
+
+## Kiểm tra lại bản review (Claude, sau `81ae3b9`)
+
+Đã đọc toàn bộ diff code của nhánh review và chạy lại test (104/104, CI profile 13 skip). Đồng ý với các bản sửa: `ref_text` cho VieNeu, stop id `[248046, 248044]`, chặn NaN ở mọi phép so khớp, repeat guard trong replay, cất `lora-best` cũ, không export khi không cải thiện, `unscale_` trước kiểm tra gradient, các đính chính về `pretrained.pt` của Zip, head CTC của Gip và tool response trong xLAM. Ba chỗ cần sửa tiếp, đã sửa trên nhánh `claude/loving-goldberg-fnkqij`:
+
+| Vấn đề | Đo trên data của nhánh review | Bản sửa |
+| --- | --- | --- |
+| Nhãn TTS lấy từ câu viết thì có từ audio không đọc, hoặc thiếu từ audio có đọc | So nhãn với chính các từ TTS sẽ đọc: 140 chỗ nhãn **thừa** (`MƯƠI` khi đọc “bốn lăm”, `PHÚT` khi đọc “tám rưỡi”), 57 chỗ **thiếu** (`CỘNG` trong “S cộng Sport”, `MỘT` trong “2 lần/ngày”, `THÁNG` trong “11/11”), 32 chỗ thay chữ; ví dụ `7h45` thành `BẢY H BỐN NĂM` | `tts_label`: nhãn = đúng từ được đọc; đoạn câu viết ghi bằng chữ Latin chỉ thay vào khi nghe giống chữ đó (tên chữ cái Việt/Anh, cả đoạn lẫn với chữ thường). Kết quả: 7.496 + 790 nhãn chỉ khác lời đọc ở 1.591 chỗ chữ Latin, không còn từ thừa/thiếu; 226 nhãn khác bản review |
+| Bằng chứng ASR dựng lại sai thứ tự so với lúc chạy | 1.393 quỹ đạo của lượt dual có `asr_transcripts` = (`gipformer`, `zipformer`), trong khi `main.process` đặt ASR chính `zipformer` trước; history `asr_alternatives` cũng vậy | `asr_order` đọc `run_metadata.json` của lượt chạy. `scripts/reorder_sft_asr_evidence.py` sửa thẳng data đã dựng (4.709 bản ghi, chỉ đổi thứ tự key, đã so giá trị và checksum); tarball và `artifact_manifest.json` đã thay |
+| Batch bị bỏ vì không hữu hạn chỉ được ghi log | Stress test Gip đã cho NaN; train dài có thể âm thầm bỏ nhiều batch | `--max-skip-fraction` (mặc định 5%/epoch): vượt thì dừng, không lưu epoch đó; tràn fp16 khi scale còn > 1 chỉ đếm `fp16_overflows` |
+
+Hai lựa chọn để người dùng quyết định, chưa đổi:
+
+- **Lọc TTS theo `target_model`** làm mỗi model chỉ nhận một nửa câu API (3.748), dù `target_model` lúc sinh là nhóm lỗi mục tiêu, không phải chỉ dùng được cho model đó. Có thể đặt `target_model=both` hoặc bỏ lọc nếu muốn mỗi model học cả hai nửa.
+- **Nguồn `generated` chỉ nhận `manual_decision=pass_text`** giữ 53 quỹ đạo (37 bản ghi train) thay vì khoảng 1,3 nghìn. An toàn hơn, nhưng gần như bỏ nguồn này; `--allow-unreviewed-generated` vẫn có.

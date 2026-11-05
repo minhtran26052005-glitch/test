@@ -66,11 +66,11 @@ def run_base(run_dir, item, drop_examples):
             evidence = payload.get('asr_transcripts')
             if os.environ.get('AGENT_ASR_EVIDENCE') == '1':
                 from main import asr_evidence
-                folder = trace.parent
-                evidence = evidence or asr_evidence(saved_hypotheses(folder, 'asr_'), payload['normalized_text'])
+                folder, order = trace.parent, asr_order(run_dir)
+                evidence = evidence or asr_evidence(saved_hypotheses(folder, 'asr_', order), payload['normalized_text'])
                 for i, turn in enumerate(history):
                     if turn.get('role') == 'user' and turn.get('text') and not turn.get('asr_alternatives'):
-                        raw = asr_evidence(saved_hypotheses(folder, f'history_{i}_'), turn['text'])
+                        raw = asr_evidence(saved_hypotheses(folder, f'history_{i}_', order), turn['text'])
                         if raw:
                             turn['asr_alternatives'] = raw
             return base(payload['normalized_text'], item, history, evidence,
@@ -78,14 +78,31 @@ def run_base(run_dir, item, drop_examples):
     return None
 
 
-def saved_hypotheses(folder, prefix):
+def asr_order(run_dir):
+    """ASR names in the order main.process puts them in the payload: primary, then secondary in dual mode."""
+    metadata = Path(run_dir) / 'run_metadata.json'
+    if not metadata.is_file():
+        return []
+    config = json.loads(metadata.read_text())['identity']['configuration']
+    order = [config.get('ASR_PRIMARY')]
+    if config.get('ASR_MODE') == 'dual':
+        order.append(config.get('ASR_SECONDARY'))
+    return [name for name in order if name]
+
+
+def ordered(hypotheses, order):
+    return {**{name: hypotheses[name] for name in order if name in hypotheses},
+            **{name: hypotheses[name] for name in sorted(hypotheses) if name not in order}}
+
+
+def saved_hypotheses(folder, prefix, order=()):
     result = {}
     for path in sorted(folder.glob(prefix + '*.cache.json')):
         name = path.name[len(prefix):-len('.cache.json')]
         value = json.loads(path.read_text())['value']
         if name not in {'normalize', 'timestamp_word'} and isinstance(value, str):
             result[name] = value
-    return result
+    return ordered(result, order)
 
 
 def generated_variants(path, allow_free_text, allow_unreviewed=False):

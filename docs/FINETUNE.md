@@ -76,7 +76,7 @@ Script tự kiểm tra hai điều: merge khớp model còn LoRA, và ONNX khớ
   - Mọi câu đều qua kiểm tra tự động: từ khoá của tham số còn đủ, và giá trị số khớp câu gốc (hiểu cả "hai lăm ngàn rưỡi", "hai triệu tám", "năm chục"). Bộ kiểm tra bắt được 2 lỗi thật trong câu tôi viết, đã sửa.
 - Mọi bản ghi tách theo split manifest: chỉ train trên `fit`, chọn epoch bằng `validation`, báo kết quả trên `test`.
 - Data agent cần devkit vì observation phải lấy từ môi trường thật; không được tự bịa.
-- TTS đọc `tts_text` nhưng học nhãn `text` lấy từ câu viết gốc: ví dụ đọc “ét em ét”, nhãn vẫn là `SMS`. Khi train, audio thật dùng chung; TTS được lọc theo `target_model` để Zip tập trung tiếng Anh, Gip tập trung tiếng Việt/domain.
+- TTS đọc `tts_text`. Nhãn `text` là **đúng các từ TTS đọc**, chỉ những đoạn mà câu viết gốc ghi bằng chữ Latin và nghe giống nhau mới lấy cách viết đó: đọc “ét em ét” thì nhãn là `SMS`, đọc “ròn chín lăm” thì nhãn là `RON CHÍN LĂM` (không thêm `MƯƠI`), đọc “nhắn tin” thì giữ `TIN` dù câu viết ghi SMS (`prepare_asr_finetune_data.tts_label`). Khi train, audio thật dùng chung; TTS được lọc theo `target_model` để Zip tập trung tiếng Anh, Gip tập trung tiếng Việt/domain.
 - Mặc định chỉ tái sử dụng gold cho biến thể có `manual_decision=pass_text`. Khớp từ khoá tự động chưa chứng minh giữ nguyên ý; `--allow-unreviewed-generated` là lựa chọn riêng cho thử nghiệm.
 
 ## 4. Chạy

@@ -69,6 +69,9 @@ def get_parser():
     parser.add_argument('--log-interval', type=int, default=20)
     parser.add_argument('--device', default='cuda')
     parser.add_argument('--seed', type=int, default=42)
+    parser.add_argument('--max-skip-fraction', type=float, default=0.05,
+                        help='stop if more than this fraction of an epoch\'s batches had non-finite loss/gradients '
+                             '(fp16 loss-scale overflows while the scale is still > 1 are expected and not counted)')
     return parser
 
 
@@ -216,19 +219,26 @@ def main():
         train_loader.sampler.set_epoch(epoch)
         set_lora_train_mode(model)
         started, seen_frames, seen_loss = time.time(), 0, 0.0
+        batches = skipped = overflows = 0
         for batch in train_loader:
             batch_idx += 1
+            batches += 1
             set_lora_train_mode(model)
             with amp():
                 loss, frames, parts = compute_loss(model, params, sp, batch, device, args, batch_idx, spec_augment, True)
             if not math.isfinite(float(loss.detach())):
                 logging.warning('Skipping batch %d with non-finite loss %s', batch_idx, parts)
+                skipped += 1
                 optimizer.zero_grad(set_to_none=True)
                 continue
             scaler.scale(loss).backward()
             scaler.unscale_(optimizer)
             if any(p.grad is not None and not torch.isfinite(p.grad).all() for _, p in trainable):
-                logging.warning('Skipping batch %d with non-finite gradients', batch_idx)
+                if args.precision == 'fp16' and scaler.get_scale() > 1.0:
+                    overflows += 1  # GradScaler calibrating: lowers the scale and retries next batch
+                else:
+                    skipped += 1
+                    logging.warning('Skipping batch %d with non-finite gradients', batch_idx)
                 optimizer.zero_grad(set_to_none=True)
                 scaler.update()
                 continue
@@ -244,7 +254,11 @@ def main():
                 lr = optimizer.param_groups[0]['lr']
                 logging.info('epoch %d batch %d loss/frame %.4f %s lr %.2e', epoch, batch_idx,
                              seen_loss / max(seen_frames, 1), {k: round(v / max(frames, 1), 4) for k, v in parts.items()}, lr)
+        if skipped > args.max_skip_fraction * max(batches, 1):
+            raise RuntimeError(f'Epoch {epoch}: {skipped}/{batches} batches had non-finite loss or gradients '
+                               f'(limit {args.max_skip_fraction:.0%}); not saving this epoch. Lower --base-lr or use --precision fp32')
         result = {'epoch': epoch, 'train_loss_per_frame': seen_loss / max(seen_frames, 1), 'seconds': round(time.time() - started, 1),
+                  'batches': batches, 'skipped_nonfinite': skipped, 'fp16_overflows': overflows,
                   **validate(model, params, sp, valid_loader, device, args, greedy_search_batch, amp)}
         history.append(result)
         logging.info('Epoch %d: %s', epoch, result)

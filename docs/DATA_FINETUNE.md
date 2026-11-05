@@ -16,7 +16,7 @@ Số liệu tính trên snapshot 05/11/2026. Chạy lại: `python audit_finetun
 | Cần sửa nhẹ (đã chấm tay `edit_text`) | 26 |
 | Loại: lẫn chữ Nga/Ả Rập/CJK (51), bản đọc hỏng đã xác nhận (32), loại khi chấm tay (47); một câu có thể dính nhiều lý do | 87 |
 
-- Với ASR, đổi slot vẫn có thể dùng được nếu audio khớp với câu mới và nhãn đúng. Đầu vào TTS dùng `spoken_text`; nhãn ASR lấy từ câu viết gốc, giữ cách viết tên riêng/tiếng Anh/viết tắt (ví dụ `SMS`), chuẩn hoá số theo `target_text`.
+- Với ASR, đổi slot vẫn có thể dùng được nếu audio khớp với câu mới và nhãn đúng. Đầu vào TTS dùng `spoken_text`; nhãn ASR là đúng các từ được đọc, chỉ lấy cách viết tên riêng/tiếng Anh/viết tắt (ví dụ `SMS`) từ câu viết gốc khi đoạn đọc nghe giống chữ đó (`tts_label`).
 - **Chưa có audio.** Muốn fine-tune GipFormer/ZipFormer phải TTS `spoken_text` trước (mục 4), rồi trộn với audio thật để model không học thuộc giọng TTS.
 - Phân bố đã lệch theo hướng sinh data cho ASR: lượt cuối tập trung ở lịch/nhắc việc (1.110), tài chính (1.040), nhà thông minh (590). Đúng với mục tiêu ban đầu là các cụm ASR hay sai.
 

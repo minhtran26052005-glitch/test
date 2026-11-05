@@ -32,7 +32,7 @@ Không nạp thẳng các dataset này vào train: phải chuyển tool schema, 
 | | GipFormer 1.5 (68M) | ZipFormer-150M (hynt) |
 | --- | --- | --- |
 | Encoder | Zipformer2, cấu hình mặc định của icefall `zipformer` | Zipformer2 ~153M, cấu hình riêng |
-| Loss khi train gốc | Pruned RNN-T | CR-CTC + CTC + pruned RNN-T |
+| Objective dùng trong code fine-tune | Pruned RNN-T + auxiliary CTC khi có head | CR-CTC + CTC + pruned RNN-T |
 | Inference trong repo | Transducer, sherpa-onnx | Transducer, sherpa-onnx |
 | Checkpoint phát hành | `model.pt` (state dict), `bpe.model`, ONNX | `pretrained.pt`, `jit_script.pt`, ONNX, `bpe.model`; code hiện nạp từ JIT đã có tại máy |
 | BPE | 2.000 token | 2.000 token, **khác** BPE của Gip |
@@ -66,8 +66,8 @@ Script tự kiểm tra hai điều: merge khớp model còn LoRA, và ONNX khớ
 | `outputs/asr_finetune/tts_requests.jsonl` | Câu đã gen đạt yêu cầu cho ASR, chỉ seed thuộc `fit`, kèm audio gốc để clone giọng | 7.496 |
 | `outputs/qwen_sft/normalize/{train,validation,test}.jsonl` | Hai bản ASR (cả cặp lẫn từng bản riêng) → transcript reference, đúng payload của `agent.normalize` | 10.674 / 1.947 / 2.487 |
 | `outputs/synthetic_agent/synthetic.jsonl` (viết tay trong chat, `build_synthetic_agent.py`) | 600 câu diễn đạt lại (300 seed `fit`, đủ 28 app chưa có data, nhiều câu 3–5 bước), 40 câu thiếu thông tin → `ask_missing_info`, 150 câu đổi ý → không gọi tool | 790 |
-| `outputs/synthetic_agent/tts_requests.jsonl` | Chính 790 câu đó để TTS bằng giọng người nói của seed, nên dùng được cho cả ASR | 790 |
-| `outputs/agent_sft/*.jsonl` (`./run_finetune.sh data`, cần devkit) | Gold call phát lại trong devkit, input sạch + 3 lượt ASR đã lưu + biến thể chấm tay đạt + synthetic | Xem số đo sau replay trong báo cáo review |
+| `outputs/synthetic_agent/tts_requests.jsonl` | 790 câu để TTS; mặc định dành cho Gip (tiếng Việt/domain), có cờ `--tts-target-model` | 790 |
+| `outputs/agent_sft/*.jsonl` (`./run_finetune.sh data`, cần devkit) | Gold call phát lại trong devkit, input sạch + 3 lượt ASR đã lưu + biến thể chấm tay đạt + synthetic | 15.892 / 2.985 / 3.243 |
 
 - **Data viết tay** (`outputs/synthetic_agent/authored/`):
   - Câu diễn đạt lại giữ nguyên mọi tên, số, điều kiện và từng việc con, nên dùng nhãn gold của seed. Khi phát lại trong devkit, script còn so được hash trạng thái cuối với nhãn.
@@ -94,7 +94,7 @@ Script tự kiểm tra hai điều: merge khớp model còn LoRA, và ONNX khớ
   - `--lora-targets extended` gắn thêm LoRA vào nonlin attention, conv và `out_proj` của attention.
 - **Qwen**: prompt render đúng như `llm_qwen.generate`; loss chỉ tính trên JSON đích + `<|im_end|>`. LoRA gắn vào q/k/v/o, Gated DeltaNet (`in_proj_qkv`, `in_proj_z`, `out_proj`) và MLP; không đụng vision tower và MTP.
   - Mặc định: r 16, alpha 32, lr 1e-4, 2 epoch, batch 1 × gom gradient 16, bản ghi normalize lấy một nửa.
-  - GPU dưới khoảng 24 GB: `QWEN_ARGS=--load-in-4bit` (QLoRA; khi merge vẫn ghi ra trọng số bf16).
+  - Để giảm bộ nhớ trọng số: `QWEN_ARGS=--load-in-4bit` (QLoRA; khi merge vẫn ghi ra trọng số bf16). Chưa đo VRAM train Qwen 4B với context 16K; test CPU không xác nhận đủ VRAM.
   - Cài `flash-linear-attention` và `causal-conv1d` để có kernel nhanh.
   - Benchmark lại với **đúng các cờ `AGENT_*`** đã dùng khi dựng data SFT (mặc định trong `run_finetune.sh`: evidence, task rules, repeat guard; tắt few-shot).
 - Chuẩn bị:
@@ -114,4 +114,4 @@ Script tự kiểm tra hai điều: merge khớp model còn LoRA, và ONNX khớ
   - Đã test suy cấu hình trên state dict có cấu trúc key của icefall, và hệ số loss.
   - Đã test data loader bằng lhotse thật.
   - Review 05/11/2026 đã chạy **icefall thật, k2 thật và checkpoint thật trên CPU**: nạp cả hai model, loss/backward/update với audio thật, vòng train CLI nhỏ, merge, export ONNX và decode bằng sherpa-onnx.
-- 95 unit test pass trong môi trường review. Đã sửa lời gọi VieNeu để truyền cả audio tham chiếu lẫn transcript của audio đó. Chưa train toàn bộ bằng GPU, chưa sinh audio TTS thật và chưa có kết quả tăng độ chính xác sau fine-tune. Chi tiết và số đo ở [CLAUDE_REVIEW_20261105.md](CLAUDE_REVIEW_20261105.md).
+- 104 unit test pass trong môi trường review; cấu hình CI nhẹ pass với 13 test bỏ qua vì thiếu thư viện model. Đã sửa lời gọi VieNeu để truyền cả audio tham chiếu lẫn transcript của audio đó. Chưa train toàn bộ bằng GPU, chưa sinh audio TTS thật và chưa có kết quả tăng độ chính xác sau fine-tune. Chi tiết và số đo ở [CLAUDE_REVIEW_20261105.md](CLAUDE_REVIEW_20261105.md).

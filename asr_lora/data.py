@@ -16,7 +16,7 @@ def read_manifests(paths, audio_root='.', target_model=None):
                 if target_model and record.get('source') == 'tts':
                     if not record.get('target_model'):
                         raise ValueError(f"{record['id']}: TTS manifest lacks target_model; regenerate its metadata from the TTS requests")
-                    if record['target_model'] != target_model:
+                    if record['target_model'] not in {target_model, 'both'}:
                         continue
                 audio = Path(record['audio'])
                 record['audio'] = str(audio if audio.is_absolute() else Path(audio_root) / audio)

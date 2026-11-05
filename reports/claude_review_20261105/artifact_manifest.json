@@ -1,0 +1,15 @@
+{
+  "claude_commit": "c6b0dc8b4841ebfde39710b58cb7d61283e68182",
+  "agent_sft_archive": "artifacts/claude_review_20261105/agent_sft.tar.gz",
+  "archive_bytes": 40297166,
+  "archive_sha256": "db0c0d37a10ca1707ffc75d037bcc87cc3f0e92d7d93e1f5bab7c730039fcd56",
+  "members_sha256": {
+    "outputs/agent_sft/train.jsonl": "2d39320310ea456d7d069a849929be824ea02070468204e419e64d29a254809e",
+    "outputs/agent_sft/validation.jsonl": "05d088a5a92021ad5a386459fd4330c838828a20d67ae34d87aec31c853160ba",
+    "outputs/agent_sft/test.jsonl": "a2625c283b7e390f6c0baed04150e82747f2ee1816b0b1915fba7deeaf6d3d3e",
+    "outputs/agent_sft/summary.json": "2ab51e8f61afc4d99d168e8240139e42912012f429f100170fa462d9545223b5",
+    "outputs/agent_sft/SHA256SUMS": "42cfda9520483f886a9be8257743dcd744bd919301eff8429b74fba9471814cb"
+  },
+  "smoke_weights_included": false,
+  "gpu_used_for_review": false
+}

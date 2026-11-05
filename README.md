@@ -13,6 +13,7 @@ Code, prompt và snapshot kết quả nghiên cứu cho Zalo AI Challenge LifeMa
 - [Kiểm tra chất lượng câu sinh](outputs/asr_datagen_quality_20261104/BAO_CAO_CHAT_LUONG.md) và [252 câu đã chấm](outputs/asr_datagen_quality_20261104/reviewed_examples.csv).
 - [Data để fine-tune: data đã gen dùng được cho ASR/agent đến đâu, data có sẵn, nguồn ngoài](docs/DATA_FINETUNE.md).
 - [Fine-tune LoRA 3 model (GipFormer RNN-T, ZipFormer CR-CTC, Qwen3.5-4B) và data đã tạo](docs/FINETUNE.md).
+- [Review code Claude, các lỗi đã sửa và kết quả test CPU ngày 05/11/2026](docs/CLAUDE_REVIEW_20261105.md).
 - [Text sinh hiện tại](outputs/asr_datagen_api/generated.csv): **10.980 câu / 1.098 seed**, tại snapshot 09:06 ngày 05/11/2026 (UTC+7). Đây là dữ liệu thô cần rà, chưa phải bộ audio hoặc ASR đã fine-tune.
 
 ## Code và prompt
@@ -46,7 +47,7 @@ export PYTHON_BIN="$PWD/.venv/bin/python"
 python -m unittest discover -s tests -v
 ```
 
-93 unit tests dùng mock (test LoRA/lhotse/transformers tự bỏ qua nếu chưa cài torch), không yêu cầu tải trọng số hay gọi API. Để chỉ chạy tests:
+104 unit tests (test LoRA/lhotse/transformers tự bỏ qua nếu thiếu thư viện model), không yêu cầu tải trọng số hay gọi API. Log test với checkpoint thật trên CPU nằm trong báo cáo review ở trên. Để chỉ chạy tests:
 
 ```bash
 pip install requests jsonschema num2words==0.5.14

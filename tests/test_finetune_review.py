@@ -28,11 +28,12 @@ class DataReviewTests(unittest.TestCase):
     def test_training_keeps_shared_real_audio_but_filters_tts_by_model(self):
         records = [{'id':'r','audio':'r.wav','source':'train_audio'},
                    {'id':'z','audio':'z.wav','source':'tts','target_model':'zipformer'},
-                   {'id':'g','audio':'g.wav','source':'tts','target_model':'gipformer'}]
+                   {'id':'g','audio':'g.wav','source':'tts','target_model':'gipformer'},
+                   {'id':'b','audio':'b.wav','source':'tts','target_model':'both'}]
         with tempfile.TemporaryDirectory() as folder:
             path=Path(folder)/'train.jsonl';path.write_text(''.join(json.dumps(r)+'\n' for r in records))
-            self.assertEqual([r['id'] for r in read_manifests([path],target_model='gipformer')],['r','g'])
-            self.assertEqual([r['id'] for r in read_manifests([path],target_model='zipformer')],['r','z'])
+            self.assertEqual([r['id'] for r in read_manifests([path],target_model='gipformer')],['r','g','b'])
+            self.assertEqual([r['id'] for r in read_manifests([path],target_model='zipformer')],['r','z','b'])
 
     def test_voice_cloning_gets_the_reference_audio_and_its_transcript(self):
         class TTS:

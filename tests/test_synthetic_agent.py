@@ -2,6 +2,9 @@ import json
 import unittest
 from collections import Counter
 from pathlib import Path
+import subprocess
+import sys
+import tempfile
 
 from build_agent_sft import agent_records, failed
 from build_synthetic_agent import build, check, numbers, references
@@ -73,6 +76,17 @@ class AuthoredDataTests(unittest.TestCase):
                 self.assertEqual(r['tool_calls'], [])
                 self.assertTrue(r['text'].startswith(r['source_text'].rstrip()))
             self.assertNotEqual(r['text'], r['source_text'])
+
+    def test_tts_requests_can_feed_the_model_specific_synthesis_pipeline(self):
+        root = Path(__file__).resolve().parents[1]
+        with tempfile.TemporaryDirectory() as folder:
+            out = Path(folder) / 'new_output'
+            subprocess.run([sys.executable, 'build_synthetic_agent.py', '--out', str(out)],
+                           cwd=root, check=True, capture_output=True)
+            requests = [json.loads(line) for line in (out/'tts_requests.jsonl').read_text().splitlines()]
+            self.assertEqual(len(requests), 790)
+            self.assertEqual({r['target_model'] for r in requests}, {'gipformer'})
+            self.assertTrue(all(r['speaker_text'] and r['speaker_audio'] for r in requests))
 
 
 class SyntheticReplayTests(unittest.TestCase):

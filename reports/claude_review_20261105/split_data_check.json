@@ -1,0 +1,21 @@
+{
+  "counts": {
+    "train": 3558,
+    "validation": 649,
+    "test": 829
+  },
+  "missing_audio": 0,
+  "overlap_sample_ids": {
+    "train/validation": 0,
+    "train/test": 0,
+    "validation/test": 0
+  },
+  "overlap_audio_paths": {
+    "train/validation": 0,
+    "train/test": 0,
+    "validation/test": 0
+  },
+  "tts_requests": 7496,
+  "tts_outside_fit": 0,
+  "tts_missing_reference_audio": 0
+}

@@ -1,0 +1,58 @@
+{
+  "requests": 7496,
+  "phonetic_instead_of_written_label_count": 1505,
+  "examples": [
+    {
+      "id": "train_0013_last_v01",
+      "input": "Trường hợp ngày mai có mưa, hãy dời lịch đá bóng vào sáng mai lùi lại một tiếng và nhắn ét em ét cho Lan thông báo thời gian mới, còn nếu không mưa thì giữ nguyên.",
+      "label": "TRƯỜNG HỢP NGÀY MAI CÓ MƯA HÃY DỜI LỊCH ĐÁ BÓNG VÀO SÁNG MAI LÙI LẠI MỘT TIẾNG VÀ NHẮN ÉT EM ÉT CHO LAN THÔNG BÁO THỜI GIAN MỚI CÒN NẾU KHÔNG MƯA THÌ GIỮ NGUYÊN",
+      "canonical_label": "TRƯỜNG HỢP NGÀY MAI CÓ MƯA HÃY DỜI LỊCH ĐÁ BÓNG VÀO SÁNG MAI LÙI LẠI MỘT TIẾNG VÀ NHẮN SMS CHO LAN THÔNG BÁO THỜI GIAN MỚI CÒN NẾU KHÔNG MƯA THÌ GIỮ NGUYÊN"
+    },
+    {
+      "id": "train_0013_last_v02",
+      "input": "Nếu thời tiết ngày mai mưa, nhớ dời trận đá bóng sáng mai chậm đi một tiếng và gửi ét em ét cho Lan báo giờ mới, còn trời không mưa thì thôi.",
+      "label": "NẾU THỜI TIẾT NGÀY MAI MƯA NHỚ DỜI TRẬN ĐÁ BÓNG SÁNG MAI CHẬM ĐI MỘT TIẾNG VÀ GỬI ÉT EM ÉT CHO LAN BÁO GIỜ MỚI CÒN TRỜI KHÔNG MƯA THÌ THÔI",
+      "canonical_label": "NẾU THỜI TIẾT NGÀY MAI MƯA NHỚ DỜI TRẬN ĐÁ BÓNG SÁNG MAI CHẬM ĐI MỘT TIẾNG VÀ GỬI SMS CHO LAN BÁO GIỜ MỚI CÒN TRỜI KHÔNG MƯA THÌ THÔI"
+    },
+    {
+      "id": "train_0013_last_v03",
+      "input": "Giả sử mai trời mưa, bạn hãy dời buổi đá bóng sáng mai chậm lại một tiếng rồi nhắn tin ét em ét cho Lan biết giờ giấc thay đổi, không mưa thì khỏi cần.",
+      "label": "GIẢ SỬ MAI TRỜI MƯA BẠN HÃY DỜI BUỔI ĐÁ BÓNG SÁNG MAI CHẬM LẠI MỘT TIẾNG RỒI NHẮN TIN ÉT EM ÉT CHO LAN BIẾT GIỜ GIẤC THAY ĐỔI KHÔNG MƯA THÌ KHỎI CẦN",
+      "canonical_label": "GIẢ SỬ MAI TRỜI MƯA BẠN HÃY DỜI BUỔI ĐÁ BÓNG SÁNG MAI CHẬM LẠI MỘT TIẾNG RỒI NHẮN TIN SMS CHO LAN BIẾT GIỜ GIẤC THAY ĐỔI KHÔNG MƯA THÌ KHỎI CẦN"
+    },
+    {
+      "id": "train_0013_last_v04",
+      "input": "Trong trường hợp mai có mưa, vui lòng dời trận đá bóng vào sáng mai trễ hơn một tiếng đồng hồ và nhắn ét em ét cho Lan cập nhật giờ, nếu không mưa thì thôi.",
+      "label": "TRONG TRƯỜNG HỢP MAI CÓ MƯA VUI LÒNG DỜI TRẬN ĐÁ BÓNG VÀO SÁNG MAI TRỄ HƠN MỘT TIẾNG ĐỒNG HỒ VÀ NHẮN ÉT EM ÉT CHO LAN CẬP NHẬT GIỜ NẾU KHÔNG MƯA THÌ THÔI",
+      "canonical_label": "TRONG TRƯỜNG HỢP MAI CÓ MƯA VUI LÒNG DỜI TRẬN ĐÁ BÓNG VÀO SÁNG MAI TRỄ HƠN MỘT TIẾNG ĐỒNG HỒ VÀ NHẮN SMS CHO LAN CẬP NHẬT GIỜ NẾU KHÔNG MƯA THÌ THÔI"
+    },
+    {
+      "id": "train_0013_last_v05",
+      "input": "Bất chợt ngày mai có mưa thì hãy dời lịch đá bóng sáng mai muộn đi một tiếng và nhắn ét em ét cho Lan hay lịch mới, trời không mưa thì giữ nguyên nhé.",
+      "label": "BẤT CHỢT NGÀY MAI CÓ MƯA THÌ HÃY DỜI LỊCH ĐÁ BÓNG SÁNG MAI MUỘN ĐI MỘT TIẾNG VÀ NHẮN ÉT EM ÉT CHO LAN HAY LỊCH MỚI TRỜI KHÔNG MƯA THÌ GIỮ NGUYÊN NHÉ",
+      "canonical_label": "BẤT CHỢT NGÀY MAI CÓ MƯA THÌ HÃY DỜI LỊCH ĐÁ BÓNG SÁNG MAI MUỘN ĐI MỘT TIẾNG VÀ NHẮN SMS CHO LAN HAY LỊCH MỚI TRỜI KHÔNG MƯA THÌ GIỮ NGUYÊN NHÉ"
+    },
+    {
+      "id": "train_0013_last_v06",
+      "input": "Nếu mai mưa thì dời lịch đá bóng sáng mai muộn một tiếng, nhắn ét em ét cho Lan báo giờ mới, không mưa thì thôi.",
+      "label": "NẾU MAI MƯA THÌ DỜI LỊCH ĐÁ BÓNG SÁNG MAI MUỘN MỘT TIẾNG NHẮN ÉT EM ÉT CHO LAN BÁO GIỜ MỚI KHÔNG MƯA THÌ THÔI",
+      "canonical_label": "NẾU MAI MƯA THÌ DỜI LỊCH ĐÁ BÓNG SÁNG MAI MUỘN MỘT TIẾNG NHẮN SMS CHO LAN BÁO GIỜ MỚI KHÔNG MƯA THÌ THÔI"
+    },
+    {
+      "id": "train_0013_last_v07",
+      "input": "Trường hợp mai mưa, hãy dời giờ đá bóng sáng mai muộn hơn một tiếng và gửi ét em ét cho Lan cập nhật khung giờ mới, còn không mưa thì thôi.",
+      "label": "TRƯỜNG HỢP MAI MƯA HÃY DỜI GIỜ ĐÁ BÓNG SÁNG MAI MUỘN HƠN MỘT TIẾNG VÀ GỬI ÉT EM ÉT CHO LAN CẬP NHẬT KHUNG GIỜ MỚI CÒN KHÔNG MƯA THÌ THÔI",
+      "canonical_label": "TRƯỜNG HỢP MAI MƯA HÃY DỜI GIỜ ĐÁ BÓNG SÁNG MAI MUỘN HƠN MỘT TIẾNG VÀ GỬI SMS CHO LAN CẬP NHẬT KHUNG GIỜ MỚI CÒN KHÔNG MƯA THÌ THÔI"
+    },
+    {
+      "id": "train_0013_last_v08",
+      "input": "Giả sử ngày mai có mưa thì dời buổi đá bóng sáng mai muộn đi một tiếng, đồng thời nhắn ét em ét cho Lan thông báo giờ giấc, không mưa thì thôi khỏi.",
+      "label": "GIẢ SỬ NGÀY MAI CÓ MƯA THÌ DỜI BUỔI ĐÁ BÓNG SÁNG MAI MUỘN ĐI MỘT TIẾNG ĐỒNG THỜI NHẮN ÉT EM ÉT CHO LAN THÔNG BÁO GIỜ GIẤC KHÔNG MƯA THÌ THÔI KHỎI",
+      "canonical_label": "GIẢ SỬ NGÀY MAI CÓ MƯA THÌ DỜI BUỔI ĐÁ BÓNG SÁNG MAI MUỘN ĐI MỘT TIẾNG ĐỒNG THỜI NHẮN SMS CHO LAN THÔNG BÁO GIỜ GIẤC KHÔNG MƯA THÌ THÔI KHỎI"
+    }
+  ],
+  "by_target_model": {
+    "zipformer": 3748,
+    "gipformer": 3748
+  }
+}

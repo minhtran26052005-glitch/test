@@ -1,0 +1,14 @@
+Loading weights:   0%|          | 0/76 [00:00<?, ?it/s]Loading weights: 100%|██████████| 76/76 [00:00<00:00, 22124.31it/s]
+[transformers] `causal_conv1d_fn` is falling back to its reference PyTorch implementation because `causal_conv1d` is not installed. This is correct but much slower; install `causal_conv1d` for the optimized kernel.
+[transformers] `chunk_gated_delta_rule` is falling back to its reference PyTorch implementation because `flash-linear-attention` is not installed. This is correct but much slower; install `flash-linear-attention` for the optimized kernel.
+Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s]Writing model shards: 100%|██████████| 1/1 [00:00<00:00, 213.39it/s]
+{
+  "base": "outputs/claude_review_20261105/tiny_qwen_base",
+  "adapter": "outputs/claude_review_20261105/tiny_qwen_lora/adapter",
+  "parameters": 16131228,
+  "max_logit_difference": 0.005859375,
+  "generation_stop_ids": [
+    248046,
+    248044
+  ]
+}

@@ -47,7 +47,7 @@ Vì sao chỉ có ích một phần:
 - **Agent:** phát lại tool call gold trong devkit nên observation là thật. User message là **đúng payload** mà `run_agent` gửi lúc inference (dùng chung `agent.build_payload`). Chỉ giữ mẫu khi mọi lời gọi gold đều được devkit chấp nhận và hash trạng thái cuối khớp nhãn.
 - **Normalizer (phần sửa lỗi ASR):** input là các bản ASR đã cache của từng audio, đích là transcript reference. Data này giúp ASR mà không cần TTS: dạy Qwen sửa lỗi ASR và chuẩn hoá số, trong khi normalizer hiện tại đang làm hỏng nhiều hơn sửa (523 ca tệ hơn, 71 ca tốt hơn).
 
-Số sau đây là ước tính cũ trước khi lọc trạng thái và chấm nghĩa; **không phải số bản ghi được phép train**. Builder hiện chỉ nhận biến thể có `manual_decision=pass_text` theo mặc định. Lần dựng đầy đủ 05/11/2026 cho ra 13.400 / 2.985 / 3.243 bản ghi agent train / validation / test, từ 6.231 quỹ đạo; 2 trace nguồn bị thiếu.
+Số sau đây là ước tính cũ trước khi lọc trạng thái và chấm nghĩa; **không phải số bản ghi được phép train**. Với nguồn `generated`, builder hiện chỉ nhận biến thể có `manual_decision=pass_text` theo mặc định. Lần dựng đầy đủ 05/11/2026, có thêm nguồn `synthetic` 790 câu, cho ra 15.892 / 2.985 / 3.243 bản ghi agent train / validation / test từ 7.021 quỹ đạo; 2 trace nguồn bị thiếu. Kiểm tra replay/state không thay thế việc đối chiếu nghĩa câu synthetic với nhãn.
 
 Ước tính cũ trên phần `fit` (1.066 mẫu, trung bình 3,14 bước/mẫu):
 

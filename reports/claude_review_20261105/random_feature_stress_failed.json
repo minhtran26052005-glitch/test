@@ -1,0 +1,41 @@
+{
+  "cuda_visible": false,
+  "models": {
+    "gipformer": {
+      "status": "failed_nonfinite_output_on_random_features",
+      "loss": 17.97469139099121,
+      "loss_parts": {
+        "simple": 10.539885520935059,
+        "pruned": 9.523361206054688,
+        "ctc": 15.906935691833496
+      },
+      "wrapped_projections": 144,
+      "merged_projections": 144,
+      "zero_init_diff": 5.364418029785156e-07,
+      "merge_diff": "nan",
+      "changed_output": "nan",
+      "nonzero_gradient_parameters": 1,
+      "base_gradients": [],
+      "seconds": 2.09,
+      "note": "Stress probe on random features; actual-audio step is checked separately. This did not modify any saved base model."
+    },
+    "zipformer": {
+      "status": "passed",
+      "loss": 16.83209991455078,
+      "loss_parts": {
+        "simple": 7.934342384338379,
+        "pruned": 8.41279411315918,
+        "ctc": 16.863204956054688,
+        "cr": 5.397476673126221
+      },
+      "wrapped_projections": 171,
+      "merged_projections": 171,
+      "zero_init_diff": 1.6093254089355469e-06,
+      "merge_diff": 1.430511474609375e-06,
+      "changed_output": 1.430511474609375e-06,
+      "nonzero_gradient_parameters": 171,
+      "base_gradients": [],
+      "seconds": 3.13
+    }
+  }
+}

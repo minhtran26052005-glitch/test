@@ -1,0 +1,29 @@
+{"train_records": 2, "train_skipped_too_long": {}, "valid_records": 0, "train_tasks": {"normalize": 2}, "max_tokens": 258, "target_tokens": 41}
+Loading weights:   0%|          | 0/76 [00:00<?, ?it/s]Loading weights: 100%|██████████| 76/76 [00:00<00:00, 19689.14it/s]
+{"lora_modules": ["base_model.model.model.language_model.layers.N.linear_attn.in_proj_qkv", "base_model.model.model.language_model.layers.N.linear_attn.in_proj_z", "base_model.model.model.language_model.layers.N.linear_attn.out_proj", "base_model.model.model.language_model.layers.N.mlp.down_proj", "base_model.model.model.language_model.layers.N.mlp.gate_proj", "base_model.model.model.language_model.layers.N.mlp.up_proj", "base_model.model.model.language_model.layers.N.self_attn.k_proj", "base_model.model.model.language_model.layers.N.self_attn.o_proj", "base_model.model.model.language_model.layers.N.self_attn.q_proj", "base_model.model.model.language_model.layers.N.self_attn.v_proj"]}
+trainable params: 61,952 || all params: 16,193,180 || trainable%: 0.3826
+  0%|          | 0/2 [00:00<?, ?it/s][transformers] `causal_conv1d_fn` is falling back to its reference PyTorch implementation because `causal_conv1d` is not installed. This is correct but much slower; install `causal_conv1d` for the optimized kernel.
+[transformers] `chunk_gated_delta_rule` is falling back to its reference PyTorch implementation because `flash-linear-attention` is not installed. This is correct but much slower; install `flash-linear-attention` for the optimized kernel.
+ 50%|█████     | 1/2 [00:00<00:00,  3.89it/s]100%|██████████| 2/2 [00:00<00:00,  4.16it/s]                                             100%|██████████| 2/2 [00:00<00:00,  4.16it/s]100%|██████████| 2/2 [00:00<00:00,  4.01it/s]
+{'train_runtime': '0.4987', 'train_samples_per_second': '4.011', 'train_steps_per_second': '4.011', 'train_loss': '12.47', 'epoch': '1'}
+{
+  "train_records": 2,
+  "train_skipped_too_long": {},
+  "valid_records": 0,
+  "train_tasks": {
+    "normalize": 2
+  },
+  "max_tokens": 258,
+  "target_tokens": 41,
+  "base_model": "outputs/claude_review_20261105/tiny_qwen_base",
+  "lora": {
+    "r": 16,
+    "alpha": 32,
+    "dropout": 0.05,
+    "groups": "attention,linear_attention,mlp"
+  },
+  "generation_stop_ids": [
+    248046,
+    248044
+  ]
+}

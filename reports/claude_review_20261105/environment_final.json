@@ -1,0 +1,21 @@
+{
+  "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+  "review_environment": "/home/pc/zalo_ai_challenge_claude_review_20261105/.venv-review",
+  "packages": {
+    "torch": "2.10.0+cu128",
+    "k2": "1.24.4.dev20260306+cuda12.8.torch2.10.0",
+    "lhotse": "1.33.0",
+    "transformers": "5.21.0",
+    "peft": "0.21.2",
+    "onnx": "1.21.0",
+    "onnxruntime": "1.25.0",
+    "sherpa-onnx": "1.12.40+cuda12.cudnn9",
+    "sentencepiece": "0.2.1"
+  },
+  "cuda_visible": false,
+  "cuda_visible_devices": "",
+  "cpu_thread_limits": 2,
+  "docker_command_available": false,
+  "gpu_processes": "522957, /home/pc/venv_tsasr/bin/python, 24956 MiB",
+  "shared_environments_modified": false
+}

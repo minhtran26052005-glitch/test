@@ -11,7 +11,8 @@ alone. After training, merge_qwen_lora.py folds the adapter into a bf16 checkpoi
 
   python train_qwen_lora.py --model-path models/Qwen3.5-4B --train outputs/agent_sft/train.jsonl \
       --train outputs/qwen_sft/normalize/train.jsonl --valid outputs/agent_sft/validation.jsonl --out-dir outputs/qwen_lora
-For a GPU under ~24 GB add --load-in-4bit (QLoRA; the merge still goes into the bf16 weights).
+Use --load-in-4bit to reduce weight memory (QLoRA; the merge still goes into bf16 weights).
+Required training VRAM depends on sequence length and has not been measured by the CPU smoke tests.
 Install flash-linear-attention and causal-conv1d for fast Gated DeltaNet kernels.
 """
 import argparse

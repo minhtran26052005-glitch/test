@@ -1,0 +1,40 @@
+{
+  "cuda_visible": false,
+  "data_shape": [
+    1,
+    308,
+    80
+  ],
+  "text": [
+    "NHẮN TIN CHO MINH NHỚ MANG TÀI LIỆU"
+  ],
+  "models": {
+    "gipformer": {
+      "loss": 7.090986251831055,
+      "parts": {
+        "simple": 13.696715354919434,
+        "pruned": 0.08336427807807922,
+        "ctc": 0.7963195443153381
+      },
+      "nonfinite_gradients": [],
+      "nonfinite_gradient_count": 0,
+      "nonzero_finite_gradients": 144,
+      "status": "passed",
+      "merge_max_diff": 2.130866050720215e-06
+    },
+    "zipformer": {
+      "loss": 27.00583267211914,
+      "parts": {
+        "simple": 22.812950134277344,
+        "pruned": 8.741037368774414,
+        "ctc": 12.731609344482422,
+        "cr": 21.559986114501953
+      },
+      "nonfinite_gradients": [],
+      "nonfinite_gradient_count": 0,
+      "nonzero_finite_gradients": 171,
+      "status": "passed",
+      "merge_max_diff": 5.7220458984375e-06
+    }
+  }
+}

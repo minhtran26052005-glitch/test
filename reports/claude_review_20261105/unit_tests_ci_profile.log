@@ -1,0 +1,112 @@
+test_agent_sees_raw_hypotheses_for_final_turn_and_history (test_agent_asr_evidence.AgentAsrEvidenceTests.test_agent_sees_raw_hypotheses_for_final_turn_and_history) ... ok
+test_evidence_skipped_when_only_case_or_punctuation_differs (test_agent_asr_evidence.AgentAsrEvidenceTests.test_evidence_skipped_when_only_case_or_punctuation_differs) ... ok
+test_flag_off_keeps_previous_agent_payload (test_agent_asr_evidence.AgentAsrEvidenceTests.test_flag_off_keeps_previous_agent_payload) ... ok
+test_invalid_flag_rejected (test_agent_asr_evidence.AgentAsrEvidenceTests.test_invalid_flag_rejected) ... ok
+test_run_agent_payload (test_agent_asr_evidence.AgentAsrEvidenceTests.test_run_agent_payload) ... ok
+test_timestamp_fusion_passes_both_raw_hypotheses (test_agent_asr_evidence.AgentAsrEvidenceTests.test_timestamp_fusion_passes_both_raw_hypotheses) ... ok
+test_paired_changes_by_group (test_agent_asr_evidence.CompareRunsTests.test_paired_changes_by_group) ... ok
+test_evidence_rules_only_when_enabled (test_agent_asr_evidence.RunShPromptTests.test_evidence_rules_only_when_enabled) ... ok
+test_payload_order_without_extras_is_unchanged (test_agent_v2.AgentLoopTests.test_payload_order_without_extras_is_unchanged) ... ok
+test_split_thinking (test_agent_v2.AgentLoopTests.test_split_thinking) ... ok
+test_step_limit_keeps_executed_calls (test_agent_v2.AgentLoopTests.test_step_limit_keeps_executed_calls) ... ok
+test_agent_label_reuse_requires_anchor_tokens (test_agent_v2.AuditTests.test_agent_label_reuse_requires_anchor_tokens) ... ok
+test_asr_rejects (test_agent_v2.AuditTests.test_asr_rejects) ... ok
+test_process_passes_examples_and_never_its_own_label (test_agent_v2.FewShotTests.test_process_passes_examples_and_never_its_own_label) ... ok
+test_ranking_exclusion_tool_filter_and_diversity (test_agent_v2.FewShotTests.test_ranking_exclusion_tool_filter_and_diversity) ... ok
+test_guard_off_keeps_old_behaviour (test_agent_v2.RepeatGuardTests.test_guard_off_keeps_old_behaviour) ... ok
+test_identical_read_is_not_rerun_and_earlier_result_is_returned (test_agent_v2.RepeatGuardTests.test_identical_read_is_not_rerun_and_earlier_result_is_returned) ... ok
+test_insisting_right_after_warning_runs_once_more_then_blocks (test_agent_v2.RepeatGuardTests.test_insisting_right_after_warning_runs_once_more_then_blocks) ... ok
+test_repeat_check_allows_new_arguments (test_agent_v2.RepeatGuardTests.test_repeat_check_allows_new_arguments) ... ok
+test_blocks_follow_flags_and_off_is_original_prompt (test_agent_v2.RunShFlagTests.test_blocks_follow_flags_and_off_is_original_prompt) ... ok
+test_python_script_passthrough (test_agent_v2.RunShFlagTests.test_python_script_passthrough) ... ok
+test_end_to_end_with_fake_devkit (test_agent_v2.SftBuilderTests.test_end_to_end_with_fake_devkit) ... ok
+test_replay_matches_inference_payload_and_ends_with_finish (test_agent_v2.SftBuilderTests.test_replay_matches_inference_payload_and_ends_with_finish) ... ok
+test_replay_rejects_unavailable_gold_tool (test_agent_v2.SftBuilderTests.test_replay_rejects_unavailable_gold_tool) ... ok
+test_cache_only_mode_never_starts_asr_for_a_missing_entry (test_asr_cache.ASRCacheTests.test_cache_only_mode_never_starts_asr_for_a_missing_entry) ... ok
+test_cached_zipformer_is_used_without_loading_model (test_asr_cache.ASRCacheTests.test_cached_zipformer_is_used_without_loading_model) ... ok
+test_completed_benchmark_resumes_without_inference (test_asr_cache.ASRCacheTests.test_completed_benchmark_resumes_without_inference) ... ok
+test_modified_audio_does_not_reuse_old_transcript (test_asr_cache.ASRCacheTests.test_modified_audio_does_not_reuse_old_transcript) ... ok
+test_english_plan_keeps_medication_and_only_swaps_person_names (test_asr_datagen_api.DatagenTests.test_english_plan_keeps_medication_and_only_swaps_person_names) ... ok
+test_error_classification_distinguishes_daily_from_minute (test_asr_datagen_api.DatagenTests.test_error_classification_distinguishes_daily_from_minute) ... ok
+test_gemma_disables_reasoning_and_gemini_uses_json_schema (test_asr_datagen_api.DatagenTests.test_gemma_disables_reasoning_and_gemini_uses_json_schema) ... ok
+test_medical_multi_slot_focus_terms_not_rejected_by_arbitrary_small_cap (test_asr_datagen_api.DatagenTests.test_medical_multi_slot_focus_terms_not_rejected_by_arbitrary_small_cap) ... ok
+test_mock_run_daily_fallback_resume_and_no_secret_in_artifacts (test_asr_datagen_api.DatagenTests.test_mock_run_daily_fallback_resume_and_no_secret_in_artifacts) ... [2026-11-05T04:19:02.681123+00:00] seed gemini-a HTTP 429 daily
+[2026-11-05T04:19:02.681619+00:00] 1/1 seed gemma-b +2
+ok
+test_model_service_backoff_allows_next_model (test_asr_datagen_api.DatagenTests.test_model_service_backoff_allows_next_model) ... ok
+test_no_unplanned_english_and_preserve_existing_foreign_names (test_asr_datagen_api.DatagenTests.test_no_unplanned_english_and_preserve_existing_foreign_names) ... ok
+test_persistent_shared_quota_and_tpm (test_asr_datagen_api.DatagenTests.test_persistent_shared_quota_and_tpm) ... ok
+test_secret_redaction (test_asr_datagen_api.DatagenTests.test_secret_redaction) ... ok
+test_validator_preserves_split_and_rejects_digits (test_asr_datagen_api.DatagenTests.test_validator_preserves_split_and_rejects_digits) ... ok
+test_validator_rejects_changed_gip_slots (test_asr_datagen_api.DatagenTests.test_validator_rejects_changed_gip_slots) ... ok
+test_validator_rejects_duplicate_and_ungrounded_changes (test_asr_datagen_api.DatagenTests.test_validator_rejects_duplicate_and_ungrounded_changes) ... ok
+test_do_not_prioritize_format_or_dialect_alone (test_asr_datagen_audit.DatagenSemanticTests.test_do_not_prioritize_format_or_dialect_alone) ... ok
+test_preserve_meaning_bearing_errors (test_asr_datagen_audit.DatagenSemanticTests.test_preserve_meaning_bearing_errors) ... ok
+test_a_correct_first_mention_does_not_hide_a_second_error (test_asr_domain_comparison.ASRDomainComparisonTests.test_a_correct_first_mention_does_not_hide_a_second_error) ... ok
+test_distinguishes_wrong_value_from_ambiguous_short_number (test_asr_domain_comparison.ASRDomainComparisonTests.test_distinguishes_wrong_value_from_ambiguous_short_number) ... ok
+test_excludes_recoverable_surface_variants (test_asr_domain_comparison.ASRDomainComparisonTests.test_excludes_recoverable_surface_variants) ... ok
+test_person_mai_and_nested_numbers_are_not_false_targets (test_asr_domain_comparison.ASRDomainComparisonTests.test_person_mai_and_nested_numbers_are_not_false_targets) ... ok
+test_from_shapes_with_head_sizes (test_asr_lora.ConfigRecoveryTests.test_from_shapes_with_head_sizes) ... skipped 'torch not installed'
+test_jit_attributes_take_precedence_and_wrong_heads_fail (test_asr_lora.ConfigRecoveryTests.test_jit_attributes_take_precedence_and_wrong_heads_fail) ... skipped 'torch not installed'
+test_jit_keys_and_tokens (test_asr_lora.ConfigRecoveryTests.test_jit_keys_and_tokens) ... skipped 'torch not installed'
+test_manifest_to_icefall_batch (test_asr_lora.DataTests.test_manifest_to_icefall_batch) ... skipped 'lhotse/torch not installed'
+test_activation_matches_icefall_formula (test_asr_lora.LoraTests.test_activation_matches_icefall_formula) ... skipped 'torch not installed'
+test_merge_is_exact_and_restores_architecture (test_asr_lora.LoraTests.test_merge_is_exact_and_restores_architecture) ... skipped 'torch not installed'
+test_train_mode_and_state_dict_roundtrip (test_asr_lora.LoraTests.test_train_mode_and_state_dict_roundtrip) ... skipped 'torch not installed'
+test_wraps_icefall_targets_only_and_freezes_base (test_asr_lora.LoraTests.test_wraps_icefall_targets_only_and_freezes_base) ... skipped 'torch not installed'
+test_icefall_loss_weighting_and_empty_terms (test_asr_lora.LossTests.test_icefall_loss_weighting_and_empty_terms) ... skipped 'torch not installed'
+test_cardinal_and_digit_codes (test_asr_spoken_text.SpokenTextTests.test_cardinal_and_digit_codes) ... ok
+test_context_aliases_are_explicit_and_value_preserving (test_asr_spoken_text.SpokenTextTests.test_context_aliases_are_explicit_and_value_preserving) ... ok
+test_date_and_clock (test_asr_spoken_text.SpokenTextTests.test_date_and_clock) ... ok
+test_digits_and_punctuation (test_asr_spoken_text.SpokenTextTests.test_digits_and_punctuation) ... ok
+test_no_semantic_correction (test_asr_spoken_text.SpokenTextTests.test_no_semantic_correction) ... ok
+test_phone_grouping_and_missing_zero (test_asr_spoken_text.SpokenTextTests.test_phone_grouping_and_missing_zero) ... ok
+test_ticket_and_money (test_asr_spoken_text.SpokenTextTests.test_ticket_and_money) ... ok
+test_chat_terminator_is_in_generation_stop_ids (test_finetune_review.DataReviewTests.test_chat_terminator_is_in_generation_stop_ids) ... ok
+test_no_improvement_does_not_try_to_export_a_missing_adapter (test_finetune_review.DataReviewTests.test_no_improvement_does_not_try_to_export_a_missing_adapter) ... ok
+test_old_agent_trace_can_recover_raw_asr_evidence_from_cache (test_finetune_review.DataReviewTests.test_old_agent_trace_can_recover_raw_asr_evidence_from_cache) ... ok
+test_previous_run_best_is_preserved_without_becoming_current_best (test_finetune_review.DataReviewTests.test_previous_run_best_is_preserved_without_becoming_current_best) ... skipped 'torch not installed'
+test_replay_includes_the_same_repeat_warning_as_runtime (test_finetune_review.DataReviewTests.test_replay_includes_the_same_repeat_warning_as_runtime) ... ok
+test_training_keeps_shared_real_audio_but_filters_tts_by_model (test_finetune_review.DataReviewTests.test_training_keeps_shared_real_audio_but_filters_tts_by_model) ... ok
+test_tts_pronunciation_does_not_replace_acronym_label (test_finetune_review.DataReviewTests.test_tts_pronunciation_does_not_replace_acronym_label) ... ok
+test_unreviewed_anchor_match_is_not_a_gold_agent_label (test_finetune_review.DataReviewTests.test_unreviewed_anchor_match_is_not_a_gold_agent_label) ... ok
+test_voice_cloning_gets_the_reference_audio_and_its_transcript (test_finetune_review.DataReviewTests.test_voice_cloning_gets_the_reference_audio_and_its_transcript) ... ok
+test_jit_parity_rejects_nan_instead_of_treating_it_as_close (test_finetune_review.NumericalReviewTests.test_jit_parity_rejects_nan_instead_of_treating_it_as_close) ... skipped 'torch not installed'
+test_dual_asr_history_review_uses_both_predictions_without_reference (test_pipeline.PipelineTests.test_dual_asr_history_review_uses_both_predictions_without_reference) ... ok
+test_history_audio_uses_asr_not_reference_transcript (test_pipeline.PipelineTests.test_history_audio_uses_asr_not_reference_transcript) ... ok
+test_invalid_not_executed (test_pipeline.PipelineTests.test_invalid_not_executed) ... ok
+test_missing (test_pipeline.PipelineTests.test_missing) ... ok
+test_multi_step (test_pipeline.PipelineTests.test_multi_step) ... ok
+test_normalize_retry (test_pipeline.PipelineTests.test_normalize_retry) ... ok
+test_out_of_scope (test_pipeline.PipelineTests.test_out_of_scope) ... ok
+test_process_saves_result_and_trace (test_pipeline.PipelineTests.test_process_saves_result_and_trace) ... ok
+test_timestamp_fusion_history_reaches_agent_without_primary_substitution (test_pipeline.PipelineTests.test_timestamp_fusion_history_reaches_agent_without_primary_substitution) ... ok
+test_uncertain_exception_stops (test_pipeline.PipelineTests.test_uncertain_exception_stops) ... ok
+test_prompt_matches_inference_and_loss_only_on_target (test_qwen_lora.EncodeTests.test_prompt_matches_inference_and_loss_only_on_target) ... skipped 'transformers not installed'
+test_too_long_is_skipped_not_truncated (test_qwen_lora.EncodeTests.test_too_long_is_skipped_not_truncated) ... skipped 'transformers not installed'
+test_language_model_projections_only (test_qwen_lora.TargetTests.test_language_model_projections_only) ... ok
+test_resample_weights (test_qwen_lora.TargetTests.test_resample_weights) ... ok
+test_training_kwargs_v5_and_v4 (test_qwen_lora.TargetTests.test_training_kwargs_v5_and_v4) ... ok
+test_counts_split_and_checks (test_synthetic_agent.AuthoredDataTests.test_counts_split_and_checks) ... ok
+test_labels_follow_the_rules (test_synthetic_agent.AuthoredDataTests.test_labels_follow_the_rules) ... ok
+test_tts_requests_can_feed_the_model_specific_synthesis_pipeline (test_synthetic_agent.AuthoredDataTests.test_tts_requests_can_feed_the_model_specific_synthesis_pipeline) ... ok
+test_article_mot_and_tone_placement_tolerated (test_synthetic_agent.CheckTests.test_article_mot_and_tone_placement_tolerated) ... ok
+test_changed_name_or_number_is_flagged (test_synthetic_agent.CheckTests.test_changed_name_or_number_is_flagged) ... ok
+test_equivalent_paraphrase_passes (test_synthetic_agent.CheckTests.test_equivalent_paraphrase_passes) ... ok
+test_colloquial_values (test_synthetic_agent.NumberTests.test_colloquial_values) ... ok
+test_words_that_are_not_numbers (test_synthetic_agent.NumberTests.test_words_that_are_not_numbers) ... ok
+test_own_label_and_tool_errors (test_synthetic_agent.SyntheticReplayTests.test_own_label_and_tool_errors) ... ok
+test_different_words_in_one_sentence_can_use_different_models (test_word_fusion.WordFusionTests.test_different_words_in_one_sentence_can_use_different_models) ... ok
+test_identical_words_anchor_despite_long_decoder_delay (test_word_fusion.WordFusionTests.test_identical_words_anchor_despite_long_decoder_delay) ... ok
+test_many_to_one_spacing_and_missing_tail (test_word_fusion.WordFusionTests.test_many_to_one_spacing_and_missing_tail) ... ok
+test_ngram_probabilities_remain_bounded (test_word_fusion.WordFusionTests.test_ngram_probabilities_remain_bounded) ... ok
+test_numeric_value_cannot_be_mixed_from_two_paths (test_word_fusion.WordFusionTests.test_numeric_value_cannot_be_mixed_from_two_paths) ... ok
+test_repeated_words_follow_time_and_order (test_word_fusion.WordFusionTests.test_repeated_words_follow_time_and_order) ... ok
+test_subtokens_and_approximate_word_end (test_word_fusion.WordFusionTests.test_subtokens_and_approximate_word_end) ... ok
+test_tokens_must_reconstruct_decoder_text (test_word_fusion.WordFusionTests.test_tokens_must_reconstruct_decoder_text) ... ok
+
+----------------------------------------------------------------------
+Ran 104 tests in 0.537s
+
+OK (skipped=13)
+{"id": "case", "asr_text": "kiểm tra điều hòa", "normalized_text": "Kiểm tra điều hòa.", "tool_calls": [{"name": "smart_home.get_status", "arguments": {}}], "state_hash": "70dc0b3f6e63ec5a933161f634ec5bf10903fa86ff942de23eceaaa6f30b65a7"}

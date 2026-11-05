@@ -1,0 +1,32 @@
+{
+  "model": "gipformer",
+  "base_model_dir": "models/gipformer1.5-68M-rnnt",
+  "lora": "outputs/claude_review_20261105/export_smoke/gipformer_synthetic_adapter.pt",
+  "merged_projections": 144,
+  "parameters": 69651511,
+  "merge_max_abs_diff": 1.2740492820739746e-06,
+  "onnx_encoder_max_abs_diff": 1.8775463104248047e-06,
+  "adapter_epoch": 0,
+  "adapter_valid": {
+    "smoke_only": true
+  },
+  "model_config": {
+    "num_encoder_layers": "2,2,3,4,3,2",
+    "downsampling_factor": "1,2,4,8,4,2",
+    "encoder_dim": "192,256,384,512,384,256",
+    "feedforward_dim": "512,768,1024,1536,1024,768",
+    "num_heads": "4,4,4,8,4,4",
+    "query_head_dim": "32",
+    "value_head_dim": "12",
+    "pos_head_dim": "4,4,4,4,4,4",
+    "pos_dim": 48,
+    "cnn_module_kernel": "31,31,15,15,15,31",
+    "encoder_unmasked_dim": "192,192,256,256,256,192",
+    "decoder_dim": 512,
+    "context_size": 2,
+    "joiner_dim": 512,
+    "use_transducer": true,
+    "use_ctc": true,
+    "use_attention_decoder": false
+  }
+}

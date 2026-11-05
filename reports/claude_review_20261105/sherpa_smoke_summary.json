@@ -1,0 +1,22 @@
+{
+  "gipformer=models/gipformer1.5-68M-rnnt": {
+    "utterances": 3,
+    "words": 73,
+    "wer_percent": 10.959
+  },
+  "zipformer=models/zipformer-150M-6000h": {
+    "utterances": 3,
+    "words": 73,
+    "wer_percent": 9.589
+  },
+  "gipformer=outputs/claude_review_20261105/export_smoke/gipformer": {
+    "utterances": 3,
+    "words": 73,
+    "wer_percent": 10.959
+  },
+  "zipformer=outputs/claude_review_20261105/export_smoke/zipformer": {
+    "utterances": 3,
+    "words": 73,
+    "wer_percent": 9.589
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "gipformer": {
+    "history": [
+      {
+        "epoch": 0,
+        "loss_per_frame": 0.12323807898462784,
+        "wer_percent": 2.564,
+        "words": 39
+      },
+      {
+        "epoch": 1,
+        "train_loss_per_frame": 0.19585210849077272,
+        "seconds": 0.5,
+        "loss_per_frame": 0.12323806663932924,
+        "wer_percent": 2.564,
+        "words": 39
+      }
+    ],
+    "previous_best_archived": true,
+    "new_best_exists": false
+  },
+  "zipformer": {
+    "history": [
+      {
+        "epoch": 0,
+        "loss_per_frame": 0.14506577673853407,
+        "wer_percent": 5.128,
+        "words": 39
+      },
+      {
+        "epoch": 1,
+        "train_loss_per_frame": 0.27841959244165665,
+        "seconds": 1.3,
+        "loss_per_frame": 0.14506577673853407,
+        "wer_percent": 5.128,
+        "words": 39
+      }
+    ],
+    "previous_best_archived": true,
+    "new_best_exists": false
+  }
+}

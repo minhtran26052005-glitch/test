@@ -168,8 +168,11 @@ def build(gold, refs, splits):
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument('--out', default='outputs/synthetic_agent')
+    parser.add_argument('--tts-target-model', choices=['gipformer', 'zipformer', 'both'], default='gipformer',
+                        help='Vietnamese/domain replay defaults to Gip; English-focused requests are generated separately')
     args = parser.parse_args()
     out = Path(args.out)
+    out.mkdir(parents=True, exist_ok=True)
     splits = {sid: item['split'] for sid, item in json.loads(Path(MANIFEST).read_text()).items()}
     records = build(gold_labels(), references(), splits)
     if any(r['split'] != 'fit' for r in records):
@@ -183,10 +186,10 @@ def main():
         for record in records:
             if record['check_ok']:
                 spoken = spoken_text(record['text'])
-                handle.write(json.dumps({'id': record['id'].replace(':', '_'), 'tts_text': spoken, 'text': target_text(spoken),
+                handle.write(json.dumps({'id': record['id'].replace(':', '_'), 'tts_text': spoken, 'text': target_text(record['text']),
                                          'speaker_audio': speaker[record['sample_id']], 'speaker_text': record['source_text'],
                                          'sample_id': record['sample_id'], 'turn': 'last', 'source': 'tts_synthetic_agent',
-                                         'kind': record['kind'], 'split': 'train'}, ensure_ascii=False) + '\n')
+                                         'kind': record['kind'], 'target_model': args.tts_target_model, 'split': 'train'}, ensure_ascii=False) + '\n')
     kept = [r for r in records if r['check_ok']]
     summary = {'records': len(records), 'check_ok': len(kept), 'by_kind': dict(Counter(r['kind'] for r in records)),
                'check_ok_by_kind': dict(Counter(r['kind'] for r in kept)), 'seed_samples': len({r['sample_id'] for r in records}),

@@ -1,0 +1,10 @@
+{
+  "base": "outputs/claude_review_20261105/tiny_qwen_base",
+  "adapter": "outputs/claude_review_20261105/tiny_qwen_lora/adapter",
+  "parameters": 16131228,
+  "max_logit_difference": 0.005859375,
+  "generation_stop_ids": [
+    248046,
+    248044
+  ]
+}

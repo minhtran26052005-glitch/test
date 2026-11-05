@@ -1,0 +1,32 @@
+{
+  "train_records": 2,
+  "train_skipped_too_long": {},
+  "valid_records": 0,
+  "train_tasks": {
+    "normalize": 2
+  },
+  "max_tokens": 258,
+  "target_tokens": 41,
+  "base_model": "outputs/claude_review_20261105/tiny_qwen_base",
+  "lora": {
+    "r": 16,
+    "alpha": 32,
+    "dropout": 0.05,
+    "groups": "attention,linear_attention,mlp"
+  },
+  "generation_stop_ids": [
+    248046,
+    248044
+  ],
+  "log_history": [
+    {
+      "train_runtime": 0.4987,
+      "train_samples_per_second": 4.011,
+      "train_steps_per_second": 4.011,
+      "total_flos": 902094672.0,
+      "train_loss": 12.466891288757324,
+      "epoch": 1.0,
+      "step": 2
+    }
+  ]
+}

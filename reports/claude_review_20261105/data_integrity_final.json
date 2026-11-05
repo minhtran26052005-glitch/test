@@ -1,0 +1,65 @@
+{
+  "agent": {
+    "train": {
+      "records": 15892,
+      "source_counts": {
+        "reference": 3342,
+        "run:outputs/benchmark_seed42_n1545": 3338,
+        "run:outputs/zipformer_150m/benchmark_seed42_n1545": 3341,
+        "run:outputs/dual_asr_qwen/benchmark_seed42_n1545": 3342,
+        "synthetic": 2492,
+        "generated": 37
+      },
+      "with_raw_asr_evidence": 6827,
+      "with_repeat_warning": 0
+    },
+    "validation": {
+      "records": 2985,
+      "source_counts": {
+        "reference": 740,
+        "run:outputs/benchmark_seed42_n1545": 740,
+        "run:outputs/zipformer_150m/benchmark_seed42_n1545": 740,
+        "run:outputs/dual_asr_qwen/benchmark_seed42_n1545": 740,
+        "generated": 25
+      },
+      "with_raw_asr_evidence": 1546,
+      "with_repeat_warning": 20
+    },
+    "test": {
+      "records": 3243,
+      "source_counts": {
+        "reference": 789,
+        "run:outputs/benchmark_seed42_n1545": 789,
+        "run:outputs/zipformer_150m/benchmark_seed42_n1545": 789,
+        "run:outputs/dual_asr_qwen/benchmark_seed42_n1545": 789,
+        "generated": 87
+      },
+      "with_raw_asr_evidence": 1582,
+      "with_repeat_warning": 0
+    }
+  },
+  "split_sample_overlap": {
+    "train/validation": 0,
+    "train/test": 0,
+    "validation/test": 0
+  },
+  "tts": {
+    "requests": 8286,
+    "by_target_model": {
+      "zipformer": 3748,
+      "gipformer": 4538
+    },
+    "missing_reference_text": 0,
+    "missing_reference_audio": 0,
+    "unknown_token_targets": {
+      "gipformer": 0,
+      "zipformer": 0
+    }
+  },
+  "agent_length_probe": {
+    "selection": "120 longest serialized agent records across all splits; not an exhaustive token-length audit",
+    "checked": 120,
+    "max_tokens": 11635,
+    "above_16384": 0
+  }
+}

@@ -1,0 +1,134 @@
+{
+  "models": {
+    "gemini-2.5-flash-lite": {
+      "day_count": 1,
+      "window": [
+        {
+          "time": 1793786810.1611047,
+          "input_tokens": 3479
+        }
+      ],
+      "last_request": 1793786810.1611047,
+      "disabled": "API 404 model unavailable"
+    },
+    "gemini-3.1-flash-lite": {
+      "day_count": 500,
+      "window": [
+        {
+          "time": 1793796580.9891963,
+          "input_tokens": 2142
+        },
+        {
+          "time": 1793796585.1428344,
+          "input_tokens": 2265
+        },
+        {
+          "time": 1793796589.2102065,
+          "input_tokens": 1751
+        },
+        {
+          "time": 1793796593.2779522,
+          "input_tokens": 1827
+        },
+        {
+          "time": 1793796597.3458226,
+          "input_tokens": 2345
+        },
+        {
+          "time": 1793796601.8328605,
+          "input_tokens": 1799
+        },
+        {
+          "time": 1793796605.9009438,
+          "input_tokens": 1721
+        },
+        {
+          "time": 1793796609.9686384,
+          "input_tokens": 2112
+        },
+        {
+          "time": 1793796615.8617432,
+          "input_tokens": 2184
+        },
+        {
+          "time": 1793796619.9291627,
+          "input_tokens": 2371
+        },
+        {
+          "time": 1793796624.3619118,
+          "input_tokens": 2436
+        },
+        {
+          "time": 1793796628.9690192,
+          "input_tokens": 1768
+        },
+        {
+          "time": 1793796633.036796,
+          "input_tokens": 1724
+        },
+        {
+          "time": 1793796637.1044555,
+          "input_tokens": 2053
+        },
+        {
+          "time": 1793796641.171986,
+          "input_tokens": 1780
+        }
+      ],
+      "last_request": 1793796641.171986,
+      "cooldown_until": 1793796562.5204804
+    },
+    "gemini-3.5-flash-lite": {
+      "day_count": 496,
+      "window": [
+        {
+          "time": 1793793490.8199542,
+          "input_tokens": 2056
+        },
+        {
+          "time": 1793793500.247321,
+          "input_tokens": 1942
+        },
+        {
+          "time": 1793793506.4931214,
+          "input_tokens": 2014
+        },
+        {
+          "time": 1793793515.0767152,
+          "input_tokens": 4884
+        }
+      ],
+      "last_request": 1793793515.0767152,
+      "cooldown_until": 1793792789.1299758,
+      "daily_exhausted": true
+    },
+    "gemma-4-26b-a4b-it": {
+      "day_count": 1101,
+      "window": [
+        {
+          "time": 1793844310.6564136,
+          "input_tokens": 4938
+        }
+      ],
+      "last_request": 1793844310.6564136,
+      "cooldown_until": 1793844376.4312952
+    },
+    "gemma-4-31b-it": {
+      "day_count": 247,
+      "window": [
+        {
+          "time": 1793844264.166588,
+          "input_tokens": 1862
+        },
+        {
+          "time": 1793844311.4322267,
+          "input_tokens": 4938
+        }
+      ],
+      "last_request": 1793844311.4322267,
+      "cooldown_until": 1793844203.6427796
+    }
+  },
+  "key_index": 0,
+  "date_pacific": "2026-11-04"
+}

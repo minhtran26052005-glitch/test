@@ -1,0 +1,25 @@
+{
+  "model_type": "zipformer-transducer",
+  "architectures": [
+    "ZipformerRnntModel"
+  ],
+  "language": "vi",
+  "sample_rate": 16000,
+  "num_parameters": 68625511,
+  "vocab_size": 2000,
+  "tokens": "tokens.txt",
+  "bpe_model": "bpe.model",
+  "pytorch": {
+    "checkpoint": "model.pt",
+    "library": "icefall"
+  },
+  "onnx": {
+    "encoder": "encoder.onnx",
+    "encoder_int8": "encoder.int8.onnx",
+    "decoder": "decoder.onnx",
+    "decoder_int8": "decoder.int8.onnx",
+    "joiner": "joiner.onnx",
+    "joiner_int8": "joiner.int8.onnx",
+    "library": "sherpa-onnx"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "id": "sample",
+  "audio": "sample.wav",
+  "context": {
+    "timezone": "Asia/Ho_Chi_Minh",
+    "location": "227 Nguyễn Văn Cừ, Quận 5, TP.HCM",
+    "user_profile": {"home": "123 Trần Hưng Đạo, Quận 5, TP.HCM"}
+  },
+  "history": [],
+  "environment": {"devices": [{"device_id": "ac_living", "room": "phòng khách", "type": "air_conditioner", "temperature": 28}], "rides": []}
+}

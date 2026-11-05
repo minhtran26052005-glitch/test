@@ -1,0 +1,2 @@
+# Thay dòng dưới bằng API key Google của chính bạn; có thể dùng nhiều dòng.
+YOUR_GOOGLE_API_KEY

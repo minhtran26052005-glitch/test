@@ -1,0 +1,957 @@
+{
+  "description": "WER/CER vi mô theo token từ Unicode; chuẩn hóa NFC, chữ thường, bỏ dấu câu; không chuyển số chữ sang chữ số. Điểm normalizer so sánh với transcript gốc, không phải nhãn chuẩn hóa.",
+  "asr_last_utterance": {
+    "n": 100,
+    "word_errors": 415,
+    "reference_words": 2290,
+    "wer_percent": 18.12,
+    "normalized_text_exact": 12,
+    "normalized_text_exact_percent": 12.0,
+    "character_errors": 1080,
+    "reference_characters": 9733,
+    "cer_percent": 11.1
+  },
+  "normalized_last_utterance": {
+    "n": 100,
+    "word_errors": 477,
+    "reference_words": 2290,
+    "wer_percent": 20.83,
+    "normalized_text_exact": 11,
+    "normalized_text_exact_percent": 11.0,
+    "character_errors": 1283,
+    "reference_characters": 9733,
+    "cer_percent": 13.18
+  },
+  "asr_history": {
+    "n": 280,
+    "word_errors": 489,
+    "reference_words": 2828,
+    "wer_percent": 17.29,
+    "normalized_text_exact": 87,
+    "normalized_text_exact_percent": 31.07,
+    "character_errors": 1189,
+    "reference_characters": 11597,
+    "cer_percent": 10.25
+  },
+  "tool_agent": {
+    "samples": 100,
+    "completed": 90,
+    "step_limit_errors": 10,
+    "agent_model_turns": 402,
+    "invalid_decisions": 9,
+    "samples_with_invalid_decision": 1,
+    "executed_calls": 309,
+    "official_schema_rejections": 0,
+    "tool_observations_done_false": 9,
+    "exact_tool_names": 21,
+    "exact_calls": 9,
+    "state_match": 37
+  },
+  "normalizer_comparison": {
+    "lower_word_errors": 4,
+    "equal_word_errors": 65,
+    "higher_word_errors": 31
+  },
+  "samples": [
+    {
+      "id": "train_1474",
+      "reference_word_count": 19,
+      "asr_word_errors": 4,
+      "normalized_word_errors": 4,
+      "normalized_exact_calls": false,
+      "state_match": true,
+      "names_match": false
+    },
+    {
+      "id": "train_0255",
+      "reference_word_count": 35,
+      "asr_word_errors": 8,
+      "normalized_word_errors": 11,
+      "normalized_exact_calls": false,
+      "state_match": false,
+      "names_match": false
+    },
+    {
+      "id": "train_0063",
+      "reference_word_count": 8,
+      "asr_word_errors": 0,
+      "normalized_word_errors": 0,
+      "normalized_exact_calls": false,
+      "state_match": true,
+      "names_match": true
+    },
+    {
+      "id": "train_1715",
+      "reference_word_count": 20,
+      "asr_word_errors": 5,
+      "normalized_word_errors": 5,
+      "normalized_exact_calls": false,
+      "state_match": false,
+      "names_match": false
+    },
+    {
+      "id": "train_0618",
+      "reference_word_count": 29,
+      "asr_word_errors": 3,
+      "normalized_word_errors": 3,
+      "normalized_exact_calls": false,
+      "state_match": false,
+      "names_match": false
+    },
+    {
+      "id": "train_0538",
+      "reference_word_count": 33,
+      "asr_word_errors": 0,
+      "normalized_word_errors": 0,
+      "normalized_exact_calls": false,
+      "state_match": true,
+      "names_match": true
+    },
+    {
+      "id": "train_0486",
+      "reference_word_count": 10,
+      "asr_word_errors": 1,
+      "normalized_word_errors": 1,
+      "normalized_exact_calls": true,
+      "state_match": true,
+      "names_match": true
+    },
+    {
+      "id": "train_0313",
+      "reference_word_count": 19,
+      "asr_word_errors": 2,
+      "normalized_word_errors": 2,
+      "normalized_exact_calls": false,
+      "state_match": true,
+      "names_match": false
+    },
+    {
+      "id": "train_1703",
+      "reference_word_count": 24,
+      "asr_word_errors": 8,
+      "normalized_word_errors": 9,
+      "normalized_exact_calls": false,
+      "state_match": false,
+      "names_match": false
+    },
+    {
+      "id": "train_0236",
+      "reference_word_count": 35,
+      "asr_word_errors": 5,
+      "normalized_word_errors": 5,
+      "normalized_exact_calls": false,
+      "state_match": false,
+      "names_match": false
+    },
+    {
+      "id": "train_1560",
+      "reference_word_count": 24,
+      "asr_word_errors": 8,
+      "normalized_word_errors": 8,
+      "normalized_exact_calls": false,
+      "state_match": false,
+      "names_match": false
+    },
+    {
+      "id": "train_1713",
+      "reference_word_count": 16,
+      "asr_word_errors": 1,
+      "normalized_word_errors": 1,
+      "normalized_exact_calls": false,
+      "state_match": false,
+      "names_match": false
+    },
+    {
+      "id": "train_1249",
+      "reference_word_count": 18,
+      "asr_word_errors": 7,
+      "normalized_word_errors": 7,
+      "normalized_exact_calls": false,
+      "state_match": false,
+      "names_match": false
+    },
+    {
+      "id": "train_0203",
+      "reference_word_count": 33,
+      "asr_word_errors": 4,
+      "normalized_word_errors": 6,
+      "normalized_exact_calls": false,
+      "state_match": false,
+      "names_match": false
+    },
+    {
+      "id": "train_1356",
+      "reference_word_count": 16,
+      "asr_word_errors": 1,
+      "normalized_word_errors": 1,
+      "normalized_exact_calls": false,
+      "state_match": false,
+      "names_match": false
+    },
+    {
+      "id": "train_0959",
+      "reference_word_count": 29,
+      "asr_word_errors": 3,
+      "normalized_word_errors": 6,
+      "normalized_exact_calls": false,
+      "state_match": false,
+      "names_match": false
+    },
+    {
+      "id": "train_0080",
+      "reference_word_count": 30,
+      "asr_word_errors": 10,
+      "normalized_word_errors": 10,
+      "normalized_exact_calls": false,
+      "state_match": false,
+      "names_match": false
+    },
+    {
+      "id": "train_0075",
+      "reference_word_count": 23,
+      "asr_word_errors": 5,
+      "normalized_word_errors": 5,
+      "normalized_exact_calls": false,
+      "state_match": false,
+      "names_match": false
+    },
+    {
+      "id": "train_0216",
+      "reference_word_count": 18,
+      "asr_word_errors": 0,
+      "normalized_word_errors": 0,
+      "normalized_exact_calls": false,
+      "state_match": true,
+      "names_match": false
+    },
+    {
+      "id": "train_0476",
+      "reference_word_count": 37,
+      "asr_word_errors": 4,
+      "normalized_word_errors": 4,
+      "normalized_exact_calls": false,
+      "state_match": false,
+      "names_match": false
+    },
+    {
+      "id": "train_0508",
+      "reference_word_count": 39,
+      "asr_word_errors": 6,
+      "normalized_word_errors": 6,
+      "normalized_exact_calls": false,
+      "state_match": false,
+      "names_match": false
+    },
+    {
+      "id": "train_1155",
+      "reference_word_count": 20,
+      "asr_word_errors": 4,
+      "normalized_word_errors": 4,
+      "normalized_exact_calls": false,
+      "state_match": true,
+      "names_match": false
+    },
+    {
+      "id": "train_1379",
+      "reference_word_count": 20,
+      "asr_word_errors": 12,
+      "normalized_word_errors": 11,
+      "normalized_exact_calls": false,
+      "state_match": false,
+      "names_match": true
+    },
+    {
+      "id": "train_0066",
+      "reference_word_count": 14,
+      "asr_word_errors": 4,
+      "normalized_word_errors": 4,
+      "normalized_exact_calls": false,
+      "state_match": true,
+      "names_match": true
+    },
+    {
+      "id": "train_1289",
+      "reference_word_count": 23,
+      "asr_word_errors": 3,
+      "normalized_word_errors": 7,
+      "normalized_exact_calls": false,
+      "state_match": false,
+      "names_match": false
+    },
+    {
+      "id": "train_0435",
+      "reference_word_count": 29,
+      "asr_word_errors": 4,
+      "normalized_word_errors": 4,
+      "normalized_exact_calls": false,
+      "state_match": true,
+      "names_match": true
+    },
+    {
+      "id": "train_1653",
+      "reference_word_count": 20,
+      "asr_word_errors": 4,
+      "normalized_word_errors": 4,
+      "normalized_exact_calls": true,
+      "state_match": true,
+      "names_match": true
+    },
+    {
+      "id": "train_1497",
+      "reference_word_count": 20,
+      "asr_word_errors": 10,
+      "normalized_word_errors": 10,
+      "normalized_exact_calls": true,
+      "state_match": true,
+      "names_match": true
+    },
+    {
+      "id": "train_1617",
+      "reference_word_count": 25,
+      "asr_word_errors": 4,
+      "normalized_word_errors": 4,
+      "normalized_exact_calls": false,
+      "state_match": false,
+      "names_match": false
+    },
+    {
+      "id": "train_0953",
+      "reference_word_count": 24,
+      "asr_word_errors": 2,
+      "normalized_word_errors": 3,
+      "normalized_exact_calls": false,
+      "state_match": false,
+      "names_match": false
+    },
+    {
+      "id": "train_0480",
+      "reference_word_count": 16,
+      "asr_word_errors": 2,
+      "normalized_word_errors": 2,
+      "normalized_exact_calls": false,
+      "state_match": true,
+      "names_match": true
+    },
+    {
+      "id": "train_1021",
+      "reference_word_count": 29,
+      "asr_word_errors": 4,
+      "normalized_word_errors": 4,
+      "normalized_exact_calls": false,
+      "state_match": false,
+      "names_match": false
+    },
+    {
+      "id": "train_1353",
+      "reference_word_count": 20,
+      "asr_word_errors": 8,
+      "normalized_word_errors": 10,
+      "normalized_exact_calls": false,
+      "state_match": false,
+      "names_match": false
+    },
+    {
+      "id": "train_0624",
+      "reference_word_count": 10,
+      "asr_word_errors": 1,
+      "normalized_word_errors": 1,
+      "normalized_exact_calls": true,
+      "state_match": true,
+      "names_match": true
+    },
+    {
+      "id": "train_0015",
+      "reference_word_count": 25,
+      "asr_word_errors": 9,
+      "normalized_word_errors": 9,
+      "normalized_exact_calls": false,
+      "state_match": false,
+      "names_match": false
+    },
+    {
+      "id": "train_0354",
+      "reference_word_count": 32,
+      "asr_word_errors": 5,
+      "normalized_word_errors": 5,
+      "normalized_exact_calls": false,
+      "state_match": false,
+      "names_match": false
+    },
+    {
+      "id": "train_1608",
+      "reference_word_count": 25,
+      "asr_word_errors": 3,
+      "normalized_word_errors": 12,
+      "normalized_exact_calls": false,
+      "state_match": false,
+      "names_match": false
+    },
+    {
+      "id": "train_0960",
+      "reference_word_count": 21,
+      "asr_word_errors": 2,
+      "normalized_word_errors": 3,
+      "normalized_exact_calls": false,
+      "state_match": true,
+      "names_match": true
+    },
+    {
+      "id": "train_0779",
+      "reference_word_count": 41,
+      "asr_word_errors": 7,
+      "normalized_word_errors": 6,
+      "normalized_exact_calls": false,
+      "state_match": false,
+      "names_match": false
+    },
+    {
+      "id": "train_0346",
+      "reference_word_count": 33,
+      "asr_word_errors": 0,
+      "normalized_word_errors": 0,
+      "normalized_exact_calls": false,
+      "state_match": false,
+      "names_match": false
+    },
+    {
+      "id": "train_0469",
+      "reference_word_count": 25,
+      "asr_word_errors": 4,
+      "normalized_word_errors": 4,
+      "normalized_exact_calls": false,
+      "state_match": true,
+      "names_match": false
+    },
+    {
+      "id": "train_0772",
+      "reference_word_count": 46,
+      "asr_word_errors": 12,
+      "normalized_word_errors": 13,
+      "normalized_exact_calls": false,
+      "state_match": false,
+      "names_match": false
+    },
+    {
+      "id": "train_0214",
+      "reference_word_count": 28,
+      "asr_word_errors": 4,
+      "normalized_word_errors": 4,
+      "normalized_exact_calls": false,
+      "state_match": false,
+      "names_match": false
+    },
+    {
+      "id": "train_0864",
+      "reference_word_count": 9,
+      "asr_word_errors": 0,
+      "normalized_word_errors": 0,
+      "normalized_exact_calls": false,
+      "state_match": true,
+      "names_match": true
+    },
+    {
+      "id": "train_0225",
+      "reference_word_count": 12,
+      "asr_word_errors": 0,
+      "normalized_word_errors": 0,
+      "normalized_exact_calls": false,
+      "state_match": true,
+      "names_match": false
+    },
+    {
+      "id": "train_0819",
+      "reference_word_count": 25,
+      "asr_word_errors": 1,
+      "normalized_word_errors": 2,
+      "normalized_exact_calls": false,
+      "state_match": false,
+      "names_match": false
+    },
+    {
+      "id": "train_0787",
+      "reference_word_count": 35,
+      "asr_word_errors": 11,
+      "normalized_word_errors": 11,
+      "normalized_exact_calls": false,
+      "state_match": false,
+      "names_match": false
+    },
+    {
+      "id": "train_1384",
+      "reference_word_count": 22,
+      "asr_word_errors": 3,
+      "normalized_word_errors": 8,
+      "normalized_exact_calls": false,
+      "state_match": true,
+      "names_match": true
+    },
+    {
+      "id": "train_0596",
+      "reference_word_count": 6,
+      "asr_word_errors": 1,
+      "normalized_word_errors": 1,
+      "normalized_exact_calls": true,
+      "state_match": true,
+      "names_match": true
+    },
+    {
+      "id": "train_0106",
+      "reference_word_count": 33,
+      "asr_word_errors": 5,
+      "normalized_word_errors": 8,
+      "normalized_exact_calls": false,
+      "state_match": false,
+      "names_match": false
+    },
+    {
+      "id": "train_1686",
+      "reference_word_count": 23,
+      "asr_word_errors": 3,
+      "normalized_word_errors": 3,
+      "normalized_exact_calls": false,
+      "state_match": true,
+      "names_match": true
+    },
+    {
+      "id": "train_1046",
+      "reference_word_count": 22,
+      "asr_word_errors": 3,
+      "normalized_word_errors": 4,
+      "normalized_exact_calls": false,
+      "state_match": false,
+      "names_match": false
+    },
+    {
+      "id": "train_1226",
+      "reference_word_count": 21,
+      "asr_word_errors": 0,
+      "normalized_word_errors": 0,
+      "normalized_exact_calls": false,
+      "state_match": false,
+      "names_match": false
+    },
+    {
+      "id": "train_0282",
+      "reference_word_count": 20,
+      "asr_word_errors": 5,
+      "normalized_word_errors": 5,
+      "normalized_exact_calls": false,
+      "state_match": false,
+      "names_match": false
+    },
+    {
+      "id": "train_0861",
+      "reference_word_count": 13,
+      "asr_word_errors": 0,
+      "normalized_word_errors": 0,
+      "normalized_exact_calls": true,
+      "state_match": true,
+      "names_match": true
+    },
+    {
+      "id": "train_0185",
+      "reference_word_count": 26,
+      "asr_word_errors": 3,
+      "normalized_word_errors": 7,
+      "normalized_exact_calls": false,
+      "state_match": false,
+      "names_match": false
+    },
+    {
+      "id": "train_1265",
+      "reference_word_count": 27,
+      "asr_word_errors": 6,
+      "normalized_word_errors": 6,
+      "normalized_exact_calls": false,
+      "state_match": false,
+      "names_match": false
+    },
+    {
+      "id": "train_0665",
+      "reference_word_count": 14,
+      "asr_word_errors": 0,
+      "normalized_word_errors": 0,
+      "normalized_exact_calls": false,
+      "state_match": true,
+      "names_match": false
+    },
+    {
+      "id": "train_1440",
+      "reference_word_count": 18,
+      "asr_word_errors": 4,
+      "normalized_word_errors": 6,
+      "normalized_exact_calls": false,
+      "state_match": true,
+      "names_match": false
+    },
+    {
+      "id": "train_1417",
+      "reference_word_count": 19,
+      "asr_word_errors": 3,
+      "normalized_word_errors": 3,
+      "normalized_exact_calls": false,
+      "state_match": true,
+      "names_match": false
+    },
+    {
+      "id": "train_0824",
+      "reference_word_count": 18,
+      "asr_word_errors": 3,
+      "normalized_word_errors": 3,
+      "normalized_exact_calls": true,
+      "state_match": true,
+      "names_match": true
+    },
+    {
+      "id": "train_1327",
+      "reference_word_count": 14,
+      "asr_word_errors": 8,
+      "normalized_word_errors": 8,
+      "normalized_exact_calls": false,
+      "state_match": false,
+      "names_match": false
+    },
+    {
+      "id": "train_0421",
+      "reference_word_count": 33,
+      "asr_word_errors": 11,
+      "normalized_word_errors": 11,
+      "normalized_exact_calls": false,
+      "state_match": false,
+      "names_match": false
+    },
+    {
+      "id": "train_1624",
+      "reference_word_count": 24,
+      "asr_word_errors": 5,
+      "normalized_word_errors": 6,
+      "normalized_exact_calls": false,
+      "state_match": false,
+      "names_match": true
+    },
+    {
+      "id": "train_0164",
+      "reference_word_count": 17,
+      "asr_word_errors": 6,
+      "normalized_word_errors": 6,
+      "normalized_exact_calls": false,
+      "state_match": false,
+      "names_match": false
+    },
+    {
+      "id": "train_0111",
+      "reference_word_count": 36,
+      "asr_word_errors": 7,
+      "normalized_word_errors": 8,
+      "normalized_exact_calls": false,
+      "state_match": false,
+      "names_match": false
+    },
+    {
+      "id": "train_1522",
+      "reference_word_count": 23,
+      "asr_word_errors": 2,
+      "normalized_word_errors": 2,
+      "normalized_exact_calls": false,
+      "state_match": false,
+      "names_match": false
+    },
+    {
+      "id": "train_0498",
+      "reference_word_count": 12,
+      "asr_word_errors": 1,
+      "normalized_word_errors": 2,
+      "normalized_exact_calls": false,
+      "state_match": false,
+      "names_match": false
+    },
+    {
+      "id": "train_0651",
+      "reference_word_count": 16,
+      "asr_word_errors": 1,
+      "normalized_word_errors": 1,
+      "normalized_exact_calls": false,
+      "state_match": false,
+      "names_match": false
+    },
+    {
+      "id": "train_0187",
+      "reference_word_count": 28,
+      "asr_word_errors": 8,
+      "normalized_word_errors": 8,
+      "normalized_exact_calls": false,
+      "state_match": false,
+      "names_match": false
+    },
+    {
+      "id": "train_0233",
+      "reference_word_count": 18,
+      "asr_word_errors": 0,
+      "normalized_word_errors": 0,
+      "normalized_exact_calls": false,
+      "state_match": true,
+      "names_match": false
+    },
+    {
+      "id": "train_1030",
+      "reference_word_count": 19,
+      "asr_word_errors": 2,
+      "normalized_word_errors": 2,
+      "normalized_exact_calls": false,
+      "state_match": false,
+      "names_match": false
+    },
+    {
+      "id": "train_1458",
+      "reference_word_count": 20,
+      "asr_word_errors": 2,
+      "normalized_word_errors": 3,
+      "normalized_exact_calls": false,
+      "state_match": false,
+      "names_match": false
+    },
+    {
+      "id": "train_0831",
+      "reference_word_count": 25,
+      "asr_word_errors": 1,
+      "normalized_word_errors": 1,
+      "normalized_exact_calls": false,
+      "state_match": false,
+      "names_match": false
+    },
+    {
+      "id": "train_0361",
+      "reference_word_count": 34,
+      "asr_word_errors": 0,
+      "normalized_word_errors": 0,
+      "normalized_exact_calls": false,
+      "state_match": false,
+      "names_match": false
+    },
+    {
+      "id": "train_0842",
+      "reference_word_count": 35,
+      "asr_word_errors": 11,
+      "normalized_word_errors": 11,
+      "normalized_exact_calls": false,
+      "state_match": false,
+      "names_match": false
+    },
+    {
+      "id": "train_0810",
+      "reference_word_count": 36,
+      "asr_word_errors": 8,
+      "normalized_word_errors": 8,
+      "normalized_exact_calls": false,
+      "state_match": false,
+      "names_match": false
+    },
+    {
+      "id": "train_0458",
+      "reference_word_count": 12,
+      "asr_word_errors": 2,
+      "normalized_word_errors": 1,
+      "normalized_exact_calls": true,
+      "state_match": true,
+      "names_match": true
+    },
+    {
+      "id": "train_1546",
+      "reference_word_count": 22,
+      "asr_word_errors": 6,
+      "normalized_word_errors": 7,
+      "normalized_exact_calls": false,
+      "state_match": true,
+      "names_match": false
+    },
+    {
+      "id": "train_0601",
+      "reference_word_count": 17,
+      "asr_word_errors": 0,
+      "normalized_word_errors": 2,
+      "normalized_exact_calls": false,
+      "state_match": true,
+      "names_match": false
+    },
+    {
+      "id": "train_1618",
+      "reference_word_count": 21,
+      "asr_word_errors": 6,
+      "normalized_word_errors": 7,
+      "normalized_exact_calls": false,
+      "state_match": false,
+      "names_match": false
+    },
+    {
+      "id": "train_1575",
+      "reference_word_count": 18,
+      "asr_word_errors": 6,
+      "normalized_word_errors": 8,
+      "normalized_exact_calls": false,
+      "state_match": true,
+      "names_match": false
+    },
+    {
+      "id": "train_1494",
+      "reference_word_count": 21,
+      "asr_word_errors": 9,
+      "normalized_word_errors": 9,
+      "normalized_exact_calls": false,
+      "state_match": true,
+      "names_match": false
+    },
+    {
+      "id": "train_0169",
+      "reference_word_count": 21,
+      "asr_word_errors": 2,
+      "normalized_word_errors": 2,
+      "normalized_exact_calls": false,
+      "state_match": false,
+      "names_match": false
+    },
+    {
+      "id": "train_1396",
+      "reference_word_count": 22,
+      "asr_word_errors": 5,
+      "normalized_word_errors": 6,
+      "normalized_exact_calls": false,
+      "state_match": false,
+      "names_match": false
+    },
+    {
+      "id": "train_1457",
+      "reference_word_count": 23,
+      "asr_word_errors": 6,
+      "normalized_word_errors": 6,
+      "normalized_exact_calls": false,
+      "state_match": true,
+      "names_match": false
+    },
+    {
+      "id": "train_0378",
+      "reference_word_count": 27,
+      "asr_word_errors": 3,
+      "normalized_word_errors": 3,
+      "normalized_exact_calls": false,
+      "state_match": false,
+      "names_match": false
+    },
+    {
+      "id": "train_1219",
+      "reference_word_count": 28,
+      "asr_word_errors": 6,
+      "normalized_word_errors": 10,
+      "normalized_exact_calls": false,
+      "state_match": false,
+      "names_match": false
+    },
+    {
+      "id": "train_1685",
+      "reference_word_count": 19,
+      "asr_word_errors": 2,
+      "normalized_word_errors": 3,
+      "normalized_exact_calls": false,
+      "state_match": false,
+      "names_match": false
+    },
+    {
+      "id": "train_0362",
+      "reference_word_count": 35,
+      "asr_word_errors": 10,
+      "normalized_word_errors": 10,
+      "normalized_exact_calls": false,
+      "state_match": false,
+      "names_match": false
+    },
+    {
+      "id": "train_1055",
+      "reference_word_count": 24,
+      "asr_word_errors": 4,
+      "normalized_word_errors": 4,
+      "normalized_exact_calls": false,
+      "state_match": false,
+      "names_match": false
+    },
+    {
+      "id": "train_0863",
+      "reference_word_count": 23,
+      "asr_word_errors": 1,
+      "normalized_word_errors": 3,
+      "normalized_exact_calls": false,
+      "state_match": true,
+      "names_match": false
+    },
+    {
+      "id": "train_0607",
+      "reference_word_count": 22,
+      "asr_word_errors": 2,
+      "normalized_word_errors": 3,
+      "normalized_exact_calls": false,
+      "state_match": true,
+      "names_match": true
+    },
+    {
+      "id": "train_1475",
+      "reference_word_count": 17,
+      "asr_word_errors": 5,
+      "normalized_word_errors": 4,
+      "normalized_exact_calls": false,
+      "state_match": false,
+      "names_match": false
+    },
+    {
+      "id": "train_1585",
+      "reference_word_count": 24,
+      "asr_word_errors": 6,
+      "normalized_word_errors": 7,
+      "normalized_exact_calls": false,
+      "state_match": true,
+      "names_match": false
+    },
+    {
+      "id": "train_1279",
+      "reference_word_count": 20,
+      "asr_word_errors": 6,
+      "normalized_word_errors": 6,
+      "normalized_exact_calls": false,
+      "state_match": true,
+      "names_match": false
+    },
+    {
+      "id": "train_0478",
+      "reference_word_count": 21,
+      "asr_word_errors": 2,
+      "normalized_word_errors": 2,
+      "normalized_exact_calls": false,
+      "state_match": false,
+      "names_match": false
+    },
+    {
+      "id": "train_1578",
+      "reference_word_count": 18,
+      "asr_word_errors": 2,
+      "normalized_word_errors": 5,
+      "normalized_exact_calls": false,
+      "state_match": false,
+      "names_match": false
+    },
+    {
+      "id": "train_0738",
+      "reference_word_count": 12,
+      "asr_word_errors": 5,
+      "normalized_word_errors": 5,
+      "normalized_exact_calls": true,
+      "state_match": true,
+      "names_match": true
+    },
+    {
+      "id": "train_0135",
+      "reference_word_count": 9,
+      "asr_word_errors": 2,
+      "normalized_word_errors": 2,
+      "normalized_exact_calls": false,
+      "state_match": false,
+      "names_match": false
+    }
+  ]
+}

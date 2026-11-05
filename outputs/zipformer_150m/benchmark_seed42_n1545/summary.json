@@ -1,0 +1,20 @@
+{
+  "split": "train",
+  "seed": 42,
+  "sample_count": 1545,
+  "population": 1545,
+  "state_match": 452,
+  "exact_calls": 151,
+  "names_match": 300,
+  "both": 151,
+  "completed": 1477,
+  "errors": 68,
+  "percentages": {
+    "state_match": 29.26,
+    "exact_calls": 9.77,
+    "names_match": 19.42,
+    "both": 9.77
+  },
+  "confidence_95_wilson_percent": null,
+  "note": "Errored samples count as failures. Exact call comparison is stricter than semantic matching; state match alone does not establish intent correctness. Not an official leaderboard score."
+}

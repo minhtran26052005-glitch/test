@@ -1,0 +1,123 @@
+{
+  "snapshot_seeds": 727,
+  "snapshot_variants": 7270,
+  "manual_review_total": 252,
+  "random_review_n": 120,
+  "random_review_decisions": {
+    "pass_text": 96,
+    "reject_text": 12,
+    "edit_text": 12
+  },
+  "random_review_percentages": {
+    "pass_text": 80.0,
+    "edit_text": 10.0,
+    "reject_text": 10.0
+  },
+  "targeted_review_n": 132,
+  "targeted_review_decisions": {
+    "pass_text": 83,
+    "edit_text": 14,
+    "reject_text": 35
+  },
+  "medical_review_n": 60,
+  "medical_review_decisions": {
+    "pass_text": 57,
+    "edit_text": 3
+  },
+  "medical_source_seeds": [
+    "train_0097_last",
+    "train_0247_last",
+    "train_0485_last",
+    "train_1343_last",
+    "train_1474_last",
+    "train_1510_last"
+  ],
+  "confirmed_spoken_corruption": 32,
+  "unexpected_script_rows": 11,
+  "damaged_acronym_rows": 21,
+  "global_unique_spoken": 7220,
+  "global_duplicate_excess": 50,
+  "name_swap_variants": 270,
+  "distinct_replacement_names": 25,
+  "zip_strategy_seeds": {
+    "replace_only_this_person_name_in_zip_variants": 54,
+    "vietnamese_paraphrases_only_do_not_add_english": 509,
+    "preserve_existing_foreign_terms_no_new_english": 164
+  },
+  "random_review_by_generator": {
+    "gemini-3.1-flash-lite": {
+      "n": 58,
+      "decisions": {
+        "pass_text": 45,
+        "reject_text": 8,
+        "edit_text": 5
+      }
+    },
+    "gemini-3.5-flash-lite": {
+      "n": 48,
+      "decisions": {
+        "pass_text": 40,
+        "reject_text": 3,
+        "edit_text": 5
+      }
+    },
+    "gemma-4-26b-a4b-it": {
+      "n": 13,
+      "decisions": {
+        "reject_text": 1,
+        "pass_text": 10,
+        "edit_text": 2
+      }
+    },
+    "gemma-4-31b-it": {
+      "n": 1,
+      "decisions": {
+        "pass_text": 1
+      }
+    }
+  },
+  "old_warning_on_random_rejected": 1,
+  "verified_issue_counts_in_review": {
+    "action_order_changed": 2,
+    "action_changed": 5,
+    "message_content_changed": 1,
+    "unnatural_wording": 6,
+    "english_spelling": 1,
+    "forced_english": 4,
+    "location_changed": 1,
+    "recipient_ambiguity": 1,
+    "message_content_omitted": 3,
+    "acronym_reading_needs_tts_check": 1,
+    "action_omitted": 1,
+    "contact_qualifier_omitted": 1,
+    "added_information": 1,
+    "time_granularity_lost": 1,
+    "query_broadened": 1,
+    "action_underspecified": 1,
+    "destination_omitted": 1,
+    "unit_omitted": 2,
+    "price_side_omitted": 1,
+    "destination_implicit": 1,
+    "time_anchor_ambiguous": 1,
+    "reason_changed": 1,
+    "action_ambiguity": 1,
+    "power_on_omitted": 1,
+    "notification_order_ambiguous": 1,
+    "communication_channel_underspecified": 1,
+    "self_correction_pattern_removed": 6,
+    "actor_changed": 1,
+    "foreign_script": 11,
+    "text_spoken_mismatch": 22,
+    "acronym_changed": 11,
+    "acronym_letters_missing": 10,
+    "tts_language_contamination": 10
+  },
+  "limits": [
+    "120 uniform random variants describe the reviewed snapshot, not a verified pass rate over all 7270 rows.",
+    "132 targeted variants deliberately over-sample known risks; never pool their percentages with the random sample.",
+    "Ratings are a language review by the assistant, without a second independent annotator.",
+    "No audio or TTS pronunciation was evaluated; equivalent number formats are not errors.",
+    "Generation continues; all counts above use the frozen snapshot.",
+    "Generator sample sizes and domain mixes differ; model ranking is not supported."
+  ]
+}

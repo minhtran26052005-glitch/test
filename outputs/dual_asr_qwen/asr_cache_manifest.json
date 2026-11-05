@@ -1,0 +1,12 @@
+{
+  "audios": 5036,
+  "verified_transcripts": 10072,
+  "model_paths": {
+    "gipformer": "/home/pc/zalo_ai_challenge/models/gipformer1.5-68M-rnnt",
+    "zipformer": "/home/pc/zalo_ai_challenge/models/zipformer-150M-6000h"
+  },
+  "asr_model_calls": 0,
+  "cache_validation": "Every key matches current model fingerprint, audio SHA256, decoder device cpu, and ASR name.",
+  "fusion": "Qwen reviews both saved transcripts for last turn and user audio history; agent consumes the merged normalized text.",
+  "no_reference_input": true
+}

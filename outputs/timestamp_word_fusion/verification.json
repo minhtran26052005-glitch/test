@@ -1,0 +1,29 @@
+{
+  "version": "timed-word-fusion-v2",
+  "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+  "neural_inference_records": 10072,
+  "audio_results": 5036,
+  "all_original_asr_texts_preserved": true,
+  "source_provenance_and_monotone_indices_verified": true,
+  "split_groups_do_not_cross_partitions": true,
+  "regions": {
+    "regions": 68071,
+    "single_word_regions": 64658
+  },
+  "longest_protected_selected_span_words": 13,
+  "selector_sha256": "8208ba9b6e949bb7b4616bb6dce6ec0645553bd1cb8a49ea9045fd93d1fd882c",
+  "source_sha256": {
+    "asr/gipformer.py": "6eb23bcb3718263a978ac499021e6247947b078553f12b0f87aaa8e948f0c2cf",
+    "asr/zipformer.py": "8bd3533ce9ceec553d541ad6ad3c85780a359172227cdb39d93e0ab4a2e0e296",
+    "asr/timed.py": "fb01863a1c7d11ddbb21017bdad10de29e21cffe2b5dfb5e5b8cf158042b1872",
+    "asr/word_fusion.py": "2ae1c42831b442f8ddd69ecc6d3d5aa21c3fc161fcbd36140dc4df6de0bafcbd",
+    "cache_timed_asr.py": "67924a2d2c83a9dbae59ab3b73f6ed55bf4f762fc85315d61fe124057a594b7a",
+    "train_word_fusion.py": "502e3f8dc6a90294377b00737ee0f7ad8da07e9d7fe74be9a1f357ca253e34a1",
+    "apply_word_fusion.py": "a491a3c344e99facf063c4865fb6daaf15e1b2eacf4c6e802c655b6e5adfdb3c",
+    "compare_word_fusion.py": "5eff23f9ec5f73a43425a17cbe8249ebc7f1811b79410d0c7627b4a945eb0edf",
+    "main.py": "11063fc4f5bf0ce841a41be90dfcdef838494d72ddb39ad824d89c8006c9af42",
+    "benchmark.py": "cca9415f8e73cf225afe2dff765707ecd6f2c067db766f379f77d55172e77ac8",
+    "run.sh": "52f094cb7af5ba713c2fa408b078e2e855f028007db1cebea36af4ee85b4f518",
+    "run_timestamp_fusion.sh": "a7915ad192c984edf1b77bf0eb0f5edc0b408b79fcaee37a935c27bc5b36733a"
+  }
+}

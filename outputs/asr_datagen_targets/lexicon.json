@@ -1,0 +1,7172 @@
+{
+  "omeprazole": {
+    "term": "Omeprazole",
+    "category": "thuoc_y_te",
+    "source": "curated",
+    "tokens": [
+      "omeprazole"
+    ]
+  },
+  "clearwater pharma": {
+    "term": "Clearwater Pharma",
+    "category": "thuoc_y_te",
+    "source": "curated",
+    "tokens": [
+      "clearwater",
+      "pharma"
+    ]
+  },
+  "kẽm brightpath": {
+    "term": "kẽm Brightpath",
+    "category": "thuoc_y_te",
+    "source": "curated",
+    "tokens": [
+      "kẽm",
+      "brightpath"
+    ]
+  },
+  "thuốc brightpath": {
+    "term": "thuốc Brightpath",
+    "category": "thuoc_y_te",
+    "source": "curated",
+    "tokens": [
+      "thuốc",
+      "brightpath"
+    ]
+  },
+  "viên sắt": {
+    "term": "viên sắt",
+    "category": "thuoc_y_te",
+    "source": "curated",
+    "tokens": [
+      "viên",
+      "sắt"
+    ]
+  },
+  "tảo hawaii": {
+    "term": "tảo Hawaii",
+    "category": "thuoc_y_te",
+    "source": "curated",
+    "tokens": [
+      "tảo",
+      "hawaii"
+    ]
+  },
+  "dầu cá": {
+    "term": "dầu cá",
+    "category": "thuoc_y_te",
+    "source": "curated",
+    "tokens": [
+      "dầu",
+      "cá"
+    ]
+  },
+  "thuốc huyết áp": {
+    "term": "thuốc huyết áp",
+    "category": "thuoc_y_te",
+    "source": "curated",
+    "tokens": [
+      "thuốc",
+      "huyết",
+      "áp"
+    ]
+  },
+  "thuốc tiểu đường": {
+    "term": "thuốc tiểu đường",
+    "category": "thuoc_y_te",
+    "source": "curated",
+    "tokens": [
+      "thuốc",
+      "tiểu",
+      "đường"
+    ]
+  },
+  "thuốc dạ dày": {
+    "term": "thuốc dạ dày",
+    "category": "thuoc_y_te",
+    "source": "curated",
+    "tokens": [
+      "thuốc",
+      "dạ",
+      "dày"
+    ]
+  },
+  "thuốc bao tử": {
+    "term": "thuốc bao tử",
+    "category": "thuoc_y_te",
+    "source": "curated",
+    "tokens": [
+      "thuốc",
+      "bao",
+      "tử"
+    ]
+  },
+  "thuốc bổ gan": {
+    "term": "thuốc bổ gan",
+    "category": "thuoc_y_te",
+    "source": "curated",
+    "tokens": [
+      "thuốc",
+      "bổ",
+      "gan"
+    ]
+  },
+  "siro ho": {
+    "term": "siro ho",
+    "category": "thuoc_y_te",
+    "source": "curated",
+    "tokens": [
+      "siro",
+      "ho"
+    ]
+  },
+  "kháng sinh": {
+    "term": "kháng sinh",
+    "category": "thuoc_y_te",
+    "source": "curated",
+    "tokens": [
+      "kháng",
+      "sinh"
+    ]
+  },
+  "thuốc dị ứng": {
+    "term": "thuốc dị ứng",
+    "category": "thuoc_y_te",
+    "source": "curated",
+    "tokens": [
+      "thuốc",
+      "dị",
+      "ứng"
+    ]
+  },
+  "thuốc long đờm": {
+    "term": "thuốc long đờm",
+    "category": "thuoc_y_te",
+    "source": "curated",
+    "tokens": [
+      "thuốc",
+      "long",
+      "đờm"
+    ]
+  },
+  "thuốc say xe": {
+    "term": "thuốc say xe",
+    "category": "thuoc_y_te",
+    "source": "curated",
+    "tokens": [
+      "thuốc",
+      "say",
+      "xe"
+    ]
+  },
+  "vitamin c": {
+    "term": "vitamin C",
+    "category": "thuoc_y_te",
+    "source": "curated",
+    "tokens": [
+      "vitamin",
+      "c"
+    ]
+  },
+  "vitamin d": {
+    "term": "vitamin D",
+    "category": "thuoc_y_te",
+    "source": "curated",
+    "tokens": [
+      "vitamin",
+      "d"
+    ]
+  },
+  "omega ba": {
+    "term": "Omega-3",
+    "category": "thuoc_y_te",
+    "source": "curated",
+    "tokens": [
+      "omega",
+      "ba"
+    ]
+  },
+  "lịch thuốc": {
+    "term": "lịch thuốc",
+    "category": "thuoc_y_te",
+    "source": "curated",
+    "tokens": [
+      "lịch",
+      "thuốc"
+    ]
+  },
+  "lịch uống thuốc": {
+    "term": "lịch uống thuốc",
+    "category": "thuoc_y_te",
+    "source": "curated",
+    "tokens": [
+      "lịch",
+      "uống",
+      "thuốc"
+    ]
+  },
+  "cữ thuốc": {
+    "term": "cữ thuốc",
+    "category": "thuoc_y_te",
+    "source": "curated",
+    "tokens": [
+      "cữ",
+      "thuốc"
+    ]
+  },
+  "cữ sáng": {
+    "term": "cữ sáng",
+    "category": "thuoc_y_te",
+    "source": "curated",
+    "tokens": [
+      "cữ",
+      "sáng"
+    ]
+  },
+  "cữ trưa": {
+    "term": "cữ trưa",
+    "category": "thuoc_y_te",
+    "source": "curated",
+    "tokens": [
+      "cữ",
+      "trưa"
+    ]
+  },
+  "cữ uống buổi tối": {
+    "term": "cữ uống buổi tối",
+    "category": "thuoc_y_te",
+    "source": "curated",
+    "tokens": [
+      "cữ",
+      "uống",
+      "buổi",
+      "tối"
+    ]
+  },
+  "đơn thuốc": {
+    "term": "đơn thuốc",
+    "category": "thuoc_y_te",
+    "source": "curated",
+    "tokens": [
+      "đơn",
+      "thuốc"
+    ]
+  },
+  "uống rồi": {
+    "term": "uống rồi",
+    "category": "thuoc_y_te",
+    "source": "curated",
+    "tokens": [
+      "uống",
+      "rồi"
+    ]
+  },
+  "chưa uống": {
+    "term": "chưa uống",
+    "category": "thuoc_y_te",
+    "source": "curated",
+    "tokens": [
+      "chưa",
+      "uống"
+    ]
+  },
+  "đánh dấu đã uống": {
+    "term": "đánh dấu đã uống",
+    "category": "thuoc_y_te",
+    "source": "curated",
+    "tokens": [
+      "đánh",
+      "dấu",
+      "đã",
+      "uống"
+    ]
+  },
+  "đặt báo thức": {
+    "term": "đặt báo thức",
+    "category": "lenh_hanh_dong",
+    "source": "curated",
+    "tokens": [
+      "đặt",
+      "báo",
+      "thức"
+    ]
+  },
+  "dời lịch": {
+    "term": "dời lịch",
+    "category": "lenh_hanh_dong",
+    "source": "curated",
+    "tokens": [
+      "dời",
+      "lịch"
+    ]
+  },
+  "nhắn tin": {
+    "term": "nhắn tin",
+    "category": "lenh_hanh_dong",
+    "source": "curated",
+    "tokens": [
+      "nhắn",
+      "tin"
+    ]
+  },
+  "nhắn sms": {
+    "term": "nhắn SMS",
+    "category": "lenh_hanh_dong",
+    "source": "curated",
+    "tokens": [
+      "nhắn",
+      "sms"
+    ]
+  },
+  "gửi email": {
+    "term": "gửi email",
+    "category": "lenh_hanh_dong",
+    "source": "curated",
+    "tokens": [
+      "gửi",
+      "email"
+    ]
+  },
+  "soạn nháp": {
+    "term": "soạn nháp",
+    "category": "lenh_hanh_dong",
+    "source": "curated",
+    "tokens": [
+      "soạn",
+      "nháp"
+    ]
+  },
+  "thư nháp": {
+    "term": "thư nháp",
+    "category": "lenh_hanh_dong",
+    "source": "curated",
+    "tokens": [
+      "thư",
+      "nháp"
+    ]
+  },
+  "để nháp": {
+    "term": "để nháp",
+    "category": "lenh_hanh_dong",
+    "source": "curated",
+    "tokens": [
+      "để",
+      "nháp"
+    ]
+  },
+  "trả lời mail": {
+    "term": "trả lời mail",
+    "category": "lenh_hanh_dong",
+    "source": "curated",
+    "tokens": [
+      "trả",
+      "lời",
+      "mail"
+    ]
+  },
+  "gửi tiết kiệm": {
+    "term": "gửi tiết kiệm",
+    "category": "lenh_hanh_dong",
+    "source": "curated",
+    "tokens": [
+      "gửi",
+      "tiết",
+      "kiệm"
+    ]
+  },
+  "đặt xe": {
+    "term": "đặt xe",
+    "category": "lenh_hanh_dong",
+    "source": "curated",
+    "tokens": [
+      "đặt",
+      "xe"
+    ]
+  },
+  "đổi điểm": {
+    "term": "đổi điểm",
+    "category": "lenh_hanh_dong",
+    "source": "curated",
+    "tokens": [
+      "đổi",
+      "điểm"
+    ]
+  },
+  "đặt nhắc": {
+    "term": "đặt nhắc",
+    "category": "lenh_hanh_dong",
+    "source": "curated",
+    "tokens": [
+      "đặt",
+      "nhắc"
+    ]
+  },
+  "đặt": {
+    "term": "đặt",
+    "category": "lenh_hanh_dong",
+    "source": "curated",
+    "tokens": [
+      "đặt"
+    ]
+  },
+  "dời": {
+    "term": "dời",
+    "category": "lenh_hanh_dong",
+    "source": "curated",
+    "tokens": [
+      "dời"
+    ]
+  },
+  "nhắn": {
+    "term": "nhắn",
+    "category": "lenh_hanh_dong",
+    "source": "curated",
+    "tokens": [
+      "nhắn"
+    ]
+  },
+  "nhắc": {
+    "term": "nhắc",
+    "category": "lenh_hanh_dong",
+    "source": "curated",
+    "tokens": [
+      "nhắc"
+    ]
+  },
+  "hủy": {
+    "term": "hủy",
+    "category": "lenh_hanh_dong",
+    "source": "curated",
+    "tokens": [
+      "hủy"
+    ]
+  },
+  "xóa": {
+    "term": "xóa",
+    "category": "lenh_hanh_dong",
+    "source": "curated",
+    "tokens": [
+      "xóa"
+    ]
+  },
+  "ngưng": {
+    "term": "ngưng",
+    "category": "lenh_hanh_dong",
+    "source": "curated",
+    "tokens": [
+      "ngưng"
+    ]
+  },
+  "dừng": {
+    "term": "dừng",
+    "category": "lenh_hanh_dong",
+    "source": "curated",
+    "tokens": [
+      "dừng"
+    ]
+  },
+  "giao việc": {
+    "term": "giao việc",
+    "category": "lenh_hanh_dong",
+    "source": "curated",
+    "tokens": [
+      "giao",
+      "việc"
+    ]
+  },
+  "đánh dấu": {
+    "term": "đánh dấu",
+    "category": "lenh_hanh_dong",
+    "source": "curated",
+    "tokens": [
+      "đánh",
+      "dấu"
+    ]
+  },
+  "tạo lại": {
+    "term": "tạo lại",
+    "category": "lenh_hanh_dong",
+    "source": "curated",
+    "tokens": [
+      "tạo",
+      "lại"
+    ]
+  },
+  "bật": {
+    "term": "bật",
+    "category": "lenh_hanh_dong",
+    "source": "curated",
+    "tokens": [
+      "bật"
+    ]
+  },
+  "tắt": {
+    "term": "tắt",
+    "category": "lenh_hanh_dong",
+    "source": "curated",
+    "tokens": [
+      "tắt"
+    ]
+  },
+  "hạ": {
+    "term": "hạ",
+    "category": "lenh_hanh_dong",
+    "source": "curated",
+    "tokens": [
+      "hạ"
+    ]
+  },
+  "giảm": {
+    "term": "giảm",
+    "category": "lenh_hanh_dong",
+    "source": "curated",
+    "tokens": [
+      "giảm"
+    ]
+  },
+  "tăng": {
+    "term": "tăng",
+    "category": "lenh_hanh_dong",
+    "source": "curated",
+    "tokens": [
+      "tăng"
+    ]
+  },
+  "đừng": {
+    "term": "đừng",
+    "category": "phu_dinh_dieu_kien",
+    "source": "curated",
+    "tokens": [
+      "đừng"
+    ]
+  },
+  "không cần": {
+    "term": "không cần",
+    "category": "phu_dinh_dieu_kien",
+    "source": "curated",
+    "tokens": [
+      "không",
+      "cần"
+    ]
+  },
+  "khỏi bật": {
+    "term": "khỏi bật",
+    "category": "phu_dinh_dieu_kien",
+    "source": "curated",
+    "tokens": [
+      "khỏi",
+      "bật"
+    ]
+  },
+  "đừng bật": {
+    "term": "đừng bật",
+    "category": "phu_dinh_dieu_kien",
+    "source": "curated",
+    "tokens": [
+      "đừng",
+      "bật"
+    ]
+  },
+  "không bật": {
+    "term": "không bật",
+    "category": "phu_dinh_dieu_kien",
+    "source": "curated",
+    "tokens": [
+      "không",
+      "bật"
+    ]
+  },
+  "chưa giao": {
+    "term": "chưa giao",
+    "category": "phu_dinh_dieu_kien",
+    "source": "curated",
+    "tokens": [
+      "chưa",
+      "giao"
+    ]
+  },
+  "giao rồi": {
+    "term": "giao rồi",
+    "category": "phu_dinh_dieu_kien",
+    "source": "curated",
+    "tokens": [
+      "giao",
+      "rồi"
+    ]
+  },
+  "chưa trả": {
+    "term": "chưa trả",
+    "category": "phu_dinh_dieu_kien",
+    "source": "curated",
+    "tokens": [
+      "chưa",
+      "trả"
+    ]
+  },
+  "đã trả": {
+    "term": "đã trả",
+    "category": "phu_dinh_dieu_kien",
+    "source": "curated",
+    "tokens": [
+      "đã",
+      "trả"
+    ]
+  },
+  "à không": {
+    "term": "à không",
+    "category": "phu_dinh_dieu_kien",
+    "source": "curated",
+    "tokens": [
+      "à",
+      "không"
+    ]
+  },
+  "mà thôi": {
+    "term": "mà thôi",
+    "category": "phu_dinh_dieu_kien",
+    "source": "curated",
+    "tokens": [
+      "mà",
+      "thôi"
+    ]
+  },
+  "không cần nữa": {
+    "term": "không cần nữa",
+    "category": "phu_dinh_dieu_kien",
+    "source": "curated",
+    "tokens": [
+      "không",
+      "cần",
+      "nữa"
+    ]
+  },
+  "để nguyên": {
+    "term": "để nguyên",
+    "category": "phu_dinh_dieu_kien",
+    "source": "curated",
+    "tokens": [
+      "để",
+      "nguyên"
+    ]
+  },
+  "giữ nguyên": {
+    "term": "giữ nguyên",
+    "category": "phu_dinh_dieu_kien",
+    "source": "curated",
+    "tokens": [
+      "giữ",
+      "nguyên"
+    ]
+  },
+  "trừ": {
+    "term": "trừ",
+    "category": "phu_dinh_dieu_kien",
+    "source": "curated",
+    "tokens": [
+      "trừ"
+    ]
+  },
+  "nếu": {
+    "term": "nếu",
+    "category": "phu_dinh_dieu_kien",
+    "source": "curated",
+    "tokens": [
+      "nếu"
+    ]
+  },
+  "còn không": {
+    "term": "còn không",
+    "category": "phu_dinh_dieu_kien",
+    "source": "curated",
+    "tokens": [
+      "còn",
+      "không"
+    ]
+  },
+  "chỉ giữ": {
+    "term": "chỉ giữ",
+    "category": "phu_dinh_dieu_kien",
+    "source": "curated",
+    "tokens": [
+      "chỉ",
+      "giữ"
+    ]
+  },
+  "phòng khách": {
+    "term": "phòng khách",
+    "category": "thiet_bi_khong_gian",
+    "source": "curated",
+    "tokens": [
+      "phòng",
+      "khách"
+    ]
+  },
+  "phòng ngủ": {
+    "term": "phòng ngủ",
+    "category": "thiet_bi_khong_gian",
+    "source": "curated",
+    "tokens": [
+      "phòng",
+      "ngủ"
+    ]
+  },
+  "phòng ngủ nhỏ": {
+    "term": "phòng ngủ nhỏ",
+    "category": "thiet_bi_khong_gian",
+    "source": "curated",
+    "tokens": [
+      "phòng",
+      "ngủ",
+      "nhỏ"
+    ]
+  },
+  "phòng làm việc": {
+    "term": "phòng làm việc",
+    "category": "thiet_bi_khong_gian",
+    "source": "curated",
+    "tokens": [
+      "phòng",
+      "làm",
+      "việc"
+    ]
+  },
+  "tầng hai": {
+    "term": "tầng hai",
+    "category": "thiet_bi_khong_gian",
+    "source": "curated",
+    "tokens": [
+      "tầng",
+      "hai"
+    ]
+  },
+  "đèn bếp": {
+    "term": "đèn bếp",
+    "category": "thiet_bi_khong_gian",
+    "source": "curated",
+    "tokens": [
+      "đèn",
+      "bếp"
+    ]
+  },
+  "điều hòa": {
+    "term": "điều hòa",
+    "category": "thiet_bi_khong_gian",
+    "source": "curated",
+    "tokens": [
+      "điều",
+      "hòa"
+    ]
+  },
+  "máy giặt": {
+    "term": "máy giặt",
+    "category": "thiet_bi_khong_gian",
+    "source": "curated",
+    "tokens": [
+      "máy",
+      "giặt"
+    ]
+  },
+  "bình nóng lạnh": {
+    "term": "bình nóng lạnh",
+    "category": "thiet_bi_khong_gian",
+    "source": "curated",
+    "tokens": [
+      "bình",
+      "nóng",
+      "lạnh"
+    ]
+  },
+  "cửa kho": {
+    "term": "cửa kho",
+    "category": "thiet_bi_khong_gian",
+    "source": "curated",
+    "tokens": [
+      "cửa",
+      "kho"
+    ]
+  },
+  "cửa sau": {
+    "term": "cửa sau",
+    "category": "thiet_bi_khong_gian",
+    "source": "curated",
+    "tokens": [
+      "cửa",
+      "sau"
+    ]
+  },
+  "cửa chính": {
+    "term": "cửa chính",
+    "category": "thiet_bi_khong_gian",
+    "source": "curated",
+    "tokens": [
+      "cửa",
+      "chính"
+    ]
+  },
+  "camera gara": {
+    "term": "camera gara",
+    "category": "thiet_bi_khong_gian",
+    "source": "curated",
+    "tokens": [
+      "camera",
+      "gara"
+    ]
+  },
+  "đồ len": {
+    "term": "đồ len",
+    "category": "thiet_bi_khong_gian",
+    "source": "curated",
+    "tokens": [
+      "đồ",
+      "len"
+    ]
+  },
+  "giặt nhanh": {
+    "term": "giặt nhanh",
+    "category": "thiet_bi_khong_gian",
+    "source": "curated",
+    "tokens": [
+      "giặt",
+      "nhanh"
+    ]
+  },
+  "robot hút bụi": {
+    "term": "robot hút bụi",
+    "category": "thiet_bi_khong_gian",
+    "source": "curated",
+    "tokens": [
+      "robot",
+      "hút",
+      "bụi"
+    ]
+  },
+  "sjc": {
+    "term": "SJC",
+    "category": "viet_tat_ma",
+    "source": "curated",
+    "tokens": [
+      "sjc"
+    ]
+  },
+  "sms": {
+    "term": "SMS",
+    "category": "viet_tat_ma",
+    "source": "curated",
+    "tokens": [
+      "sms"
+    ]
+  },
+  "ron chín mươi lăm": {
+    "term": "RON95",
+    "category": "viet_tat_ma",
+    "source": "curated",
+    "tokens": [
+      "ron",
+      "chín",
+      "mươi",
+      "lăm"
+    ]
+  },
+  "e năm": {
+    "term": "E5",
+    "category": "viet_tat_ma",
+    "source": "curated",
+    "tokens": [
+      "e",
+      "năm"
+    ]
+  },
+  "vtv một": {
+    "term": "VTV1",
+    "category": "viet_tat_ma",
+    "source": "curated",
+    "tokens": [
+      "vtv",
+      "một"
+    ]
+  },
+  "vtv ba": {
+    "term": "VTV3",
+    "category": "viet_tat_ma",
+    "source": "curated",
+    "tokens": [
+      "vtv",
+      "ba"
+    ]
+  },
+  "vtv sáu": {
+    "term": "VTV6",
+    "category": "viet_tat_ma",
+    "source": "curated",
+    "tokens": [
+      "vtv",
+      "sáu"
+    ]
+  },
+  "htv bảy": {
+    "term": "HTV7",
+    "category": "viet_tat_ma",
+    "source": "curated",
+    "tokens": [
+      "htv",
+      "bảy"
+    ]
+  },
+  "sctv chín": {
+    "term": "SCTV9",
+    "category": "viet_tat_ma",
+    "source": "curated",
+    "tokens": [
+      "sctv",
+      "chín"
+    ]
+  },
+  "vov": {
+    "term": "VOV",
+    "category": "viet_tat_ma",
+    "source": "curated",
+    "tokens": [
+      "vov"
+    ]
+  },
+  "ielts": {
+    "term": "IELTS",
+    "category": "viet_tat_ma",
+    "source": "curated",
+    "tokens": [
+      "ielts"
+    ]
+  },
+  "ktx": {
+    "term": "KTX",
+    "category": "viet_tat_ma",
+    "source": "curated",
+    "tokens": [
+      "ktx"
+    ]
+  },
+  "qr": {
+    "term": "QR",
+    "category": "viet_tat_ma",
+    "source": "curated",
+    "tokens": [
+      "qr"
+    ]
+  },
+  "sql": {
+    "term": "SQL",
+    "category": "viet_tat_ma",
+    "source": "curated",
+    "tokens": [
+      "sql"
+    ]
+  },
+  "a bốn": {
+    "term": "A4",
+    "category": "viet_tat_ma",
+    "source": "curated",
+    "tokens": [
+      "a",
+      "bốn"
+    ]
+  },
+  "team": {
+    "term": "team",
+    "category": "tieng_anh_cong_viec",
+    "source": "curated",
+    "tokens": [
+      "team"
+    ]
+  },
+  "họp team": {
+    "term": "họp team",
+    "category": "tieng_anh_cong_viec",
+    "source": "curated",
+    "tokens": [
+      "họp",
+      "team"
+    ]
+  },
+  "check in": {
+    "term": "check-in",
+    "category": "tieng_anh_cong_viec",
+    "source": "curated",
+    "tokens": [
+      "check",
+      "in"
+    ]
+  },
+  "check out": {
+    "term": "check-out",
+    "category": "tieng_anh_cong_viec",
+    "source": "curated",
+    "tokens": [
+      "check",
+      "out"
+    ]
+  },
+  "workshop": {
+    "term": "workshop",
+    "category": "tieng_anh_cong_viec",
+    "source": "curated",
+    "tokens": [
+      "workshop"
+    ]
+  },
+  "voucher": {
+    "term": "voucher",
+    "category": "tieng_anh_cong_viec",
+    "source": "curated",
+    "tokens": [
+      "voucher"
+    ]
+  },
+  "invoice": {
+    "term": "invoice",
+    "category": "tieng_anh_cong_viec",
+    "source": "curated",
+    "tokens": [
+      "invoice"
+    ]
+  },
+  "email": {
+    "term": "email",
+    "category": "tieng_anh_cong_viec",
+    "source": "curated",
+    "tokens": [
+      "email"
+    ]
+  },
+  "mail": {
+    "term": "mail",
+    "category": "tieng_anh_cong_viec",
+    "source": "curated",
+    "tokens": [
+      "mail"
+    ]
+  },
+  "release note": {
+    "term": "release note",
+    "category": "tieng_anh_cong_viec",
+    "source": "curated",
+    "tokens": [
+      "release",
+      "note"
+    ]
+  },
+  "book": {
+    "term": "book",
+    "category": "tieng_anh_cong_viec",
+    "source": "curated",
+    "tokens": [
+      "book"
+    ]
+  },
+  "confirm": {
+    "term": "confirm",
+    "category": "tieng_anh_cong_viec",
+    "source": "curated",
+    "tokens": [
+      "confirm"
+    ]
+  },
+  "cancel": {
+    "term": "cancel",
+    "category": "tieng_anh_cong_viec",
+    "source": "curated",
+    "tokens": [
+      "cancel"
+    ]
+  },
+  "online": {
+    "term": "online",
+    "category": "tieng_anh_cong_viec",
+    "source": "curated",
+    "tokens": [
+      "online"
+    ]
+  },
+  "offline": {
+    "term": "offline",
+    "category": "tieng_anh_cong_viec",
+    "source": "curated",
+    "tokens": [
+      "offline"
+    ]
+  },
+  "speaking club": {
+    "term": "Speaking Club",
+    "category": "tieng_anh_cong_viec",
+    "source": "curated",
+    "tokens": [
+      "speaking",
+      "club"
+    ]
+  },
+  "python": {
+    "term": "Python",
+    "category": "tieng_anh_cong_viec",
+    "source": "curated",
+    "tokens": [
+      "python"
+    ]
+  },
+  "excel": {
+    "term": "Excel",
+    "category": "tieng_anh_cong_viec",
+    "source": "curated",
+    "tokens": [
+      "excel"
+    ]
+  },
+  "zalo": {
+    "term": "Zalo",
+    "category": "tieng_anh_cong_viec",
+    "source": "curated",
+    "tokens": [
+      "zalo"
+    ]
+  },
+  "talkai": {
+    "term": "TalkAI",
+    "category": "tieng_anh_cong_viec",
+    "source": "curated",
+    "tokens": [
+      "talkai"
+    ]
+  },
+  "croissant": {
+    "term": "croissant",
+    "category": "tieng_anh_cong_viec",
+    "source": "curated",
+    "tokens": [
+      "croissant"
+    ]
+  },
+  "podcast": {
+    "term": "podcast",
+    "category": "tieng_anh_cong_viec",
+    "source": "curated",
+    "tokens": [
+      "podcast"
+    ]
+  },
+  "homestay": {
+    "term": "homestay",
+    "category": "tieng_anh_cong_viec",
+    "source": "curated",
+    "tokens": [
+      "homestay"
+    ]
+  },
+  "work from home": {
+    "term": "work from home",
+    "category": "tieng_anh_cong_viec",
+    "source": "curated",
+    "tokens": [
+      "work",
+      "from",
+      "home"
+    ]
+  },
+  "add remind": {
+    "term": "add remind",
+    "category": "tieng_anh_cong_viec",
+    "source": "curated",
+    "tokens": [
+      "add",
+      "remind"
+    ]
+  },
+  "minh": {
+    "term": "Minh",
+    "category": "ten_nguoi_viet",
+    "source": "curated",
+    "tokens": [
+      "minh"
+    ]
+  },
+  "lan": {
+    "term": "Lan",
+    "category": "ten_nguoi_viet",
+    "source": "curated",
+    "tokens": [
+      "lan"
+    ]
+  },
+  "hương": {
+    "term": "Hương",
+    "category": "ten_nguoi_viet",
+    "source": "curated",
+    "tokens": [
+      "hương"
+    ]
+  },
+  "phượng": {
+    "term": "Phượng",
+    "category": "ten_nguoi_viet",
+    "source": "curated",
+    "tokens": [
+      "phượng"
+    ]
+  },
+  "bống": {
+    "term": "Bống",
+    "category": "ten_nguoi_viet",
+    "source": "curated",
+    "tokens": [
+      "bống"
+    ]
+  },
+  "sếp dũng": {
+    "term": "Sếp Dũng",
+    "category": "ten_nguoi_viet",
+    "source": "curated",
+    "tokens": [
+      "sếp",
+      "dũng"
+    ]
+  },
+  "sếp trân": {
+    "term": "Sếp Trân",
+    "category": "ten_nguoi_viet",
+    "source": "curated",
+    "tokens": [
+      "sếp",
+      "trân"
+    ]
+  },
+  "trần văn tuấn": {
+    "term": "Trần Văn Tuấn",
+    "category": "ten_nguoi_viet",
+    "source": "curated",
+    "tokens": [
+      "trần",
+      "văn",
+      "tuấn"
+    ]
+  },
+  "lê minh": {
+    "term": "Lê Minh",
+    "category": "ten_nguoi_viet",
+    "source": "curated",
+    "tokens": [
+      "lê",
+      "minh"
+    ]
+  },
+  "nguyễn thị lan": {
+    "term": "Nguyễn Thị Lan",
+    "category": "ten_nguoi_viet",
+    "source": "curated",
+    "tokens": [
+      "nguyễn",
+      "thị",
+      "lan"
+    ]
+  },
+  "mạ": {
+    "term": "Mạ",
+    "category": "ten_nguoi_viet",
+    "source": "curated",
+    "tokens": [
+      "mạ"
+    ]
+  },
+  "bác ba": {
+    "term": "Bác Ba",
+    "category": "ten_nguoi_viet",
+    "source": "curated",
+    "tokens": [
+      "bác",
+      "ba"
+    ]
+  },
+  "cô hạnh": {
+    "term": "Cô Hạnh",
+    "category": "ten_nguoi_viet",
+    "source": "curated",
+    "tokens": [
+      "cô",
+      "hạnh"
+    ]
+  },
+  "nina kowalski": {
+    "term": "Nina Kowalski",
+    "category": "ten_nguoi_quoc_te",
+    "source": "curated",
+    "tokens": [
+      "nina",
+      "kowalski"
+    ]
+  },
+  "grace nakamura": {
+    "term": "Grace Nakamura",
+    "category": "ten_nguoi_quoc_te",
+    "source": "curated",
+    "tokens": [
+      "grace",
+      "nakamura"
+    ]
+  },
+  "sophie martin": {
+    "term": "Sophie Martin",
+    "category": "ten_nguoi_quoc_te",
+    "source": "curated",
+    "tokens": [
+      "sophie",
+      "martin"
+    ]
+  },
+  "laura costa": {
+    "term": "Laura Costa",
+    "category": "ten_nguoi_quoc_te",
+    "source": "curated",
+    "tokens": [
+      "laura",
+      "costa"
+    ]
+  },
+  "sarah kim": {
+    "term": "Sarah Kim",
+    "category": "ten_nguoi_quoc_te",
+    "source": "curated",
+    "tokens": [
+      "sarah",
+      "kim"
+    ]
+  },
+  "priya sharma": {
+    "term": "Priya Sharma",
+    "category": "ten_nguoi_quoc_te",
+    "source": "curated",
+    "tokens": [
+      "priya",
+      "sharma"
+    ]
+  },
+  "priya shah": {
+    "term": "Priya Shah",
+    "category": "ten_nguoi_quoc_te",
+    "source": "curated",
+    "tokens": [
+      "priya",
+      "shah"
+    ]
+  },
+  "marcus hale": {
+    "term": "Marcus Hale",
+    "category": "ten_nguoi_quoc_te",
+    "source": "curated",
+    "tokens": [
+      "marcus",
+      "hale"
+    ]
+  },
+  "oliver grant": {
+    "term": "Oliver Grant",
+    "category": "ten_nguoi_quoc_te",
+    "source": "curated",
+    "tokens": [
+      "oliver",
+      "grant"
+    ]
+  },
+  "peter hansen": {
+    "term": "Peter Hansen",
+    "category": "ten_nguoi_quoc_te",
+    "source": "curated",
+    "tokens": [
+      "peter",
+      "hansen"
+    ]
+  },
+  "julian ward": {
+    "term": "Julian Ward",
+    "category": "ten_nguoi_quoc_te",
+    "source": "curated",
+    "tokens": [
+      "julian",
+      "ward"
+    ]
+  },
+  "james wong": {
+    "term": "James Wong",
+    "category": "ten_nguoi_quoc_te",
+    "source": "curated",
+    "tokens": [
+      "james",
+      "wong"
+    ]
+  },
+  "daniel lee": {
+    "term": "Daniel Lee",
+    "category": "ten_nguoi_quoc_te",
+    "source": "curated",
+    "tokens": [
+      "daniel",
+      "lee"
+    ]
+  },
+  "kevin tran": {
+    "term": "Kevin Tran",
+    "category": "ten_nguoi_quoc_te",
+    "source": "curated",
+    "tokens": [
+      "kevin",
+      "tran"
+    ]
+  },
+  "kevin park": {
+    "term": "Kevin Park",
+    "category": "ten_nguoi_quoc_te",
+    "source": "curated",
+    "tokens": [
+      "kevin",
+      "park"
+    ]
+  },
+  "nathan reed": {
+    "term": "Nathan Reed",
+    "category": "ten_nguoi_quoc_te",
+    "source": "curated",
+    "tokens": [
+      "nathan",
+      "reed"
+    ]
+  },
+  "meera kapoor": {
+    "term": "Meera Kapoor",
+    "category": "ten_nguoi_quoc_te",
+    "source": "curated",
+    "tokens": [
+      "meera",
+      "kapoor"
+    ]
+  },
+  "jonas berg": {
+    "term": "Jonas Berg",
+    "category": "ten_nguoi_quoc_te",
+    "source": "curated",
+    "tokens": [
+      "jonas",
+      "berg"
+    ]
+  },
+  "lucas bennett": {
+    "term": "Lucas Bennett",
+    "category": "ten_nguoi_quoc_te",
+    "source": "curated",
+    "tokens": [
+      "lucas",
+      "bennett"
+    ]
+  },
+  "ben taylor": {
+    "term": "Ben Taylor",
+    "category": "ten_nguoi_quoc_te",
+    "source": "curated",
+    "tokens": [
+      "ben",
+      "taylor"
+    ]
+  },
+  "ryan cooper": {
+    "term": "Ryan Cooper",
+    "category": "ten_nguoi_quoc_te",
+    "source": "curated",
+    "tokens": [
+      "ryan",
+      "cooper"
+    ]
+  },
+  "arjun mehta": {
+    "term": "Arjun Mehta",
+    "category": "ten_nguoi_quoc_te",
+    "source": "curated",
+    "tokens": [
+      "arjun",
+      "mehta"
+    ]
+  },
+  "tom baker": {
+    "term": "Tom Baker",
+    "category": "ten_nguoi_quoc_te",
+    "source": "curated",
+    "tokens": [
+      "tom",
+      "baker"
+    ]
+  },
+  "tom barker": {
+    "term": "Tom Barker",
+    "category": "ten_nguoi_quoc_te",
+    "source": "curated",
+    "tokens": [
+      "tom",
+      "barker"
+    ]
+  },
+  "hans becker": {
+    "term": "Hans Becker",
+    "category": "ten_nguoi_quoc_te",
+    "source": "curated",
+    "tokens": [
+      "hans",
+      "becker"
+    ]
+  },
+  "chloe dubois": {
+    "term": "Chloe Dubois",
+    "category": "ten_nguoi_quoc_te",
+    "source": "curated",
+    "tokens": [
+      "chloe",
+      "dubois"
+    ]
+  },
+  "liam shaw": {
+    "term": "Liam Shaw",
+    "category": "ten_nguoi_quoc_te",
+    "source": "curated",
+    "tokens": [
+      "liam",
+      "shaw"
+    ]
+  },
+  "olivia brown": {
+    "term": "Olivia Brown",
+    "category": "ten_nguoi_quoc_te",
+    "source": "curated",
+    "tokens": [
+      "olivia",
+      "brown"
+    ]
+  },
+  "michael chen": {
+    "term": "Michael Chen",
+    "category": "ten_nguoi_quoc_te",
+    "source": "curated",
+    "tokens": [
+      "michael",
+      "chen"
+    ]
+  },
+  "andrew scott": {
+    "term": "Andrew Scott",
+    "category": "ten_nguoi_quoc_te",
+    "source": "curated",
+    "tokens": [
+      "andrew",
+      "scott"
+    ]
+  },
+  "mark johnson": {
+    "term": "Mark Johnson",
+    "category": "ten_nguoi_quoc_te",
+    "source": "curated",
+    "tokens": [
+      "mark",
+      "johnson"
+    ]
+  },
+  "trúc bạch": {
+    "term": "Trúc Bạch",
+    "category": "dia_diem_to_chuc",
+    "source": "curated",
+    "tokens": [
+      "trúc",
+      "bạch"
+    ]
+  },
+  "hải thượng lãn ông": {
+    "term": "Hải Thượng Lãn Ông",
+    "category": "dia_diem_to_chuc",
+    "source": "curated",
+    "tokens": [
+      "hải",
+      "thượng",
+      "lãn",
+      "ông"
+    ]
+  },
+  "lê đức thọ": {
+    "term": "Lê Đức Thọ",
+    "category": "dia_diem_to_chuc",
+    "source": "curated",
+    "tokens": [
+      "lê",
+      "đức",
+      "thọ"
+    ]
+  },
+  "thái hà": {
+    "term": "Thái Hà",
+    "category": "dia_diem_to_chuc",
+    "source": "curated",
+    "tokens": [
+      "thái",
+      "hà"
+    ]
+  },
+  "the lemon tree café": {
+    "term": "The Lemon Tree Café",
+    "category": "dia_diem_to_chuc",
+    "source": "curated",
+    "tokens": [
+      "the",
+      "lemon",
+      "tree",
+      "café"
+    ]
+  },
+  "the olive branch café": {
+    "term": "The Olive Branch Café",
+    "category": "dia_diem_to_chuc",
+    "source": "curated",
+    "tokens": [
+      "the",
+      "olive",
+      "branch",
+      "café"
+    ]
+  },
+  "the copper kettle café": {
+    "term": "The Copper Kettle Café",
+    "category": "dia_diem_to_chuc",
+    "source": "curated",
+    "tokens": [
+      "the",
+      "copper",
+      "kettle",
+      "café"
+    ]
+  },
+  "cao nguyên coffee": {
+    "term": "Cao Nguyên Coffee",
+    "category": "dia_diem_to_chuc",
+    "source": "curated",
+    "tokens": [
+      "cao",
+      "nguyên",
+      "coffee"
+    ]
+  },
+  "riverside coworking": {
+    "term": "Riverside Coworking",
+    "category": "dia_diem_to_chuc",
+    "source": "curated",
+    "tokens": [
+      "riverside",
+      "coworking"
+    ]
+  },
+  "riverbank residence": {
+    "term": "Riverbank Residence",
+    "category": "dia_diem_to_chuc",
+    "source": "curated",
+    "tokens": [
+      "riverbank",
+      "residence"
+    ]
+  },
+  "riverbank suites": {
+    "term": "Riverbank Suites",
+    "category": "dia_diem_to_chuc",
+    "source": "curated",
+    "tokens": [
+      "riverbank",
+      "suites"
+    ]
+  },
+  "nexora labs": {
+    "term": "Nexora Labs",
+    "category": "dia_diem_to_chuc",
+    "source": "curated",
+    "tokens": [
+      "nexora",
+      "labs"
+    ]
+  },
+  "evergreen foods": {
+    "term": "Evergreen Foods",
+    "category": "dia_diem_to_chuc",
+    "source": "curated",
+    "tokens": [
+      "evergreen",
+      "foods"
+    ]
+  },
+  "northwind trading": {
+    "term": "Northwind Trading",
+    "category": "dia_diem_to_chuc",
+    "source": "curated",
+    "tokens": [
+      "northwind",
+      "trading"
+    ]
+  },
+  "kestrel fiber": {
+    "term": "Kestrel Fiber",
+    "category": "dia_diem_to_chuc",
+    "source": "curated",
+    "tokens": [
+      "kestrel",
+      "fiber"
+    ]
+  },
+  "lumina studio": {
+    "term": "Lumina Studio",
+    "category": "dia_diem_to_chuc",
+    "source": "curated",
+    "tokens": [
+      "lumina",
+      "studio"
+    ]
+  },
+  "crestview hotels": {
+    "term": "Crestview Hotels",
+    "category": "dia_diem_to_chuc",
+    "source": "curated",
+    "tokens": [
+      "crestview",
+      "hotels"
+    ]
+  },
+  "harbor view hotel": {
+    "term": "Harbor View Hotel",
+    "category": "dia_diem_to_chuc",
+    "source": "curated",
+    "tokens": [
+      "harbor",
+      "view",
+      "hotel"
+    ]
+  },
+  "maple leaf education": {
+    "term": "Maple Leaf Education",
+    "category": "dia_diem_to_chuc",
+    "source": "curated",
+    "tokens": [
+      "maple",
+      "leaf",
+      "education"
+    ]
+  },
+  "design cloud": {
+    "term": "Design Cloud",
+    "category": "dia_diem_to_chuc",
+    "source": "curated",
+    "tokens": [
+      "design",
+      "cloud"
+    ]
+  },
+  "bluebird cafe": {
+    "term": "Bluebird Cafe",
+    "category": "dia_diem_to_chuc",
+    "source": "curated",
+    "tokens": [
+      "bluebird",
+      "cafe"
+    ]
+  },
+  "bluebird café": {
+    "term": "Bluebird Café",
+    "category": "dia_diem_to_chuc",
+    "source": "curated",
+    "tokens": [
+      "bluebird",
+      "café"
+    ]
+  },
+  "skyline park": {
+    "term": "Skyline Park",
+    "category": "dia_diem_to_chuc",
+    "source": "curated",
+    "tokens": [
+      "skyline",
+      "park"
+    ]
+  },
+  "le petit bakery": {
+    "term": "Le Petit Bakery",
+    "category": "dia_diem_to_chuc",
+    "source": "curated",
+    "tokens": [
+      "le",
+      "petit",
+      "bakery"
+    ]
+  },
+  "brightwave studio": {
+    "term": "Brightwave Studio",
+    "category": "dia_diem_to_chuc",
+    "source": "curated",
+    "tokens": [
+      "brightwave",
+      "studio"
+    ]
+  },
+  "team design": {
+    "term": "Team Design",
+    "category": "dia_diem_to_chuc",
+    "source": "curated",
+    "tokens": [
+      "team",
+      "design"
+    ]
+  },
+  "sun square": {
+    "term": "Sun Square",
+    "category": "dia_diem_to_chuc",
+    "source": "curated",
+    "tokens": [
+      "sun",
+      "square"
+    ]
+  },
+  "osaka ramen": {
+    "term": "Osaka Ramen",
+    "category": "dia_diem_to_chuc",
+    "source": "curated",
+    "tokens": [
+      "osaka",
+      "ramen"
+    ]
+  },
+  "berlin": {
+    "term": "Berlin",
+    "category": "dia_diem_to_chuc",
+    "source": "curated",
+    "tokens": [
+      "berlin"
+    ]
+  },
+  "sáng mai": {
+    "term": "sáng mai",
+    "category": "thoi_gian_quan_he",
+    "source": "curated",
+    "tokens": [
+      "sáng",
+      "mai"
+    ]
+  },
+  "tối mai": {
+    "term": "tối mai",
+    "category": "thoi_gian_quan_he",
+    "source": "curated",
+    "tokens": [
+      "tối",
+      "mai"
+    ]
+  },
+  "tối nay": {
+    "term": "tối nay",
+    "category": "thoi_gian_quan_he",
+    "source": "curated",
+    "tokens": [
+      "tối",
+      "nay"
+    ]
+  },
+  "hôm qua": {
+    "term": "hôm qua",
+    "category": "thoi_gian_quan_he",
+    "source": "curated",
+    "tokens": [
+      "hôm",
+      "qua"
+    ]
+  },
+  "ngày kia": {
+    "term": "ngày kia",
+    "category": "thoi_gian_quan_he",
+    "source": "curated",
+    "tokens": [
+      "ngày",
+      "kia"
+    ]
+  },
+  "mai": {
+    "term": "mai",
+    "category": "thoi_gian_quan_he",
+    "source": "curated",
+    "tokens": [
+      "mai"
+    ]
+  },
+  "nay": {
+    "term": "nay",
+    "category": "thoi_gian_quan_he",
+    "source": "curated",
+    "tokens": [
+      "nay"
+    ]
+  },
+  "trước": {
+    "term": "trước",
+    "category": "thoi_gian_quan_he",
+    "source": "curated",
+    "tokens": [
+      "trước"
+    ]
+  },
+  "sau": {
+    "term": "sau",
+    "category": "thoi_gian_quan_he",
+    "source": "curated",
+    "tokens": [
+      "sau"
+    ]
+  },
+  "kém": {
+    "term": "kém",
+    "category": "thoi_gian_quan_he",
+    "source": "curated",
+    "tokens": [
+      "kém"
+    ]
+  },
+  "rưỡi": {
+    "term": "rưỡi",
+    "category": "thoi_gian_quan_he",
+    "source": "curated",
+    "tokens": [
+      "rưỡi"
+    ]
+  },
+  "muộn hơn": {
+    "term": "muộn hơn",
+    "category": "thoi_gian_quan_he",
+    "source": "curated",
+    "tokens": [
+      "muộn",
+      "hơn"
+    ]
+  },
+  "sớm hơn": {
+    "term": "sớm hơn",
+    "category": "thoi_gian_quan_he",
+    "source": "curated",
+    "tokens": [
+      "sớm",
+      "hơn"
+    ]
+  },
+  "ví điện tử": {
+    "term": "ví điện tử",
+    "category": "tai_chinh_thanh_toan",
+    "source": "curated",
+    "tokens": [
+      "ví",
+      "điện",
+      "tử"
+    ]
+  },
+  "qua ví": {
+    "term": "qua ví",
+    "category": "tai_chinh_thanh_toan",
+    "source": "curated",
+    "tokens": [
+      "qua",
+      "ví"
+    ]
+  },
+  "tài khoản thanh toán": {
+    "term": "tài khoản thanh toán",
+    "category": "tai_chinh_thanh_toan",
+    "source": "curated",
+    "tokens": [
+      "tài",
+      "khoản",
+      "thanh",
+      "toán"
+    ]
+  },
+  "tài khoản tiết kiệm": {
+    "term": "tài khoản tiết kiệm",
+    "category": "tai_chinh_thanh_toan",
+    "source": "curated",
+    "tokens": [
+      "tài",
+      "khoản",
+      "tiết",
+      "kiệm"
+    ]
+  },
+  "tiền điện": {
+    "term": "tiền điện",
+    "category": "tai_chinh_thanh_toan",
+    "source": "curated",
+    "tokens": [
+      "tiền",
+      "điện"
+    ]
+  },
+  "tiền nước": {
+    "term": "tiền nước",
+    "category": "tai_chinh_thanh_toan",
+    "source": "curated",
+    "tokens": [
+      "tiền",
+      "nước"
+    ]
+  },
+  "tiền mạng": {
+    "term": "tiền mạng",
+    "category": "tai_chinh_thanh_toan",
+    "source": "curated",
+    "tokens": [
+      "tiền",
+      "mạng"
+    ]
+  },
+  "nạp ví": {
+    "term": "nạp ví",
+    "category": "tai_chinh_thanh_toan",
+    "source": "curated",
+    "tokens": [
+      "nạp",
+      "ví"
+    ]
+  },
+  "nạp điện thoại": {
+    "term": "nạp điện thoại",
+    "category": "tai_chinh_thanh_toan",
+    "source": "curated",
+    "tokens": [
+      "nạp",
+      "điện",
+      "thoại"
+    ]
+  },
+  "mua vào": {
+    "term": "mua vào",
+    "category": "tai_chinh_thanh_toan",
+    "source": "curated",
+    "tokens": [
+      "mua",
+      "vào"
+    ]
+  },
+  "bán ra": {
+    "term": "bán ra",
+    "category": "tai_chinh_thanh_toan",
+    "source": "curated",
+    "tokens": [
+      "bán",
+      "ra"
+    ]
+  },
+  "một tiếng": {
+    "term": "một tiếng",
+    "category": "gia_tri_so",
+    "source": "number_with_explicit_unit",
+    "tokens": [
+      "một",
+      "tiếng"
+    ]
+  },
+  "chín giờ": {
+    "term": "chín giờ",
+    "category": "gia_tri_so",
+    "source": "number_with_explicit_unit",
+    "tokens": [
+      "chín",
+      "giờ"
+    ]
+  },
+  "một trăm hai mươi hai triệu": {
+    "term": "một trăm hai mươi hai triệu",
+    "category": "gia_tri_so",
+    "source": "monetary_value_candidate",
+    "tokens": [
+      "một",
+      "trăm",
+      "hai",
+      "mươi",
+      "hai",
+      "triệu"
+    ]
+  },
+  "hai triệu": {
+    "term": "hai triệu",
+    "category": "gia_tri_so",
+    "source": "monetary_value_candidate",
+    "tokens": [
+      "hai",
+      "triệu"
+    ]
+  },
+  "mười giờ": {
+    "term": "mười giờ",
+    "category": "gia_tri_so",
+    "source": "number_with_explicit_unit",
+    "tokens": [
+      "mười",
+      "giờ"
+    ]
+  },
+  "năm giờ": {
+    "term": "năm giờ",
+    "category": "gia_tri_so",
+    "source": "number_with_explicit_unit",
+    "tokens": [
+      "năm",
+      "giờ"
+    ]
+  },
+  "hai mươi bốn độ": {
+    "term": "hai mươi bốn độ",
+    "category": "gia_tri_so",
+    "source": "number_with_explicit_unit",
+    "tokens": [
+      "hai",
+      "mươi",
+      "bốn",
+      "độ"
+    ]
+  },
+  "bảy giờ": {
+    "term": "bảy giờ",
+    "category": "gia_tri_so",
+    "source": "number_with_explicit_unit",
+    "tokens": [
+      "bảy",
+      "giờ"
+    ]
+  },
+  "không chín tám ba sáu bốn bảy hai năm một chín": {
+    "term": "không chín tám ba sáu bốn bảy hai năm một chín",
+    "category": "gia_tri_so",
+    "source": "spoken_digit_sequence",
+    "tokens": [
+      "không",
+      "chín",
+      "tám",
+      "ba",
+      "sáu",
+      "bốn",
+      "bảy",
+      "hai",
+      "năm",
+      "một",
+      "chín"
+    ]
+  },
+  "đại nội": {
+    "term": "Đại Nội",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "đại",
+      "nội"
+    ]
+  },
+  "đông ba": {
+    "term": "Đông Ba",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "đông",
+      "ba"
+    ]
+  },
+  "tám giờ": {
+    "term": "tám giờ",
+    "category": "gia_tri_so",
+    "source": "number_with_explicit_unit",
+    "tokens": [
+      "tám",
+      "giờ"
+    ]
+  },
+  "một lít": {
+    "term": "một lít",
+    "category": "gia_tri_so",
+    "source": "number_with_explicit_unit",
+    "tokens": [
+      "một",
+      "lít"
+    ]
+  },
+  "hai mươi bảy độ": {
+    "term": "hai mươi bảy độ",
+    "category": "gia_tri_so",
+    "source": "number_with_explicit_unit",
+    "tokens": [
+      "hai",
+      "mươi",
+      "bảy",
+      "độ"
+    ]
+  },
+  "đồng nai": {
+    "term": "Đồng Nai",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "đồng",
+      "nai"
+    ]
+  },
+  "sms hương": {
+    "term": "SMS Hương",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "sms",
+      "hương"
+    ]
+  },
+  "tư ba tiếng": {
+    "term": "tư ba tiếng",
+    "category": "gia_tri_so",
+    "source": "number_with_explicit_unit",
+    "tokens": [
+      "tư",
+      "ba",
+      "tiếng"
+    ]
+  },
+  "năm trăm nghìn": {
+    "term": "năm trăm nghìn",
+    "category": "gia_tri_so",
+    "source": "monetary_value_candidate",
+    "tokens": [
+      "năm",
+      "trăm",
+      "nghìn"
+    ]
+  },
+  "năm mươi phần trăm": {
+    "term": "năm mươi phần trăm",
+    "category": "gia_tri_so",
+    "source": "number_with_explicit_unit",
+    "tokens": [
+      "năm",
+      "mươi",
+      "phần",
+      "trăm"
+    ]
+  },
+  "hai mươi sáu độ": {
+    "term": "hai mươi sáu độ",
+    "category": "gia_tri_so",
+    "source": "number_with_explicit_unit",
+    "tokens": [
+      "hai",
+      "mươi",
+      "sáu",
+      "độ"
+    ]
+  },
+  "bốn mươi phần trăm": {
+    "term": "bốn mươi phần trăm",
+    "category": "gia_tri_so",
+    "source": "number_with_explicit_unit",
+    "tokens": [
+      "bốn",
+      "mươi",
+      "phần",
+      "trăm"
+    ]
+  },
+  "video gia đình": {
+    "term": "Video Gia Đình",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "video",
+      "gia",
+      "đình"
+    ]
+  },
+  "vov giao": {
+    "term": "VOV Giao",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "vov",
+      "giao"
+    ]
+  },
+  "thằng tí": {
+    "term": "Thằng Tí",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "thằng",
+      "tí"
+    ]
+  },
+  "hai giờ": {
+    "term": "hai giờ",
+    "category": "gia_tri_so",
+    "source": "number_with_explicit_unit",
+    "tokens": [
+      "hai",
+      "giờ"
+    ]
+  },
+  "bốn mươi lăm nghìn": {
+    "term": "bốn mươi lăm nghìn",
+    "category": "gia_tri_so",
+    "source": "monetary_value_candidate",
+    "tokens": [
+      "bốn",
+      "mươi",
+      "lăm",
+      "nghìn"
+    ]
+  },
+  "mười một giờ": {
+    "term": "mười một giờ",
+    "category": "gia_tri_so",
+    "source": "number_with_explicit_unit",
+    "tokens": [
+      "mười",
+      "một",
+      "giờ"
+    ]
+  },
+  "kim hưng": {
+    "term": "Kim Hưng",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "kim",
+      "hưng"
+    ]
+  },
+  "bạch đằng": {
+    "term": "Bạch Đằng",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "bạch",
+      "đằng"
+    ]
+  },
+  "sài gòn": {
+    "term": "Sài Gòn",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "sài",
+      "gòn"
+    ]
+  },
+  "vinaco lê lợi": {
+    "term": "Vinaco Lê Lợi",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "vinaco",
+      "lê",
+      "lợi"
+    ]
+  },
+  "chợ rẫy": {
+    "term": "Chợ Rẫy",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "chợ",
+      "rẫy"
+    ]
+  },
+  "phạm hùng": {
+    "term": "Phạm Hùng",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "phạm",
+      "hùng"
+    ]
+  },
+  "ba mươi phút": {
+    "term": "ba mươi phút",
+    "category": "gia_tri_so",
+    "source": "number_with_explicit_unit",
+    "tokens": [
+      "ba",
+      "mươi",
+      "phút"
+    ]
+  },
+  "mười lăm phút": {
+    "term": "mười lăm phút",
+    "category": "gia_tri_so",
+    "source": "number_with_explicit_unit",
+    "tokens": [
+      "mười",
+      "lăm",
+      "phút"
+    ]
+  },
+  "sáu giờ": {
+    "term": "sáu giờ",
+    "category": "gia_tri_so",
+    "source": "number_with_explicit_unit",
+    "tokens": [
+      "sáu",
+      "giờ"
+    ]
+  },
+  "năm lít": {
+    "term": "năm lít",
+    "category": "gia_tri_so",
+    "source": "number_with_explicit_unit",
+    "tokens": [
+      "năm",
+      "lít"
+    ]
+  },
+  "ba giờ": {
+    "term": "ba giờ",
+    "category": "gia_tri_so",
+    "source": "number_with_explicit_unit",
+    "tokens": [
+      "ba",
+      "giờ"
+    ]
+  },
+  "đà nẵng": {
+    "term": "Đà Nẵng",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "đà",
+      "nẵng"
+    ]
+  },
+  "ba tiếng": {
+    "term": "ba tiếng",
+    "category": "gia_tri_so",
+    "source": "number_with_explicit_unit",
+    "tokens": [
+      "ba",
+      "tiếng"
+    ]
+  },
+  "huế cô ba": {
+    "term": "Huế Cô Ba",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "huế",
+      "cô",
+      "ba"
+    ]
+  },
+  "bảy trăm hai mươi nghìn": {
+    "term": "bảy trăm hai mươi nghìn",
+    "category": "gia_tri_so",
+    "source": "monetary_value_candidate",
+    "tokens": [
+      "bảy",
+      "trăm",
+      "hai",
+      "mươi",
+      "nghìn"
+    ]
+  },
+  "đà lạt": {
+    "term": "Đà Lạt",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "đà",
+      "lạt"
+    ]
+  },
+  "hạ long": {
+    "term": "Hạ Long",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "hạ",
+      "long"
+    ]
+  },
+  "một trăm hai mươi mốt triệu": {
+    "term": "một trăm hai mươi mốt triệu",
+    "category": "gia_tri_so",
+    "source": "monetary_value_candidate",
+    "tokens": [
+      "một",
+      "trăm",
+      "hai",
+      "mươi",
+      "mốt",
+      "triệu"
+    ]
+  },
+  "bình tây": {
+    "term": "Bình Tây",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "bình",
+      "tây"
+    ]
+  },
+  "bốn giờ": {
+    "term": "bốn giờ",
+    "category": "gia_tri_so",
+    "source": "number_with_explicit_unit",
+    "tokens": [
+      "bốn",
+      "giờ"
+    ]
+  },
+  "bốn mươi lăm phút": {
+    "term": "bốn mươi lăm phút",
+    "category": "gia_tri_so",
+    "source": "number_with_explicit_unit",
+    "tokens": [
+      "bốn",
+      "mươi",
+      "lăm",
+      "phút"
+    ]
+  },
+  "một trăm tám mươi nghìn": {
+    "term": "một trăm tám mươi nghìn",
+    "category": "gia_tri_so",
+    "source": "monetary_value_candidate",
+    "tokens": [
+      "một",
+      "trăm",
+      "tám",
+      "mươi",
+      "nghìn"
+    ]
+  },
+  "hai trăm đô": {
+    "term": "hai trăm đô",
+    "category": "gia_tri_so",
+    "source": "number_with_explicit_unit",
+    "tokens": [
+      "hai",
+      "trăm",
+      "đô"
+    ]
+  },
+  "một nghìn": {
+    "term": "một nghìn",
+    "category": "gia_tri_so",
+    "source": "monetary_value_candidate",
+    "tokens": [
+      "một",
+      "nghìn"
+    ]
+  },
+  "hà nội": {
+    "term": "Hà Nội",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "hà",
+      "nội"
+    ]
+  },
+  "hai trăm nghìn": {
+    "term": "hai trăm nghìn",
+    "category": "gia_tri_so",
+    "source": "monetary_value_candidate",
+    "tokens": [
+      "hai",
+      "trăm",
+      "nghìn"
+    ]
+  },
+  "đài sài gòn": {
+    "term": "Đài Sài Gòn",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "đài",
+      "sài",
+      "gòn"
+    ]
+  },
+  "một giờ": {
+    "term": "một giờ",
+    "category": "gia_tri_so",
+    "source": "number_with_explicit_unit",
+    "tokens": [
+      "một",
+      "giờ"
+    ]
+  },
+  "hai tiếng": {
+    "term": "hai tiếng",
+    "category": "gia_tri_so",
+    "source": "number_with_explicit_unit",
+    "tokens": [
+      "hai",
+      "tiếng"
+    ]
+  },
+  "thằng bi": {
+    "term": "Thằng Bi",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "thằng",
+      "bi"
+    ]
+  },
+  "tám mươi lăm nghìn": {
+    "term": "tám mươi lăm nghìn",
+    "category": "gia_tri_so",
+    "source": "monetary_value_candidate",
+    "tokens": [
+      "tám",
+      "mươi",
+      "lăm",
+      "nghìn"
+    ]
+  },
+  "năm một hai ba hai bảy tám ba bốn năm hai không": {
+    "term": "năm một hai ba hai bảy tám ba bốn năm hai không",
+    "category": "gia_tri_so",
+    "source": "spoken_digit_sequence",
+    "tokens": [
+      "năm",
+      "một",
+      "hai",
+      "ba",
+      "hai",
+      "bảy",
+      "tám",
+      "ba",
+      "bốn",
+      "năm",
+      "hai",
+      "không"
+    ]
+  },
+  "không chín một hai năm tám ba sáu bốn bảy không": {
+    "term": "không chín một hai năm tám ba sáu bốn bảy không",
+    "category": "gia_tri_so",
+    "source": "spoken_digit_sequence",
+    "tokens": [
+      "không",
+      "chín",
+      "một",
+      "hai",
+      "năm",
+      "tám",
+      "ba",
+      "sáu",
+      "bốn",
+      "bảy",
+      "không"
+    ]
+  },
+  "bé na": {
+    "term": "Bé Na",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "bé",
+      "na"
+    ]
+  },
+  "không chín tám bảy một năm không hai bốn ba sáu": {
+    "term": "không chín tám bảy một năm không hai bốn ba sáu",
+    "category": "gia_tri_so",
+    "source": "spoken_digit_sequence",
+    "tokens": [
+      "không",
+      "chín",
+      "tám",
+      "bảy",
+      "một",
+      "năm",
+      "không",
+      "hai",
+      "bốn",
+      "ba",
+      "sáu"
+    ]
+  },
+  "đức phúc": {
+    "term": "Đức Phúc",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "đức",
+      "phúc"
+    ]
+  },
+  "không chín bảy một hai ba bốn năm sáu tám không": {
+    "term": "không chín bảy một hai ba bốn năm sáu tám không",
+    "category": "gia_tri_so",
+    "source": "spoken_digit_sequence",
+    "tokens": [
+      "không",
+      "chín",
+      "bảy",
+      "một",
+      "hai",
+      "ba",
+      "bốn",
+      "năm",
+      "sáu",
+      "tám",
+      "không"
+    ]
+  },
+  "không chín tám tám năm năm một hai ba bốn sáu": {
+    "term": "không chín tám tám năm năm một hai ba bốn sáu",
+    "category": "gia_tri_so",
+    "source": "spoken_digit_sequence",
+    "tokens": [
+      "không",
+      "chín",
+      "tám",
+      "tám",
+      "năm",
+      "năm",
+      "một",
+      "hai",
+      "ba",
+      "bốn",
+      "sáu"
+    ]
+  },
+  "bốn lít": {
+    "term": "bốn lít",
+    "category": "gia_tri_so",
+    "source": "number_with_explicit_unit",
+    "tokens": [
+      "bốn",
+      "lít"
+    ]
+  },
+  "bốn triệu": {
+    "term": "bốn triệu",
+    "category": "gia_tri_so",
+    "source": "monetary_value_candidate",
+    "tokens": [
+      "bốn",
+      "triệu"
+    ]
+  },
+  "một trăm nghìn": {
+    "term": "một trăm nghìn",
+    "category": "gia_tri_so",
+    "source": "monetary_value_candidate",
+    "tokens": [
+      "một",
+      "trăm",
+      "nghìn"
+    ]
+  },
+  "hai mươi độ": {
+    "term": "hai mươi độ",
+    "category": "gia_tri_so",
+    "source": "number_with_explicit_unit",
+    "tokens": [
+      "hai",
+      "mươi",
+      "độ"
+    ]
+  },
+  "mười hai giờ": {
+    "term": "mười hai giờ",
+    "category": "gia_tri_so",
+    "source": "number_with_explicit_unit",
+    "tokens": [
+      "mười",
+      "hai",
+      "giờ"
+    ]
+  },
+  "thầy phong": {
+    "term": "Thầy Phong",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "thầy",
+      "phong"
+    ]
+  },
+  "sếp david": {
+    "term": "Sếp David",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "sếp",
+      "david"
+    ]
+  },
+  "không chín ba tám năm hai một bảy sáu bốn không": {
+    "term": "không chín ba tám năm hai một bảy sáu bốn không",
+    "category": "gia_tri_so",
+    "source": "spoken_digit_sequence",
+    "tokens": [
+      "không",
+      "chín",
+      "ba",
+      "tám",
+      "năm",
+      "hai",
+      "một",
+      "bảy",
+      "sáu",
+      "bốn",
+      "không"
+    ]
+  },
+  "nhà mèo": {
+    "term": "Nhà Mèo",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "nhà",
+      "mèo"
+    ]
+  },
+  "cần thơ": {
+    "term": "Cần Thơ",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "cần",
+      "thơ"
+    ]
+  },
+  "hai mươi lăm nghìn": {
+    "term": "hai mươi lăm nghìn",
+    "category": "gia_tri_so",
+    "source": "monetary_value_candidate",
+    "tokens": [
+      "hai",
+      "mươi",
+      "lăm",
+      "nghìn"
+    ]
+  },
+  "kim mai": {
+    "term": "Kim Mai",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "kim",
+      "mai"
+    ]
+  },
+  "hải thượng lãn": {
+    "term": "Hải Thượng Lãn",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "hải",
+      "thượng",
+      "lãn"
+    ]
+  },
+  "ba vì": {
+    "term": "Ba Vì",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "ba",
+      "vì"
+    ]
+  },
+  "ba trăm nghìn": {
+    "term": "ba trăm nghìn",
+    "category": "gia_tri_so",
+    "source": "monetary_value_candidate",
+    "tokens": [
+      "ba",
+      "trăm",
+      "nghìn"
+    ]
+  },
+  "rồng miles": {
+    "term": "Rồng Miles",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "rồng",
+      "miles"
+    ]
+  },
+  "một trăm bảy mốt đồng": {
+    "term": "một trăm bảy mốt đồng",
+    "category": "gia_tri_so",
+    "source": "number_with_explicit_unit",
+    "tokens": [
+      "một",
+      "trăm",
+      "bảy",
+      "mốt",
+      "đồng"
+    ]
+  },
+  "một đô": {
+    "term": "một đô",
+    "category": "gia_tri_so",
+    "source": "number_with_explicit_unit",
+    "tokens": [
+      "một",
+      "đô"
+    ]
+  },
+  "một trăm hai mươi bốn triệu": {
+    "term": "một trăm hai mươi bốn triệu",
+    "category": "gia_tri_so",
+    "source": "monetary_value_candidate",
+    "tokens": [
+      "một",
+      "trăm",
+      "hai",
+      "mươi",
+      "bốn",
+      "triệu"
+    ]
+  },
+  "khách hàn": {
+    "term": "Khách Hàn",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "khách",
+      "hàn"
+    ]
+  },
+  "bà nà": {
+    "term": "Bà Nà",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "bà",
+      "nà"
+    ]
+  },
+  "biển đông": {
+    "term": "Biển Đông",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "biển",
+      "đông"
+    ]
+  },
+  "đại việt": {
+    "term": "Đại Việt",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "đại",
+      "việt"
+    ]
+  },
+  "ba trăm chín mươi nghìn": {
+    "term": "ba trăm chín mươi nghìn",
+    "category": "gia_tri_so",
+    "source": "monetary_value_candidate",
+    "tokens": [
+      "ba",
+      "trăm",
+      "chín",
+      "mươi",
+      "nghìn"
+    ]
+  },
+  "sáu hai tiếng": {
+    "term": "sáu hai tiếng",
+    "category": "gia_tri_so",
+    "source": "number_with_explicit_unit",
+    "tokens": [
+      "sáu",
+      "hai",
+      "tiếng"
+    ]
+  },
+  "quảng cáo": {
+    "term": "Quảng Cáo",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "quảng",
+      "cáo"
+    ]
+  },
+  "gia đình": {
+    "term": "Gia Đình",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "gia",
+      "đình"
+    ]
+  },
+  "hannah brooks": {
+    "term": "Hannah Brooks",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "hannah",
+      "brooks"
+    ]
+  },
+  "không chín tám tám bảy bảy năm năm bốn bốn bảy": {
+    "term": "không chín tám tám bảy bảy năm năm bốn bốn bảy",
+    "category": "gia_tri_so",
+    "source": "spoken_digit_sequence",
+    "tokens": [
+      "không",
+      "chín",
+      "tám",
+      "tám",
+      "bảy",
+      "bảy",
+      "năm",
+      "năm",
+      "bốn",
+      "bốn",
+      "bảy"
+    ]
+  },
+  "falcon security": {
+    "term": "Falcon Security",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "falcon",
+      "security"
+    ]
+  },
+  "nguyễn huệ": {
+    "term": "Nguyễn Huệ",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "nguyễn",
+      "huệ"
+    ]
+  },
+  "hồ tây": {
+    "term": "Hồ Tây",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "hồ",
+      "tây"
+    ]
+  },
+  "học nhanh": {
+    "term": "Học Nhanh",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "học",
+      "nhanh"
+    ]
+  },
+  "tam đảo": {
+    "term": "Tam Đảo",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "tam",
+      "đảo"
+    ]
+  },
+  "không chín tám ba hai bốn một năm không tám sáu": {
+    "term": "không chín tám ba hai bốn một năm không tám sáu",
+    "category": "gia_tri_so",
+    "source": "spoken_digit_sequence",
+    "tokens": [
+      "không",
+      "chín",
+      "tám",
+      "ba",
+      "hai",
+      "bốn",
+      "một",
+      "năm",
+      "không",
+      "tám",
+      "sáu"
+    ]
+  },
+  "không chín một hai bốn năm sáu bảy tám một ba": {
+    "term": "không chín một hai bốn năm sáu bảy tám một ba",
+    "category": "gia_tri_so",
+    "source": "spoken_digit_sequence",
+    "tokens": [
+      "không",
+      "chín",
+      "một",
+      "hai",
+      "bốn",
+      "năm",
+      "sáu",
+      "bảy",
+      "tám",
+      "một",
+      "ba"
+    ]
+  },
+  "năm mươi nghìn": {
+    "term": "năm mươi nghìn",
+    "category": "gia_tri_so",
+    "source": "monetary_value_candidate",
+    "tokens": [
+      "năm",
+      "mươi",
+      "nghìn"
+    ]
+  },
+  "không chín bảy bảy ba ba hai một không chín năm": {
+    "term": "không chín bảy bảy ba ba hai một không chín năm",
+    "category": "gia_tri_so",
+    "source": "spoken_digit_sequence",
+    "tokens": [
+      "không",
+      "chín",
+      "bảy",
+      "bảy",
+      "ba",
+      "ba",
+      "hai",
+      "một",
+      "không",
+      "chín",
+      "năm"
+    ]
+  },
+  "một trăm ba mươi bốn triệu": {
+    "term": "một trăm ba mươi bốn triệu",
+    "category": "gia_tri_so",
+    "source": "monetary_value_candidate",
+    "tokens": [
+      "một",
+      "trăm",
+      "ba",
+      "mươi",
+      "bốn",
+      "triệu"
+    ]
+  },
+  "không chín tám ba hai một bốn sáu bảy năm năm": {
+    "term": "không chín tám ba hai một bốn sáu bảy năm năm",
+    "category": "gia_tri_so",
+    "source": "spoken_digit_sequence",
+    "tokens": [
+      "không",
+      "chín",
+      "tám",
+      "ba",
+      "hai",
+      "một",
+      "bốn",
+      "sáu",
+      "bảy",
+      "năm",
+      "năm"
+    ]
+  },
+  "bốn trăm đô": {
+    "term": "bốn trăm đô",
+    "category": "gia_tri_so",
+    "source": "number_with_explicit_unit",
+    "tokens": [
+      "bốn",
+      "trăm",
+      "đô"
+    ]
+  },
+  "mười một triệu": {
+    "term": "mười một triệu",
+    "category": "gia_tri_so",
+    "source": "monetary_value_candidate",
+    "tokens": [
+      "mười",
+      "một",
+      "triệu"
+    ]
+  },
+  "hai độ": {
+    "term": "hai độ",
+    "category": "gia_tri_so",
+    "source": "number_with_explicit_unit",
+    "tokens": [
+      "hai",
+      "độ"
+    ]
+  },
+  "láng hạ": {
+    "term": "Láng Hạ",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "láng",
+      "hạ"
+    ]
+  },
+  "yên phụ": {
+    "term": "Yên Phụ",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "yên",
+      "phụ"
+    ]
+  },
+  "năm trăm đô": {
+    "term": "năm trăm đô",
+    "category": "gia_tri_so",
+    "source": "number_with_explicit_unit",
+    "tokens": [
+      "năm",
+      "trăm",
+      "đô"
+    ]
+  },
+  "không chín ba năm một bảy không tám ba sáu hai": {
+    "term": "không chín ba năm một bảy không tám ba sáu hai",
+    "category": "gia_tri_so",
+    "source": "spoken_digit_sequence",
+    "tokens": [
+      "không",
+      "chín",
+      "ba",
+      "năm",
+      "một",
+      "bảy",
+      "không",
+      "tám",
+      "ba",
+      "sáu",
+      "hai"
+    ]
+  },
+  "góc phố": {
+    "term": "Góc Phố",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "góc",
+      "phố"
+    ]
+  },
+  "hai mươi bốn giờ": {
+    "term": "hai mươi bốn giờ",
+    "category": "gia_tri_so",
+    "source": "number_with_explicit_unit",
+    "tokens": [
+      "hai",
+      "mươi",
+      "bốn",
+      "giờ"
+    ]
+  },
+  "bốn mươi hai nghìn": {
+    "term": "bốn mươi hai nghìn",
+    "category": "gia_tri_so",
+    "source": "monetary_value_candidate",
+    "tokens": [
+      "bốn",
+      "mươi",
+      "hai",
+      "nghìn"
+    ]
+  },
+  "một trăm tám mươi lăm nghìn": {
+    "term": "một trăm tám mươi lăm nghìn",
+    "category": "gia_tri_so",
+    "source": "monetary_value_candidate",
+    "tokens": [
+      "một",
+      "trăm",
+      "tám",
+      "mươi",
+      "lăm",
+      "nghìn"
+    ]
+  },
+  "một trăm hai mươi nghìn": {
+    "term": "một trăm hai mươi nghìn",
+    "category": "gia_tri_so",
+    "source": "monetary_value_candidate",
+    "tokens": [
+      "một",
+      "trăm",
+      "hai",
+      "mươi",
+      "nghìn"
+    ]
+  },
+  "lò đúc": {
+    "term": "Lò Đúc",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "lò",
+      "đúc"
+    ]
+  },
+  "phim đất": {
+    "term": "Phim Đất",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "phim",
+      "đất"
+    ]
+  },
+  "long an": {
+    "term": "Long An",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "long",
+      "an"
+    ]
+  },
+  "hội an": {
+    "term": "Hội An",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "hội",
+      "an"
+    ]
+  },
+  "sáu mươi phần trăm": {
+    "term": "sáu mươi phần trăm",
+    "category": "gia_tri_so",
+    "source": "number_with_explicit_unit",
+    "tokens": [
+      "sáu",
+      "mươi",
+      "phần",
+      "trăm"
+    ]
+  },
+  "ba mươi phần trăm": {
+    "term": "ba mươi phần trăm",
+    "category": "gia_tri_so",
+    "source": "number_with_explicit_unit",
+    "tokens": [
+      "ba",
+      "mươi",
+      "phần",
+      "trăm"
+    ]
+  },
+  "phú bài": {
+    "term": "Phú Bài",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "phú",
+      "bài"
+    ]
+  },
+  "hai sáu giờ": {
+    "term": "hai sáu giờ",
+    "category": "gia_tri_so",
+    "source": "number_with_explicit_unit",
+    "tokens": [
+      "hai",
+      "sáu",
+      "giờ"
+    ]
+  },
+  "hai mươi lăm độ": {
+    "term": "hai mươi lăm độ",
+    "category": "gia_tri_so",
+    "source": "number_with_explicit_unit",
+    "tokens": [
+      "hai",
+      "mươi",
+      "lăm",
+      "độ"
+    ]
+  },
+  "sáu nghìn": {
+    "term": "sáu nghìn",
+    "category": "gia_tri_so",
+    "source": "monetary_value_candidate",
+    "tokens": [
+      "sáu",
+      "nghìn"
+    ]
+  },
+  "sáu mươi phút": {
+    "term": "sáu mươi phút",
+    "category": "gia_tri_so",
+    "source": "number_with_explicit_unit",
+    "tokens": [
+      "sáu",
+      "mươi",
+      "phút"
+    ]
+  },
+  "minh phát": {
+    "term": "Minh Phát",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "minh",
+      "phát"
+    ]
+  },
+  "cao nguyên": {
+    "term": "Cao Nguyên",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "cao",
+      "nguyên"
+    ]
+  },
+  "hai mươi lăm phút": {
+    "term": "hai mươi lăm phút",
+    "category": "gia_tri_so",
+    "source": "number_with_explicit_unit",
+    "tokens": [
+      "hai",
+      "mươi",
+      "lăm",
+      "phút"
+    ]
+  },
+  "cuối tuần": {
+    "term": "Cuối Tuần",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "cuối",
+      "tuần"
+    ]
+  },
+  "nội bài": {
+    "term": "Nội Bài",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "nội",
+      "bài"
+    ]
+  },
+  "không chín không một hai ba bốn chín chín chín sáu": {
+    "term": "không chín không một hai ba bốn chín chín chín sáu",
+    "category": "gia_tri_so",
+    "source": "spoken_digit_sequence",
+    "tokens": [
+      "không",
+      "chín",
+      "không",
+      "một",
+      "hai",
+      "ba",
+      "bốn",
+      "chín",
+      "chín",
+      "chín",
+      "sáu"
+    ]
+  },
+  "một trăm hai mươi bảy triệu": {
+    "term": "một trăm hai mươi bảy triệu",
+    "category": "gia_tri_so",
+    "source": "monetary_value_candidate",
+    "tokens": [
+      "một",
+      "trăm",
+      "hai",
+      "mươi",
+      "bảy",
+      "triệu"
+    ]
+  },
+  "vũng tàu": {
+    "term": "Vũng Tàu",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "vũng",
+      "tàu"
+    ]
+  },
+  "chín lăm giờ": {
+    "term": "chín lăm giờ",
+    "category": "gia_tri_so",
+    "source": "number_with_explicit_unit",
+    "tokens": [
+      "chín",
+      "lăm",
+      "giờ"
+    ]
+  },
+  "bé bống": {
+    "term": "Bé Bống",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "bé",
+      "bống"
+    ]
+  },
+  "trăm nghìn": {
+    "term": "trăm nghìn",
+    "category": "gia_tri_so",
+    "source": "monetary_value_candidate",
+    "tokens": [
+      "trăm",
+      "nghìn"
+    ]
+  },
+  "hoàng phát": {
+    "term": "Hoàng Phát",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "hoàng",
+      "phát"
+    ]
+  },
+  "sáu ba trăm nghìn": {
+    "term": "sáu ba trăm nghìn",
+    "category": "gia_tri_so",
+    "source": "monetary_value_candidate",
+    "tokens": [
+      "sáu",
+      "ba",
+      "trăm",
+      "nghìn"
+    ]
+  },
+  "không chín một tám hai bảy ba sáu bốn năm một": {
+    "term": "không chín một tám hai bảy ba sáu bốn năm một",
+    "category": "gia_tri_so",
+    "source": "spoken_digit_sequence",
+    "tokens": [
+      "không",
+      "chín",
+      "một",
+      "tám",
+      "hai",
+      "bảy",
+      "ba",
+      "sáu",
+      "bốn",
+      "năm",
+      "một"
+    ]
+  },
+  "một nghìn một lít": {
+    "term": "một nghìn một lít",
+    "category": "gia_tri_so",
+    "source": "number_with_explicit_unit",
+    "tokens": [
+      "một",
+      "nghìn",
+      "một",
+      "lít"
+    ]
+  },
+  "gavin price": {
+    "term": "Gavin Price",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "gavin",
+      "price"
+    ]
+  },
+  "oakwood residence": {
+    "term": "Oakwood Residence",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "oakwood",
+      "residence"
+    ]
+  },
+  "năm triệu": {
+    "term": "năm triệu",
+    "category": "gia_tri_so",
+    "source": "monetary_value_candidate",
+    "tokens": [
+      "năm",
+      "triệu"
+    ]
+  },
+  "tám trăm năm mươi nghìn": {
+    "term": "tám trăm năm mươi nghìn",
+    "category": "gia_tri_so",
+    "source": "monetary_value_candidate",
+    "tokens": [
+      "tám",
+      "trăm",
+      "năm",
+      "mươi",
+      "nghìn"
+    ]
+  },
+  "mỹ đình": {
+    "term": "Mỹ Đình",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "mỹ",
+      "đình"
+    ]
+  },
+  "năm mươi lăm phần trăm": {
+    "term": "năm mươi lăm phần trăm",
+    "category": "gia_tri_so",
+    "source": "number_with_explicit_unit",
+    "tokens": [
+      "năm",
+      "mươi",
+      "lăm",
+      "phần",
+      "trăm"
+    ]
+  },
+  "rv một tám ba": {
+    "term": "RV183",
+    "category": "viet_tat_ma",
+    "source": "literal_flight_code",
+    "tokens": [
+      "rv",
+      "một",
+      "tám",
+      "ba"
+    ]
+  },
+  "rồng việt air": {
+    "term": "Rồng Việt Air",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "rồng",
+      "việt",
+      "air"
+    ]
+  },
+  "rv một tám bảy": {
+    "term": "RV187",
+    "category": "viet_tat_ma",
+    "source": "literal_flight_code",
+    "tokens": [
+      "rv",
+      "một",
+      "tám",
+      "bảy"
+    ]
+  },
+  "một trăm hai mươi chín triệu": {
+    "term": "một trăm hai mươi chín triệu",
+    "category": "gia_tri_so",
+    "source": "monetary_value_candidate",
+    "tokens": [
+      "một",
+      "trăm",
+      "hai",
+      "mươi",
+      "chín",
+      "triệu"
+    ]
+  },
+  "nimbus one": {
+    "term": "Nimbus One",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "nimbus",
+      "one"
+    ]
+  },
+  "skyline rooftop bar": {
+    "term": "Skyline Rooftop Bar",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "skyline",
+      "rooftop",
+      "bar"
+    ]
+  },
+  "rv hai một chín": {
+    "term": "RV219",
+    "category": "viet_tat_ma",
+    "source": "literal_flight_code",
+    "tokens": [
+      "rv",
+      "hai",
+      "một",
+      "chín"
+    ]
+  },
+  "marcus bell": {
+    "term": "Marcus Bell",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "marcus",
+      "bell"
+    ]
+  },
+  "bà dưỡng": {
+    "term": "Bà Dưỡng",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "bà",
+      "dưỡng"
+    ]
+  },
+  "trăm hai mốt triệu": {
+    "term": "trăm hai mốt triệu",
+    "category": "gia_tri_so",
+    "source": "monetary_value_candidate",
+    "tokens": [
+      "trăm",
+      "hai",
+      "mốt",
+      "triệu"
+    ]
+  },
+  "blue fern": {
+    "term": "Blue Fern",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "blue",
+      "fern"
+    ]
+  },
+  "tôn thất thiệp": {
+    "term": "Tôn Thất Thiệp",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "tôn",
+      "thất",
+      "thiệp"
+    ]
+  },
+  "lantern bay hotel": {
+    "term": "Lantern Bay Hotel",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "lantern",
+      "bay",
+      "hotel"
+    ]
+  },
+  "hai mươi phút": {
+    "term": "hai mươi phút",
+    "category": "gia_tri_so",
+    "source": "number_with_explicit_unit",
+    "tokens": [
+      "hai",
+      "mươi",
+      "phút"
+    ]
+  },
+  "chợ hôm": {
+    "term": "Chợ Hôm",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "chợ",
+      "hôm"
+    ]
+  },
+  "bếp xanh": {
+    "term": "Bếp Xanh",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "bếp",
+      "xanh"
+    ]
+  },
+  "hà lan": {
+    "term": "Hà Lan",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "hà",
+      "lan"
+    ]
+  },
+  "bốn tiếng": {
+    "term": "bốn tiếng",
+    "category": "gia_tri_so",
+    "source": "number_with_explicit_unit",
+    "tokens": [
+      "bốn",
+      "tiếng"
+    ]
+  },
+  "horizon shipping": {
+    "term": "Horizon Shipping",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "horizon",
+      "shipping"
+    ]
+  },
+  "julia moreno": {
+    "term": "Julia Moreno",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "julia",
+      "moreno"
+    ]
+  },
+  "bốn trăm nghìn": {
+    "term": "bốn trăm nghìn",
+    "category": "gia_tri_so",
+    "source": "monetary_value_candidate",
+    "tokens": [
+      "bốn",
+      "trăm",
+      "nghìn"
+    ]
+  },
+  "ninh bình": {
+    "term": "Ninh Bình",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "ninh",
+      "bình"
+    ]
+  },
+  "bạch mai": {
+    "term": "Bạch Mai",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "bạch",
+      "mai"
+    ]
+  },
+  "mười tám độ": {
+    "term": "mười tám độ",
+    "category": "gia_tri_so",
+    "source": "number_with_explicit_unit",
+    "tokens": [
+      "mười",
+      "tám",
+      "độ"
+    ]
+  },
+  "mầm xanh": {
+    "term": "Mầm Xanh",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "mầm",
+      "xanh"
+    ]
+  },
+  "nexora fiber": {
+    "term": "Nexora Fiber",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "nexora",
+      "fiber"
+    ]
+  },
+  "mì quảng bà mùi": {
+    "term": "Mì Quảng Bà Mùi",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "mì",
+      "quảng",
+      "bà",
+      "mùi"
+    ]
+  },
+  "không chín không hai không không không không hai bảy không": {
+    "term": "không chín không hai không không không không hai bảy không",
+    "category": "gia_tri_so",
+    "source": "spoken_digit_sequence",
+    "tokens": [
+      "không",
+      "chín",
+      "không",
+      "hai",
+      "không",
+      "không",
+      "không",
+      "không",
+      "hai",
+      "bảy",
+      "không"
+    ]
+  },
+  "sunbridge digital": {
+    "term": "Sunbridge Digital",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "sunbridge",
+      "digital"
+    ]
+  },
+  "chín nghìn": {
+    "term": "chín nghìn",
+    "category": "gia_tri_so",
+    "source": "monetary_value_candidate",
+    "tokens": [
+      "chín",
+      "nghìn"
+    ]
+  },
+  "mười nghìn": {
+    "term": "mười nghìn",
+    "category": "gia_tri_so",
+    "source": "monetary_value_candidate",
+    "tokens": [
+      "mười",
+      "nghìn"
+    ]
+  },
+  "thống nhất": {
+    "term": "Thống Nhất",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "thống",
+      "nhất"
+    ]
+  },
+  "golden lotus hall": {
+    "term": "Golden Lotus Hall",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "golden",
+      "lotus",
+      "hall"
+    ]
+  },
+  "scaling agile teams": {
+    "term": "Scaling Agile Teams",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "scaling",
+      "agile",
+      "teams"
+    ]
+  },
+  "vợ hà": {
+    "term": "Vợ Hà",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "vợ",
+      "hà"
+    ]
+  },
+  "không chín bảy không bốn bốn bốn hai hai chín chín": {
+    "term": "không chín bảy không bốn bốn bốn hai hai chín chín",
+    "category": "gia_tri_so",
+    "source": "spoken_digit_sequence",
+    "tokens": [
+      "không",
+      "chín",
+      "bảy",
+      "không",
+      "bốn",
+      "bốn",
+      "bốn",
+      "hai",
+      "hai",
+      "chín",
+      "chín"
+    ]
+  },
+  "mười tám nghìn": {
+    "term": "mười tám nghìn",
+    "category": "gia_tri_so",
+    "source": "monetary_value_candidate",
+    "tokens": [
+      "mười",
+      "tám",
+      "nghìn"
+    ]
+  },
+  "pinnacle design": {
+    "term": "Pinnacle Design",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "pinnacle",
+      "design"
+    ]
+  },
+  "duy tân": {
+    "term": "Duy Tân",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "duy",
+      "tân"
+    ]
+  },
+  "hẹn thảo": {
+    "term": "Hẹn Thảo",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "hẹn",
+      "thảo"
+    ]
+  },
+  "kuala lumpur": {
+    "term": "Kuala Lumpur",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "kuala",
+      "lumpur"
+    ]
+  },
+  "stream plus": {
+    "term": "Stream Plus",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "stream",
+      "plus"
+    ]
+  },
+  "không chín tám ba hai một bốn năm sáu bảy ba": {
+    "term": "không chín tám ba hai một bốn năm sáu bảy ba",
+    "category": "gia_tri_so",
+    "source": "spoken_digit_sequence",
+    "tokens": [
+      "không",
+      "chín",
+      "tám",
+      "ba",
+      "hai",
+      "một",
+      "bốn",
+      "năm",
+      "sáu",
+      "bảy",
+      "ba"
+    ]
+  },
+  "thiên mụ": {
+    "term": "Thiên Mụ",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "thiên",
+      "mụ"
+    ]
+  },
+  "sáu mươi bốn phần trăm": {
+    "term": "sáu mươi bốn phần trăm",
+    "category": "gia_tri_so",
+    "source": "number_with_explicit_unit",
+    "tokens": [
+      "sáu",
+      "mươi",
+      "bốn",
+      "phần",
+      "trăm"
+    ]
+  },
+  "quán the lemon tree café": {
+    "term": "Quán The Lemon Tree Café",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "quán",
+      "the",
+      "lemon",
+      "tree",
+      "café"
+    ]
+  },
+  "mười hai nghìn": {
+    "term": "mười hai nghìn",
+    "category": "gia_tri_so",
+    "source": "monetary_value_candidate",
+    "tokens": [
+      "mười",
+      "hai",
+      "nghìn"
+    ]
+  },
+  "sao kim plaza": {
+    "term": "Sao Kim Plaza",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "sao",
+      "kim",
+      "plaza"
+    ]
+  },
+  "emily carter": {
+    "term": "Emily Carter",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "emily",
+      "carter"
+    ]
+  },
+  "ba nghìn": {
+    "term": "ba nghìn",
+    "category": "gia_tri_so",
+    "source": "monetary_value_candidate",
+    "tokens": [
+      "ba",
+      "nghìn"
+    ]
+  },
+  "không hai nghìn": {
+    "term": "không hai nghìn",
+    "category": "gia_tri_so",
+    "source": "monetary_value_candidate",
+    "tokens": [
+      "không",
+      "hai",
+      "nghìn"
+    ]
+  },
+  "bến ninh kiều": {
+    "term": "Bến Ninh Kiều",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "bến",
+      "ninh",
+      "kiều"
+    ]
+  },
+  "ba trăm đô": {
+    "term": "ba trăm đô",
+    "category": "gia_tri_so",
+    "source": "number_with_explicit_unit",
+    "tokens": [
+      "ba",
+      "trăm",
+      "đô"
+    ]
+  },
+  "chiang mai": {
+    "term": "Chiang Mai",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "chiang",
+      "mai"
+    ]
+  },
+  "rv một không bảy": {
+    "term": "RV107",
+    "category": "viet_tat_ma",
+    "source": "literal_flight_code",
+    "tokens": [
+      "rv",
+      "một",
+      "không",
+      "bảy"
+    ]
+  },
+  "rv một một một": {
+    "term": "RV111",
+    "category": "viet_tat_ma",
+    "source": "literal_flight_code",
+    "tokens": [
+      "rv",
+      "một",
+      "một",
+      "một"
+    ]
+  },
+  "bến thành": {
+    "term": "Bến Thành",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "bến",
+      "thành"
+    ]
+  },
+  "lê duẩn": {
+    "term": "Lê Duẩn",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "lê",
+      "duẩn"
+    ]
+  },
+  "hàng bún": {
+    "term": "Hàng Bún",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "hàng",
+      "bún"
+    ]
+  },
+  "một triệu": {
+    "term": "một triệu",
+    "category": "gia_tri_so",
+    "source": "monetary_value_candidate",
+    "tokens": [
+      "một",
+      "triệu"
+    ]
+  },
+  "ba mươi lăm phút": {
+    "term": "ba mươi lăm phút",
+    "category": "gia_tri_so",
+    "source": "number_with_explicit_unit",
+    "tokens": [
+      "ba",
+      "mươi",
+      "lăm",
+      "phút"
+    ]
+  },
+  "hoàn kiếm": {
+    "term": "Hoàn Kiếm",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "hoàn",
+      "kiếm"
+    ]
+  },
+  "hồ gươm": {
+    "term": "Hồ Gươm",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "hồ",
+      "gươm"
+    ]
+  },
+  "không chín không hai bốn một tám không hai bốn không": {
+    "term": "không chín không hai bốn một tám không hai bốn không",
+    "category": "gia_tri_so",
+    "source": "spoken_digit_sequence",
+    "tokens": [
+      "không",
+      "chín",
+      "không",
+      "hai",
+      "bốn",
+      "một",
+      "tám",
+      "không",
+      "hai",
+      "bốn",
+      "không"
+    ]
+  },
+  "một trăm hai mươi ba triệu": {
+    "term": "một trăm hai mươi ba triệu",
+    "category": "gia_tri_so",
+    "source": "monetary_value_candidate",
+    "tokens": [
+      "một",
+      "trăm",
+      "hai",
+      "mươi",
+      "ba",
+      "triệu"
+    ]
+  },
+  "bảy triệu": {
+    "term": "bảy triệu",
+    "category": "gia_tri_so",
+    "source": "monetary_value_candidate",
+    "tokens": [
+      "bảy",
+      "triệu"
+    ]
+  },
+  "hà nguyễn": {
+    "term": "Hà Nguyễn",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "hà",
+      "nguyễn"
+    ]
+  },
+  "chín trăm nghìn": {
+    "term": "chín trăm nghìn",
+    "category": "gia_tri_so",
+    "source": "monetary_value_candidate",
+    "tokens": [
+      "chín",
+      "trăm",
+      "nghìn"
+    ]
+  },
+  "nhà cà phê nguyễn huệ": {
+    "term": "Nhà Cà Phê Nguyễn Huệ",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "nhà",
+      "cà",
+      "phê",
+      "nguyễn",
+      "huệ"
+    ]
+  },
+  "nguyễn nhật": {
+    "term": "Nguyễn Nhật",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "nguyễn",
+      "nhật"
+    ]
+  },
+  "không chín tám tám sáu sáu năm năm bốn bốn năm": {
+    "term": "không chín tám tám sáu sáu năm năm bốn bốn năm",
+    "category": "gia_tri_so",
+    "source": "spoken_digit_sequence",
+    "tokens": [
+      "không",
+      "chín",
+      "tám",
+      "tám",
+      "sáu",
+      "sáu",
+      "năm",
+      "năm",
+      "bốn",
+      "bốn",
+      "năm"
+    ]
+  },
+  "chín mươi lăm giờ": {
+    "term": "chín mươi lăm giờ",
+    "category": "gia_tri_so",
+    "source": "number_with_explicit_unit",
+    "tokens": [
+      "chín",
+      "mươi",
+      "lăm",
+      "giờ"
+    ]
+  },
+  "không chín một hai bảy bảy ba không năm tám một": {
+    "term": "không chín một hai bảy bảy ba không năm tám một",
+    "category": "gia_tri_so",
+    "source": "spoken_digit_sequence",
+    "tokens": [
+      "không",
+      "chín",
+      "một",
+      "hai",
+      "bảy",
+      "bảy",
+      "ba",
+      "không",
+      "năm",
+      "tám",
+      "một"
+    ]
+  },
+  "cổng tây": {
+    "term": "Cổng Tây",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "cổng",
+      "tây"
+    ]
+  },
+  "bách thảo": {
+    "term": "Bách Thảo",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "bách",
+      "thảo"
+    ]
+  },
+  "gói nimbus one": {
+    "term": "Gói Nimbus One",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "gói",
+      "nimbus",
+      "one"
+    ]
+  },
+  "ironwood fitness": {
+    "term": "Ironwood Fitness",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "ironwood",
+      "fitness"
+    ]
+  },
+  "hàng bè": {
+    "term": "Hàng Bè",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "hàng",
+      "bè"
+    ]
+  },
+  "không năm mươi nghìn": {
+    "term": "không năm mươi nghìn",
+    "category": "gia_tri_so",
+    "source": "monetary_value_candidate",
+    "tokens": [
+      "không",
+      "năm",
+      "mươi",
+      "nghìn"
+    ]
+  },
+  "thái lan": {
+    "term": "Thái Lan",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "thái",
+      "lan"
+    ]
+  },
+  "hai trăm bốn mươi nghìn": {
+    "term": "hai trăm bốn mươi nghìn",
+    "category": "gia_tri_so",
+    "source": "monetary_value_candidate",
+    "tokens": [
+      "hai",
+      "trăm",
+      "bốn",
+      "mươi",
+      "nghìn"
+    ]
+  },
+  "cloud pro": {
+    "term": "Cloud Pro",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "cloud",
+      "pro"
+    ]
+  },
+  "năm ba giờ": {
+    "term": "năm ba giờ",
+    "category": "gia_tri_so",
+    "source": "number_with_explicit_unit",
+    "tokens": [
+      "năm",
+      "ba",
+      "giờ"
+    ]
+  },
+  "mười hai triệu": {
+    "term": "mười hai triệu",
+    "category": "gia_tri_so",
+    "source": "monetary_value_candidate",
+    "tokens": [
+      "mười",
+      "hai",
+      "triệu"
+    ]
+  },
+  "không chín một hai ba bốn năm sáu bảy tám chín": {
+    "term": "không chín một hai ba bốn năm sáu bảy tám chín",
+    "category": "gia_tri_so",
+    "source": "spoken_digit_sequence",
+    "tokens": [
+      "không",
+      "chín",
+      "một",
+      "hai",
+      "ba",
+      "bốn",
+      "năm",
+      "sáu",
+      "bảy",
+      "tám",
+      "chín"
+    ]
+  },
+  "cuốn nhà": {
+    "term": "Cuốn Nhà",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "cuốn",
+      "nhà"
+    ]
+  },
+  "năm mươi chín nghìn": {
+    "term": "năm mươi chín nghìn",
+    "category": "gia_tri_so",
+    "source": "monetary_value_candidate",
+    "tokens": [
+      "năm",
+      "mươi",
+      "chín",
+      "nghìn"
+    ]
+  },
+  "bà sáu": {
+    "term": "Bà Sáu",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "bà",
+      "sáu"
+    ]
+  },
+  "chùa láng": {
+    "term": "Chùa Láng",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "chùa",
+      "láng"
+    ]
+  },
+  "tám mươi nghìn": {
+    "term": "tám mươi nghìn",
+    "category": "gia_tri_so",
+    "source": "monetary_value_candidate",
+    "tokens": [
+      "tám",
+      "mươi",
+      "nghìn"
+    ]
+  },
+  "ba triệu": {
+    "term": "ba triệu",
+    "category": "gia_tri_so",
+    "source": "monetary_value_candidate",
+    "tokens": [
+      "ba",
+      "triệu"
+    ]
+  },
+  "minh hà": {
+    "term": "Minh Hà",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "minh",
+      "hà"
+    ]
+  },
+  "sếp kim": {
+    "term": "Sếp Kim",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "sếp",
+      "kim"
+    ]
+  },
+  "tây tiến": {
+    "term": "Tây Tiến",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "tây",
+      "tiến"
+    ]
+  },
+  "cà phê bạch đằng": {
+    "term": "Cà Phê Bạch Đằng",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "cà",
+      "phê",
+      "bạch",
+      "đằng"
+    ]
+  },
+  "ba mươi ba triệu": {
+    "term": "ba mươi ba triệu",
+    "category": "gia_tri_so",
+    "source": "monetary_value_candidate",
+    "tokens": [
+      "ba",
+      "mươi",
+      "ba",
+      "triệu"
+    ]
+  },
+  "không chín tám một năm năm hai bảy bốn sáu một": {
+    "term": "không chín tám một năm năm hai bảy bốn sáu một",
+    "category": "gia_tri_so",
+    "source": "spoken_digit_sequence",
+    "tokens": [
+      "không",
+      "chín",
+      "tám",
+      "một",
+      "năm",
+      "năm",
+      "hai",
+      "bảy",
+      "bốn",
+      "sáu",
+      "một"
+    ]
+  },
+  "liam porter": {
+    "term": "Liam Porter",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "liam",
+      "porter"
+    ]
+  },
+  "bốn mươi phút": {
+    "term": "bốn mươi phút",
+    "category": "gia_tri_so",
+    "source": "number_with_explicit_unit",
+    "tokens": [
+      "bốn",
+      "mươi",
+      "phút"
+    ]
+  },
+  "rv hai hai một": {
+    "term": "RV221",
+    "category": "viet_tat_ma",
+    "source": "literal_flight_code",
+    "tokens": [
+      "rv",
+      "hai",
+      "hai",
+      "một"
+    ]
+  },
+  "mỹ khê": {
+    "term": "Mỹ Khê",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "mỹ",
+      "khê"
+    ]
+  },
+  "the melbourne brunch club": {
+    "term": "The Melbourne Brunch Club",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "the",
+      "melbourne",
+      "brunch",
+      "club"
+    ]
+  },
+  "việt nam": {
+    "term": "Việt Nam",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "việt",
+      "nam"
+    ]
+  },
+  "westgate mall": {
+    "term": "Westgate Mall",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "westgate",
+      "mall"
+    ]
+  },
+  "mười phần trăm": {
+    "term": "mười phần trăm",
+    "category": "gia_tri_so",
+    "source": "number_with_explicit_unit",
+    "tokens": [
+      "mười",
+      "phần",
+      "trăm"
+    ]
+  },
+  "ironbridge engineering": {
+    "term": "Ironbridge Engineering",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "ironbridge",
+      "engineering"
+    ]
+  },
+  "hai nghìn": {
+    "term": "hai nghìn",
+    "category": "gia_tri_so",
+    "source": "monetary_value_candidate",
+    "tokens": [
+      "hai",
+      "nghìn"
+    ]
+  },
+  "redwood fiber": {
+    "term": "Redwood Fiber",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "redwood",
+      "fiber"
+    ]
+  },
+  "không bốn trăm đô": {
+    "term": "không bốn trăm đô",
+    "category": "gia_tri_so",
+    "source": "number_with_explicit_unit",
+    "tokens": [
+      "không",
+      "bốn",
+      "trăm",
+      "đô"
+    ]
+  },
+  "không chín không ba một hai ba bốn năm sáu bảy": {
+    "term": "không chín không ba một hai ba bốn năm sáu bảy",
+    "category": "gia_tri_so",
+    "source": "spoken_digit_sequence",
+    "tokens": [
+      "không",
+      "chín",
+      "không",
+      "ba",
+      "một",
+      "hai",
+      "ba",
+      "bốn",
+      "năm",
+      "sáu",
+      "bảy"
+    ]
+  },
+  "một ngụm trà": {
+    "term": "Một Ngụm Trà",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "một",
+      "ngụm",
+      "trà"
+    ]
+  },
+  "không chín một hai ba bốn năm sáu bảy tám năm": {
+    "term": "không chín một hai ba bốn năm sáu bảy tám năm",
+    "category": "gia_tri_so",
+    "source": "spoken_digit_sequence",
+    "tokens": [
+      "không",
+      "chín",
+      "một",
+      "hai",
+      "ba",
+      "bốn",
+      "năm",
+      "sáu",
+      "bảy",
+      "tám",
+      "năm"
+    ]
+  },
+  "bốn trăm hai mươi nghìn": {
+    "term": "bốn trăm hai mươi nghìn",
+    "category": "gia_tri_so",
+    "source": "monetary_value_candidate",
+    "tokens": [
+      "bốn",
+      "trăm",
+      "hai",
+      "mươi",
+      "nghìn"
+    ]
+  },
+  "amber interiors": {
+    "term": "Amber Interiors",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "amber",
+      "interiors"
+    ]
+  },
+  "tám nghìn": {
+    "term": "tám nghìn",
+    "category": "gia_tri_so",
+    "source": "monetary_value_candidate",
+    "tokens": [
+      "tám",
+      "nghìn"
+    ]
+  },
+  "năm nghìn": {
+    "term": "năm nghìn",
+    "category": "gia_tri_so",
+    "source": "monetary_value_candidate",
+    "tokens": [
+      "năm",
+      "nghìn"
+    ]
+  },
+  "tân định": {
+    "term": "Tân Định",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "tân",
+      "định"
+    ]
+  },
+  "quillon systems": {
+    "term": "Quillon Systems",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "quillon",
+      "systems"
+    ]
+  },
+  "một chín không không một hai ba bốn": {
+    "term": "một chín không không một hai ba bốn",
+    "category": "gia_tri_so",
+    "source": "spoken_digit_sequence",
+    "tokens": [
+      "một",
+      "chín",
+      "không",
+      "không",
+      "một",
+      "hai",
+      "ba",
+      "bốn"
+    ]
+  },
+  "mia fischer": {
+    "term": "Mia Fischer",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "mia",
+      "fischer"
+    ]
+  },
+  "ninh kiều": {
+    "term": "Ninh Kiều",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "ninh",
+      "kiều"
+    ]
+  },
+  "tân sơn nhất": {
+    "term": "Tân Sơn Nhất",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "tân",
+      "sơn",
+      "nhất"
+    ]
+  },
+  "lý thường kiệt": {
+    "term": "Lý Thường Kiệt",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "lý",
+      "thường",
+      "kiệt"
+    ]
+  },
+  "sơn tùng": {
+    "term": "Sơn Tùng",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "sơn",
+      "tùng"
+    ]
+  },
+  "hoài lâm": {
+    "term": "Hoài Lâm",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "hoài",
+      "lâm"
+    ]
+  },
+  "rv hai một bảy": {
+    "term": "RV217",
+    "category": "viet_tat_ma",
+    "source": "literal_flight_code",
+    "tokens": [
+      "rv",
+      "hai",
+      "một",
+      "bảy"
+    ]
+  },
+  "chuyện nghề": {
+    "term": "Chuyện Nghề",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "chuyện",
+      "nghề"
+    ]
+  },
+  "không chín một tám năm ba tám chín ba bốn không": {
+    "term": "không chín một tám năm ba tám chín ba bốn không",
+    "category": "gia_tri_so",
+    "source": "spoken_digit_sequence",
+    "tokens": [
+      "không",
+      "chín",
+      "một",
+      "tám",
+      "năm",
+      "ba",
+      "tám",
+      "chín",
+      "ba",
+      "bốn",
+      "không"
+    ]
+  },
+  "bluewave networks": {
+    "term": "Bluewave Networks",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "bluewave",
+      "networks"
+    ]
+  },
+  "khóa excel": {
+    "term": "Khoá Excel",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "khóa",
+      "excel"
+    ]
+  },
+  "aff cup": {
+    "term": "AFF Cup",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "aff",
+      "cup"
+    ]
+  },
+  "đón bống": {
+    "term": "Đón Bống",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "đón",
+      "bống"
+    ]
+  },
+  "thơ hằng": {
+    "term": "Thơ Hằng",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "thơ",
+      "hằng"
+    ]
+  },
+  "phong điền": {
+    "term": "Phong Điền",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "phong",
+      "điền"
+    ]
+  },
+  "đại việt bank": {
+    "term": "Đại Việt Bank",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "đại",
+      "việt",
+      "bank"
+    ]
+  },
+  "hà đông": {
+    "term": "Hà Đông",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "hà",
+      "đông"
+    ]
+  },
+  "oat farm": {
+    "term": "Oat Farm",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "oat",
+      "farm"
+    ]
+  },
+  "phim plus": {
+    "term": "Phim Plus",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "phim",
+      "plus"
+    ]
+  },
+  "năm phút": {
+    "term": "năm phút",
+    "category": "gia_tri_so",
+    "source": "number_with_explicit_unit",
+    "tokens": [
+      "năm",
+      "phút"
+    ]
+  },
+  "sprint review": {
+    "term": "Sprint Review",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "sprint",
+      "review"
+    ]
+  },
+  "ba trăm đồng": {
+    "term": "ba trăm đồng",
+    "category": "gia_tri_so",
+    "source": "number_with_explicit_unit",
+    "tokens": [
+      "ba",
+      "trăm",
+      "đồng"
+    ]
+  },
+  "một trăm ba mươi mốt triệu": {
+    "term": "một trăm ba mươi mốt triệu",
+    "category": "gia_tri_so",
+    "source": "monetary_value_candidate",
+    "tokens": [
+      "một",
+      "trăm",
+      "ba",
+      "mươi",
+      "mốt",
+      "triệu"
+    ]
+  },
+  "một trăm đô": {
+    "term": "một trăm đô",
+    "category": "gia_tri_so",
+    "source": "number_with_explicit_unit",
+    "tokens": [
+      "một",
+      "trăm",
+      "đô"
+    ]
+  },
+  "lumina kitchen": {
+    "term": "Lumina Kitchen",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "lumina",
+      "kitchen"
+    ]
+  },
+  "sáu mươi lăm nghìn": {
+    "term": "sáu mươi lăm nghìn",
+    "category": "gia_tri_so",
+    "source": "monetary_value_candidate",
+    "tokens": [
+      "sáu",
+      "mươi",
+      "lăm",
+      "nghìn"
+    ]
+  },
+  "sunrise fresh": {
+    "term": "Sunrise Fresh",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "sunrise",
+      "fresh"
+    ]
+  },
+  "sunrise foods": {
+    "term": "Sunrise Foods",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "sunrise",
+      "foods"
+    ]
+  },
+  "một triệu hai trăm nghìn": {
+    "term": "một triệu hai trăm nghìn",
+    "category": "gia_tri_so",
+    "source": "monetary_value_candidate",
+    "tokens": [
+      "một",
+      "triệu",
+      "hai",
+      "trăm",
+      "nghìn"
+    ]
+  },
+  "mười ba độ": {
+    "term": "mười ba độ",
+    "category": "gia_tri_so",
+    "source": "number_with_explicit_unit",
+    "tokens": [
+      "mười",
+      "ba",
+      "độ"
+    ]
+  },
+  "perfume river nights": {
+    "term": "Perfume River Nights",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "perfume",
+      "river",
+      "nights"
+    ]
+  },
+  "sunset rooftop": {
+    "term": "Sunset Rooftop",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "sunset",
+      "rooftop"
+    ]
+  },
+  "hoa sen": {
+    "term": "Hoa Sen",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "hoa",
+      "sen"
+    ]
+  },
+  "hai mươi phần trăm": {
+    "term": "hai mươi phần trăm",
+    "category": "gia_tri_so",
+    "source": "number_with_explicit_unit",
+    "tokens": [
+      "hai",
+      "mươi",
+      "phần",
+      "trăm"
+    ]
+  },
+  "cổng nam": {
+    "term": "Cổng Nam",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "cổng",
+      "nam"
+    ]
+  },
+  "thủ lệ": {
+    "term": "Thủ Lệ",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "thủ",
+      "lệ"
+    ]
+  },
+  "quần ngựa": {
+    "term": "Quần Ngựa",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "quần",
+      "ngựa"
+    ]
+  },
+  "bay hà nội": {
+    "term": "Bay Hà Nội",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "bay",
+      "hà",
+      "nội"
+    ]
+  },
+  "rv hai ba bốn": {
+    "term": "RV234",
+    "category": "viet_tat_ma",
+    "source": "literal_flight_code",
+    "tokens": [
+      "rv",
+      "hai",
+      "ba",
+      "bốn"
+    ]
+  },
+  "rv hai ba sáu": {
+    "term": "RV236",
+    "category": "viet_tat_ma",
+    "source": "literal_flight_code",
+    "tokens": [
+      "rv",
+      "hai",
+      "ba",
+      "sáu"
+    ]
+  },
+  "lấy rv hai ba sáu": {
+    "term": "Lấy RV236",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "lấy",
+      "rv",
+      "hai",
+      "ba",
+      "sáu"
+    ]
+  },
+  "một trăm mười chín triệu": {
+    "term": "một trăm mười chín triệu",
+    "category": "gia_tri_so",
+    "source": "monetary_value_candidate",
+    "tokens": [
+      "một",
+      "trăm",
+      "mười",
+      "chín",
+      "triệu"
+    ]
+  },
+  "thảo điền": {
+    "term": "Thảo Điền",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "thảo",
+      "điền"
+    ]
+  },
+  "bốn lăm phần trăm": {
+    "term": "bốn lăm phần trăm",
+    "category": "gia_tri_so",
+    "source": "number_with_explicit_unit",
+    "tokens": [
+      "bốn",
+      "lăm",
+      "phần",
+      "trăm"
+    ]
+  },
+  "không chín không hai không không không không bảy": {
+    "term": "không chín không hai không không không không bảy",
+    "category": "gia_tri_so",
+    "source": "spoken_digit_sequence",
+    "tokens": [
+      "không",
+      "chín",
+      "không",
+      "hai",
+      "không",
+      "không",
+      "không",
+      "không",
+      "bảy"
+    ]
+  },
+  "peter collins": {
+    "term": "Peter Collins",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "peter",
+      "collins"
+    ]
+  },
+  "kevin walsh": {
+    "term": "Kevin Walsh",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "kevin",
+      "walsh"
+    ]
+  },
+  "kevin welsh": {
+    "term": "Kevin Welsh",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "kevin",
+      "welsh"
+    ]
+  },
+  "hong kong": {
+    "term": "Hong Kong",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "hong",
+      "kong"
+    ]
+  },
+  "ba lít": {
+    "term": "ba lít",
+    "category": "gia_tri_so",
+    "source": "number_with_explicit_unit",
+    "tokens": [
+      "ba",
+      "lít"
+    ]
+  },
+  "không bốn lít": {
+    "term": "không bốn lít",
+    "category": "gia_tri_so",
+    "source": "number_with_explicit_unit",
+    "tokens": [
+      "không",
+      "bốn",
+      "lít"
+    ]
+  },
+  "giảng võ": {
+    "term": "Giảng Võ",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "giảng",
+      "võ"
+    ]
+  },
+  "sơn trà": {
+    "term": "Sơn Trà",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "sơn",
+      "trà"
+    ]
+  },
+  "hai mươi tám độ": {
+    "term": "hai mươi tám độ",
+    "category": "gia_tri_so",
+    "source": "number_with_explicit_unit",
+    "tokens": [
+      "hai",
+      "mươi",
+      "tám",
+      "độ"
+    ]
+  },
+  "năm đảnh": {
+    "term": "Năm Đảnh",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "năm",
+      "đảnh"
+    ]
+  },
+  "không chín tám bảy không không không một một một bảy": {
+    "term": "không chín tám bảy không không không một một một bảy",
+    "category": "gia_tri_so",
+    "source": "spoken_digit_sequence",
+    "tokens": [
+      "không",
+      "chín",
+      "tám",
+      "bảy",
+      "không",
+      "không",
+      "không",
+      "một",
+      "một",
+      "một",
+      "bảy"
+    ]
+  },
+  "sms ba": {
+    "term": "SMS Ba",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "sms",
+      "ba"
+    ]
+  },
+  "phương hà": {
+    "term": "Phương Hà",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "phương",
+      "hà"
+    ]
+  },
+  "silverline media": {
+    "term": "Silverline Media",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "silverline",
+      "media"
+    ]
+  },
+  "vitube premium": {
+    "term": "ViTube Premium",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "vitube",
+      "premium"
+    ]
+  },
+  "không chín tám tám hai ba bốn năm sáu bảy tám": {
+    "term": "không chín tám tám hai ba bốn năm sáu bảy tám",
+    "category": "gia_tri_so",
+    "source": "spoken_digit_sequence",
+    "tokens": [
+      "không",
+      "chín",
+      "tám",
+      "tám",
+      "hai",
+      "ba",
+      "bốn",
+      "năm",
+      "sáu",
+      "bảy",
+      "tám"
+    ]
+  },
+  "nguyễn du": {
+    "term": "Nguyễn Du",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "nguyễn",
+      "du"
+    ]
+  },
+  "ba mươi sáu phút": {
+    "term": "ba mươi sáu phút",
+    "category": "gia_tri_so",
+    "source": "number_with_explicit_unit",
+    "tokens": [
+      "ba",
+      "mươi",
+      "sáu",
+      "phút"
+    ]
+  },
+  "tám phút": {
+    "term": "tám phút",
+    "category": "gia_tri_so",
+    "source": "number_with_explicit_unit",
+    "tokens": [
+      "tám",
+      "phút"
+    ]
+  },
+  "tô hoài": {
+    "term": "Tô Hoài",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "tô",
+      "hoài"
+    ]
+  },
+  "nam cao": {
+    "term": "Nam Cao",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "nam",
+      "cao"
+    ]
+  },
+  "dế mèn": {
+    "term": "Dế Mèn",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "dế",
+      "mèn"
+    ]
+  },
+  "chí phèo": {
+    "term": "Chí Phèo",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "chí",
+      "phèo"
+    ]
+  },
+  "xuân khánh": {
+    "term": "Xuân Khánh",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "xuân",
+      "khánh"
+    ]
+  },
+  "một trăm mười tám triệu": {
+    "term": "một trăm mười tám triệu",
+    "category": "gia_tri_so",
+    "source": "monetary_value_candidate",
+    "tokens": [
+      "một",
+      "trăm",
+      "mười",
+      "tám",
+      "triệu"
+    ]
+  },
+  "qua remitnow": {
+    "term": "Qua RemitNow",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "qua",
+      "remitnow"
+    ]
+  },
+  "quang lê": {
+    "term": "Quang Lê",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "quang",
+      "lê"
+    ]
+  },
+  "amber jewelry": {
+    "term": "Amber Jewelry",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "amber",
+      "jewelry"
+    ]
+  },
+  "hai nghìn đô": {
+    "term": "hai nghìn đô",
+    "category": "gia_tri_so",
+    "source": "number_with_explicit_unit",
+    "tokens": [
+      "hai",
+      "nghìn",
+      "đô"
+    ]
+  },
+  "không chín ba chín hai hai một tám tám năm bảy": {
+    "term": "không chín ba chín hai hai một tám tám năm bảy",
+    "category": "gia_tri_so",
+    "source": "spoken_digit_sequence",
+    "tokens": [
+      "không",
+      "chín",
+      "ba",
+      "chín",
+      "hai",
+      "hai",
+      "một",
+      "tám",
+      "tám",
+      "năm",
+      "bảy"
+    ]
+  },
+  "khoản evergreen foods": {
+    "term": "Khoản Evergreen Foods",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "khoản",
+      "evergreen",
+      "foods"
+    ]
+  },
+  "nexora air": {
+    "term": "Nexora Air",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "nexora",
+      "air"
+    ]
+  },
+  "quantum leap academy": {
+    "term": "Quantum Leap Academy",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "quantum",
+      "leap",
+      "academy"
+    ]
+  },
+  "nhạc premium": {
+    "term": "Nhạc Premium",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "nhạc",
+      "premium"
+    ]
+  },
+  "không chín tám tám bốn một hai bảy năm không ba": {
+    "term": "không chín tám tám bốn một hai bảy năm không ba",
+    "category": "gia_tri_so",
+    "source": "spoken_digit_sequence",
+    "tokens": [
+      "không",
+      "chín",
+      "tám",
+      "tám",
+      "bốn",
+      "một",
+      "hai",
+      "bảy",
+      "năm",
+      "không",
+      "ba"
+    ]
+  },
+  "ocean view": {
+    "term": "Ocean View",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "ocean",
+      "view"
+    ]
+  },
+  "ocean suite": {
+    "term": "Ocean Suite",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "ocean",
+      "suite"
+    ]
+  },
+  "không chín không sáu ba ba ba bốn bốn bốn sáu": {
+    "term": "không chín không sáu ba ba ba bốn bốn bốn sáu",
+    "category": "gia_tri_so",
+    "source": "spoken_digit_sequence",
+    "tokens": [
+      "không",
+      "chín",
+      "không",
+      "sáu",
+      "ba",
+      "ba",
+      "ba",
+      "bốn",
+      "bốn",
+      "bốn",
+      "sáu"
+    ]
+  },
+  "một trăm ba mươi nghìn": {
+    "term": "một trăm ba mươi nghìn",
+    "category": "gia_tri_so",
+    "source": "monetary_value_candidate",
+    "tokens": [
+      "một",
+      "trăm",
+      "ba",
+      "mươi",
+      "nghìn"
+    ]
+  },
+  "bốn mươi lít": {
+    "term": "bốn mươi lít",
+    "category": "gia_tri_so",
+    "source": "number_with_explicit_unit",
+    "tokens": [
+      "bốn",
+      "mươi",
+      "lít"
+    ]
+  },
+  "hai hai nghìn": {
+    "term": "hai hai nghìn",
+    "category": "gia_tri_so",
+    "source": "monetary_value_candidate",
+    "tokens": [
+      "hai",
+      "hai",
+      "nghìn"
+    ]
+  },
+  "vợ hằng": {
+    "term": "Vợ Hằng",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "vợ",
+      "hằng"
+    ]
+  },
+  "không chín tám bốn hai một năm ba bảy sáu hai": {
+    "term": "không chín tám bốn hai một năm ba bảy sáu hai",
+    "category": "gia_tri_so",
+    "source": "spoken_digit_sequence",
+    "tokens": [
+      "không",
+      "chín",
+      "tám",
+      "bốn",
+      "hai",
+      "một",
+      "năm",
+      "ba",
+      "bảy",
+      "sáu",
+      "hai"
+    ]
+  },
+  "cuốn nhi": {
+    "term": "Cuốn Nhi",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "cuốn",
+      "nhi"
+    ]
+  },
+  "ba mươi tám độ": {
+    "term": "ba mươi tám độ",
+    "category": "gia_tri_so",
+    "source": "number_with_explicit_unit",
+    "tokens": [
+      "ba",
+      "mươi",
+      "tám",
+      "độ"
+    ]
+  },
+  "mười lăm lít": {
+    "term": "mười lăm lít",
+    "category": "gia_tri_so",
+    "source": "number_with_explicit_unit",
+    "tokens": [
+      "mười",
+      "lăm",
+      "lít"
+    ]
+  },
+  "lưu hữu phước": {
+    "term": "Lưu Hữu Phước",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "lưu",
+      "hữu",
+      "phước"
+    ]
+  },
+  "talkai plus": {
+    "term": "TalkAI Plus",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "talkai",
+      "plus"
+    ]
+  },
+  "a chen": {
+    "term": "A Chen",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "a",
+      "chen"
+    ]
+  },
+  "mối đài loan": {
+    "term": "Mối Đài Loan",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "mối",
+      "đài",
+      "loan"
+    ]
+  },
+  "david miller": {
+    "term": "David Miller",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "david",
+      "miller"
+    ]
+  },
+  "juniper lane": {
+    "term": "Juniper Lane",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "juniper",
+      "lane"
+    ]
+  },
+  "zenith partners": {
+    "term": "Zenith Partners",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "zenith",
+      "partners"
+    ]
+  },
+  "harbor point partners": {
+    "term": "Harbor Point Partners",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "harbor",
+      "point",
+      "partners"
+    ]
+  },
+  "sách pro": {
+    "term": "Sách Pro",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "sách",
+      "pro"
+    ]
+  },
+  "hà phương": {
+    "term": "Hà Phương",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "hà",
+      "phương"
+    ]
+  },
+  "cầu giấy": {
+    "term": "Cầu Giấy",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "cầu",
+      "giấy"
+    ]
+  },
+  "thu trang": {
+    "term": "Thu Trang",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "thu",
+      "trang"
+    ]
+  },
+  "không chín không hai không không không không sáu năm hai": {
+    "term": "không chín không hai không không không không sáu năm hai",
+    "category": "gia_tri_so",
+    "source": "spoken_digit_sequence",
+    "tokens": [
+      "không",
+      "chín",
+      "không",
+      "hai",
+      "không",
+      "không",
+      "không",
+      "không",
+      "sáu",
+      "năm",
+      "hai"
+    ]
+  },
+  "rv hai bốn năm": {
+    "term": "RV245",
+    "category": "viet_tat_ma",
+    "source": "literal_flight_code",
+    "tokens": [
+      "rv",
+      "hai",
+      "bốn",
+      "năm"
+    ]
+  },
+  "crestview homes": {
+    "term": "Crestview Homes",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "crestview",
+      "homes"
+    ]
+  },
+  "dược phố lê thánh tôn": {
+    "term": "Dược Phố Lê Thánh Tôn",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "dược",
+      "phố",
+      "lê",
+      "thánh",
+      "tôn"
+    ]
+  },
+  "sen air": {
+    "term": "Sen Air",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "sen",
+      "air"
+    ]
+  },
+  "gói zing": {
+    "term": "Gói Zing",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "gói",
+      "zing"
+    ]
+  },
+  "sáu triệu": {
+    "term": "sáu triệu",
+    "category": "gia_tri_so",
+    "source": "monetary_value_candidate",
+    "tokens": [
+      "sáu",
+      "triệu"
+    ]
+  },
+  "một trăm hai mươi triệu": {
+    "term": "một trăm hai mươi triệu",
+    "category": "gia_tri_so",
+    "source": "monetary_value_candidate",
+    "tokens": [
+      "một",
+      "trăm",
+      "hai",
+      "mươi",
+      "triệu"
+    ]
+  },
+  "hải phòng": {
+    "term": "Hải Phòng",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "hải",
+      "phòng"
+    ]
+  },
+  "minh quân": {
+    "term": "Minh Quân",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "minh",
+      "quân"
+    ]
+  },
+  "lê lợi": {
+    "term": "Lê Lợi",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "lê",
+      "lợi"
+    ]
+  },
+  "kênh tài": {
+    "term": "Kênh Tài",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "kênh",
+      "tài"
+    ]
+  },
+  "skyline rooftop lounge": {
+    "term": "Skyline Rooftop Lounge",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "skyline",
+      "rooftop",
+      "lounge"
+    ]
+  },
+  "hai sáu nghìn": {
+    "term": "hai sáu nghìn",
+    "category": "gia_tri_so",
+    "source": "monetary_value_candidate",
+    "tokens": [
+      "hai",
+      "sáu",
+      "nghìn"
+    ]
+  },
+  "tin chuyên sâu": {
+    "term": "Tin Chuyên Sâu",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "tin",
+      "chuyên",
+      "sâu"
+    ]
+  },
+  "an bình": {
+    "term": "An Bình",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "an",
+      "bình"
+    ]
+  },
+  "ryan fordham": {
+    "term": "Ryan Fordham",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "ryan",
+      "fordham"
+    ]
+  },
+  "một trăm hai mươi sáu triệu": {
+    "term": "một trăm hai mươi sáu triệu",
+    "category": "gia_tri_so",
+    "source": "monetary_value_candidate",
+    "tokens": [
+      "một",
+      "trăm",
+      "hai",
+      "mươi",
+      "sáu",
+      "triệu"
+    ]
+  },
+  "hoa viên": {
+    "term": "Hoa Viên",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "hoa",
+      "viên"
+    ]
+  },
+  "khánh ly": {
+    "term": "Khánh Ly",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "khánh",
+      "ly"
+    ]
+  },
+  "bluebell laundry": {
+    "term": "Bluebell Laundry",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "bluebell",
+      "laundry"
+    ]
+  },
+  "đống đa": {
+    "term": "Đống Đa",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "đống",
+      "đa"
+    ]
+  },
+  "trời hà nội": {
+    "term": "Trời Hà Nội",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "trời",
+      "hà",
+      "nội"
+    ]
+  },
+  "mekong riverside hotel": {
+    "term": "Mekong Riverside Hotel",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "mekong",
+      "riverside",
+      "hotel"
+    ]
+  },
+  "không chín không một hai ba bốn năm sáu bảy bảy": {
+    "term": "không chín không một hai ba bốn năm sáu bảy bảy",
+    "category": "gia_tri_so",
+    "source": "spoken_digit_sequence",
+    "tokens": [
+      "không",
+      "chín",
+      "không",
+      "một",
+      "hai",
+      "ba",
+      "bốn",
+      "năm",
+      "sáu",
+      "bảy",
+      "bảy"
+    ]
+  },
+  "dạ zalo": {
+    "term": "Dạ Zalo",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "dạ",
+      "zalo"
+    ]
+  },
+  "roadmap review": {
+    "term": "Roadmap Review",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "roadmap",
+      "review"
+    ]
+  },
+  "phở thắng bờ hồ": {
+    "term": "Phở Thắng Bờ Hồ",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "phở",
+      "thắng",
+      "bờ",
+      "hồ"
+    ]
+  },
+  "hàng bài": {
+    "term": "Hàng Bài",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "hàng",
+      "bài"
+    ]
+  },
+  "thằng tuấn": {
+    "term": "Thằng Tuấn",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "thằng",
+      "tuấn"
+    ]
+  },
+  "hai mươi nghìn": {
+    "term": "hai mươi nghìn",
+    "category": "gia_tri_so",
+    "source": "monetary_value_candidate",
+    "tokens": [
+      "hai",
+      "mươi",
+      "nghìn"
+    ]
+  },
+  "không chín năm không năm ba sáu không ba sáu bảy": {
+    "term": "không chín năm không năm ba sáu không ba sáu bảy",
+    "category": "gia_tri_so",
+    "source": "spoken_digit_sequence",
+    "tokens": [
+      "không",
+      "chín",
+      "năm",
+      "không",
+      "năm",
+      "ba",
+      "sáu",
+      "không",
+      "ba",
+      "sáu",
+      "bảy"
+    ]
+  },
+  "bốn mươi hai phút": {
+    "term": "bốn mươi hai phút",
+    "category": "gia_tri_so",
+    "source": "number_with_explicit_unit",
+    "tokens": [
+      "bốn",
+      "mươi",
+      "hai",
+      "phút"
+    ]
+  },
+  "dì hạnh": {
+    "term": "Dì Hạnh",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "dì",
+      "hạnh"
+    ]
+  },
+  "sydney grill": {
+    "term": "Sydney Grill",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "sydney",
+      "grill"
+    ]
+  },
+  "grace nakamoto": {
+    "term": "Grace Nakamoto",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "grace",
+      "nakamoto"
+    ]
+  },
+  "không chín ba tám năm hai một bốn bảy sáu chín": {
+    "term": "không chín ba tám năm hai một bốn bảy sáu chín",
+    "category": "gia_tri_so",
+    "source": "spoken_digit_sequence",
+    "tokens": [
+      "không",
+      "chín",
+      "ba",
+      "tám",
+      "năm",
+      "hai",
+      "một",
+      "bốn",
+      "bảy",
+      "sáu",
+      "chín"
+    ]
+  },
+  "sao hỏa": {
+    "term": "Sao Hỏa",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "sao",
+      "hỏa"
+    ]
+  },
+  "rv một tám không": {
+    "term": "RV180",
+    "category": "viet_tat_ma",
+    "source": "literal_flight_code",
+    "tokens": [
+      "rv",
+      "một",
+      "tám",
+      "không"
+    ]
+  },
+  "không chín bốn không hai chín hai chín năm năm sáu": {
+    "term": "không chín bốn không hai chín hai chín năm năm sáu",
+    "category": "gia_tri_so",
+    "source": "spoken_digit_sequence",
+    "tokens": [
+      "không",
+      "chín",
+      "bốn",
+      "không",
+      "hai",
+      "chín",
+      "hai",
+      "chín",
+      "năm",
+      "năm",
+      "sáu"
+    ]
+  },
+  "một trăm hai mươi tám triệu": {
+    "term": "một trăm hai mươi tám triệu",
+    "category": "gia_tri_so",
+    "source": "monetary_value_candidate",
+    "tokens": [
+      "một",
+      "trăm",
+      "hai",
+      "mươi",
+      "tám",
+      "triệu"
+    ]
+  },
+  "mọt sách": {
+    "term": "Mọt Sách",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "mọt",
+      "sách"
+    ]
+  },
+  "nhã văn": {
+    "term": "Nhã Văn",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "nhã",
+      "văn"
+    ]
+  },
+  "không chín không tám không không không không hai ba hai": {
+    "term": "không chín không tám không không không không hai ba hai",
+    "category": "gia_tri_so",
+    "source": "spoken_digit_sequence",
+    "tokens": [
+      "không",
+      "chín",
+      "không",
+      "tám",
+      "không",
+      "không",
+      "không",
+      "không",
+      "hai",
+      "ba",
+      "hai"
+    ]
+  },
+  "đồng hới": {
+    "term": "Đồng Hới",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "đồng",
+      "hới"
+    ]
+  },
+  "rv ba không năm": {
+    "term": "RV305",
+    "category": "viet_tat_ma",
+    "source": "literal_flight_code",
+    "tokens": [
+      "rv",
+      "ba",
+      "không",
+      "năm"
+    ]
+  },
+  "rv một năm một": {
+    "term": "RV151",
+    "category": "viet_tat_ma",
+    "source": "literal_flight_code",
+    "tokens": [
+      "rv",
+      "một",
+      "năm",
+      "một"
+    ]
+  },
+  "rv một năm năm": {
+    "term": "RV155",
+    "category": "viet_tat_ma",
+    "source": "literal_flight_code",
+    "tokens": [
+      "rv",
+      "một",
+      "năm",
+      "năm"
+    ]
+  },
+  "một trăm hai mươi đô": {
+    "term": "một trăm hai mươi đô",
+    "category": "gia_tri_so",
+    "source": "number_with_explicit_unit",
+    "tokens": [
+      "một",
+      "trăm",
+      "hai",
+      "mươi",
+      "đô"
+    ]
+  },
+  "khoản northwind trading": {
+    "term": "Khoản Northwind Trading",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "khoản",
+      "northwind",
+      "trading"
+    ]
+  },
+  "isabel moreno": {
+    "term": "Isabel Moreno",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "isabel",
+      "moreno"
+    ]
+  },
+  "không chín bảy tám một hai ba bốn năm sáu không": {
+    "term": "không chín bảy tám một hai ba bốn năm sáu không",
+    "category": "gia_tri_so",
+    "source": "spoken_digit_sequence",
+    "tokens": [
+      "không",
+      "chín",
+      "bảy",
+      "tám",
+      "một",
+      "hai",
+      "ba",
+      "bốn",
+      "năm",
+      "sáu",
+      "không"
+    ]
+  },
+  "peter hale": {
+    "term": "Peter Hale",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "peter",
+      "hale"
+    ]
+  },
+  "trời đà nẵng": {
+    "term": "Trời Đà Nẵng",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "trời",
+      "đà",
+      "nẵng"
+    ]
+  },
+  "marigold foods": {
+    "term": "Marigold Foods",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "marigold",
+      "foods"
+    ]
+  },
+  "greenhaven foods": {
+    "term": "Greenhaven Foods",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "greenhaven",
+      "foods"
+    ]
+  },
+  "olivia browning": {
+    "term": "Olivia Browning",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "olivia",
+      "browning"
+    ]
+  },
+  "hòa xuân": {
+    "term": "Hòa Xuân",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "hòa",
+      "xuân"
+    ]
+  },
+  "không chín tám bảy không không một một hai hai không": {
+    "term": "không chín tám bảy không không một một hai hai không",
+    "category": "gia_tri_so",
+    "source": "spoken_digit_sequence",
+    "tokens": [
+      "không",
+      "chín",
+      "tám",
+      "bảy",
+      "không",
+      "không",
+      "một",
+      "một",
+      "hai",
+      "hai",
+      "không"
+    ]
+  },
+  "đi nha trang": {
+    "term": "Đi Nha Trang",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "đi",
+      "nha",
+      "trang"
+    ]
+  },
+  "rv ba không một": {
+    "term": "RV301",
+    "category": "viet_tat_ma",
+    "source": "literal_flight_code",
+    "tokens": [
+      "rv",
+      "ba",
+      "không",
+      "một"
+    ]
+  },
+  "rv bảy hai không": {
+    "term": "RV720",
+    "category": "viet_tat_ma",
+    "source": "literal_flight_code",
+    "tokens": [
+      "rv",
+      "bảy",
+      "hai",
+      "không"
+    ]
+  },
+  "sao mai": {
+    "term": "Sao Mai",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "sao",
+      "mai"
+    ]
+  },
+  "lemon tree": {
+    "term": "Lemon Tree",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "lemon",
+      "tree"
+    ]
+  },
+  "ba mươi hai triệu": {
+    "term": "ba mươi hai triệu",
+    "category": "gia_tri_so",
+    "source": "monetary_value_candidate",
+    "tokens": [
+      "ba",
+      "mươi",
+      "hai",
+      "triệu"
+    ]
+  },
+  "biển mỹ khê": {
+    "term": "Biển Mỹ Khê",
+    "category": "ten_rieng_phat_hien_them",
+    "source": "capitalized_reference_candidate",
+    "tokens": [
+      "biển",
+      "mỹ",
+      "khê"
+    ]
+  },
+  "không chín tám tám chín chín chín không không không hai": {
+    "term": "không chín tám tám chín chín chín không không không hai",
+    "category": "gia_tri_so",
+    "source": "spoken_digit_sequence",
+    "tokens": [
+      "không",
+      "chín",
+      "tám",
+      "tám",
+      "chín",
+      "chín",
+      "chín",
+      "không",
+      "không",
+      "không",
+      "hai"
+    ]
+  },
+  "tám triệu": {
+    "term": "tám triệu",
+    "category": "gia_tri_so",
+    "source": "monetary_value_candidate",
+    "tokens": [
+      "tám",
+      "triệu"
+    ]
+  },
+  "cô giáo mai": {
+    "term": "Cô giáo Mai",
+    "category": "ten_lien_he_phat_hien_them",
+    "source": "contact_query_label_candidate",
+    "tokens": [
+      "cô",
+      "giáo",
+      "mai"
+    ]
+  },
+  "mẹ": {
+    "term": "Mẹ",
+    "category": "ten_lien_he_phat_hien_them",
+    "source": "contact_query_label_candidate",
+    "tokens": [
+      "mẹ"
+    ]
+  },
+  "bố": {
+    "term": "Bố",
+    "category": "ten_lien_he_phat_hien_them",
+    "source": "contact_query_label_candidate",
+    "tokens": [
+      "bố"
+    ]
+  },
+  "tuấn": {
+    "term": "Tuấn",
+    "category": "ten_lien_he_phat_hien_them",
+    "source": "contact_query_label_candidate",
+    "tokens": [
+      "tuấn"
+    ]
+  },
+  "bình": {
+    "term": "Bình",
+    "category": "ten_lien_he_phat_hien_them",
+    "source": "contact_query_label_candidate",
+    "tokens": [
+      "bình"
+    ]
+  },
+  "hòa": {
+    "term": "Hòa",
+    "category": "ten_lien_he_phat_hien_them",
+    "source": "contact_query_label_candidate",
+    "tokens": [
+      "hòa"
+    ]
+  },
+  "phương": {
+    "term": "Phương",
+    "category": "ten_lien_he_phat_hien_them",
+    "source": "contact_query_label_candidate",
+    "tokens": [
+      "phương"
+    ]
+  },
+  "quân": {
+    "term": "Quân",
+    "category": "ten_lien_he_phat_hien_them",
+    "source": "contact_query_label_candidate",
+    "tokens": [
+      "quân"
+    ]
+  },
+  "khánh": {
+    "term": "Khánh",
+    "category": "ten_lien_he_phat_hien_them",
+    "source": "contact_query_label_candidate",
+    "tokens": [
+      "khánh"
+    ]
+  },
+  "yến": {
+    "term": "Yến",
+    "category": "ten_lien_he_phat_hien_them",
+    "source": "contact_query_label_candidate",
+    "tokens": [
+      "yến"
+    ]
+  },
+  "trang": {
+    "term": "Trang",
+    "category": "ten_lien_he_phat_hien_them",
+    "source": "contact_query_label_candidate",
+    "tokens": [
+      "trang"
+    ]
+  },
+  "bác sĩ an": {
+    "term": "Bác sĩ An",
+    "category": "ten_lien_he_phat_hien_them",
+    "source": "contact_query_label_candidate",
+    "tokens": [
+      "bác",
+      "sĩ",
+      "an"
+    ]
+  },
+  "an": {
+    "term": "An",
+    "category": "ten_lien_he_phat_hien_them",
+    "source": "contact_query_label_candidate",
+    "tokens": [
+      "an"
+    ]
+  },
+  "anh hải thủ quỹ": {
+    "term": "Anh Hải thủ quỹ",
+    "category": "ten_lien_he_phat_hien_them",
+    "source": "contact_query_label_candidate",
+    "tokens": [
+      "anh",
+      "hải",
+      "thủ",
+      "quỹ"
+    ]
+  },
+  "mai anh": {
+    "term": "Mai Anh",
+    "category": "ten_lien_he_phat_hien_them",
+    "source": "contact_query_label_candidate",
+    "tokens": [
+      "mai",
+      "anh"
+    ]
+  },
+  "trực ca": {
+    "term": "trực ca",
+    "category": "ten_lien_he_phat_hien_them",
+    "source": "contact_query_label_candidate",
+    "tokens": [
+      "trực",
+      "ca"
+    ]
+  },
+  "huy": {
+    "term": "Huy",
+    "category": "ten_lien_he_phat_hien_them",
+    "source": "contact_query_label_candidate",
+    "tokens": [
+      "huy"
+    ]
+  },
+  "toàn": {
+    "term": "Toàn",
+    "category": "ten_lien_he_phat_hien_them",
+    "source": "contact_query_label_candidate",
+    "tokens": [
+      "toàn"
+    ]
+  },
+  "ngân": {
+    "term": "Ngân",
+    "category": "ten_lien_he_phat_hien_them",
+    "source": "contact_query_label_candidate",
+    "tokens": [
+      "ngân"
+    ]
+  },
+  "hà": {
+    "term": "Hà",
+    "category": "ten_lien_he_phat_hien_them",
+    "source": "contact_query_label_candidate",
+    "tokens": [
+      "hà"
+    ]
+  },
+  "hạnh": {
+    "term": "Hạnh",
+    "category": "ten_lien_he_phat_hien_them",
+    "source": "contact_query_label_candidate",
+    "tokens": [
+      "hạnh"
+    ]
+  },
+  "anh lộc": {
+    "term": "Anh Lộc",
+    "category": "ten_lien_he_phat_hien_them",
+    "source": "contact_query_label_candidate",
+    "tokens": [
+      "anh",
+      "lộc"
+    ]
+  },
+  "nhi": {
+    "term": "Nhi",
+    "category": "ten_lien_he_phat_hien_them",
+    "source": "contact_query_label_candidate",
+    "tokens": [
+      "nhi"
+    ]
+  },
+  "anh hùng": {
+    "term": "Anh Hùng",
+    "category": "ten_lien_he_phat_hien_them",
+    "source": "contact_query_label_candidate",
+    "tokens": [
+      "anh",
+      "hùng"
+    ]
+  },
+  "hằng": {
+    "term": "Hằng",
+    "category": "ten_lien_he_phat_hien_them",
+    "source": "contact_query_label_candidate",
+    "tokens": [
+      "hằng"
+    ]
+  },
+  "thư": {
+    "term": "Thư",
+    "category": "ten_lien_he_phat_hien_them",
+    "source": "contact_query_label_candidate",
+    "tokens": [
+      "thư"
+    ]
+  },
+  "vợ": {
+    "term": "vợ",
+    "category": "ten_lien_he_phat_hien_them",
+    "source": "contact_query_label_candidate",
+    "tokens": [
+      "vợ"
+    ]
+  },
+  "tí": {
+    "term": "Tí",
+    "category": "ten_lien_he_phat_hien_them",
+    "source": "contact_query_label_candidate",
+    "tokens": [
+      "tí"
+    ]
+  },
+  "vợ hồng": {
+    "term": "Vợ Hồng",
+    "category": "ten_lien_he_phat_hien_them",
+    "source": "contact_query_label_candidate",
+    "tokens": [
+      "vợ",
+      "hồng"
+    ]
+  },
+  "không chín ba không hai sáu tám năm bảy không không": {
+    "term": "09302685700",
+    "category": "ten_lien_he_phat_hien_them",
+    "source": "contact_query_label_candidate",
+    "tokens": [
+      "không",
+      "chín",
+      "ba",
+      "không",
+      "hai",
+      "sáu",
+      "tám",
+      "năm",
+      "bảy",
+      "không",
+      "không"
+    ]
+  },
+  "anh mười": {
+    "term": "Anh Mười",
+    "category": "ten_lien_he_phat_hien_them",
+    "source": "contact_query_label_candidate",
+    "tokens": [
+      "anh",
+      "mười"
+    ]
+  },
+  "út": {
+    "term": "Út",
+    "category": "ten_lien_he_phat_hien_them",
+    "source": "contact_query_label_candidate",
+    "tokens": [
+      "út"
+    ]
+  },
+  "thằng út": {
+    "term": "Thằng Út",
+    "category": "ten_lien_he_phat_hien_them",
+    "source": "contact_query_label_candidate",
+    "tokens": [
+      "thằng",
+      "út"
+    ]
+  },
+  "thảo": {
+    "term": "Thảo",
+    "category": "ten_lien_he_phat_hien_them",
+    "source": "contact_query_label_candidate",
+    "tokens": [
+      "thảo"
+    ]
+  },
+  "anh long": {
+    "term": "Anh Long",
+    "category": "ten_lien_he_phat_hien_them",
+    "source": "contact_query_label_candidate",
+    "tokens": [
+      "anh",
+      "long"
+    ]
+  },
+  "chú tám": {
+    "term": "Chú Tám",
+    "category": "ten_lien_he_phat_hien_them",
+    "source": "contact_query_label_candidate",
+    "tokens": [
+      "chú",
+      "tám"
+    ]
+  },
+  "anh bình": {
+    "term": "Anh Bình",
+    "category": "ten_lien_he_phat_hien_them",
+    "source": "contact_query_label_candidate",
+    "tokens": [
+      "anh",
+      "bình"
+    ]
+  },
+  "sarah": {
+    "term": "Sarah",
+    "category": "ten_lien_he_phat_hien_them",
+    "source": "contact_query_label_candidate",
+    "tokens": [
+      "sarah"
+    ]
+  },
+  "anh kha": {
+    "term": "Anh Kha",
+    "category": "ten_lien_he_phat_hien_them",
+    "source": "contact_query_label_candidate",
+    "tokens": [
+      "anh",
+      "kha"
+    ]
+  },
+  "lucas": {
+    "term": "Lucas",
+    "category": "ten_lien_he_phat_hien_them",
+    "source": "contact_query_label_candidate",
+    "tokens": [
+      "lucas"
+    ]
+  },
+  "olivia": {
+    "term": "Olivia",
+    "category": "ten_lien_he_phat_hien_them",
+    "source": "contact_query_label_candidate",
+    "tokens": [
+      "olivia"
+    ]
+  },
+  "tài xế": {
+    "term": "tài xế",
+    "category": "ten_lien_he_phat_hien_them",
+    "source": "contact_query_label_candidate",
+    "tokens": [
+      "tài",
+      "xế"
+    ]
+  },
+  "felix": {
+    "term": "Felix",
+    "category": "ten_lien_he_phat_hien_them",
+    "source": "contact_query_label_candidate",
+    "tokens": [
+      "felix"
+    ]
+  },
+  "vy": {
+    "term": "Vy",
+    "category": "ten_lien_he_phat_hien_them",
+    "source": "contact_query_label_candidate",
+    "tokens": [
+      "vy"
+    ]
+  },
+  "mr okafor": {
+    "term": "Mr. Okafor",
+    "category": "ten_lien_he_phat_hien_them",
+    "source": "contact_query_label_candidate",
+    "tokens": [
+      "mr",
+      "okafor"
+    ]
+  },
+  "má": {
+    "term": "Má",
+    "category": "ten_lien_he_phat_hien_them",
+    "source": "contact_query_label_candidate",
+    "tokens": [
+      "má"
+    ]
+  },
+  "mẹ chồng": {
+    "term": "Mẹ chồng",
+    "category": "ten_lien_he_phat_hien_them",
+    "source": "contact_query_label_candidate",
+    "tokens": [
+      "mẹ",
+      "chồng"
+    ]
+  },
+  "cô mai": {
+    "term": "Cô Mai",
+    "category": "ten_lien_he_phat_hien_them",
+    "source": "contact_query_label_candidate",
+    "tokens": [
+      "cô",
+      "mai"
+    ]
+  },
+  "mr tanaka": {
+    "term": "Mr. Tanaka",
+    "category": "ten_lien_he_phat_hien_them",
+    "source": "contact_query_label_candidate",
+    "tokens": [
+      "mr",
+      "tanaka"
+    ]
+  },
+  "chị hai": {
+    "term": "Chị Hai",
+    "category": "ten_lien_he_phat_hien_them",
+    "source": "contact_query_label_candidate",
+    "tokens": [
+      "chị",
+      "hai"
+    ]
+  },
+  "kha": {
+    "term": "Kha",
+    "category": "ten_lien_he_phat_hien_them",
+    "source": "contact_query_label_candidate",
+    "tokens": [
+      "kha"
+    ]
+  },
+  "tanaka": {
+    "term": "Tanaka",
+    "category": "ten_lien_he_phat_hien_them",
+    "source": "contact_query_label_candidate",
+    "tokens": [
+      "tanaka"
+    ]
+  },
+  "chú năm": {
+    "term": "Chú Năm",
+    "category": "ten_lien_he_phat_hien_them",
+    "source": "contact_query_label_candidate",
+    "tokens": [
+      "chú",
+      "năm"
+    ]
+  },
+  "hùng": {
+    "term": "Hùng",
+    "category": "ten_lien_he_phat_hien_them",
+    "source": "contact_query_label_candidate",
+    "tokens": [
+      "hùng"
+    ]
+  },
+  "ông ba": {
+    "term": "Ông Ba",
+    "category": "ten_lien_he_phat_hien_them",
+    "source": "contact_query_label_candidate",
+    "tokens": [
+      "ông",
+      "ba"
+    ]
+  },
+  "lộc": {
+    "term": "Lộc",
+    "category": "ten_lien_he_phat_hien_them",
+    "source": "contact_query_label_candidate",
+    "tokens": [
+      "lộc"
+    ]
+  },
+  "chị yến": {
+    "term": "Chị Yến",
+    "category": "ten_lien_he_phat_hien_them",
+    "source": "contact_query_label_candidate",
+    "tokens": [
+      "chị",
+      "yến"
+    ]
+  }
+}

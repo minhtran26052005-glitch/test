@@ -1,0 +1,19 @@
+{
+  "schema_version": "asr-datagen-api-v1",
+  "train": "data/train+public_test/train/train.jsonl",
+  "evidence": "outputs/timestamp_word_fusion/comparison/keyword_evidence.csv",
+  "transcripts": "outputs/timestamp_word_fusion/comparison/transcripts.csv",
+  "system_prompt": "prompts/asr_datagen_system.txt",
+  "output_dir": "outputs/asr_datagen_api",
+  "variants_per_seed": 10,
+  "temperature": 0.8,
+  "max_output_tokens": 8192,
+  "max_attempts_per_seed": 5,
+  "models": [
+    {"name":"gemini-2.5-flash-lite", "rpm":10, "tpm":250000, "rpd":20},
+    {"name":"gemini-3.1-flash-lite", "rpm":15, "tpm":250000, "rpd":500},
+    {"name":"gemini-3.5-flash-lite", "rpm":15, "tpm":250000, "rpd":500},
+    {"name":"gemma-4-26b-a4b-it", "rpm":30, "tpm":16000, "rpd":14400},
+    {"name":"gemma-4-31b-it", "rpm":30, "tpm":16000, "rpd":14400}
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "updated_at": "2026-11-05T02:06:18.462575+00:00",
+  "total_seeds": 5036,
+  "completed_seeds": 1098,
+  "generated_variants": 10980,
+  "by_target_model": {
+    "gipformer": 5490,
+    "zipformer": 5490
+  },
+  "by_generator_model": {
+    "gemini-3.5-flash-lite": 2960,
+    "gemini-3.1-flash-lite": 3670,
+    "gemma-4-31b-it": 620,
+    "gemma-4-26b-a4b-it": 3730
+  },
+  "variants_with_semantic_warnings": 310,
+  "by_domain": {
+    "lich_nhac_viec": 2460,
+    "thoi_tiet": 660,
+    "tai_chinh": 2550,
+    "nha_thong_minh": 1120,
+    "khac": 1220,
+    "truyen_hinh": 1020,
+    "lien_he": 550,
+    "am_thuc": 740,
+    "nhien_lieu": 610,
+    "thuoc_y_te": 50
+  },
+  "note": "Text generation only; structure checked, semantic review and TTS/audio still pending."
+}

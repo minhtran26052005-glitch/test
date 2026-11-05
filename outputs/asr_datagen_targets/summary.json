@@ -1,0 +1,146 @@
+{
+  "transcripts_checked": 5036,
+  "sample_ids": 1545,
+  "last": 1545,
+  "history": 3491,
+  "candidate_evidence_rows": 2366,
+  "distinct_candidate_audio": 1603,
+  "target_rows": 482,
+  "unclassified_spans": 5290,
+  "categories": [
+    {
+      "category": "thuoc_y_te",
+      "audio_with_candidate": 19,
+      "sample_ids_with_candidate": 17,
+      "distinct_flagged_targets": 18,
+      "top_targets": "lịch thuốc; cữ sáng; Clearwater Pharma; Omeprazole; cữ thuốc; cữ trưa; cữ uống buổi tối; dầu cá; kẽm Brightpath; lịch uống thuốc; siro ho; thuốc Brightpath; thuốc bổ gan; thuốc huyết áp; thuốc say xe; tảo Hawaii; vitamin D; viên sắt",
+      "risk": "Sai thuốc/cữ uống: chọn nhầm thuốc, nhầm lịch uống hoặc mốc nhắc.",
+      "generation_focus": "Tên thuốc/nhóm bệnh + lịch/cữ uống + đã/chưa uống; tên Anh xen câu Việt. Đây là từ vựng corpus, không suy ra đơn thuốc y khoa."
+    },
+    {
+      "category": "lenh_hanh_dong",
+      "audio_with_candidate": 490,
+      "sample_ids_with_candidate": 418,
+      "distinct_flagged_targets": 25,
+      "top_targets": "đặt; nhắc; nhắn; dời; đặt báo thức; bật; tắt; nhắn SMS; hủy; dời lịch; đánh dấu; thư nháp; xóa; hạ; soạn nháp; để nháp; đặt nhắc; dừng; giao việc; nhắn tin",
+      "risk": "Đổi ý định, bỏ hành động hoặc chọn sai họ tool.",
+      "generation_focus": "Đặt báo thức/đọc báo; dời/xem lịch; nhắn/nhắc; hủy/giữ nguyên. Câu nhiều tác vụ, sửa ý cuối câu và giọng vùng miền."
+    },
+    {
+      "category": "phu_dinh_dieu_kien",
+      "audio_with_candidate": 44,
+      "sample_ids_with_candidate": 44,
+      "distinct_flagged_targets": 15,
+      "top_targets": "trừ; đừng; nếu; à không; không cần; đừng bật; chưa trả; giữ nguyên; mà thôi; chỉ giữ; còn không; giao rồi; không cần nữa; khỏi bật; để nguyên",
+      "risk": "Đảo nhánh điều kiện hoặc thực hiện hành động đã hủy.",
+      "generation_focus": "Đừng/được; đã/chưa; nếu A thì B còn không thì C; à không; mà thôi khỏi. Phải giữ rõ nhánh/ý cuối cùng."
+    },
+    {
+      "category": "thiet_bi_khong_gian",
+      "audio_with_candidate": 112,
+      "sample_ids_with_candidate": 102,
+      "distinct_flagged_targets": 14,
+      "top_targets": "phòng khách; phòng ngủ; máy giặt; robot hút bụi; đèn bếp; điều hòa; tầng hai; giặt nhanh; phòng ngủ nhỏ; camera gara; cửa kho; cửa sau; phòng làm việc; bình nóng lạnh",
+      "risk": "Nhầm thiết bị/phòng, sai device_id hoặc thiếu hành động.",
+      "generation_focus": "Thiết bị + phòng/tầng + thuộc tính; phòng ngủ/phòng ngủ nhỏ, cửa chính/cửa kho, bật/tắt và nhiệt độ/độ sáng."
+    },
+    {
+      "category": "viet_tat_ma",
+      "audio_with_candidate": 180,
+      "sample_ids_with_candidate": 145,
+      "distinct_flagged_targets": 20,
+      "top_targets": "SJC; RON95; SMS; SCTV9; VTV3; E5; VTV6; VOV; HTV7; VTV1; IELTS; KTX; QR; RV107; RV111; RV155; RV180; RV183; RV221; RV236",
+      "risk": "Sai sản phẩm/kênh/mã chuyến. Bỏ qua số viết gộp và dạng spoken tương đương.",
+      "generation_focus": "Tên chữ cái Việt/Anh và mã kèm số, xen câu Việt; thống nhất dạng transcript. HTV7/HTV bảy phải cùng giá trị."
+    },
+    {
+      "category": "tieng_anh_cong_viec",
+      "audio_with_candidate": 134,
+      "sample_ids_with_candidate": 116,
+      "distinct_flagged_targets": 25,
+      "top_targets": "team; Zalo; họp team; podcast; mail; voucher; workshop; book; invoice; check-in; homestay; Excel; Python; TalkAI; confirm; email; croissant; release note; Speaking Club; add remind",
+      "risk": "Mất từ khóa nghiệp vụ: sai ứng dụng hoặc nội dung truy vấn.",
+      "generation_focus": "Code-switch Việt-Anh: họp team, gửi invoice, book lớp, khách check-in/out; chèn tên và giờ, không chỉ đọc từ rời."
+    },
+    {
+      "category": "ten_nguoi_viet",
+      "audio_with_candidate": 108,
+      "sample_ids_with_candidate": 96,
+      "distinct_flagged_targets": 11,
+      "top_targets": "Minh; Mạ; Lan; Bống; Sếp Dũng; Sếp Trân; Lê Minh; Trần Văn Tuấn; Nguyễn Thị Lan; Cô Hạnh; Hương",
+      "risk": "Nhầm người nhận/khóa tra danh bạ khi gọi, nhắn hoặc chuyển tiền.",
+      "generation_focus": "Tên + quan hệ + gọi/nhắn/chuyển; Minh/mình, Hương/Hường, Bống/bóng; tên trùng cần từ phân biệt."
+    },
+    {
+      "category": "ten_nguoi_quoc_te",
+      "audio_with_candidate": 84,
+      "sample_ids_with_candidate": 63,
+      "distinct_flagged_targets": 31,
+      "top_targets": "Grace Nakamura; Sophie Martin; Laura Costa; Priya Sharma; Sarah Kim; Nathan Reed; Olivia Brown; Andrew Scott; Daniel Lee; James Wong; Marcus Hale; Michael Chen; Oliver Grant; Peter Hansen; Tom Baker; Ben Taylor; Julian Ward; Kevin Park; Lucas Bennett; Mark Johnson",
+      "risk": "Sai tên người liên hệ, tác giả hoặc đối tác; nhầm tên gần âm.",
+      "generation_focus": "Tên ngoại trong câu Việt; Baker/Barker, Priya Shah/Sharma; đổi trọng âm/tốc độ và giữ tên gốc trong nhãn."
+    },
+    {
+      "category": "dia_diem_to_chuc",
+      "audio_with_candidate": 48,
+      "sample_ids_with_candidate": 40,
+      "distinct_flagged_targets": 28,
+      "top_targets": "Team Design; Evergreen Foods; Crestview Hotels; Nexora Labs; Trúc Bạch; Bluebird Café; Cao Nguyên Coffee; Lumina Studio; Riverside Coworking; Skyline Park; The Lemon Tree Café; Berlin; Bluebird Cafe; Brightwave Studio; Design Cloud; Harbor View Hotel; Hải Thượng Lãn Ông; Kestrel Fiber; Le Petit Bakery; Maple Leaf Education",
+      "risk": "Sai query/nơi đón trả/đối tác hoặc mốc tham chiếu trong history.",
+      "generation_focus": "Địa danh Việt và tên quán/tổ chức Anh trong câu tìm đường, đặt xe, chuyển tiền; giữ đầy đủ thành phần tên."
+    },
+    {
+      "category": "thoi_gian_quan_he",
+      "audio_with_candidate": 256,
+      "sample_ids_with_candidate": 218,
+      "distinct_flagged_targets": 11,
+      "top_targets": "nay; mai; trước; tối nay; sáng mai; sau; rưỡi; tối mai; hôm qua; kém; muộn hơn",
+      "risk": "Sai ngày/giờ hoặc trước/sau làm đặt lịch/nhắc vào sai thời điểm.",
+      "generation_focus": "Giờ kém/rưỡi; trước/sau một khoảng; mai/nay/ngày kia. Dùng cùng câu nền với giá trị tương phản."
+    },
+    {
+      "category": "tai_chinh_thanh_toan",
+      "audio_with_candidate": 41,
+      "sample_ids_with_candidate": 41,
+      "distinct_flagged_targets": 9,
+      "top_targets": "tiền điện; tiền mạng; ví điện tử; tiền nước; nạp ví; tài khoản thanh toán; bán ra; mua vào; qua ví",
+      "risk": "Nhầm phương thức/nguồn tiền/hóa đơn khi dùng banking hoặc ewallet.",
+      "generation_focus": "Ví/ngân hàng; thanh toán/tiết kiệm; tiền điện/nước/mạng; nghìn/triệu và điều kiện đủ/thiếu số dư."
+    },
+    {
+      "category": "gia_tri_so",
+      "audio_with_candidate": 100,
+      "sample_ids_with_candidate": 97,
+      "distinct_flagged_targets": 51,
+      "top_targets": "một lít; một tiếng; hai mươi sáu độ; chín giờ; ba giờ; bảy giờ; bốn giờ; bốn mươi lăm phút; hai mươi lăm độ; mười giờ; sáu giờ; tám giờ; ba mươi phần trăm; bốn lít; không chín không một hai ba bốn chín chín chín sáu; một trăm ba mươi mốt triệu; năm giờ; ba trăm đồng; bảy triệu; bốn lăm phần trăm",
+      "risk": "Sai giá trị slot giờ, nhiệt độ, độ sáng, tiền hoặc chữ số định danh.",
+      "generation_focus": "Cặp giá trị cùng câu: 26/28 độ, 30/50 phần trăm, 45/40 phút, điện thoại nhiều số 0. Không gen lại chỉ vì khác dạng viết số."
+    },
+    {
+      "category": "ten_rieng_phat_hien_them",
+      "audio_with_candidate": 257,
+      "sample_ids_with_candidate": 215,
+      "distinct_flagged_targets": 168,
+      "top_targets": "Khách Hàn; Huế Cô Ba; Thằng Tí; Sếp David; Đà Nẵng; Bé Na; Cuốn Nhà; Phạm Hùng; Vợ Hà; Vợ Hằng; Amber Interiors; Bà Nà; Bà Sáu; Bé Bống; Cloud Pro; Hà Nội; Kuala Lumpur; Lemon Tree; Oakwood Residence; Rồng Miles",
+      "risk": "Tên riêng suy từ chữ hoa hoặc query nhãn: cần kiểm tra trước khi gen.",
+      "generation_focus": "Rà tên/đối tượng và phiên âm trước; dùng câu gốc trong evidence để chọn vocab."
+    },
+    {
+      "category": "ten_lien_he_phat_hien_them",
+      "audio_with_candidate": 203,
+      "sample_ids_with_candidate": 166,
+      "distinct_flagged_targets": 44,
+      "top_targets": "Sarah; Vy; Mr. Tanaka; Bình; Tí; Hằng; vợ; Hà; Hòa; Tanaka; Mai Anh; Thư; Tuấn; An; Lucas; Anh Bình; Cô giáo Mai; Nhi; Anh Lộc; Anh Mười",
+      "risk": "Tên/quan hệ trích từ query danh bạ, có thể Việt hoặc quốc tế; cần kiểm tra đúng đối tượng.",
+      "generation_focus": "Rà tên từ query cùng câu gốc; không suy nguồn ngôn ngữ chỉ từ tên query."
+    }
+  ],
+  "limitations": [
+    "Lexicon/rule-assisted candidates for semantic risk, not verified accuracy or causal attribution.",
+    "No audio listening or gold-transcript counterfactual inference was run.",
+    "Categories overlap; names derived from search labels/capitalization may need review.",
+    "Spoken numbers, fixed spelling/dialect aliases and polite fillers excluded.",
+    "History errors are listed as training candidates, without separate downstream causal measurement.",
+    "Medical survey covers corpus terms only, not all medicines or clinical recommendations."
+  ]
+}

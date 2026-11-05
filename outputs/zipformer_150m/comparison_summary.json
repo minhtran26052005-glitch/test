@@ -1,0 +1,50 @@
+{
+  "paired_samples": 1545,
+  "state_outcome_changes": {
+    "improved": 90,
+    "regressed": 90,
+    "both_correct": 362,
+    "both_failed": 1003
+  },
+  "baseline": {
+    "split": "train",
+    "seed": 42,
+    "sample_count": 1545,
+    "population": 1545,
+    "state_match": 452,
+    "exact_calls": 148,
+    "names_match": 304,
+    "both": 148,
+    "completed": 1462,
+    "errors": 83,
+    "percentages": {
+      "state_match": 29.26,
+      "exact_calls": 9.58,
+      "names_match": 19.68,
+      "both": 9.58
+    },
+    "confidence_95_wilson_percent": null,
+    "note": "Errored samples count as failures. Exact call comparison is stricter than semantic matching; state match alone does not establish intent correctness. Not an official leaderboard score."
+  },
+  "zipformer": {
+    "split": "train",
+    "seed": 42,
+    "sample_count": 1545,
+    "population": 1545,
+    "state_match": 452,
+    "exact_calls": 151,
+    "names_match": 300,
+    "both": 151,
+    "completed": 1477,
+    "errors": 68,
+    "percentages": {
+      "state_match": 29.26,
+      "exact_calls": 9.77,
+      "names_match": 19.42,
+      "both": 9.77
+    },
+    "confidence_95_wilson_percent": null,
+    "note": "Errored samples count as failures. Exact call comparison is stricter than semantic matching; state match alone does not establish intent correctness. Not an official leaderboard score."
+  },
+  "note": "Paired saved outputs; state-hash/exact-call metrics are proxies, not official score or proof that each difference was caused by ASR."
+}

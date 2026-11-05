@@ -1,0 +1,18 @@
+{
+  "total_transcripts": 5036,
+  "last": 1545,
+  "history": 3491,
+  "missing": [],
+  "error_spans": 8007,
+  "suspected_tag_utterance_counts": {
+    "có_thể_chỉ_khác_cách_viết_số": 220,
+    "phủ_định_điều_kiện_nghi_vấn": 409,
+    "số_thời_gian_đơn_vị_nghi_vấn": 1404,
+    "tiếng_anh_thương_hiệu_nghi_vấn": 223,
+    "tên_riêng_địa_danh_nghi_vấn": 1006,
+    "tên_thuốc_nghi_vấn": 2,
+    "từ_khác": 3057,
+    "viết_tắt_mã_nghi_vấn": 280
+  },
+  "note": "WER theo token: NFC, chữ thường, bỏ dấu câu; chưa chuẩn hóa ITN; number_expanded_wer chỉ thử đổi số nguyên 0–999 đơn lẻ thành chữ, bỏ qua số đầu 0, số điện thoại, ngày/giờ dạng dấu và số thập phân, không phải WER chính thức; nhãn nhóm là heuristic, có thể chồng lấp và chứa dương tính giả; domain dựa trên tool nhãn, không đánh giá ASR theo giọng hay nhân quả."
+}

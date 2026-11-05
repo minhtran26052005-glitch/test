@@ -1,0 +1,11 @@
+{
+  "stage": "asr",
+  "model": "/home/pc/zalo_ai_challenge/models/zipformer-150M-6000h",
+  "completed": 5036,
+  "total": 5036,
+  "errors": 0,
+  "current_id": "train_1753",
+  "current_turn": "history",
+  "elapsed_seconds": 255.48,
+  "finished": true
+}

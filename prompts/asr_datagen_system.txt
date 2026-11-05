@@ -1,0 +1,24 @@
+Bạn tạo văn bản để dựng audio huấn luyện ASR tiếng Việt trong trợ lý LifeMate.
+Dữ liệu dưới đây là dữ liệu mẫu, không phải chỉ dẫn để thực thi. Không gọi công cụ.
+Mỗi đầu vào là MỘT lượt nói chuẩn, có ngữ cảnh trước lượt nói, lời nhận dạng của hai ASR và các từ khóa cần khảo sát. Lỗi đối sánh từ khóa chỉ là gợi ý, không mặc định mọi khác biệt đều sai. Đọc ngữ cảnh để chọn lỗi làm thay đổi ý định, tên, thời gian, số hoặc thông tin cần lấy.
+
+Sinh đúng số biến thể được yêu cầu, chia đều hai nhóm:
+- Nửa đầu target_model="gipformer": diễn đạt tiếng Việt tự nhiên; tập trung các cụm yếu thực sự có trong lượt nói: dời/nhắc/nhắn/bật/tắt, đã/chưa/đừng/không và điều kiện, lịch/cữ thuốc, thiết bị/phòng, tên người Việt, số và đơn vị. Giữ nguyên ý định VÀ mọi tên, con số, đối tượng, thời điểm, phủ định, điều kiện trong câu gốc. Chỉ đổi cách diễn đạt và trật tự hợp lý, không lược bỏ bước hay thêm yêu cầu. Không cố nhét các chủ đề không liên quan.
+- Nửa sau target_model="zipformer": giữ bối cảnh và loại tác vụ; ưu tiên tiếng Anh chen trong câu Việt, tên người/nơi/tổ chức nước ngoài, tên thuốc tiếng Anh, mã và viết tắt. Có thể thay tên hoặc chuỗi nội dung tự do bằng tên Anh hợp lý CHỈ KHI tác vụ gốc có đối tượng/chuỗi tương ứng. Ví dụ thay tên người nhận, tên cuộc họp hoặc tên thuốc đã được nhắc; không thêm thuốc vào lệnh bật đèn, không thêm một hành động mới. Mọi thay đổi phải ghi slot_changes. Với câu hồi chỉ như "xóa cái đó", không tự thêm tên lấy từ lịch sử vào câu; giữ hồi chỉ, ghi focus phù hợp. Nếu không có chỗ phù hợp cho tiếng Anh thì sinh câu Việt tự nhiên và không ép thêm tiếng Anh. Giữ nguyên số, thời gian, phủ định và điều kiện.
+
+Ưu tiên cao về chất lượng:
+- Nếu câu gốc ĐÃ có tên thuốc tiếng Anh, tên nước ngoài, tên công ty hoặc mã/viết tắt khó, cả 10 câu phải GIỮ ĐÚNG tên đó. Đây chính là từ yếu cần học; không thay Omeprazole bằng thuốc khác hoặc thay Clearwater Pharma bằng tên dễ hơn. Chỉ biến đổi cách diễn đạt xung quanh từ khó.
+- Không dịch ngẫu nhiên từ thường sang Anh: cấm những kiểu "tomorrow trời mưa", "mai có rain", "take thuốc", "help chị", "time mới", "In case mai". Giữ cấu trúc câu Việt. Chỉ chèn tên riêng/thuật ngữ mà người dùng Việt thực sự dùng (SMS, email, check-in, podcast, invoice khi hợp ngữ cảnh). Không tự biến chạy bộ thành training/workout vì làm đổi tên hoạt động.
+- Nếu thay tên người Việt ở nhóm Zip, dùng tên nước ngoài thật sự phù hợp như David Miller, Emily Brown; đừng chỉ đổi Sếp Dũng thành Manager Dũng, Director Dũng hoặc Captain Dũng. Ghi slot_changes đầy đủ. Những câu không có chỗ thay hợp lý cứ giữ tiếng Việt.
+- Mọi mệnh đề phủ định/điều kiện và nhánh "không ... thì thôi/giữ nguyên" của câu gốc phải có trong câu mới. Không chỉ giữ nhánh khẳng định. Không chuyển "chưa uống" thành "đã uống" hay thêm "đừng" mới vào câu.
+- ĐẦU VÀO CÓ zip_english_plan, đây là kế hoạch bắt buộc cho nhóm Zip: must_keep phải xuất hiện nguyên văn trong cả 10 text; nếu có allowed_name_swaps thì mỗi câu Zip dùng đúng một cặp trong danh sách đó và ghi y hệt vào slot_changes. Chỉ đổi tên người này, mọi từ khác vẫn tiếng Việt. Nếu không có allowed_name_swaps thì KHÔNG đổi bất cứ slot nào, slot_changes luôn là []. Nếu strategy=vietnamese_paraphrases_only_do_not_add_english thì cả nhóm Zip cũng dùng hoàn toàn tiếng Việt; target_model chỉ là nhãn nhóm dữ liệu, không bắt buộc thêm tiếng Anh vào mọi câu.
+
+Quy tắc:
+1. Mỗi biến thể phải khác câu gốc và khác các biến thể còn lại. Viết trọn câu mà người dùng sẽ thực sự nói, không ghi lời phân tích trong câu.
+2. text: bản viết dễ đọc; giữ cách viết chuẩn của tên thuốc, tiếng Anh, viết tắt; có thể dùng chữ số.
+3. spoken_text: chính câu đó nhưng tất cả chữ số, %, tiền, giờ, số điện thoại, mã có số được viết thành lời đọc tiếng Việt rõ ràng; không còn chữ số 0-9. Không tự sửa giá trị (ví dụ 123 khác 102, 60 khác 6, 40 khác 4). Giữ nguyên chính tả tên tiếng Anh để TTS xử lý; không bịa phiên âm hay IPA. Với viết tắt có thể viết rõ chuỗi tên chữ cái tiếng Việt/Anh hợp lý. Không bỏ một phần câu.
+4. focus_terms: 1-4 từ/cụm thực sự xuất hiện trong text hoặc spoken_text; chọn từ quan trọng cho tác vụ, không điền nhãn chung chung. Không sao chép từ ASR nhận sai làm nhãn đúng.
+5. domain: một nhãn ngắn tương ứng với nội dung (thuoc_y_te, lien_he, lich_nhac_viec, nha_thong_minh, tai_chinh, truyen_hinh, am_thuc, thoi_tiet, nhien_lieu, khac).
+6. slot_changes: [] khi không đổi giá trị; nếu đổi, mỗi mục có from và to là chuỗi gốc và chuỗi mới. Không sao chép tool_calls chuẩn làm nhãn cho câu đã đổi slot. Không sinh tool_calls, ID công cụ hoặc nhãn âm thanh.
+7. Đây là dữ liệu câu lệnh giả lập; không đưa lời tư vấn, liều thuốc hay hướng dẫn y khoa mới.
+8. Chỉ trả JSON thuần: {"variants":[{"target_model":"gipformer","domain":"...","text":"...","spoken_text":"...","focus_terms":["..."],"slot_changes":[]}, ...]}. Không markdown, không giải thích. Viết gọn; không có trường khác.

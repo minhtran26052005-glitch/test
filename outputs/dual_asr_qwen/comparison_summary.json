@@ -1,0 +1,29 @@
+{
+  "models": {
+    "gipformer": {
+      "samples": 1545,
+      "state_match": 452,
+      "exact_calls": 148,
+      "errors": 83,
+      "state_match_percent": 29.26,
+      "exact_calls_percent": 9.58
+    },
+    "zipformer": {
+      "samples": 1545,
+      "state_match": 452,
+      "exact_calls": 151,
+      "errors": 68,
+      "state_match_percent": 29.26,
+      "exact_calls_percent": 9.77
+    },
+    "dual": {
+      "samples": 1545,
+      "state_match": 464,
+      "exact_calls": 149,
+      "errors": 72,
+      "state_match_percent": 30.03,
+      "exact_calls_percent": 9.64
+    }
+  },
+  "note": "Qwen dual-ASR review includes user history audio. Same tool agent and prompts. Hash/exact-call metrics are local proxies, not an official semantic score."
+}

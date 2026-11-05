@@ -1,0 +1,119 @@
+{
+  "version": "vi-spoken-v1",
+  "num2words_version": "0.5.14",
+  "normalizer_sha256": "b3ef1dc8c541a574c45a9cb531a3e97099cd17344e2e621ea9cd59f9b430b624",
+  "benchmark": "outputs/benchmark_seed42_n1545",
+  "sample_count": 1545,
+  "transcript_count": 5036,
+  "missing": [],
+  "metrics": {
+    "last": {
+      "raw": {
+        "utterances": 1545,
+        "reference_words": 34703,
+        "substitutions": 4446,
+        "deletions": 690,
+        "insertions": 731,
+        "word_errors": 5867,
+        "exact_utterances": 157,
+        "wer_percent": 16.9063
+      },
+      "spoken_numbers": {
+        "utterances": 1545,
+        "reference_words": 35060,
+        "substitutions": 4136,
+        "deletions": 743,
+        "insertions": 427,
+        "word_errors": 5306,
+        "exact_utterances": 173,
+        "wer_percent": 15.1341
+      },
+      "spoken_context_aliases": {
+        "utterances": 1545,
+        "reference_words": 35062,
+        "substitutions": 4133,
+        "deletions": 729,
+        "insertions": 427,
+        "word_errors": 5289,
+        "exact_utterances": 175,
+        "wer_percent": 15.0847
+      }
+    },
+    "history": {
+      "raw": {
+        "utterances": 3491,
+        "reference_words": 37383,
+        "substitutions": 4885,
+        "deletions": 623,
+        "insertions": 700,
+        "word_errors": 6208,
+        "exact_utterances": 1021,
+        "wer_percent": 16.6065
+      },
+      "spoken_numbers": {
+        "utterances": 3491,
+        "reference_words": 37833,
+        "substitutions": 4682,
+        "deletions": 748,
+        "insertions": 375,
+        "word_errors": 5805,
+        "exact_utterances": 1084,
+        "wer_percent": 15.3437
+      },
+      "spoken_context_aliases": {
+        "utterances": 3491,
+        "reference_words": 37849,
+        "substitutions": 4669,
+        "deletions": 716,
+        "insertions": 374,
+        "word_errors": 5759,
+        "exact_utterances": 1095,
+        "wer_percent": 15.2157
+      }
+    },
+    "all": {
+      "raw": {
+        "utterances": 5036,
+        "reference_words": 72086,
+        "substitutions": 9331,
+        "deletions": 1313,
+        "insertions": 1431,
+        "word_errors": 12075,
+        "exact_utterances": 1178,
+        "wer_percent": 16.7508
+      },
+      "spoken_numbers": {
+        "utterances": 5036,
+        "reference_words": 72893,
+        "substitutions": 8818,
+        "deletions": 1491,
+        "insertions": 802,
+        "word_errors": 11111,
+        "exact_utterances": 1257,
+        "wer_percent": 15.2429
+      },
+      "spoken_context_aliases": {
+        "utterances": 5036,
+        "reference_words": 72911,
+        "substitutions": 8802,
+        "deletions": 1445,
+        "insertions": 801,
+        "word_errors": 11048,
+        "exact_utterances": 1270,
+        "wer_percent": 15.1527
+      }
+    }
+  },
+  "format_only_utterances": {
+    "last": 16,
+    "history": 63,
+    "all": 79
+  },
+  "word_error_count_changes": {
+    "decreased": 425,
+    "equal": 4597,
+    "increased": 14
+  },
+  "normalization_changed_utterances": 481,
+  "note": "Symmetric text rules; no model inference or hypothesis-selected reference. Raw baseline preserved. Spoken WER is a local diagnostic, not an official competition score. Context aliases are reported separately. No dialect/English/name/negation corrections. Numeric words and the WER denominator may increase after expansion."
+}

@@ -1,0 +1,49 @@
+{
+  "repo_id": "hynt/ZipFormer-150M-CR-CTC-RNNT-6000h",
+  "revision": "8c3d474d3d74cb247f4b8c7b0f8b48598ac8c1c6",
+  "downloaded_at_unix": 1793623917.8842542,
+  "files": {
+    "README.md": {
+      "size": 4399,
+      "sha256": "241605ffed8f26369013a755800eaa09da2ca0c5c8d6891965a82e9dcf1f420f",
+      "matches_huggingface_lfs": null
+    },
+    "bpe.model": {
+      "size": 268106,
+      "sha256": "002894e7a82d80ffa5e25008ec8c5496159db804005e2103de96b01b4c13d445",
+      "matches_huggingface_lfs": true
+    },
+    "config.json": {
+      "size": 23238,
+      "sha256": "ca8171f8bbd516c050b627582f2125c8f5f1f6ed967ab41b0fa9aae2cf61b492",
+      "matches_huggingface_lfs": null
+    },
+    "decoder-epoch-11-avg-2.onnx": {
+      "size": 5165084,
+      "sha256": "cb381da67f9443d78c7b62fed9ceab9871dbe26d8a1a9e3e10055d13f38d0161",
+      "matches_huggingface_lfs": true
+    },
+    "encoder-epoch-11-avg-2.onnx": {
+      "size": 592348001,
+      "sha256": "776978c923f611ead8934cdaea40e019ee256279f637190361ec8d869adf3f55",
+      "matches_huggingface_lfs": true
+    },
+    "jit_script.pt": {
+      "size": 616547757,
+      "sha256": "7925eac3f6ed45032eb627082e228652c979bf70942a26decab133bc92e96949",
+      "matches_huggingface_lfs": true
+    },
+    "joiner-epoch-11-avg-2.onnx": {
+      "size": 4104465,
+      "sha256": "88a97268ed7112efa307dcc50019865019a396c85291d0f2201c10309eeb7b67",
+      "matches_huggingface_lfs": true
+    }
+  },
+  "tokens_source": "config.json (literal token table, not JSON); copied byte for byte to tokens.txt",
+  "parameters": 153438074,
+  "state_tensors_upper_bound": 154050027,
+  "format": "original FP32 ONNX; no quantization",
+  "decoding_method": "greedy_search",
+  "sample_rate": 16000,
+  "feature_dim": 80
+}

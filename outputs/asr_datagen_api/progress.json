@@ -1,0 +1,40 @@
+{
+  "updated_at": "2026-11-05T02:05:11.432354+00:00",
+  "status": "calling",
+  "total_seeds": 5036,
+  "completed_seeds": 1098,
+  "failed_seeds": 26,
+  "remaining_seeds": 3912,
+  "quota_today": {
+    "gemini-2.5-flash-lite": {
+      "requests": 1,
+      "daily_exhausted": false,
+      "disabled": "API 404 model unavailable"
+    },
+    "gemini-3.1-flash-lite": {
+      "requests": 500,
+      "daily_exhausted": false,
+      "disabled": null
+    },
+    "gemini-3.5-flash-lite": {
+      "requests": 496,
+      "daily_exhausted": true,
+      "disabled": null
+    },
+    "gemma-4-26b-a4b-it": {
+      "requests": 1101,
+      "daily_exhausted": false,
+      "disabled": null
+    },
+    "gemma-4-31b-it": {
+      "requests": 247,
+      "daily_exhausted": false,
+      "disabled": null
+    }
+  },
+  "current_seed": "train_0375_last",
+  "current_model": "gemma-4-31b-it",
+  "current_request_id": "train_0375_last__002__gemma-4-31b-it",
+  "request_started_at": "2026-11-05T02:05:11.432346+00:00",
+  "request_timeout_seconds": 195
+}

@@ -1,0 +1,16 @@
+models/
+outputs/
+__pycache__/
+*.pyc
+.venv/
+.deps/
+.deps521/
+data/
+*.zip
+API_gg.txt
+.env
+.env.*
+!.env.example
+.downloads/
+*.pem
+id_rsa

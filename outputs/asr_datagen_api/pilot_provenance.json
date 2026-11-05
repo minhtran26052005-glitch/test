@@ -1,0 +1,8 @@
+{
+  "archives": [
+    "outputs/asr_datagen_api_pilot_v1",
+    "outputs/asr_datagen_api_pilot_v2"
+  ],
+  "reason": "Explicit per-seed foreign-name plan and validation added after manual pilot review",
+  "previous_requests_and_quota_preserved": true
+}

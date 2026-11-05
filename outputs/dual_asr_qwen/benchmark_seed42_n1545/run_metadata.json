@@ -1,0 +1,278 @@
+{
+  "identity": {
+    "configuration": {
+      "AGENT_MAX_NEW_TOKENS": "1024",
+      "MAX_AGENT_STEPS": "12",
+      "DATA_ROOT": "data/train+public_test",
+      "ASR_DEVICE": "cpu",
+      "STRICT_COMPETITION": "1",
+      "ASR_MODE": "dual",
+      "ENV_MODE": "official",
+      "LLM_GPU_MAX_MEMORY": "",
+      "LLM_DTYPE": "bfloat16",
+      "ASR_CACHE_ONLY": "1",
+      "LLM_MODEL_PATH": "models/Qwen3.5-4B",
+      "ASR_COMBINE": "llm_review",
+      "LLM_DEVICE_MAP": "cuda:0",
+      "ASR_REVIEW_HISTORY": "1",
+      "PHOWHISPER_MODEL_PATH": "vinai/PhoWhisper-large",
+      "ZIPFORMER_MODEL_PATH": "/home/pc/zalo_ai_challenge/models/zipformer-150M-6000h",
+      "LLM_BACKEND": "transformers",
+      "ASR_PRIMARY": "zipformer",
+      "LLM_CONTEXT_TOKENS": "16384",
+      "AGENT_SYSTEM_PROMPT": "Bạn là LifeMate, một AI Agent thực hiện yêu cầu của người dùng bằng các công cụ có sẵn.\nMục tiêu là đạt đúng trạng thái cuối của môi trường.\nQuy tắc:\n- Chỉ sử dụng tool có trong available_tools.\n- Arguments phải tuân thủ đúng JSON Schema.\n- Không tự tạo tool name, device_id, account_id, contact_id hoặc tham số không có căn cứ.\n- Phân biệt yêu cầu rõ ràng, thiếu thông tin và ngoài phạm vi.\n- Nếu cần thông tin từ một tool đọc trạng thái, phải gọi tool đó trước.\n- Sau mỗi observation, quyết định bước tiếp theo.\n- Có thể thực hiện nhiều hành động liên tiếp.\n- Không gọi lại các hành động đã thành công nếu không cần thiết.\n- Nếu thiếu tham số bắt buộc và không thể suy ra từ context, sử dụng sys.ask_missing_info theo đúng schema.\n- Nếu không có ứng dụng nào đáp ứng yêu cầu, kết thúc với danh sách tool rỗng.\n- Khi đã hoàn thành nhiệm vụ thì kết thúc.\n- Không sinh lời giải thích ngoài JSON.\nMỗi lượt chỉ trả về {\"action\":\"call\",\"name\":\"tool_name\",\"arguments\":{...}} hoặc {\"action\":\"finish\"}.",
+      "LLM_QUANTIZATION": "none",
+      "DATA_SPLIT": "train",
+      "LLM_TEMPERATURE": "0",
+      "GIPFORMER_MODEL_PATH": "/home/pc/zalo_ai_challenge/models/gipformer1.5-68M-rnnt",
+      "NORMALIZE_MAX_NEW_TOKENS": "512",
+      "ASR_SECONDARY": "gipformer",
+      "NORMALIZE_SYSTEM_PROMPT": "Bạn là hệ thống hiệu chỉnh và chuẩn hóa transcript tiếng Việt dành cho Voice Agent.\nNhiệm vụ:\n- Sửa lỗi ASR rõ ràng khi có đủ bằng chứng.\n- Chuẩn hóa số lượng, tiền tệ, thời gian, ngày tháng, nhiệt độ, địa chỉ và đơn vị.\n- Chỉnh dấu câu và cách viết cho dễ hiểu.\n- Giữ nguyên ý định, tên người, tên thiết bị và nội dung yêu cầu.\n- Không tự thêm hành động.\n- Không tự suy diễn các thông tin không xuất hiện trong audio.\n- Không tự điền thông tin từ user profile vào transcript.\n- Nếu không chắc chắn, giữ nguyên nội dung thay vì đoán.\n- Nếu được cung cấp nhiều transcript ASR, sử dụng chúng làm bằng chứng, không mặc định transcript nào cũng đúng.\nChỉ trả về JSON có khóa normalized_text. Không giải thích.",
+      "LLM_CPU_MAX_MEMORY": "24GiB",
+      "ASR_CACHE_DIR": "/home/pc/zalo_ai_challenge/outputs/dual_asr_qwen/asr_cache"
+    },
+    "seed": 42,
+    "sample_count": 1545,
+    "asr_model_fingerprint": [
+      "/home/pc/zalo_ai_challenge/models/zipformer-150M-6000h",
+      [
+        [
+          ".cache/huggingface/.gitignore",
+          1,
+          1793623707207200031
+        ],
+        [
+          ".cache/huggingface/download/README.md.metadata",
+          100,
+          1793623708333064417
+        ],
+        [
+          ".cache/huggingface/download/bpe.model.metadata",
+          124,
+          1793623709827899885
+        ],
+        [
+          ".cache/huggingface/download/config.json.metadata",
+          101,
+          1793623707774264667
+        ],
+        [
+          ".cache/huggingface/download/decoder-epoch-11-avg-2.onnx.metadata",
+          125,
+          1793623718026965619
+        ],
+        [
+          ".cache/huggingface/download/encoder-epoch-11-avg-2.onnx.metadata",
+          125,
+          1793623821227949459
+        ],
+        [
+          ".cache/huggingface/download/jit_script.pt.metadata",
+          125,
+          1793623819331656024
+        ],
+        [
+          ".cache/huggingface/download/joiner-epoch-11-avg-2.onnx.metadata",
+          125,
+          1793623715132572247
+        ],
+        [
+          "README.md",
+          4399,
+          1793623708331566794
+        ],
+        [
+          "bpe.model",
+          268106,
+          1793623709797601228
+        ],
+        [
+          "config.json",
+          23238,
+          1793623707773927266
+        ],
+        [
+          "decoder-epoch-11-avg-2.onnx",
+          5165084,
+          1793623717841789947
+        ],
+        [
+          "download_manifest.json",
+          1734,
+          1793623917884448040
+        ],
+        [
+          "encoder-epoch-11-avg-2.onnx",
+          592348001,
+          1793623820962178415
+        ],
+        [
+          "jit_script.pt",
+          616547757,
+          1793623819240138966
+        ],
+        [
+          "joiner-epoch-11-avg-2.onnx",
+          4104465,
+          1793623714960722400
+        ],
+        [
+          "tokens.txt",
+          23238,
+          1793623917059359076
+        ]
+      ]
+    ],
+    "secondary_asr_model_fingerprint": [
+      "/home/pc/zalo_ai_challenge/models/gipformer1.5-68M-rnnt",
+      [
+        [
+          ".cache/huggingface/.gitignore",
+          1,
+          1793174643260677804
+        ],
+        [
+          ".cache/huggingface/download/.gitattributes.metadata",
+          101,
+          1793174644232680249
+        ],
+        [
+          ".cache/huggingface/download/README.md.metadata",
+          101,
+          1793174644232422412
+        ],
+        [
+          ".cache/huggingface/download/bpe.model.metadata",
+          125,
+          1793174646481375888
+        ],
+        [
+          ".cache/huggingface/download/config.json.metadata",
+          101,
+          1793174644233000555
+        ],
+        [
+          ".cache/huggingface/download/decoder.int8.onnx.metadata",
+          124,
+          1793174648481964727
+        ],
+        [
+          ".cache/huggingface/download/decoder.onnx.metadata",
+          125,
+          1793174648280555020
+        ],
+        [
+          ".cache/huggingface/download/encoder.int8.onnx.metadata",
+          125,
+          1793174671481208794
+        ],
+        [
+          ".cache/huggingface/download/encoder.onnx.metadata",
+          125,
+          1793174705482653432
+        ],
+        [
+          ".cache/huggingface/download/joiner.int8.onnx.metadata",
+          124,
+          1793174648051360492
+        ],
+        [
+          ".cache/huggingface/download/joiner.onnx.metadata",
+          125,
+          1793174649652149381
+        ],
+        [
+          ".cache/huggingface/download/model.pt.metadata",
+          123,
+          1793174692852762037
+        ],
+        [
+          ".cache/huggingface/download/tokens.txt.metadata",
+          101,
+          1793174647314120847
+        ],
+        [
+          ".gitattributes",
+          1519,
+          1793174644230295611
+        ],
+        [
+          "README.md",
+          7077,
+          1793174644230295611
+        ],
+        [
+          "bpe.model",
+          270695,
+          1793174646432326050
+        ],
+        [
+          "config.json",
+          577,
+          1793174644229295596
+        ],
+        [
+          "decoder.int8.onnx",
+          1308690,
+          1793174648441353816
+        ],
+        [
+          "decoder.onnx",
+          5165084,
+          1793174648133349560
+        ],
+        [
+          "encoder.int8.onnx",
+          70876359,
+          1793174671235668524
+        ],
+        [
+          "encoder.onnx",
+          261057847,
+          1793174705182136124
+        ],
+        [
+          "joiner.int8.onnx",
+          1033417,
+          1793174647977347403
+        ],
+        [
+          "joiner.onnx",
+          4104465,
+          1793174649524368782
+        ],
+        [
+          "model.pt",
+          279040913,
+          1793174692608963079
+        ],
+        [
+          "tokens.txt",
+          25847,
+          1793174647313830137
+        ]
+      ]
+    ]
+  },
+  "created_at_unix": 1793633674.1417987,
+  "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+  "code_sha256": {
+    "run.sh": "d6184d6f3ed76c3bc5ac5747bdfd2ad42a82ad7b0b81fa40987e28b2944669b9",
+    "main.py": "ceec0e58cdeb1544e97698c18fa6a45e26f47310ab227c2738b8b2f63ff74259",
+    "benchmark.py": "dcfd2e599778493e677a54427e49955c2fac031aeba9e352a0228d1fc5137ff1",
+    "agent.py": "fca80e1a98d021be19e35f1795e195b2c62a9b098d52fda9d6f6c1eb6c7bb1b4",
+    "llm_qwen.py": "4c1b3eb3752fed95bdec4e56ffd347e2fd755eb116445a69050e95d3d4fbcd16",
+    "env_adapter.py": "dba4583a8a1ccd9bb0f881909a1dea9d8149718d6cbc70f306e569b3264b5cbe",
+    "cache_asr.py": "9c3ecf617635785219c92c2f82745dddab1675eb04f10733327efdf292c82f72",
+    "asr/__init__.py": "7b256048455ba41a2d77fd697ee5ed8e96bfca319a053cfa957036595dcb5ee7",
+    "asr/gipformer.py": "b52a10c7beb0d7ba6e3ba274b74d9320253a9650d1acc585b80e51de7ebd8016",
+    "asr/zipformer.py": "8bd3533ce9ceec553d541ad6ad3c85780a359172227cdb39d93e0ab4a2e0e296",
+    "run_zipformer_benchmark.sh": "bfd93dcb14334c2cc12d36a2784a69a806707fffcb186224d204e8b6d0f90f00",
+    "export_debug_csv.py": "594aa1cb97e0f112a07d5978ec538abd892b65f5e3e0dccfc902a36a16622f51",
+    "compare_asr_runs.py": "fa045d47a542e6d8c3eaa2e21da330b0d149ac99f1c44a99cb6c884d1d241386",
+    "prepare_dual_asr.py": "7df6cd39070f26c9759d929319efa089d829f8acf9b23d4cb0f0ca5bcba8882d",
+    "run_dual_asr_benchmark.sh": "40a946cfae49093d761f5609857280fe56b92c7e4d463429f7041b4427f2e259",
+    "compare_dual_asr.py": "3d816f0eb656c37202a663dc4d43a770206d875b9fb1cc365b74359a24e36a44"
+  },
+  "dataset_sha256": "24c42c79fbe8db932fe9817d041c0d0ca422ac8177b413cc1be0cda1fd8941a8"
+}

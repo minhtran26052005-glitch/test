@@ -1,0 +1,14 @@
+# Qwen3.5 support requires a recent Transformers release.
+transformers>=5.21,<6
+accelerate
+safetensors
+torch
+sherpa-onnx
+huggingface-hub
+soundfile
+librosa
+jsonschema
+numpy
+# Offline ASR evaluation: written numbers to spoken Vietnamese.
+num2words==0.5.14
+requests>=2.31,<3

@@ -125,6 +125,15 @@ def word_errors(reference, hypothesis):
     return row[-1], len(ref)
 
 
+def archive_best_adapter(exp_dir):
+    """Keep an old run's best adapter from masquerading as this run's result."""
+    previous = Path(exp_dir) / 'lora-best.pt'
+    if previous.exists():
+        archived = previous.with_name(f'lora-best.previous-{time.time_ns()}.pt')
+        previous.rename(archived)
+        logging.info('Archived previous run best adapter: %s', archived)
+
+
 def validate(model, params, sp, loader, device, args, greedy_search_batch, amp):
     import torch
     model.eval()
@@ -176,7 +185,7 @@ def main():
     sp = spm.SentencePieceProcessor()
     sp.load(str(Path(args.model_dir) / 'bpe.model'))
 
-    train_cuts = to_cuts(read_manifests(args.train_manifest, args.audio_root))
+    train_cuts = to_cuts(read_manifests(args.train_manifest, args.audio_root, target_model=args.model))
     valid_cuts = to_cuts(read_manifests(args.valid_manifest, args.audio_root))
     train_loader = dataloader(train_cuts, args.max_duration, True, preset['spec_augment_in_dataset'] or not params.use_cr_ctc,
                               args.num_workers, args.speed_perturb, args.seed)
@@ -198,6 +207,7 @@ def main():
     config = {'r': args.lora_r, 'alpha': args.lora_alpha, 'dropout': args.lora_dropout, 'targets': args.lora_targets}
     history = [{'epoch': 0, **validate(model, params, sp, valid_loader, device, args, greedy_search_batch, amp)}]
     logging.info('Before fine-tuning: %s', history[-1])
+    archive_best_adapter(exp_dir)
     best = history[-1]['wer_percent']
     batch_idx = 0
     for epoch in range(1, args.num_epochs + 1):
@@ -211,20 +221,25 @@ def main():
             set_lora_train_mode(model)
             with amp():
                 loss, frames, parts = compute_loss(model, params, sp, batch, device, args, batch_idx, spec_augment, True)
-            if not math.isfinite(float(loss)):
+            if not math.isfinite(float(loss.detach())):
                 logging.warning('Skipping batch %d with non-finite loss %s', batch_idx, parts)
                 optimizer.zero_grad(set_to_none=True)
                 continue
             scaler.scale(loss).backward()
+            scaler.unscale_(optimizer)
+            if any(p.grad is not None and not torch.isfinite(p.grad).all() for _, p in trainable):
+                logging.warning('Skipping batch %d with non-finite gradients', batch_idx)
+                optimizer.zero_grad(set_to_none=True)
+                scaler.update()
+                continue
             if scheduler:
                 scheduler.step_batch(batch_idx)
             else:
-                scaler.unscale_(optimizer)
                 torch.nn.utils.clip_grad_norm_([p for _, p in trainable], 5.0)
             scaler.step(optimizer)
             scaler.update()
             optimizer.zero_grad(set_to_none=True)
-            seen_frames, seen_loss = seen_frames + frames, seen_loss + float(loss)
+            seen_frames, seen_loss = seen_frames + frames, seen_loss + float(loss.detach())
             if batch_idx % args.log_interval == 0:
                 lr = optimizer.param_groups[0]['lr']
                 logging.info('epoch %d batch %d loss/frame %.4f %s lr %.2e', epoch, batch_idx,

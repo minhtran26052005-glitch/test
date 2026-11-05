@@ -27,7 +27,7 @@ import os
 import sys
 from collections import Counter
 from pathlib import Path
-from agent import build_payload
+from agent import build_payload, repeat_check
 
 FINISH = {'action': 'finish'}
 
@@ -61,16 +61,39 @@ def run_base(run_dir, item, drop_examples):
     for entry in jsonl(trace):
         if entry.get('stage') == 'agent' and isinstance(entry.get('input'), dict):
             payload = entry['input']
-            return base(payload['normalized_text'], item, payload.get('history', []), payload.get('asr_transcripts'),
+            history = [dict(turn) for turn in payload.get('history', [])]
+            evidence = payload.get('asr_transcripts')
+            if os.environ.get('AGENT_ASR_EVIDENCE') == '1':
+                from main import asr_evidence
+                folder = trace.parent
+                evidence = evidence or asr_evidence(saved_hypotheses(folder, 'asr_'), payload['normalized_text'])
+                for i, turn in enumerate(history):
+                    if turn.get('role') == 'user' and turn.get('text') and not turn.get('asr_alternatives'):
+                        raw = asr_evidence(saved_hypotheses(folder, f'history_{i}_'), turn['text'])
+                        if raw:
+                            turn['asr_alternatives'] = raw
+            return base(payload['normalized_text'], item, history, evidence,
                         None if drop_examples else payload.get('examples'))
     return None
 
 
-def generated_variants(path, allow_free_text):
+def saved_hypotheses(folder, prefix):
+    result = {}
+    for path in sorted(folder.glob(prefix + '*.cache.json')):
+        name = path.name[len(prefix):-len('.cache.json')]
+        value = json.loads(path.read_text())['value']
+        if name not in {'normalize', 'timestamp_word'} and isinstance(value, str):
+            result[name] = value
+    return result
+
+
+def generated_variants(path, allow_free_text, allow_unreviewed=False):
     allowed = {'label_safe', 'label_safe_free_text'} if allow_free_text else {'label_safe'}
     by_sample = {}
     with Path(path).open(encoding='utf-8-sig', newline='') as handle:
         for row in csv.DictReader(handle):
+            if not allow_unreviewed and row.get('manual_decision') != 'pass_text':
+                continue
             if row['turn'] == 'last' and row['agent_use'] in allowed:
                 by_sample.setdefault(row['sample_id'], []).append(row)
     return by_sample
@@ -85,9 +108,17 @@ def replay(env, start, gold):
             raise ValueError(f'gold tool {name} not available')
         if hasattr(env, 'validate') and not (check := env.validate(name, args))['ok']:
             raise ValueError(f'gold call rejected: {check.get("error")}')
+        decision = {'action': 'call', 'name': name, 'arguments': args}
+        if os.environ.get('AGENT_REPEAT_GUARD') == '1' and (warning := repeat_check(call, observations)):
+            payload = build_payload(start['text'], start['context'], start['history'], env, observations,
+                                    start['asr_transcripts'], start['examples'])
+            steps.append((json.dumps(payload, ensure_ascii=False), decision))
+            observations.append(warning)
+            if repeat_check(call, observations):
+                raise ValueError('Gold trajectory exceeds the runtime repeat limit')
         payload = build_payload(start['text'], start['context'], start['history'], env, observations,
                                 start['asr_transcripts'], start['examples'])
-        steps.append((json.dumps(payload, ensure_ascii=False), {'action': 'call', 'name': name, 'arguments': args}))
+        steps.append((json.dumps(payload, ensure_ascii=False), decision))
         observations.append({'tool_call': {'name': name, 'arguments': args}, 'observation': env.execute(name, args)})
         if name == 'sys.ask_missing_info':
             return steps  # run_agent stops right after asking
@@ -175,6 +206,8 @@ def main():
     parser.add_argument('--normalize-single', action='store_true', help='also one record per single ASR hypothesis')
     parser.add_argument('--normalize-csv', help='CSV with id, turn, history_index, reference, <asr>_asr columns (no devkit needed)')
     parser.add_argument('--free-text', action='store_true', help='keep generated variants whose gold has free-text arguments')
+    parser.add_argument('--allow-unreviewed-generated', action='store_true',
+                        help='experimental: reuse labels based on anchor matching alone; default requires a manual pass')
     parser.add_argument('--drop-examples', action='store_true', help='remove few-shot examples copied from run traces')
     parser.add_argument('--manifest', default='outputs/timestamp_word_fusion/split_manifest.json')
     parser.add_argument('--out', default='outputs/agent_sft')
@@ -208,7 +241,8 @@ def main():
             generated = {}
             for spec in args.source:
                 if spec.startswith('generated'):
-                    generated = generated_variants(spec.split(':', 1)[1] if ':' in spec else 'outputs/finetune_data_audit/variants.csv', args.free_text)
+                    generated = generated_variants(spec.split(':', 1)[1] if ':' in spec else 'outputs/finetune_data_audit/variants.csv',
+                                                    args.free_text, args.allow_unreviewed_generated)
             for item in items:
                 starts = []
                 for spec in args.source:

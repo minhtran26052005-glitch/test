@@ -3,6 +3,8 @@ outputs/
 __pycache__/
 *.pyc
 .venv/
+.venv-*/
+.review-deps/
 .deps/
 .deps521/
 data/

@@ -45,6 +45,9 @@ case "${1:-}" in
     need "$GIP_DIR/bpe.model" "huggingface-cli download g-group-ai-lab/gipformer1.5-68M-rnnt bpe.model --local-dir $GIP_DIR"
     "$PYTHON_BIN" train_asr_lora.py --model gipformer --model-dir "$GIP_DIR" --icefall-dir "$ICEFALL_DIR" "${ASR_TRAIN[@]}" \
       --valid-manifest outputs/asr_finetune/validation.jsonl --exp-dir outputs/asr_lora/gipformer
+    if [[ ! -f outputs/asr_lora/gipformer/lora-best.pt ]]; then
+      echo 'No improved GipFormer adapter; keeping the base model.'; exit 0
+    fi
     "$PYTHON_BIN" export_asr_lora.py --model gipformer --model-dir "$GIP_DIR" --icefall-dir "$ICEFALL_DIR" \
       --lora outputs/asr_lora/gipformer/lora-best.pt --out-dir "${GIP_DIR}-lora"
     "$PYTHON_BIN" eval_asr_onnx.py --manifest outputs/asr_finetune/test.jsonl --model "gipformer=$GIP_DIR" --model "gipformer=${GIP_DIR}-lora" \
@@ -54,6 +57,9 @@ case "${1:-}" in
     need "$ZIP_DIR/jit_script.pt" "tải hynt/ZipFormer-150M-CR-CTC-RNNT-6000h (jit_script.pt, bpe.model)"
     "$PYTHON_BIN" train_asr_lora.py --model zipformer --model-dir "$ZIP_DIR" --icefall-dir "$ICEFALL_DIR" "${ASR_TRAIN[@]}" \
       --valid-manifest outputs/asr_finetune/validation.jsonl --exp-dir outputs/asr_lora/zipformer --max-duration 200
+    if [[ ! -f outputs/asr_lora/zipformer/lora-best.pt ]]; then
+      echo 'No improved ZipFormer adapter; keeping the base model.'; exit 0
+    fi
     "$PYTHON_BIN" export_asr_lora.py --model zipformer --model-dir "$ZIP_DIR" --icefall-dir "$ICEFALL_DIR" \
       --lora outputs/asr_lora/zipformer/lora-best.pt --out-dir "${ZIP_DIR}-lora"
     "$PYTHON_BIN" eval_asr_onnx.py --manifest outputs/asr_finetune/test.jsonl --model "zipformer=$ZIP_DIR" --model "zipformer=${ZIP_DIR}-lora" \

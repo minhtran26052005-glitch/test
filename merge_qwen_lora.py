@@ -21,8 +21,10 @@ def main():
     import torch
     from peft import PeftModel
     from transformers import AutoModelForImageTextToText, AutoProcessor
+    from train_qwen_lora import configure_generation
     processor = AutoProcessor.from_pretrained(args.base)
     base = AutoModelForImageTextToText.from_pretrained(args.base, dtype=torch.bfloat16, device_map='cpu')
+    stop_ids = configure_generation(base, processor.tokenizer)
     parameters = sum(p.numel() for p in base.parameters())
     model = PeftModel.from_pretrained(base, args.adapter).eval()
     probe = processor.tokenizer('Bật điều hòa phòng khách 26 độ.', return_tensors='pt')
@@ -31,6 +33,8 @@ def main():
     merged = model.merge_and_unload().eval()
     with torch.no_grad():
         merged_logits = merged(**probe).logits.float()
+    if not torch.isfinite(with_adapter).all() or not torch.isfinite(merged_logits).all():
+        raise RuntimeError('Non-finite logits before/after merging the Qwen adapter')
     difference = float((with_adapter - merged_logits).abs().max())
     if sum(p.numel() for p in merged.parameters()) != parameters:
         raise RuntimeError('Merged model has a different parameter count')
@@ -39,7 +43,8 @@ def main():
     out = Path(args.out)
     merged.save_pretrained(out, safe_serialization=True)
     processor.save_pretrained(out)
-    report = {'base': args.base, 'adapter': args.adapter, 'parameters': parameters, 'max_logit_difference': difference}
+    report = {'base': args.base, 'adapter': args.adapter, 'parameters': parameters, 'max_logit_difference': difference,
+              'generation_stop_ids': stop_ids}
     (out / 'merge_report.json').write_text(json.dumps(report, indent=2))
     print(json.dumps(report, indent=2))
 

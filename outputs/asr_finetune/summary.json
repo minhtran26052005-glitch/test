@@ -10,6 +10,6 @@
     "history": 5287
   },
   "tts_without_speaker_audio": 0,
-  "target_format": "uppercase spoken syllables, no punctuation (asr_spoken_text.spoken_tokens)",
+  "target_format": "written text with numeric verbalization and uppercase; preserve acronym/name spelling",
   "note": "Paths are relative to the repo root. tts_requests need synthesize_tts.py before training."
 }

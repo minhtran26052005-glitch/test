@@ -29,6 +29,19 @@ PROJECTIONS = {
 END_OF_TURN = '<|im_end|>'
 
 
+def configure_generation(model, tokenizer):
+    """Stop on the trained chat terminator as well as any original end-of-text token."""
+    end_id = tokenizer.convert_tokens_to_ids(END_OF_TURN)
+    if tokenizer(END_OF_TURN, add_special_tokens=False)['input_ids'] != [end_id]:
+        raise ValueError('Chat end-of-turn must be a single tokenizer token')
+    previous = model.generation_config.eos_token_id
+    previous = previous if isinstance(previous, list) else ([] if previous is None else [previous])
+    stop_ids = list(dict.fromkeys([end_id, *previous]))
+    model.generation_config.eos_token_id = stop_ids
+    model.generation_config.pad_token_id = tokenizer.pad_token_id if tokenizer.pad_token_id is not None else end_id
+    return stop_ids
+
+
 def target_regex(groups=('attention', 'linear_attention', 'mlp')):
     """PEFT full-match regex: language-model decoder layers only (no vision tower, no MTP layers)."""
     return r'(.*\.)?language_model\.layers\.\d+\.(' + '|'.join(PROJECTIONS[g] for g in groups) + ')'
@@ -192,6 +205,7 @@ def main():
         load['quantization_config'] = BitsAndBytesConfig(load_in_4bit=True, bnb_4bit_quant_type='nf4', bnb_4bit_use_double_quant=True,
                                                          bnb_4bit_compute_dtype=torch.bfloat16)
     model = AutoModelForImageTextToText.from_pretrained(args.model_path, **load)
+    stop_ids = configure_generation(model, tokenizer)
     model.config.use_cache = False
     checkpointing = not args.no_gradient_checkpointing
     if args.load_in_4bit:
@@ -222,7 +236,7 @@ def main():
     model.save_pretrained(adapter)
     processor.save_pretrained(adapter)
     summary = {**stats, 'base_model': args.model_path, 'lora': {'r': args.lora_r, 'alpha': args.lora_alpha, 'dropout': args.lora_dropout,
-               'groups': args.lora_groups}, 'log_history': trainer.state.log_history[-5:]}
+               'groups': args.lora_groups}, 'generation_stop_ids': stop_ids, 'log_history': trainer.state.log_history[-5:]}
     if args.generate_eval and valid_records:
         model.config.use_cache = True
         summary['generation_check'] = generation_check(model, tokenizer, random.Random(args.seed).sample(valid_records, min(args.generate_eval, len(valid_records))))

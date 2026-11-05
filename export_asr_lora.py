@@ -46,6 +46,7 @@ def main():
     parser.add_argument('--icefall-dir', default='~/.cache/icefall')
     parser.add_argument('--model-config', help='same JSON override used for training, if any')
     parser.add_argument('--tolerance', type=float, default=2e-3)
+    parser.add_argument('--num-threads', type=int, default=2, help='CPU threads for ONNX verification')
     args = parser.parse_args()
     import torch
     train = setup_icefall(args.icefall_dir)
@@ -67,6 +68,8 @@ def main():
     with_adapter, _ = encoder_output(model, features, lengths)
     merged = merge_lora(model)
     merged_out, merged_lens = encoder_output(model, features, lengths)
+    if not torch.isfinite(with_adapter).all() or not torch.isfinite(merged_out).all():
+        raise RuntimeError('Non-finite output before/after merging the ASR adapter')
     merge_diff = float((with_adapter - merged_out).abs().max())
     parameters = sum(p.numel() for p in model.parameters())
     if parameters != base_parameters:
@@ -102,8 +105,13 @@ def main():
     onnx_export.export_joiner_model_onnx(joiner, str(out / 'joiner.onnx'), dynamic_axes=1, opset_version=13)
 
     import onnxruntime as ort
-    session = ort.InferenceSession(str(out / 'encoder.onnx'), providers=['CPUExecutionProvider'])
+    options = ort.SessionOptions()
+    options.intra_op_num_threads = args.num_threads
+    options.inter_op_num_threads = 1
+    session = ort.InferenceSession(str(out / 'encoder.onnx'), sess_options=options, providers=['CPUExecutionProvider'])
     onnx_out, onnx_lens = session.run(None, {'x': features.numpy(), 'x_lens': lengths.numpy()})
+    if not torch.isfinite(torch.from_numpy(onnx_out)).all():
+        raise RuntimeError('Non-finite ONNX encoder output')
     onnx_diff = float((torch.from_numpy(onnx_out) - merged_out).abs().max())
     if onnx_diff > args.tolerance * max(1.0, float(merged_out.abs().max())) or not (torch.from_numpy(onnx_lens) == merged_lens).all():
         raise RuntimeError(f'ONNX encoder differs from PyTorch by {onnx_diff}')

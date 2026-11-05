@@ -2,9 +2,9 @@
 
 Lệnh gộp: [`run_finetune.sh`](../run_finetune.sh) (`data`, `tts`, `gipformer`, `zipformer`, `qwen`). Chạy trên máy có GPU, `data/` (devkit), `models/` và icefall.
 
-## 1. Data ngoài: không dùng
+## 1. Data ngoài: chưa đưa vào bộ fine-tune hiện tại
 
-**Các bộ function-calling tiếng Việt không đúng task.** Task LifeMate cần:
+**Các bộ function-calling cần chuyển đổi và đánh giá trước khi dùng.** Task LifeMate cần:
 - yêu cầu nói tiếng Việt, có lỗi ASR;
 - history hội thoại;
 - khoảng 100 tool của môi trường mô phỏng, với id lấy từ observation;
@@ -17,13 +17,13 @@ So với các bộ đã tìm thấy:
 
 | Bộ | Thực chất | Lệch với task |
 | --- | --- | --- |
-| 5CD-AI/Vietnamese-Salesforce-xlam-function-calling-Gemini | Bản dịch bằng Gemini của Salesforce xLAM (APIGen): một câu hỏi, danh sách API kiểu RapidAPI, đáp án là các lời gọi song song | Một lượt, không có observation, không có bước phụ thuộc kết quả trước, không hỏi lại, không có history; tool khác hẳn devkit; câu viết sạch |
-| wannaphong/vietnamese-Locutusque-function-calling-qwen | Hội thoại kiểu Glaive: gọi hàm, nhận kết quả, rồi trả lời bằng lời | Đích cuối là câu trả lời tự nhiên, trái với giao thức JSON; tool chung chung (giờ hiện tại, BMI…) |
-| phamhai/Vietnamese-Function-Calling-Test, qualgo-technologies/Multilingual-BFCL | Benchmark một lượt (BFCL bị khoá quyền truy cập) | Dùng để đánh giá, không để train |
+| [5CD-AI/Vietnamese-Salesforce-xlam-function-calling-Gemini](https://huggingface.co/datasets/5CD-AI/Vietnamese-Salesforce-xlam-function-calling-Gemini) | Bản dịch xLAM; đã đọc mẫu thật, có `vi_conversations` với role `function-call` **và `function-response`** | Tool/schema/protocol khác devkit; chưa xác nhận độ phủ tình huống nhiều bước và hỏi lại. Có thể khảo sát làm data phụ sau khi chuyển định dạng |
+| [wannaphong/vietnamese-Locutusque-function-calling-qwen](https://huggingface.co/datasets/wannaphong/vietnamese-Locutusque-function-calling-qwen) | Đã đọc schema và mẫu thật: `conversations`, `tools` | Cần map sang giao thức LifeMate. Mẫu đã xem không đủ để kết luận toàn bộ dataset chỉ trả lời bằng lời hoặc không hữu ích |
+| [phamhai/Vietnamese-Function-Calling-Test](https://huggingface.co/datasets/phamhai/Vietnamese-Function-Calling-Test), [Multilingual-BFCL](https://huggingface.co/datasets/qualgo-technologies/Multilingual-BFCL) | Dataset đánh giá; BFCL yêu cầu quyền truy cập | Giữ riêng cho đánh giá, không trộn vào train |
 
-Đưa các bộ này vào train có nguy cơ dạy model trả lời bằng lời, gọi hàm song song, hoặc bịa tham số. Đó đúng là các lỗi agent đang mắc. (Môi trường này chặn `huggingface.co` nên không mở trực tiếp được dataset; nhận định trên dựa vào mô tả công khai và bộ dữ liệu gốc mà chúng dẫn xuất.)
+Không nạp thẳng các dataset này vào train: phải chuyển tool schema, nhãn và protocol, rồi đo hiệu quả trên validation LifeMate. Khẳng định trước đây rằng xLAM không có kết quả tool là sai; lần review trên máy này đã truy cập được Hugging Face và đọc mẫu trực tiếp.
 
-**Các bộ ASR công khai cũng không cần.** ZipFormer-150M đã được train trên VLSP2020/2021/2023, FPT, Bud500, VietSpeech, FLEURS, VietMed, một phần GigaSpeech2, viVoice và một phần PhoAudioBook. GipFormer được đánh giá trên VIVOS, Common Voice, VLSP, VietMed, MultiMED, LSVSC, Fleurs và ViMD. Data có ích là data đúng miền thi:
+**Ưu tiên data đúng miền thi.** [Model card ZipFormer-150M](https://huggingface.co/hynt/ZipFormer-150M-CR-CTC-RNNT-6000h) liệt kê data train: VLSP2020/2021/2023, FPT, Bud500, VietSpeech, FLEURS, VietMed, một phần GigaSpeech2, viVoice và một phần PhoAudioBook. [GipFormer](https://github.com/ggroup-ai-lab/gipformer) công bố benchmark trên nhiều corpus, nhưng benchmark không chứng minh corpus đó đã dùng để train. Chưa xác nhận được danh sách train đầy đủ của Gip; cũng không thể kết luận data công khai không còn ích lợi chỉ vì đã xuất hiện trong pretrain. Bộ hiện tại ưu tiên:
 - **audio train thật của cuộc thi**;
 - **câu đã gen đọc bằng giọng của chính người nói trong train**.
 
@@ -34,11 +34,11 @@ So với các bộ đã tìm thấy:
 | Encoder | Zipformer2, cấu hình mặc định của icefall `zipformer` | Zipformer2 ~153M, cấu hình riêng |
 | Loss khi train gốc | Pruned RNN-T | CR-CTC + CTC + pruned RNN-T |
 | Inference trong repo | Transducer, sherpa-onnx | Transducer, sherpa-onnx |
-| Checkpoint phát hành | `model.pt` (state dict), `bpe.model`, ONNX | **chỉ** `jit_script.pt` + ONNX + `bpe.model` |
+| Checkpoint phát hành | `model.pt` (state dict), `bpe.model`, ONNX | `pretrained.pt`, `jit_script.pt`, ONNX, `bpe.model`; code hiện nạp từ JIT đã có tại máy |
 | BPE | 2.000 token | 2.000 token, **khác** BPE của Gip |
 
-Fine-tune giữ đúng loss gốc của từng model:
-- **GipFormer**: pruned RNN-T, SpecAugment áp trong dataset.
+Objective fine-tune đang cấu hình trong code:
+- **GipFormer**: pruned RNN-T + auxiliary CTC nếu checkpoint có head CTC; checkpoint tại máy có head này. SpecAugment áp trong dataset. Việc có head CTC không đủ xác nhận mọi hệ số loss của lần train gốc.
 - **ZipFormer**: `AsrModel(use_cr_ctc=True)` của icefall. Model nhân đôi batch, mask hai bản độc lập, tính CTC trên cả hai bản và KL nhất quán giữa chúng, cộng thêm RNN-T. Hệ số theo icefall: simple 0,5, CTC 0,2, CR 0,2, `time_mask_ratio` 2,5.
 
 Với ZipFormer, kiến trúc được dựng lại từ thuộc tính TorchScript (thiếu thì suy từ shape trọng số) và nạp trọng số đầy đủ. Sau đó **encoder và decoder được so với `jit_script.pt` trên input ngẫu nhiên**; lệch là dừng, và báo cần dùng `--model-config`.
@@ -65,10 +65,12 @@ Script tự kiểm tra hai điều: merge khớp model còn LoRA, và ONNX khớ
 | `outputs/asr_finetune/{train,validation,test}.jsonl` | Audio train thật, kể cả lượt history; đích viết như output ASR (chữ hoa, số đọc thành chữ, không dấu câu) | 3.558 / 649 / 829 |
 | `outputs/asr_finetune/tts_requests.jsonl` | Câu đã gen đạt yêu cầu cho ASR, chỉ seed thuộc `fit`, kèm audio gốc để clone giọng | 7.496 |
 | `outputs/qwen_sft/normalize/{train,validation,test}.jsonl` | Hai bản ASR (cả cặp lẫn từng bản riêng) → transcript reference, đúng payload của `agent.normalize` | 10.674 / 1.947 / 2.487 |
-| `outputs/agent_sft/*.jsonl` (`./run_finetune.sh data`, cần devkit) | Từng bước của agent: phát lại gold call trong devkit, payload giống inference, input sạch + input có lỗi ASR từ 3 lượt benchmark + câu đã gen | ~18k bước (ước tính) |
+| `outputs/agent_sft/*.jsonl` (`./run_finetune.sh data`, cần devkit) | Từng bước agent: gold call phát lại trong devkit, input sạch + 3 lượt ASR đã lưu + biến thể chấm tay đạt | 13.400 / 2.985 / 3.243 |
 
 - Mọi bản ghi tách theo split manifest: chỉ train trên `fit`, chọn epoch bằng `validation`, báo kết quả trên `test`.
 - Data agent cần devkit vì observation phải lấy từ môi trường thật; không được tự bịa.
+- TTS đọc `tts_text` nhưng học nhãn `text` lấy từ câu viết gốc: ví dụ đọc “ét em ét”, nhãn vẫn là `SMS`. Khi train, audio thật dùng chung; TTS được lọc theo `target_model` để Zip tập trung tiếng Anh, Gip tập trung tiếng Việt/domain.
+- Mặc định chỉ tái sử dụng gold cho biến thể có `manual_decision=pass_text`. Khớp từ khoá tự động chưa chứng minh giữ nguyên ý; `--allow-unreviewed-generated` là lựa chọn riêng cho thử nghiệm.
 
 ## 4. Chạy
 
@@ -90,7 +92,8 @@ Script tự kiểm tra hai điều: merge khớp model còn LoRA, và ONNX khớ
   - Benchmark lại với **đúng các cờ `AGENT_*`** đã dùng khi dựng data SFT (mặc định trong `run_finetune.sh`: evidence, task rules, repeat guard; tắt few-shot).
 - Chuẩn bị:
   - icefall: `git clone https://github.com/k2-fsa/icefall ~/.cache/icefall && git -C ~/.cache/icefall checkout 9c966762e058bd7ba79d9da71e42fc06b64b703e`, cài k2 và lhotse theo hướng dẫn của icefall.
-  - `models/gipformer1.5-68M-rnnt` hiện chỉ có ONNX; cần tải thêm `model.pt` và `bpe.model` từ `g-group-ai-lab/gipformer1.5-68M-rnnt`.
+  - Máy hiện tại đã có `model.pt`, `bpe.model` của Gip và `jit_script.pt`, `bpe.model` của Zip. Dùng đường dẫn hiện có; máy khác cần tải các file tương ứng.
+  - Qwen cần `peft` và transformers hỗ trợ Qwen3.5. Môi trường review riêng dùng torch 2.10.0, transformers 5.21.0, peft 0.21.2; không thay môi trường dùng chung.
 
 ## 5. Mức độ đã kiểm tra
 
@@ -103,4 +106,5 @@ Script tự kiểm tra hai điều: merge khớp model còn LoRA, và ONNX khớ
   - Đã test trên các module mô phỏng đúng tên lớp và thuộc tính của icefall: gắn LoRA, tính SwooshL, merge chính xác, lưu/nạp adapter.
   - Đã test suy cấu hình trên state dict có cấu trúc key của icefall, và hệ số loss.
   - Đã test data loader bằng lhotse thật.
-  - **Chưa chạy với mã icefall thật**: ở đây không có k2 và không tải được checkpoint. Các kiểm tra lúc chạy trên máy bạn (so với `jit_script.pt`, merge, ONNX) là chốt chặn.
+  - Review 05/11/2026 đã chạy **icefall thật, k2 thật và checkpoint thật trên CPU**: nạp cả hai model, loss/backward/update với audio thật, vòng train CLI nhỏ, merge, export ONNX và decode bằng sherpa-onnx.
+- 95 unit test pass trong môi trường review. Đã sửa lời gọi VieNeu để truyền cả audio tham chiếu lẫn transcript của audio đó. Chưa train toàn bộ bằng GPU, chưa sinh audio TTS thật và chưa có kết quả tăng độ chính xác sau fine-tune. Chi tiết và số đo ở [CLAUDE_REVIEW_20261105.md](CLAUDE_REVIEW_20261105.md).

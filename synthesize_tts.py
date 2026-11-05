@@ -1,7 +1,8 @@
 """Synthesize tts_requests.jsonl into 16 kHz mono wavs + an ASR training manifest (VieNeu-TTS, Apache-2.0).
 
-Each request clones the voice of its seed's own train recording (`speaker_audio`), so the synthetic speech keeps
-the competition speakers and recording conditions. Resumable: existing wavs are skipped. Run on a GPU machine:
+Each request uses its seed's own train recording (`speaker_audio`) and transcript (`speaker_text`) as a
+voice-cloning reference. Listen to the results before training. Resumable: completed ids are skipped.
+Run on a GPU machine:
 
   pip install vieneu soundfile soxr
   python synthesize_tts.py --requests outputs/asr_finetune/tts_requests.jsonl --out outputs/asr_finetune/tts
@@ -14,6 +15,14 @@ import json
 from pathlib import Path
 
 TARGET_RATE = 16000
+
+
+def synthesize_request(tts, request, speaker, watermark=False):
+    reference = request.get('speaker_text', '').strip()
+    if not reference:
+        raise ValueError(f"{request['id']}: voice cloning requires speaker_text matching speaker_audio")
+    return tts.infer(request['tts_text'], ref_audio=str(speaker), ref_text=reference,
+                     apply_watermark=watermark)
 
 
 def to_16k_mono(audio, rate):
@@ -54,7 +63,7 @@ def main():
             wav = out / 'audio' / f"{request['id']}.wav"
             speaker = Path(args.audio_root) / request['speaker_audio']
             try:
-                audio = tts.infer(request['tts_text'], ref_audio=str(speaker), apply_watermark=args.watermark)
+                audio = synthesize_request(tts, request, speaker, args.watermark)
             except Exception as exc:  # noqa: BLE001 - keep going, report at the end
                 print(f"[TTS] lỗi {request['id']}: {exc}", flush=True)
                 skipped += 1
@@ -67,6 +76,7 @@ def main():
             sf.write(str(wav), audio, TARGET_RATE, subtype='PCM_16')
             handle.write(json.dumps({'id': request['id'], 'audio': str(wav), 'text': request['text'], 'reference': request['tts_text'],
                                      'sample_id': request['sample_id'], 'turn': request['turn'], 'source': 'tts',
+                                     'target_model': request['target_model'],
                                      'speaker_audio': request['speaker_audio'], 'split': 'train', 'seconds': round(seconds, 3)},
                                     ensure_ascii=False) + '\n')
             handle.flush()

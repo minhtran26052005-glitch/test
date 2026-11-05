@@ -49,12 +49,15 @@ def real_audio_records(utterances, splits):
 
 
 def tts_requests(variants, generated, references, splits):
-    source_audio = {row['variant_id']: row['source_audio'] for row in generated}
+    generated_by_id = {row['variant_id']: row for row in generated}
     for row in variants:
         if row['asr_use'] != 'ok' or splits.get(row['sample_id']) != 'fit':
             continue
-        audio = relative_audio(source_audio.get(row['variant_id'], ''))
-        yield {'id': row['variant_id'], 'tts_text': row['spoken_text'], 'text': target_text(row['spoken_text']),
+        original = generated_by_id[row['variant_id']]
+        audio = relative_audio(original.get('source_audio', ''))
+        # spoken_text is a pronunciation hint for TTS, not the spelling target:
+        # SMS / VTV / foreign names must not become Vietnamese phonetic labels.
+        yield {'id': row['variant_id'], 'tts_text': row['spoken_text'], 'text': target_text(original['text']),
                'speaker_audio': audio, 'speaker_text': references.get(audio, ''), 'sample_id': row['sample_id'],
                'turn': row['turn'], 'target_model': row['target_model'], 'domain': row['domain'], 'source': 'tts', 'split': 'train'}
 
@@ -85,7 +88,7 @@ def main():
     summary = {'real_audio': dict(Counter(r['split'] for r in real)),
                'tts_requests_fit_only': len(tts), 'tts_by_turn': dict(Counter(r['turn'] for r in tts)),
                'tts_without_speaker_audio': sum(not r['speaker_audio'] for r in tts),
-               'target_format': 'uppercase spoken syllables, no punctuation (asr_spoken_text.spoken_tokens)',
+               'target_format': 'written text with numeric verbalization and uppercase; preserve acronym/name spelling',
                'note': 'Paths are relative to the repo root. tts_requests need synthesize_tts.py before training.'}
     (out / 'summary.json').write_text(json.dumps(summary, ensure_ascii=False, indent=2))
     print(json.dumps(summary, ensure_ascii=False, indent=2))

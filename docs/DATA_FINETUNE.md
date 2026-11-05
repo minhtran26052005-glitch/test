@@ -16,7 +16,7 @@ Số liệu tính trên snapshot 05/11/2026. Chạy lại: `python audit_finetun
 | Cần sửa nhẹ (đã chấm tay `edit_text`) | 26 |
 | Loại: lẫn chữ Nga/Ả Rập/CJK (51), bản đọc hỏng đã xác nhận (32), loại khi chấm tay (47); một câu có thể dính nhiều lý do | 87 |
 
-- Với ASR, lỗi *nghĩa* (đổi báo thức thành lịch hẹn…) không quan trọng. Chỉ cần audio đọc đúng `spoken_text`. Vì vậy đổi slot (tên người lạ, số khác) vẫn có ích: tên mới giúp ASR nghe được nhiều tên hơn.
+- Với ASR, đổi slot vẫn có thể dùng được nếu audio khớp với câu mới và nhãn đúng. Đầu vào TTS dùng `spoken_text`; nhãn ASR lấy từ câu viết gốc, giữ cách viết tên riêng/tiếng Anh/viết tắt (ví dụ `SMS`), chuẩn hoá số theo `target_text`.
 - **Chưa có audio.** Muốn fine-tune GipFormer/ZipFormer phải TTS `spoken_text` trước (mục 4), rồi trộn với audio thật để model không học thuộc giọng TTS.
 - Phân bố đã lệch theo hướng sinh data cho ASR: lượt cuối tập trung ở lịch/nhắc việc (1.110), tài chính (1.040), nhà thông minh (590). Đúng với mục tiêu ban đầu là các cụm ASR hay sai.
 
@@ -26,7 +26,7 @@ Data này không có nhãn tool call riêng. Muốn dùng cho agent thì phải 
 
 | 3.360 biến thể lượt cuối | Biến thể |
 | --- | ---: |
-| `label_safe`: dùng lại nhãn gold được | 2.027 |
+| `label_safe`: vượt kiểm tra từ khoá tự động; vẫn cần chấm nghĩa trước khi dùng gold | 2.027 |
 | `label_safe_free_text`: dùng được, nhưng nhãn có nội dung tự do (tin nhắn/nhắc nhở) có thể lệch chữ với câu đã diễn đạt lại | 822 |
 | `needs_new_label`: đổi slot (393) hoặc làm mất từ khoá (72) | 465 |
 | Loại vì lỗi ASR/chấm tay | 46 |
@@ -47,7 +47,9 @@ Vì sao chỉ có ích một phần:
 - **Agent:** phát lại tool call gold trong devkit nên observation là thật. User message là **đúng payload** mà `run_agent` gửi lúc inference (dùng chung `agent.build_payload`). Chỉ giữ mẫu khi mọi lời gọi gold đều được devkit chấp nhận và hash trạng thái cuối khớp nhãn.
 - **Normalizer (phần sửa lỗi ASR):** input là các bản ASR đã cache của từng audio, đích là transcript reference. Data này giúp ASR mà không cần TTS: dạy Qwen sửa lỗi ASR và chuẩn hoá số, trong khi normalizer hiện tại đang làm hỏng nhiều hơn sửa (523 ca tệ hơn, 71 ca tốt hơn).
 
-Ước tính trên phần `fit` (1.066 mẫu, trung bình 3,14 bước/mẫu), trước khi lọc trạng thái lệch:
+Số sau đây là ước tính cũ trước khi lọc trạng thái và chấm nghĩa; **không phải số bản ghi được phép train**. Builder hiện chỉ nhận biến thể có `manual_decision=pass_text` theo mặc định. Lần dựng đầy đủ 05/11/2026 cho ra 13.400 / 2.985 / 3.243 bản ghi agent train / validation / test, từ 6.231 quỹ đạo; 2 trace nguồn bị thiếu.
+
+Ước tính cũ trên phần `fit` (1.066 mẫu, trung bình 3,14 bước/mẫu):
 
 | Nguồn | Bản ghi |
 | --- | ---: |
@@ -83,14 +85,14 @@ Với mỗi `train_environment/<id>/state.json`, cho LLM thầy đề xuất m�
 
 **Cho cả ASR và agent cùng lúc: TTS → ASR.**
 TTS các câu đã gen, rồi cho chạy qua chính GipFormer/ZipFormer:
-- cặp audio + `spoken_text` dùng để fine-tune ASR;
+- cặp audio + nhãn viết từ câu gốc (`text` trong TTS request) dùng để fine-tune ASR;
 - transcript ASR có lỗi thật thay cho `normalized_text`, dùng làm input SFT cho agent và normalizer.
 
 Như vậy một lần TTS phục vụ được cả hai phía.
 
 ## 4. Nguồn ngoài (cần tự kiểm tra license và luật thi)
 
-> **Cập nhật:** đã chốt không dùng các nguồn dưới đây. Các bộ ASR công khai phần lớn đã có trong data train của ZipFormer-150M. Các bộ function-calling không đúng task: một lượt, không có observation, không hỏi lại, tool khác devkit. Lý do chi tiết và data thay thế nằm ở [FINETUNE.md](FINETUNE.md). Bảng giữ lại để tham khảo.
+> **Cập nhật sau review 05/11/2026:** chưa đưa các nguồn dưới đây vào bộ fine-tune hiện tại. Đã đọc mẫu xLAM tiếng Việt và thấy có `function-response`; nhận định trước đây “không có observation” là sai. Tool/protocol vẫn cần chuyển đổi trước khi dùng cho LifeMate. Zip có công bố nguồn train; benchmark của Gip không xác nhận nguồn train. Chi tiết ở [FINETUNE.md](FINETUNE.md) và [báo cáo review](CLAUDE_REVIEW_20261105.md).
 
 Chưa tìm thấy văn bản luật chính thức nói về data ngoài và việc fine-tune. Các repo của đội khác ghi giới hạn tổng < 6B tham số, LLM < 5B, context 16K, inference offline. Nhiều đội có fine-tune LoRA cho Qwen và PhoWhisper, nhưng đó là nguồn thứ cấp: **cần đối chiếu với thể lệ chính thức** trên [challenge.zalo.ai](https://challenge.zalo.ai/). (`task.md` ghi "Không fine-tune model" là phạm vi của nhiệm vụ code ban đầu, không phải luật thi.)
 

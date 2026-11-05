@@ -4,7 +4,8 @@ GipFormer 1.5 (g-group-ai-lab/gipformer1.5-68M-rnnt): icefall Zipformer2 + prune
 (state dict) and built with the default icefall zipformer arguments, exactly as its own infer_pytorch.py does.
 
 ZipFormer-150M (hynt/ZipFormer-150M-CR-CTC-RNNT-6000h): icefall Zipformer2 trained with CR-CTC + CTC + RNN-T,
-released only as jit_script.pt (icefall export.py --jit 1) and ONNX. The architecture is recovered from the
+loaded here from jit_script.pt (icefall export.py --jit 1); upstream also releases pretrained.pt and ONNX.
+The architecture is recovered from the
 TorchScript module (its attributes, else weight shapes), the weights are loaded strictly, and the rebuilt
 encoder/decoder are checked against the TorchScript ones on random input before anything is trained.
 """
@@ -227,6 +228,8 @@ def compare_with_jit(model, jit_model, tolerance=1e-3, seed=0):
     with torch.no_grad():
         expected, expected_lens = jit_model.encoder(features, lengths)
         actual, actual_lens = model.forward_encoder(features, lengths)
+        if not torch.isfinite(expected).all() or not torch.isfinite(actual).all():
+            raise RuntimeError('Non-finite encoder output in the TorchScript parity check')
         result = {'encoder_max_abs_diff': float((expected - actual).abs().max()),
                   'encoder_scale': float(expected.abs().max())}
         if not torch.equal(expected_lens, actual_lens):
@@ -234,7 +237,11 @@ def compare_with_jit(model, jit_model, tolerance=1e-3, seed=0):
         if hasattr(model, 'decoder') and model.decoder is not None:
             context = torch.zeros(2, model.decoder.context_size, dtype=torch.int64)
             context[1, -1] = 5
-            result['decoder_max_abs_diff'] = float((jit_model.decoder(context, False) - model.decoder(context, need_pad=False)).abs().max())
+            expected_decoder = jit_model.decoder(context, False)
+            actual_decoder = model.decoder(context, need_pad=False)
+            if not torch.isfinite(expected_decoder).all() or not torch.isfinite(actual_decoder).all():
+                raise RuntimeError('Non-finite decoder output in the TorchScript parity check')
+            result['decoder_max_abs_diff'] = float((expected_decoder - actual_decoder).abs().max())
     worst = max(result['encoder_max_abs_diff'] / max(result['encoder_scale'], 1.0), result.get('decoder_max_abs_diff', 0.0))
     if worst > tolerance:
         raise RuntimeError(f'Rebuilt model does not match jit_script.pt ({result}); pass --model-config to fix the architecture')

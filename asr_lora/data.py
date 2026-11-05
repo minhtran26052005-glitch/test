@@ -7,12 +7,17 @@ import json
 from pathlib import Path
 
 
-def read_manifests(paths, audio_root='.'):
+def read_manifests(paths, audio_root='.', target_model=None):
     records = []
     for path in paths:
         for line in Path(path).read_text(encoding='utf-8').splitlines():
             if line.strip():
                 record = json.loads(line)
+                if target_model and record.get('source') == 'tts':
+                    if not record.get('target_model'):
+                        raise ValueError(f"{record['id']}: TTS manifest lacks target_model; regenerate its metadata from the TTS requests")
+                    if record['target_model'] != target_model:
+                        continue
                 audio = Path(record['audio'])
                 record['audio'] = str(audio if audio.is_absolute() else Path(audio_root) / audio)
                 records.append(record)

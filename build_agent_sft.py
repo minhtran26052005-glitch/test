@@ -13,6 +13,7 @@ Input sources for the agent's final-turn text (repeat --source):
   run:DIR              exact inputs a saved benchmark run gave the agent (ASR-noisy normalized text, raw
                        hypotheses, history), read from DIR/samples/<id>/trace.jsonl
   generated[:CSV]      label-safe paraphrases from audit_finetune_data.py (default outputs/finetune_data_audit/variants.csv)
+  synthetic[:JSONL]    hand-written paraphrase / missing-info / cancel records from build_synthetic_agent.py, each with its own label
 
 Run through run.sh so the system prompts and agent flags match inference, e.g.:
   ENV_MODE=official AGENT_ASR_EVIDENCE=1 ./run.sh build_agent_sft.py --source reference \
@@ -133,17 +134,40 @@ def chat(system, user, assistant):
             {'role': 'assistant', 'content': json.dumps(assistant, ensure_ascii=False)}]
 
 
+def failed(observations):
+    """True if a replayed call reported an error: such a trajectory would teach a failing call."""
+    for entry in observations:
+        observation = entry.get('observation')
+        if isinstance(observation, dict) and (observation.get('error') or observation.get('ok') is False):
+            return True
+    return False
+
+
+def synthetic_records(path):
+    """build_synthetic_agent.py records that passed their checks, grouped by seed sample."""
+    by_sample = {}
+    for record in jsonl(path):
+        if record.get('check_ok'):
+            by_sample.setdefault(record['sample_id'], []).append(record)
+    return by_sample
+
+
 def agent_records(item, starts, make_env, expected_hash, system):
     """(records, Counter of outcomes) for one sample over all its input variants."""
     records, outcome = [], Counter()
     for source, start in starts:
         env = make_env(item)
+        # A start may carry its own label (synthetic records); the label state hash only applies to the seed's gold.
+        gold = start.get('tool_calls', item['label']['tool_calls'])
         try:
-            steps = replay(env, start, item['label']['tool_calls'])
+            steps = replay(env, start, gold)
         except Exception as exc:  # noqa: BLE001 - one bad sample must not stop the build
             outcome[f'skipped_replay:{type(exc).__name__}'] += 1
             continue
-        if expected_hash is not None and env.get_state_hash() != expected_hash:
+        if any(failed(json.loads(user)['observations']) for user, _ in steps[-1:]):
+            outcome['skipped_tool_error'] += 1
+            continue
+        if start.get('verify_state', True) and expected_hash is not None and env.get_state_hash() != expected_hash:
             outcome['skipped_state_mismatch'] += 1
             continue
         outcome['kept_trajectories'] += 1
@@ -238,8 +262,10 @@ def main():
             from benchmark import reference_state
             from env_adapter import OfficialEnvironment
             system = os.environ['AGENT_SYSTEM_PROMPT']
-            generated = {}
+            generated, synthetic = {}, {}
             for spec in args.source:
+                if spec.startswith('synthetic'):
+                    synthetic = synthetic_records(spec.split(':', 1)[1] if ':' in spec else 'outputs/synthetic_agent/synthetic.jsonl')
                 if spec.startswith('generated'):
                     generated = generated_variants(spec.split(':', 1)[1] if ':' in spec else 'outputs/finetune_data_audit/variants.csv',
                                                     args.free_text, args.allow_unreviewed_generated)
@@ -252,6 +278,11 @@ def main():
                         start = run_base(spec[4:], item, args.drop_examples)
                         if start: starts.append((spec, start))
                         else: stats['missing_run_trace'] += 1
+                    elif spec.startswith('synthetic'):
+                        for record in synthetic.get(item['id'], []):
+                            start = base(record['text'], item)
+                            start.update(tool_calls=record['tool_calls'], verify_state=record['verify_state'])
+                            starts.append((f"synthetic:{record['id']}", start))
                     elif spec.startswith('generated'):
                         starts += [(f"generated:{row['variant_id']}", base(row['text'], item)) for row in generated.get(item['id'], [])]
                     else:

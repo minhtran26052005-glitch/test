@@ -31,12 +31,12 @@
     "khong_goi_tool": 111
   },
   "gold_profile_label_safe_samples": {
-    "4+_loi_goi": 104,
-    "3_loi_goi": 86,
-    "hoi_lai": 68,
     "2_loi_goi": 29,
-    "1_loi_goi": 31,
-    "khong_goi_tool": 12
+    "4+_loi_goi": 104,
+    "hoi_lai": 68,
+    "khong_goi_tool": 12,
+    "3_loi_goi": 86,
+    "1_loi_goi": 31
   },
   "apps_without_label_safe_variant": [
     "appliances",

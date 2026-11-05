@@ -1,0 +1,24 @@
+{
+  "records": 790,
+  "check_ok": 790,
+  "by_kind": {
+    "paraphrase": 600,
+    "missing": 40,
+    "cancel": 150
+  },
+  "check_ok_by_kind": {
+    "paraphrase": 600,
+    "missing": 40,
+    "cancel": 150
+  },
+  "seed_samples": 382,
+  "apps_in_gold": 43,
+  "gold_call_profile": {
+    "2": 132,
+    "1": 128,
+    "3": 208,
+    "4": 172,
+    "0": 150
+  },
+  "flagged": []
+}

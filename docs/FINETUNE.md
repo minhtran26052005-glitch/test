@@ -65,8 +65,15 @@ Script tự kiểm tra hai điều: merge khớp model còn LoRA, và ONNX khớ
 | `outputs/asr_finetune/{train,validation,test}.jsonl` | Audio train thật, kể cả lượt history; đích viết như output ASR (chữ hoa, số đọc thành chữ, không dấu câu) | 3.558 / 649 / 829 |
 | `outputs/asr_finetune/tts_requests.jsonl` | Câu đã gen đạt yêu cầu cho ASR, chỉ seed thuộc `fit`, kèm audio gốc để clone giọng | 7.496 |
 | `outputs/qwen_sft/normalize/{train,validation,test}.jsonl` | Hai bản ASR (cả cặp lẫn từng bản riêng) → transcript reference, đúng payload của `agent.normalize` | 10.674 / 1.947 / 2.487 |
-| `outputs/agent_sft/*.jsonl` (`./run_finetune.sh data`, cần devkit) | Từng bước agent: gold call phát lại trong devkit, input sạch + 3 lượt ASR đã lưu + biến thể chấm tay đạt | 13.400 / 2.985 / 3.243 |
+| `outputs/synthetic_agent/synthetic.jsonl` (viết tay trong chat, `build_synthetic_agent.py`) | 600 câu diễn đạt lại (300 seed `fit`, đủ 28 app chưa có data, nhiều câu 3–5 bước), 40 câu thiếu thông tin → `ask_missing_info`, 150 câu đổi ý → không gọi tool | 790 |
+| `outputs/synthetic_agent/tts_requests.jsonl` | Chính 790 câu đó để TTS bằng giọng người nói của seed, nên dùng được cho cả ASR | 790 |
+| `outputs/agent_sft/*.jsonl` (`./run_finetune.sh data`, cần devkit) | Gold call phát lại trong devkit, input sạch + 3 lượt ASR đã lưu + biến thể chấm tay đạt + synthetic | Xem số đo sau replay trong báo cáo review |
 
+- **Data viết tay** (`outputs/synthetic_agent/authored/`):
+  - Câu diễn đạt lại giữ nguyên mọi tên, số, điều kiện và từng việc con, nên dùng nhãn gold của seed. Khi phát lại trong devkit, script còn so được hash trạng thái cuối với nhãn.
+  - Câu thiếu thông tin bỏ đúng một giá trị bắt buộc (giờ, số tiền, âm lượng…), nhãn hỏi lại giống quy ước của gold.
+  - Câu đổi ý thêm một câu rút lại toàn bộ yêu cầu, nhãn rỗng.
+  - Mọi câu đều qua kiểm tra tự động: từ khoá của tham số còn đủ, và giá trị số khớp câu gốc (hiểu cả "hai lăm ngàn rưỡi", "hai triệu tám", "năm chục"). Bộ kiểm tra bắt được 2 lỗi thật trong câu tôi viết, đã sửa.
 - Mọi bản ghi tách theo split manifest: chỉ train trên `fit`, chọn epoch bằng `validation`, báo kết quả trên `test`.
 - Data agent cần devkit vì observation phải lấy từ môi trường thật; không được tự bịa.
 - TTS đọc `tts_text` nhưng học nhãn `text` lấy từ câu viết gốc: ví dụ đọc “ét em ét”, nhãn vẫn là `SMS`. Khi train, audio thật dùng chung; TTS được lọc theo `target_model` để Zip tập trung tiếng Anh, Gip tập trung tiếng Việt/domain.

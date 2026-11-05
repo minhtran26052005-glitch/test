@@ -21,6 +21,7 @@ export AGENT_ASR_EVIDENCE="${AGENT_ASR_EVIDENCE:-1}" AGENT_TASK_RULES="${AGENT_T
 export AGENT_FEWSHOT_K="${AGENT_FEWSHOT_K:-0}"
 ASR_TRAIN=(--train-manifest outputs/asr_finetune/train.jsonl)
 if [[ -f outputs/asr_finetune/tts/train.jsonl ]]; then ASR_TRAIN+=(--train-manifest outputs/asr_finetune/tts/train.jsonl); fi
+if [[ -f outputs/synthetic_agent/tts/train.jsonl ]]; then ASR_TRAIN+=(--train-manifest outputs/synthetic_agent/tts/train.jsonl); fi
 
 need() { [[ -e "$1" ]] || { echo "Thiếu $1: $2" >&2; exit 1; }; }
 
@@ -28,6 +29,7 @@ case "${1:-}" in
   data)
     "$PYTHON_BIN" audit_finetune_data.py
     "$PYTHON_BIN" prepare_asr_finetune_data.py
+    "$PYTHON_BIN" build_synthetic_agent.py
     ./run.sh build_agent_sft.py --normalize-csv outputs/zipformer_150m/asr_comparison.csv --normalize-single --out outputs/qwen_sft/normalize
     need data/train+public_test/train/train.jsonl "giải nén devkit vào data/"
     need outputs/dual_asr_qwen/benchmark_seed42_n1545/samples "python scripts/fetch_results.py --extract"
@@ -35,10 +37,11 @@ case "${1:-}" in
       --source run:outputs/benchmark_seed42_n1545 \
       --source run:outputs/zipformer_150m/benchmark_seed42_n1545 \
       --source run:outputs/dual_asr_qwen/benchmark_seed42_n1545 \
-      --source generated --drop-examples --out outputs/agent_sft
+      --source generated --source synthetic --drop-examples --out outputs/agent_sft
     ;;
   tts)
     "$PYTHON_BIN" synthesize_tts.py --requests outputs/asr_finetune/tts_requests.jsonl --out outputs/asr_finetune/tts
+    "$PYTHON_BIN" synthesize_tts.py --requests outputs/synthetic_agent/tts_requests.jsonl --out outputs/synthetic_agent/tts
     ;;
   gipformer)
     need "$GIP_DIR/model.pt" "huggingface-cli download g-group-ai-lab/gipformer1.5-68M-rnnt model.pt bpe.model --local-dir $GIP_DIR"

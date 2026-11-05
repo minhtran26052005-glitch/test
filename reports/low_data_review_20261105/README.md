@@ -14,4 +14,4 @@
 - `agent_sft/summary.json`: 15.767 / 2.937 / 3.176 bản ghi sau dedup; JSONL đầy đủ giữ cục bộ ở outputs của review.
 - `unit_tests_final.log`: 145 test pass; profile CI có 27 skip thiếu thư viện model.
 
-Không có trọng số model, audio hoặc token API trong thư mục này. `SHA256_MANIFEST.json` chứa checksum các file bằng chứng.
+Không có trọng số model, audio hoặc token API trong thư mục này. Bản chia sẻ chuẩn hoá CRLF/khoảng trắng cuối dòng trong CSV và log; bản gốc giữ trong outputs. `SHA256_MANIFEST.json` chứa checksum các file bằng chứng đã chia sẻ.

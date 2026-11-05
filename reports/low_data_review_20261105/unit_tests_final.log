@@ -79,10 +79,10 @@ test_unreviewed_anchor_match_is_not_a_gold_agent_label (test_finetune_review.Dat
 test_voice_cloning_gets_the_reference_audio_and_its_transcript (test_finetune_review.DataReviewTests.test_voice_cloning_gets_the_reference_audio_and_its_transcript) ... ok
 test_jit_parity_rejects_nan_instead_of_treating_it_as_close (test_finetune_review.NumericalReviewTests.test_jit_parity_rejects_nan_instead_of_treating_it_as_close) ... ok
 test_beam_and_hotwords (test_low_data_knobs.DecodingOptionTests.test_beam_and_hotwords) ... ok
-test_bpe_vocab_is_exported_outside_the_model_dir (test_low_data_knobs.DecodingOptionTests.test_bpe_vocab_is_exported_outside_the_model_dir) ... sentencepiece_trainer.cc(78) LOG(INFO) Starts training with : 
+test_bpe_vocab_is_exported_outside_the_model_dir (test_low_data_knobs.DecodingOptionTests.test_bpe_vocab_is_exported_outside_the_model_dir) ... sentencepiece_trainer.cc(78) LOG(INFO) Starts training with :
 trainer_spec {
   input: /tmp/tmpmsuzsdqa/corpus.txt
-  input_format: 
+  input_format:
   model_prefix: /tmp/tmpmsuzsdqa/model/bpe
   model_type: BPE
   vocab_size: 32
@@ -100,14 +100,14 @@ trainer_spec {
   split_by_number: 1
   split_by_whitespace: 1
   split_digits: 0
-  pretokenization_delimiter: 
+  pretokenization_delimiter:
   treat_whitespace_as_suffix: 0
   allow_whitespace_only_pieces: 0
-  required_chars: 
+  required_chars:
   byte_fallback: 0
   vocabulary_output_piece_score: 1
   train_extremely_large_corpus: 0
-  seed_sentencepieces_file: 
+  seed_sentencepieces_file:
   hard_vocab_limit: 0
   use_all_vocab: 0
   unk_id: 0
@@ -118,7 +118,7 @@ trainer_spec {
   bos_piece: <s>
   eos_piece: </s>
   pad_piece: <pad>
-  unk_surface:  ⁇ 
+  unk_surface:  ⁇
   enable_differential_privacy: 0
   differential_privacy_noise_level: 0
   differential_privacy_clipping_threshold: 0
@@ -128,7 +128,7 @@ normalizer_spec {
   add_dummy_prefix: 1
   remove_extra_whitespaces: 1
   escape_whitespaces: 1
-  normalization_rule_tsv: 
+  normalization_rule_tsv:
 }
 denormalizer_spec {}
 trainer_interface.cc(355) LOG(INFO) SentenceIterator is not specified. Using MultiFileSentenceIterator.

@@ -1,5 +1,7 @@
 # Fine-tune 3 model: GipFormer, ZipFormer-150M, Qwen3.5-4B
 
+Kết quả kiểm chứng nguồn và code mới nhất: [LOW_DATA_RESEARCH_REVIEW_20261105.md](LOW_DATA_RESEARCH_REVIEW_20261105.md). Hai stage và reverb đã chạy được với icefall/model thật trên CPU; chưa đo hiệu quả train full.
+
 Lệnh gộp: [`run_finetune.sh`](../run_finetune.sh) (`data`, `tts`, `gipformer`, `zipformer`, `qwen`). Chạy trên máy có GPU, `data/` (devkit), `models/` và icefall.
 
 ## 1. Data ngoài: chưa đưa vào bộ fine-tune hiện tại
@@ -90,7 +92,7 @@ Script tự kiểm tra hai điều: merge khớp model còn LoRA, và ONNX khớ
 ```
 
 - **ASR**: script chấm WER validation trước khi train, rồi chấm lại sau mỗi epoch, và giữ `lora-best.pt`. Nếu không epoch nào tốt hơn model gốc thì không có `lora-best.pt`: giữ model gốc. Sau export, `eval_asr_onnx.py` so WER trên split `test` bằng đúng giải mã sherpa-onnx của pipeline.
-  - Mặc định: r 16, alpha 32, dropout 0,05, 15 epoch, `--max-duration` 300 giây (200 cho Zip), ScaledAdam lr 0,045 như icefall `zipformer_lora`. Mức cũ 0,0045 là lr full fine-tune; với LoRA nó gần như không học, xem [nghiên cứu ít data](RESEARCH_LOW_DATA_DOMAIN_FINETUNE.md#32-bậc-1-lora-nhỏ-audio-thật-làm-chủ).
+  - Mặc định: r 16, alpha 32, dropout 0,05, 15 epoch, `--max-duration` 300 giây (200 cho Zip), ScaledAdam lr 0,045 như parser icefall `zipformer_lora`; usage của recipe cũng có 0,0045. Cần chọn LR trên validation, không kết luận nguyên nhân lỗi ASR từ bài toy; xem [kiểm chứng nghiên cứu](LOW_DATA_RESEARCH_REVIEW_20261105.md).
   - `--lora-targets extended` gắn thêm LoRA vào nonlin attention, conv và `out_proj` của attention.
 - **Qwen**: prompt render đúng như `llm_qwen.generate`; loss chỉ tính trên JSON đích + `<|im_end|>`. LoRA gắn vào q/k/v/o, Gated DeltaNet (`in_proj_qkv`, `in_proj_z`, `out_proj`) và MLP; không đụng vision tower và MTP.
   - Mặc định: r 16, alpha 32, lr 1e-4, 2 epoch, batch 1 × gom gradient 16, bản ghi normalize lấy một nửa.
@@ -124,15 +126,16 @@ Hai model đã học hàng nghìn giờ; mấy nghìn câu trong miền thi có 
    | Cả hai ASR sai y hệt nhau | 11,7% | Cao hơn hẳn: TTS đọc khác chữ |
    | `tts_failed` + `tts_misread` + `uncertain` | 1,85% + 6,18% + 4,75% = 12,8% | Đó là mức loại oan của chính quy tắc trên giọng thật; TTS bị loại nhiều hơn hẳn là TTS có vấn đề |
 
-3. Nghe `listen_sample.csv` (20 câu mỗi nhóm), điền cột `nghe_dung_nhan`. Nếu câu ở nhóm bị loại thực ra nghe đúng thì nới ngưỡng (`--misread-wer`, `--fail-wer`); nếu câu ở nhóm giữ lại nghe sai thì siết lại. Chỉ file `*_qc.jsonl` được dùng để train; `train_asr_lora.py` từ chối manifest TTS chưa qua QC (`--allow-unchecked-tts` để bỏ qua).
+3. Nghe `listen_sample.csv`, điền cột `nghe_dung_nhan` (`đúng`/`sai` hoặc `1`/`0`), chạy lại QC với `--review-csv FILE` để giữ hoặc loại chính các câu đó. Hash audio và label phải khớp lần nghe; file review không bị ghi đè. Hai ASR có lỗi tương quan, nên nhóm `tts_misread` chỉ là nghi ngờ. Chỉ file `*_qc.jsonl` được dùng để train; `--allow-unchecked-tts` bỏ qua cổng này khi thử nghiệm riêng.
 
 Khi train:
 
 - **Tỉ lệ thật/TTS giữ cố định trong từng epoch:** `--max-tts-ratio 1` (mặc định), tức mỗi epoch tối đa một câu TTS cho mỗi câu thật.
-  - Mỗi epoch lấy một tập TTS mới, nên dùng hết kho TTS qua các epoch; `--fixed-tts-subset` giữ cách cũ.
+  - Pool xoay vòng theo seed, tránh lấy mẫu độc lập làm bỏ sót câu qua nhiều epoch; `--fixed-tts-subset` giữ một nhóm cố định.
+  - `--tts-ratio-unit seconds` giới hạn theo thời lượng sau biến đổi, log cả count và seconds. Train CLI trực tiếp giữ mặc định đếm câu; `asr2` mặc định giới hạn bằng giây. Câu dài hơn budget sẽ được báo riêng.
   - Khi audio thật chỉ vài giờ còn TTS nhiều, `--real-repeat 2` lặp audio thật (bản lặp đổi tốc độ) để dùng được nhiều TTS hơn mà vẫn giữ tỉ lệ.
   - Nên chạy trước một lần chỉ audio thật (`--max-tts-ratio 0`) làm mốc, rồi mới thêm TTS.
-- **Cho TTS dạy từ, không dạy âm học:** `./run_finetune.sh asr2 gipformer` (hoặc `zipformer`). Encoder chỉ học audio thật; giai đoạn 2 chỉ chỉnh joint network trên thật + TTS, có `--tts-speed-perturb` và vang phòng mô phỏng (`--tts-reverb-prob`, cần torchaudio). Xem [mục 3.6](RESEARCH_LOW_DATA_DOMAIN_FINETUNE.md#36-khi-audio-thật-chỉ-vài-giờ-phần-còn-lại-là-tts-clone-giọng).
+- **Thử đóng băng encoder ở stage TTS:** `./run_finetune.sh asr2 gipformer` (hoặc `zipformer`). Cần manifest TTS đã QC không rỗng. Stage 1 không cải thiện thì stage 2 vẫn thử từ base; stage 2 chỉ chỉnh joint, chưa tương đương cập nhật prediction + joint của Li et al. Có `--tts-speed-perturb`, `--tts-reverb-prob`, `TTS_RATIO_UNIT` (mặc định seconds). Không bảo đảm joint-only là cấu hình tốt nhất.
 - **Chọn epoch trên audio thật:** validation chỉ gồm audio thật. Không epoch nào tốt hơn model gốc thì không có `lora-best.pt` và không export.
 - LoRA giữ nguyên trọng số gốc; chỉ khoảng 1% tham số được học, lr theo icefall. Batch không hữu hạn vượt 5% thì dừng.
 
@@ -168,4 +171,4 @@ Bằng chứng và lộ trình đầy đủ: [RESEARCH_LOW_DATA_DOMAIN_FINETUNE.
   - Đã test suy cấu hình trên state dict có cấu trúc key của icefall, và hệ số loss.
   - Đã test data loader bằng lhotse thật.
   - Review 05/11/2026 đã chạy **icefall thật, k2 thật và checkpoint thật trên CPU**: nạp cả hai model, loss/backward/update với audio thật, vòng train CLI nhỏ, merge, export ONNX và decode bằng sherpa-onnx.
-- 104 unit test pass trong môi trường review; cấu hình CI nhẹ pass với 13 test bỏ qua vì thiếu thư viện model. Đã sửa lời gọi VieNeu để truyền cả audio tham chiếu lẫn transcript của audio đó. Chưa train toàn bộ bằng GPU, chưa sinh audio TTS thật và chưa có kết quả tăng độ chính xác sau fine-tune. Chi tiết và số đo ở [CLAUDE_REVIEW_20261105.md](CLAUDE_REVIEW_20261105.md).
+- 145 unit test pass trong môi trường review; profile CI nhẹ bỏ qua test thiếu thư viện model. Chi tiết test hai stage, reverb, Qwen thu nhỏ và pilot hotwords ở [báo cáo mới](LOW_DATA_RESEARCH_REVIEW_20261105.md). Chưa train toàn bộ bằng GPU hoặc sinh audio TTS thật.

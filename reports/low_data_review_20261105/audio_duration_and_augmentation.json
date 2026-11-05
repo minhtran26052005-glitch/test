@@ -1,0 +1,42 @@
+{
+  "cuda_visible": false,
+  "duration": {
+    "train": {
+      "utterances": 3558,
+      "seconds": 17299.5515,
+      "hours": 4.805430972222223,
+      "min_seconds": 1.029875,
+      "max_seconds": 19.2875625
+    },
+    "validation": {
+      "utterances": 649,
+      "seconds": 3303.117875,
+      "hours": 0.9175327430555555,
+      "min_seconds": 1.319625,
+      "max_seconds": 22.3335
+    },
+    "test": {
+      "utterances": 829,
+      "seconds": 3982.6319375,
+      "hours": 1.1062866493055554,
+      "min_seconds": 0.985625,
+      "max_seconds": 16.38875
+    }
+  },
+  "torchaudio": "2.10.0+cu128",
+  "reverb": {
+    "status": "passed",
+    "shape": [
+      1,
+      109598
+    ],
+    "finite": true
+  },
+  "speed": {
+    "status": "passed",
+    "shape": [
+      1,
+      121776
+    ]
+  }
+}

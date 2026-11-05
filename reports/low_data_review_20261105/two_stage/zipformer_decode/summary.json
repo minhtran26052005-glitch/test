@@ -1,0 +1,49 @@
+{
+  "zipformer=models/zipformer-150M-6000h": {
+    "utterances": 1,
+    "labeled_words": 39,
+    "decoding": "greedy_search",
+    "wer_percent": 5.128,
+    "foreign_words": {
+      "said": 1,
+      "recall_percent": 0.0,
+      "false_alarms_per_100_utterances": 100.0
+    }
+  },
+  "zipformer=outputs/low_data_review_20261105/two_stage/zipformer_export1": {
+    "utterances": 1,
+    "labeled_words": 39,
+    "decoding": "greedy_search",
+    "wer_percent": 5.128,
+    "foreign_words": {
+      "said": 1,
+      "recall_percent": 0.0,
+      "false_alarms_per_100_utterances": 100.0
+    }
+  },
+  "zipformer=outputs/low_data_review_20261105/two_stage/zipformer_export2": {
+    "utterances": 1,
+    "labeled_words": 39,
+    "decoding": "greedy_search",
+    "wer_percent": 5.128,
+    "foreign_words": {
+      "said": 1,
+      "recall_percent": 0.0,
+      "false_alarms_per_100_utterances": 100.0
+    }
+  },
+  "drift_vs_first_model": {
+    "zipformer=outputs/low_data_review_20261105/two_stage/zipformer_export1": {
+      "changed_utterances_percent": 0.0,
+      "changed_words_per_100": 0.0,
+      "fixed_utterances": 0,
+      "broken_utterances": 0
+    },
+    "zipformer=outputs/low_data_review_20261105/two_stage/zipformer_export2": {
+      "changed_utterances_percent": 0.0,
+      "changed_words_per_100": 0.0,
+      "fixed_utterances": 0,
+      "broken_utterances": 0
+    }
+  }
+}

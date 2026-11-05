@@ -41,6 +41,25 @@ def encoder_output(model, features, lengths):
         return model.joiner.encoder_proj(out), out_lens
 
 
+def transducer_probe(model, features, lengths, context):
+    import torch
+    with torch.no_grad():
+        encoder, out_lens = encoder_output(model, features, lengths)
+        decoder = model.joiner.decoder_proj(model.decoder(context, need_pad=False).squeeze(1))
+        logits = model.joiner(encoder[:, 0], decoder, project_input=False)
+    return {'encoder': encoder, 'decoder': decoder, 'joiner': logits}, out_lens
+
+
+def checked_difference(expected, actual, tolerance, label):
+    import torch
+    if not torch.isfinite(expected).all() or not torch.isfinite(actual).all():
+        raise RuntimeError(f'Non-finite {label} output')
+    difference = float((expected - actual).abs().max())
+    if difference > tolerance * max(1.0, float(expected.abs().max())):
+        raise RuntimeError(f'{label} differs by {difference}')
+    return difference
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument('--model', choices=['gipformer', 'zipformer'], required=True)
@@ -72,17 +91,20 @@ def main():
     generator = torch.Generator().manual_seed(0)
     features = torch.randn(2, 300, 80, generator=generator)
     lengths = torch.tensor([300, 220])
-    with_adapter, _ = encoder_output(model, features, lengths)
+    context = torch.zeros(2, model.decoder.context_size, dtype=torch.int64)
+    context[1, -1] = 5
+    with_adapter, adapter_lens = transducer_probe(model, features, lengths, context)
     merged = merge_lora(model)
-    merged_out, merged_lens = encoder_output(model, features, lengths)
-    if not torch.isfinite(with_adapter).all() or not torch.isfinite(merged_out).all():
-        raise RuntimeError('Non-finite output before/after merging the ASR adapter')
-    merge_diff = float((with_adapter - merged_out).abs().max())
+    merged_outputs, merged_lens = transducer_probe(model, features, lengths, context)
+    if not torch.equal(adapter_lens, merged_lens):
+        raise RuntimeError('Encoder lengths changed after merging')
+    merge_diffs = {name: checked_difference(with_adapter[name], merged_outputs[name], args.tolerance, f'merged {name}')
+                   for name in with_adapter}
+    merged_out = merged_outputs['encoder']
+    merge_diff = merge_diffs['encoder']
     parameters = sum(p.numel() for p in model.parameters())
     if parameters != base_parameters:
         raise RuntimeError(f'Merged model has {parameters} parameters, base had {base_parameters}')
-    if merge_diff > args.tolerance * max(1.0, float(with_adapter.abs().max())):
-        raise RuntimeError(f'Merged model differs from the adapter model by {merge_diff}')
 
     out = Path(args.out_dir)
     out.mkdir(parents=True, exist_ok=True)
@@ -117,13 +139,19 @@ def main():
     options.inter_op_num_threads = 1
     session = ort.InferenceSession(str(out / 'encoder.onnx'), sess_options=options, providers=['CPUExecutionProvider'])
     onnx_out, onnx_lens = session.run(None, {'x': features.numpy(), 'x_lens': lengths.numpy()})
-    if not torch.isfinite(torch.from_numpy(onnx_out)).all():
-        raise RuntimeError('Non-finite ONNX encoder output')
-    onnx_diff = float((torch.from_numpy(onnx_out) - merged_out).abs().max())
-    if onnx_diff > args.tolerance * max(1.0, float(merged_out.abs().max())) or not (torch.from_numpy(onnx_lens) == merged_lens).all():
-        raise RuntimeError(f'ONNX encoder differs from PyTorch by {onnx_diff}')
+    onnx_diff = checked_difference(merged_out, torch.from_numpy(onnx_out), args.tolerance, 'ONNX encoder')
+    if not (torch.from_numpy(onnx_lens) == merged_lens).all():
+        raise RuntimeError('ONNX encoder lengths differ from PyTorch')
+    decoder_session = ort.InferenceSession(str(out/'decoder.onnx'), sess_options=options, providers=['CPUExecutionProvider'])
+    onnx_decoder = decoder_session.run(None, {'y': context.numpy()})[0]
+    joiner_session = ort.InferenceSession(str(out/'joiner.onnx'), sess_options=options, providers=['CPUExecutionProvider'])
+    onnx_logits = joiner_session.run(None, {'encoder_out': onnx_out[:, 0], 'decoder_out': onnx_decoder})[0]
+    onnx_diffs = {'encoder': onnx_diff,
+                  'decoder': checked_difference(merged_outputs['decoder'], torch.from_numpy(onnx_decoder), args.tolerance, 'ONNX decoder'),
+                  'joiner': checked_difference(merged_outputs['joiner'], torch.from_numpy(onnx_logits), args.tolerance, 'ONNX joiner')}
     summary = {'model': args.model, 'base_model_dir': args.model_dir, 'lora': args.lora, 'scale': args.scale, 'merged_projections': merged,
                'parameters': parameters, 'merge_max_abs_diff': merge_diff, 'onnx_encoder_max_abs_diff': onnx_diff,
+               'merge_component_max_abs_diff': merge_diffs, 'onnx_component_max_abs_diff': onnx_diffs,
                'adapter_epoch': checkpoint.get('epoch'), 'adapter_valid': checkpoint.get('valid'), 'model_config': report['config']}
     (out / 'merge_report.json').write_text(json.dumps(summary, ensure_ascii=False, indent=2))
     print(json.dumps(summary, ensure_ascii=False, indent=2))

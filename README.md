@@ -15,6 +15,7 @@ Code, prompt và snapshot kết quả nghiên cứu cho Zalo AI Challenge LifeMa
 - [Fine-tune LoRA 3 model (GipFormer RNN-T, ZipFormer CR-CTC, Qwen3.5-4B) và data đã tạo](docs/FINETUNE.md).
 - [Train ASR và Qwen với ít data một domain: nghiên cứu, công thức, hotwords, nội suy, rejection sampling](docs/RESEARCH_LOW_DATA_DOMAIN_FINETUNE.md).
 - [Review code Claude, các lỗi đã sửa và kết quả test CPU ngày 05/11/2026](docs/CLAUDE_REVIEW_20261105.md).
+- [Kiểm chứng nghiên cứu ít audio gốc + nhiều TTS, test hai stage và hotwords thật](docs/LOW_DATA_RESEARCH_REVIEW_20261105.md).
 - [Text sinh hiện tại](outputs/asr_datagen_api/generated.csv): **10.980 câu / 1.098 seed**, tại snapshot 09:06 ngày 05/11/2026 (UTC+7). Đây là dữ liệu thô cần rà, chưa phải bộ audio hoặc ASR đã fine-tune.
 
 ## Code và prompt
@@ -49,7 +50,7 @@ export PYTHON_BIN="$PWD/.venv/bin/python"
 python -m unittest discover -s tests -v
 ```
 
-104 unit tests (test LoRA/lhotse/transformers tự bỏ qua nếu thiếu thư viện model), không yêu cầu tải trọng số hay gọi API. Log test với checkpoint thật trên CPU nằm trong báo cáo review ở trên. Để chỉ chạy tests:
+145 unit tests (test LoRA/lhotse/transformers tự bỏ qua nếu thiếu thư viện model), không yêu cầu tải trọng số hay gọi API. Log test với checkpoint thật trên CPU nằm trong báo cáo review ở trên. Để chỉ chạy tests:
 
 ```bash
 pip install requests jsonschema num2words==0.5.14

@@ -1,0 +1,15 @@
+{
+  "note": "Matrix-fit experiment, not an ASR accuracy ablation; no Eden schedule.",
+  "steps": 720,
+  "optimizer": "icefall ScaledAdam",
+  "results": {
+    "0.0045": {
+      "B_rms": 4.8716428864281625e-05,
+      "relative_update_error": 0.9796579480171204
+    },
+    "0.045": {
+      "B_rms": 0.00029343474307097495,
+      "relative_update_error": 0.04922392591834068
+    }
+  }
+}

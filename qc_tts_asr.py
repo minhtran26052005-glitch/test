@@ -1,9 +1,9 @@
 """Listen to synthesized TTS with both ASRs before any training; keep only audio that says its label.
 
-Both checkpoints act as two independent listeners on every TTS wav (same sherpa-onnx decoding as run.sh):
+Both checkpoints decode every TTS wav; their errors may be correlated (same sherpa-onnx decoding as run.sh):
   tts_failed         every ASR has WER >= --fail-wer: garbled/truncated audio or a different sentence -> drop
   tts_misread        the ASRs agree with each other but not with the label: the TTS most likely read
-                     something else (two models rarely make the same mistake) -> drop
+                     something else, or both ASRs share an error -> excluded pending listening
   asr_already_right  every ASR is already exact: harmless, but teaches little -> keep (counted)
   asr_learnable      at least one ASR is close (audio is intelligible) and some ASR is wrong -> keep
   uncertain          everything else -> not kept; listen first
@@ -18,6 +18,7 @@ records, same format as the manifest) which train_asr_lora.py / run_finetune.sh 
 """
 import argparse
 import csv
+import hashlib
 import json
 import random
 from collections import Counter
@@ -26,7 +27,7 @@ from pathlib import Path
 from prepare_asr_finetune_data import target_text
 
 REAL_ASR = Path('outputs/zipformer_150m/asr_comparison.csv')
-KEEP = {'asr_already_right', 'asr_learnable'}
+KEEP = {'asr_already_right', 'asr_learnable', 'manual_accept'}
 
 
 def edits(ref, hyp):
@@ -81,6 +82,31 @@ def profile(pairs):
             'percent_all_wer_ge_50': round(100 * count['all_wer_ge_50'] / n, 2)}
 
 
+def manual_overrides(records, path):
+    """Apply listening decisions only to the exact audio and label that were reviewed."""
+    if not path:
+        return {}
+    by_id = {r['id']: r for r in records}
+    decisions = {}
+    accept = {'1', 'true', 'yes', 'accept', 'đúng', 'dung', 'ok'}
+    reject = {'0', 'false', 'no', 'reject', 'sai'}
+    with Path(path).open(encoding='utf-8-sig', newline='') as handle:
+        for row in csv.DictReader(handle):
+            verdict = row.get('nghe_dung_nhan', '').strip().casefold()
+            if not verdict:
+                continue
+            if verdict not in accept | reject:
+                raise ValueError(f"Unknown listening decision for {row.get('id')}: {verdict}")
+            record = by_id.get(row['id'])
+            if record is None or row['id'] in decisions:
+                raise ValueError(f"Unknown or duplicate reviewed id: {row['id']}")
+            digest = hashlib.sha256(Path(record['audio']).read_bytes()).hexdigest()
+            if row.get('audio_sha256') != digest or row.get('label') != record['text']:
+                raise ValueError(f"Audio or label changed since listening review: {row['id']}; regenerate listen_sample.csv")
+            decisions[row['id']] = verdict in accept
+    return decisions
+
+
 def real_baseline(path=REAL_ASR, names=('gipformer', 'zipformer')):
     if not path.is_file():
         return None
@@ -96,11 +122,15 @@ def real_baseline(path=REAL_ASR, names=('gipformer', 'zipformer')):
 
 def transcribe_all(records, kind, directory, cache, device):
     """{id: hypothesis}; reuses <cache> so thresholds can be changed without decoding again."""
+    from main import asr_cache_key, model_fingerprint
+    fingerprint = model_fingerprint(directory)
+    keys = {record['id']: asr_cache_key(kind, fingerprint, record['audio'], device) for record in records}
     done = {}
     if cache.exists():
         for line in cache.read_text(encoding='utf-8').splitlines():
             row = json.loads(line)
-            done[row['id']] = row['hyp']
+            if row.get('cache_key') == keys.get(row['id']) and row.get('cache_key'):
+                done[row['id']] = row['hyp']
     todo = [r for r in records if r['id'] not in done]
     if todo:
         from asr.gipformer import GipFormer
@@ -109,7 +139,8 @@ def transcribe_all(records, kind, directory, cache, device):
         with cache.open('a', encoding='utf-8') as handle:
             for index, record in enumerate(todo, 1):
                 done[record['id']] = model.transcribe(record['audio'])
-                handle.write(json.dumps({'id': record['id'], 'hyp': done[record['id']]}, ensure_ascii=False) + '\n')
+                handle.write(json.dumps({'id': record['id'], 'cache_key': keys[record['id']], 'hyp': done[record['id']]}, ensure_ascii=False) + '\n')
+                handle.flush()
                 if index % 200 == 0:
                     print(f'[QC] {kind} {index}/{len(todo)}', flush=True)
         del model
@@ -126,17 +157,21 @@ def main():
     parser.add_argument('--misread-wer', type=float, default=0.2)
     parser.add_argument('--listen-per-category', type=int, default=20)
     parser.add_argument('--seed', type=int, default=42)
+    parser.add_argument('--review-csv', help='listen_sample.csv with nghe_dung_nhan filled; exact audio hash/label are checked')
     args = parser.parse_args()
     manifest = Path(args.manifest)
     out = manifest.with_name(manifest.stem + '_qc')
     out.mkdir(parents=True, exist_ok=True)
     records = [json.loads(line) for line in manifest.read_text(encoding='utf-8').splitlines() if line.strip()]
+    reviewed = manual_overrides(records, args.review_csv)
     models = [spec.split('=', 1) for spec in args.model]
     hyps = {kind: transcribe_all(records, kind, directory, out / f'hyps_{kind}.jsonl', args.device) for kind, directory in models}
     rows = []
     for record in records:
         heard = {kind: hyps[kind][record['id']] for kind, _ in models}
         category, wer = judge(record['text'], heard, args.fail_wer, args.close_wer, args.misread_wer)
+        if record['id'] in reviewed:
+            category = 'manual_accept' if reviewed[record['id']] else 'manual_reject'
         rows.append({'id': record['id'], 'category': category, 'wer': {k: round(v, 3) for k, v in wer.items()},
                      'label': record['text'], 'tts_text': record.get('reference', ''), 'hyps': heard,
                      'audio': record['audio'], 'target_model': record.get('target_model'), 'seconds': record.get('seconds')})
@@ -149,17 +184,21 @@ def main():
         for record in kept:
             handle.write(json.dumps(record, ensure_ascii=False) + '\n')
     rng = random.Random(args.seed)
-    with (out / 'listen_sample.csv').open('w', encoding='utf-8-sig', newline='') as handle:
-        writer = csv.DictWriter(handle, fieldnames=['category', 'id', 'audio', 'label', 'tts_text', *[f'hyp_{k}' for k, _ in models],
+    listen_name = 'listen_pending.csv' if args.review_csv else 'listen_sample.csv'
+    with (out / listen_name).open('w', encoding='utf-8-sig', newline='') as handle:
+        writer = csv.DictWriter(handle, fieldnames=['category', 'id', 'audio', 'audio_sha256', 'label', 'tts_text', *[f'hyp_{k}' for k, _ in models],
                                                     *[f'wer_{k}' for k, _ in models], 'nghe_dung_nhan', 'ghi_chu'])
         writer.writeheader()
         for name in ('tts_failed', 'tts_misread', 'uncertain', 'asr_learnable', 'asr_already_right'):
             group = [r for r in rows if r['category'] == name]
             for row in rng.sample(group, min(args.listen_per_category, len(group))):
-                writer.writerow({'category': name, 'id': row['id'], 'audio': row['audio'], 'label': row['label'], 'tts_text': row['tts_text'],
+                writer.writerow({'category': name, 'id': row['id'], 'audio': row['audio'],
+                                 'audio_sha256': hashlib.sha256(Path(row['audio']).read_bytes()).hexdigest(),
+                                 'label': row['label'], 'tts_text': row['tts_text'],
                                  **{f'hyp_{k}': row['hyps'][k] for k, _ in models}, **{f'wer_{k}': row['wer'][k] for k, _ in models},
                                  'nghe_dung_nhan': '', 'ghi_chu': ''})
     summary = {'manifest': str(manifest), 'records': len(records), 'kept': len(kept),
+               'review_csv': args.review_csv, 'manual_decisions': len(reviewed), 'listen_csv': str(out/listen_name),
                'categories': dict(Counter(category.values())),
                'categories_percent': {k: round(100 * v / max(len(records), 1), 2) for k, v in sorted(Counter(category.values()).items())},
                'kept_by_target_model': dict(Counter(r.get('target_model') for r in kept)),

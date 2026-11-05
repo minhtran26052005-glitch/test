@@ -1,0 +1,57 @@
+{
+  "gipformer=models/gipformer1.5-68M-rnnt": {
+    "utterances": 64,
+    "labeled_words": 1097,
+    "decoding": "greedy_search",
+    "wer_percent": 11.942,
+    "foreign_words": {
+      "said": 41,
+      "recall_percent": 56.1,
+      "false_alarms_per_100_utterances": 25.0
+    }
+  },
+  "gipformer=models/gipformer1.5-68M-rnnt@decoding=modified_beam_search": {
+    "utterances": 64,
+    "labeled_words": 1097,
+    "decoding": {
+      "decoding_method": "modified_beam_search",
+      "max_active_paths": 4
+    },
+    "wer_percent": 12.124,
+    "foreign_words": {
+      "said": 41,
+      "recall_percent": 56.1,
+      "false_alarms_per_100_utterances": 25.0
+    }
+  },
+  "gipformer=models/gipformer1.5-68M-rnnt@decoding=modified_beam_search,hotwords=outputs/asr_hotwords/gipformer.txt,hotwords_score=1.5": {
+    "utterances": 64,
+    "labeled_words": 1097,
+    "decoding": {
+      "decoding_method": "modified_beam_search",
+      "max_active_paths": 4,
+      "hotwords_score": 1.5,
+      "hotwords_sha256": "de371c343f2746d9b4803e9d23aa595c812ba2bfe2e6bcec09ff7bbcccb6e453"
+    },
+    "wer_percent": 11.759,
+    "foreign_words": {
+      "said": 41,
+      "recall_percent": 60.98,
+      "false_alarms_per_100_utterances": 23.44
+    }
+  },
+  "drift_vs_first_model": {
+    "gipformer=models/gipformer1.5-68M-rnnt@decoding=modified_beam_search": {
+      "changed_utterances_percent": 15.62,
+      "changed_words_per_100": 1.28,
+      "fixed_utterances": 0,
+      "broken_utterances": 1
+    },
+    "gipformer=models/gipformer1.5-68M-rnnt@decoding=modified_beam_search,hotwords=outputs/asr_hotwords/gipformer.txt,hotwords_score=1.5": {
+      "changed_utterances_percent": 20.31,
+      "changed_words_per_100": 1.55,
+      "fixed_utterances": 1,
+      "broken_utterances": 1
+    }
+  }
+}

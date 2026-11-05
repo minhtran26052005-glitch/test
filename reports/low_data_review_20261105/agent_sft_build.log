@@ -1,0 +1,22 @@
+{
+  "samples": 1545,
+  "agent_records_test": 3176,
+  "agent_records_train": 15767,
+  "agent_records_validation": 2937,
+  "kept_trajectories": 6923,
+  "missing_run_trace": 2,
+  "skipped_duplicate": 98,
+  "agent_system_prompt_sha256": "27fe7a6ab4629b8aa7330649fbd0f33584322c90b70c0976a1769ae4f0ac88d1",
+  "normalize_system_prompt_sha256": "41c61947e7c18ad745abb8e4266fed30930cb51544a56e5aa277325cc120e47b",
+  "sources": [
+    "reference",
+    "run:outputs/benchmark_seed42_n1545",
+    "run:outputs/zipformer_150m/benchmark_seed42_n1545",
+    "run:outputs/dual_asr_qwen/benchmark_seed42_n1545",
+    "generated",
+    "synthetic"
+  ],
+  "normalize_runs": [],
+  "normalize_csv": null,
+  "note": "Train on train.jsonl only; validation for early stopping; test is held out for the agent benchmark."
+}

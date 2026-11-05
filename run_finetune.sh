@@ -25,9 +25,9 @@ QWEN_DIR="${LLM_MODEL_PATH:-models/Qwen3.5-4B}"
 export AGENT_ASR_EVIDENCE="${AGENT_ASR_EVIDENCE:-1}" AGENT_TASK_RULES="${AGENT_TASK_RULES:-1}" AGENT_REPEAT_GUARD="${AGENT_REPEAT_GUARD:-1}"
 export AGENT_FEWSHOT_K="${AGENT_FEWSHOT_K:-0}"
 ASR_TRAIN=(--train-manifest outputs/asr_finetune/train.jsonl)
-# TTS audio is used only after './run_finetune.sh qc' kept it (*_qc.jsonl); real speech stays >= TTS (--max-tts-ratio 1).
-if [[ -f outputs/asr_finetune/tts/train_qc.jsonl ]]; then ASR_TRAIN+=(--train-manifest outputs/asr_finetune/tts/train_qc.jsonl); fi
-if [[ -f outputs/synthetic_agent/tts/train_qc.jsonl ]]; then ASR_TRAIN+=(--train-manifest outputs/synthetic_agent/tts/train_qc.jsonl); fi
+# TTS audio is used only after './run_finetune.sh qc' kept it (*_qc.jsonl).
+if [[ -s outputs/asr_finetune/tts/train_qc.jsonl ]]; then ASR_TRAIN+=(--train-manifest outputs/asr_finetune/tts/train_qc.jsonl); fi
+if [[ -s outputs/synthetic_agent/tts/train_qc.jsonl ]]; then ASR_TRAIN+=(--train-manifest outputs/synthetic_agent/tts/train_qc.jsonl); fi
 EVAL_MANIFESTS=(--manifest outputs/asr_finetune/test.jsonl)
 if [[ -f outputs/asr_finetune/public_test_unlabeled.jsonl ]]; then EVAL_MANIFESTS+=(--manifest outputs/asr_finetune/public_test_unlabeled.jsonl); fi
 
@@ -86,26 +86,34 @@ case "${1:-}" in
     # TTS teaches words, not acoustics: it never updates the encoder (adapting only prediction/joint networks with TTS
     # is the customization result of Li et al. 2020); see docs/RESEARCH_LOW_DATA_DOMAIN_FINETUNE.md section 3.6.
     kind="${2:-}"; [[ "$kind" == gipformer || "$kind" == zipformer ]] || { echo 'usage: ./run_finetune.sh asr2 gipformer|zipformer' >&2; exit 1; }
+    if [[ ${#ASR_TRAIN[@]} -le 2 ]]; then
+      echo 'asr2 needs nonempty QC-passed TTS manifests: synthesize audio and run ./run_finetune.sh qc first.' >&2; exit 1
+    fi
     dir="$GIP_DIR"; batch=(); [[ "$kind" == zipformer ]] && { dir="$ZIP_DIR"; batch=(--max-duration 200); }
     "$PYTHON_BIN" train_asr_lora.py --model "$kind" --model-dir "$dir" --icefall-dir "$ICEFALL_DIR" ${batch[@]+"${batch[@]}"} \
       --train-manifest outputs/asr_finetune/train.jsonl --max-tts-ratio 0 --speed-perturb \
       --valid-manifest outputs/asr_finetune/validation.jsonl --exp-dir "outputs/asr_lora/${kind}_real"
-    if [[ ! -f "outputs/asr_lora/${kind}_real/lora-best.pt" ]]; then
-      echo "Stage 1 (real audio) did not beat the base $kind; keeping the base model."; exit 0
+    stage1_dir="$dir"
+    models=(--model "$kind=$dir")
+    if [[ -f "outputs/asr_lora/${kind}_real/lora-best.pt" ]]; then
+      "$PYTHON_BIN" export_asr_lora.py --model "$kind" --model-dir "$dir" --icefall-dir "$ICEFALL_DIR" \
+        --lora "outputs/asr_lora/${kind}_real/lora-best.pt" --out-dir "${dir}-lora-real"
+      stage1_dir="${dir}-lora-real"
+      models+=(--model "$kind=$stage1_dir")
+    else
+      echo "Stage 1 did not beat the base $kind; stage 2 will adapt the base model's joiner."
     fi
-    "$PYTHON_BIN" export_asr_lora.py --model "$kind" --model-dir "$dir" --icefall-dir "$ICEFALL_DIR" \
-      --lora "outputs/asr_lora/${kind}_real/lora-best.pt" --out-dir "${dir}-lora-real"
-    "$PYTHON_BIN" train_asr_lora.py --model "$kind" --model-dir "${dir}-lora-real" --icefall-dir "$ICEFALL_DIR" ${batch[@]+"${batch[@]}"} \
+    "$PYTHON_BIN" train_asr_lora.py --model "$kind" --model-dir "$stage1_dir" --icefall-dir "$ICEFALL_DIR" ${batch[@]+"${batch[@]}"} \
       "${ASR_TRAIN[@]}" --lora-targets joiner --real-repeat "${REAL_REPEAT:-2}" --max-tts-ratio "${MAX_TTS_RATIO:-1}" \
+      --tts-ratio-unit "${TTS_RATIO_UNIT:-seconds}" \
       --tts-speed-perturb --tts-reverb-prob "${TTS_REVERB_PROB:-0.3}" \
       --valid-manifest outputs/asr_finetune/validation.jsonl --exp-dir "outputs/asr_lora/${kind}_joiner"
-    models=(--model "$kind=$dir" --model "$kind=${dir}-lora-real")
     if [[ -f "outputs/asr_lora/${kind}_joiner/lora-best.pt" ]]; then
-      "$PYTHON_BIN" export_asr_lora.py --model "$kind" --model-dir "${dir}-lora-real" --icefall-dir "$ICEFALL_DIR" \
+      "$PYTHON_BIN" export_asr_lora.py --model "$kind" --model-dir "$stage1_dir" --icefall-dir "$ICEFALL_DIR" \
         --lora "outputs/asr_lora/${kind}_joiner/lora-best.pt" --out-dir "${dir}-lora-2stage"
       models+=(--model "$kind=${dir}-lora-2stage")
     else
-      echo "Stage 2 (joiner on real + TTS) did not beat stage 1; ${dir}-lora-real is the candidate."
+      echo "Stage 2 did not beat its starting checkpoint; $stage1_dir remains the candidate."
     fi
     "$PYTHON_BIN" eval_asr_onnx.py --manifest outputs/asr_finetune/validation.jsonl "${models[@]}" --out "outputs/asr_lora/${kind}_2stage_validation"
     ;;

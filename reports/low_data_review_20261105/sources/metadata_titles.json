@@ -1,0 +1,172 @@
+{
+  "2405.09673": {
+    "url": "https://arxiv.org/abs/2405.09673",
+    "status": 200,
+    "title": [
+      "LoRA Learns Less and Forgets Less"
+    ],
+    "date": [
+      "2024/05/15"
+    ]
+  },
+  "2401.05605": {
+    "url": "https://arxiv.org/abs/2401.05605",
+    "status": 200,
+    "title": [
+      "Scaling Laws for Forgetting When Fine-Tuning Large Language Models"
+    ],
+    "date": [
+      "2024/01/11"
+    ]
+  },
+  "2310.05915": {
+    "url": "https://arxiv.org/abs/2310.05915",
+    "status": 200,
+    "title": [
+      "FireAct: Toward Language Agent Fine-tuning"
+    ],
+    "date": [
+      "2023/10/09"
+    ]
+  },
+  "2305.11206": {
+    "url": "https://arxiv.org/abs/2305.11206",
+    "status": 200,
+    "title": [
+      "LIMA: Less Is More for Alignment"
+    ],
+    "date": [
+      "2023/05/18"
+    ]
+  },
+  "2310.12823": {
+    "url": "https://arxiv.org/abs/2310.12823",
+    "status": 200,
+    "title": [
+      "AgentTuning: Enabling Generalized Agent Abilities for LLMs"
+    ],
+    "date": [
+      "2023/10/19"
+    ]
+  },
+  "2403.12881": {
+    "url": "https://arxiv.org/abs/2403.12881",
+    "status": 200,
+    "title": [
+      "Agent-FLAN: Designing Data and Methods of Effective Agent Tuning for Large Language Models"
+    ],
+    "date": [
+      "2024/03/19"
+    ]
+  },
+  "2312.06585": {
+    "url": "https://arxiv.org/abs/2312.06585",
+    "status": 200,
+    "title": [
+      "Beyond Human Data: Scaling Self-Training for Problem-Solving with Language Models"
+    ],
+    "date": [
+      "2023/12/11"
+    ]
+  },
+  "2402.13669": {
+    "url": "https://arxiv.org/abs/2402.13669",
+    "status": 200,
+    "title": [
+      "Self-Distillation Bridges Distribution Gap in Language Model Fine-Tuning"
+    ],
+    "date": [
+      "2024/02/21"
+    ]
+  },
+  "2403.02502": {
+    "url": "https://arxiv.org/abs/2403.02502",
+    "status": 200,
+    "title": [
+      "Trial and Error: Exploration-Based Trajectory Optimization for LLM Agents"
+    ],
+    "date": [
+      "2024/03/04"
+    ]
+  },
+  "2504.13958": {
+    "url": "https://arxiv.org/abs/2504.13958",
+    "status": 200,
+    "title": [
+      "ToolRL: Reward is All Tool Learning Needs"
+    ],
+    "date": [
+      "2025/04/16"
+    ]
+  },
+  "2310.05914": {
+    "url": "https://arxiv.org/abs/2310.05914",
+    "status": 200,
+    "title": [
+      "NEFTune: Noisy Embeddings Improve Instruction Finetuning"
+    ],
+    "date": [
+      "2023/10/09"
+    ]
+  },
+  "2405.14394": {
+    "url": "https://arxiv.org/abs/2405.14394",
+    "status": 200,
+    "title": [
+      "Instruction Tuning With Loss Over Instructions"
+    ],
+    "date": [
+      "2024/05/23"
+    ]
+  },
+  "2309.15701": {
+    "url": "https://arxiv.org/abs/2309.15701",
+    "status": 200,
+    "title": [
+      "HyPoradise: An Open Baseline for Generative Speech Recognition with Large Language Models"
+    ],
+    "date": [
+      "2023/09/27"
+    ]
+  },
+  "2204.00618": {
+    "url": "https://arxiv.org/abs/2204.00618",
+    "status": 200,
+    "title": [
+      "ASR data augmentation in low-resource settings using cross-lingual multi-speaker TTS and cross-lingual voice conversion"
+    ],
+    "date": [
+      "2022/03/29"
+    ]
+  },
+  "2406.07090": {
+    "url": "https://arxiv.org/abs/2406.07090",
+    "status": 200,
+    "title": [
+      "Spoken Language Corpora Augmentation with Domain-Specific Voice-Cloned Speech"
+    ],
+    "date": [
+      "2024/06/11"
+    ]
+  },
+  "2109.06952": {
+    "url": "https://arxiv.org/abs/2109.06952",
+    "status": 200,
+    "title": [
+      "Residual Adapters for Parameter-Efficient ASR Adaptation to Atypical and Accented Speech"
+    ],
+    "date": [
+      "2021/09/14"
+    ]
+  },
+  "2411.13159": {
+    "url": "https://arxiv.org/abs/2411.13159",
+    "status": 200,
+    "title": [
+      "Hard-Synth: Synthesizing Diverse Hard Samples for ASR using Zero-Shot TTS and LLM"
+    ],
+    "date": [
+      "2024/11/20"
+    ]
+  }
+}

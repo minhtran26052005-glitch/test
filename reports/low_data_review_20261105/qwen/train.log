@@ -1,0 +1,48 @@
+{"train_records": 2, "train_skipped_too_long": {}, "valid_records": 2, "train_tasks": {"normalize": 2}, "max_tokens": 351, "target_tokens": 68}
+Loading weights:   0%|          | 0/76 [00:00<?, ?it/s]Loading weights: 100%|██████████| 76/76 [00:00<00:00, 23095.72it/s]
+{"lora_modules": ["base_model.model.model.language_model.layers.N.linear_attn.in_proj_qkv", "base_model.model.model.language_model.layers.N.linear_attn.in_proj_z", "base_model.model.model.language_model.layers.N.linear_attn.out_proj", "base_model.model.model.language_model.layers.N.mlp.down_proj", "base_model.model.model.language_model.layers.N.mlp.gate_proj", "base_model.model.model.language_model.layers.N.mlp.up_proj", "base_model.model.model.language_model.layers.N.self_attn.k_proj", "base_model.model.model.language_model.layers.N.self_attn.o_proj", "base_model.model.model.language_model.layers.N.self_attn.q_proj", "base_model.model.model.language_model.layers.N.self_attn.v_proj"]}
+trainable params: 61,952 || all params: 16,193,180 || trainable%: 0.3826
+  0%|          | 0/2 [00:00<?, ?it/s][transformers] `use_cache=True` is incompatible with gradient checkpointing. Setting `use_cache=False`.
+[transformers] `causal_conv1d_fn` is falling back to its reference PyTorch implementation because `causal_conv1d` is not installed. This is correct but much slower; install `causal_conv1d` for the optimized kernel.
+[transformers] `chunk_gated_delta_rule` is falling back to its reference PyTorch implementation because `flash-linear-attention` is not installed. This is correct but much slower; install `flash-linear-attention` for the optimized kernel.
+ 50%|█████     | 1/2 [00:00<00:00,  3.14it/s]
+  0%|          | 0/2 [00:00<?, ?it/s][A
+100%|██████████| 2/2 [00:00<00:00, 15.57it/s][A                                             
+                                             [A 50%|█████     | 1/2 [00:00<00:00,  3.14it/s]
+100%|██████████| 2/2 [00:00<00:00, 15.57it/s][A
+                                             [A100%|██████████| 2/2 [00:00<00:00,  2.05it/s]{'eval_loss': '12.43', 'eval_runtime': '0.2854', 'eval_samples_per_second': '7.008', 'eval_steps_per_second': '7.008', 'epoch': '0.5'}
+
+  0%|          | 0/2 [00:00<?, ?it/s][A
+100%|██████████| 2/2 [00:00<00:00, 15.71it/s][A                                             
+                                             [A100%|██████████| 2/2 [00:01<00:00,  2.05it/s]
+100%|██████████| 2/2 [00:00<00:00, 15.71it/s][A
+                                             [A[transformers] mtime may not be reliable on this filesystem, falling back to numerical ordering
+                                             100%|██████████| 2/2 [00:01<00:00,  2.05it/s]100%|██████████| 2/2 [00:01<00:00,  1.63it/s]
+{'eval_loss': '12.43', 'eval_runtime': '0.2865', 'eval_samples_per_second': '6.982', 'eval_steps_per_second': '6.982', 'epoch': '1'}
+{'train_runtime': '1.223', 'train_samples_per_second': '1.636', 'train_steps_per_second': '1.636', 'train_loss': '12.46', 'epoch': '1'}
+{
+  "train_records": 2,
+  "train_skipped_too_long": {},
+  "valid_records": 2,
+  "train_tasks": {
+    "normalize": 2
+  },
+  "max_tokens": 351,
+  "target_tokens": 68,
+  "base_model": "outputs/claude_review_20261105/tiny_qwen_base",
+  "lora": {
+    "r": 16,
+    "alpha": 32,
+    "dropout": 0.05,
+    "groups": "attention,linear_attention,mlp",
+    "rslora": true,
+    "dora": false
+  },
+  "neftune_alpha": 5.0,
+  "early_stopping_patience": 1,
+  "best_eval_loss": 12.427543640136719,
+  "generation_stop_ids": [
+    248046,
+    248044
+  ]
+}

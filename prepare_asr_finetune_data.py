@@ -18,6 +18,7 @@ import unicodedata
 from collections import Counter
 from difflib import SequenceMatcher
 from itertools import product
+from functools import lru_cache
 from pathlib import Path
 from asr_spoken_text import spoken_tokens
 
@@ -37,7 +38,7 @@ LATIN = re.compile(r"[A-Z0-9][A-Z0-9'\-.]*")
 
 
 # Vietnamese and English readings of letters and digits, as TTS and speakers say them.
-LETTER_NAMES = {'a': ['a', 'ây'], 'b': ['bê', 'bi'], 'c': ['xê', 'xi', 'si', 'cờ'], 'd': ['đê', 'di'], 'e': ['e', 'i'],
+LETTER_NAMES = {'a': ['a', 'ây'], 'b': ['bê', 'bi'], 'c': ['xê', 'cê', 'xi', 'si', 'cờ'], 'd': ['đê', 'di'], 'e': ['e', 'i'],
                 'f': ['ép'], 'g': ['giê', 'gi', 'dzi'], 'h': ['hát', 'ếch'], 'i': ['i', 'ai'], 'j': ['giê', 'jê', 'jay', 'giây'],
                 'k': ['ca', 'cây'], 'l': ['lờ', 'e lờ', 'eo'], 'm': ['em', 'mờ'], 'n': ['en', 'nờ'], 'o': ['ô', 'âu'],
                 'p': ['pê', 'pi'], 'q': ['quy', 'kiu'], 'r': ['rờ', 'e rờ', 'a'], 's': ['ét', 'sờ', 'ét xì'], 't': ['tê', 'ti'],
@@ -51,6 +52,13 @@ def _plain(text):
     return ''.join(c for c in text if c.isalnum() and not unicodedata.combining(c))
 
 
+@lru_cache(maxsize=1)
+def _explicit_readings():
+    path = Path(__file__).with_name('asr_lora') / 'tts_pronunciations.json'
+    return {_plain(word): {_plain(reading) for reading in readings}
+            for word, readings in json.loads(path.read_text())['readings'].items()}
+
+
 def _pronunciation_fits(read, spelled):
     """The audio span must sound like the Latin word, read as a word ('RÒN' = RON, 'DA LÔ' = ZALO) or letter by
     letter ('ÉT EM ÉT' = SMS, 'A LỜ A RỜ MỜ' = ALARM). A different word ('TIN' for SMS) keeps the audio word."""
@@ -58,17 +66,33 @@ def _pronunciation_fits(read, spelled):
         return False
     heard = _plain(' '.join(read))
     word = _plain(' '.join(spelled))
-    spellings = [word]
+    # A loose character similarity threshold can silently label audio "Linh" as "Lan"
+    # or "Panadol" as "Paracetamol". Only explicit readings/spell-outs are trusted.
+    # Whitespace-only variants may match directly; stripping tones for arbitrary
+    # words would turn Vietnamese LÍNH into the different name LINH.
+    compact = lambda words: ''.join(c for c in ' '.join(words).casefold() if c.isalnum())
+    if compact(read) == compact(spelled):
+        return True
+    spellings = list(_explicit_readings().get(word, ()))
     if len(word) <= 6:  # letter by letter, with Vietnamese or English letter names ('ÉT GIÊ XÊ', 'SỜ JÊ XÊ', 'ÉT JAY XI')
         spellings += [_plain(' '.join(names)) for names in product(*(LETTER_NAMES.get(c, [c]) for c in word))]
-    return max(SequenceMatcher(a=heard, b=candidate).ratio() for candidate in spellings) >= 0.5
+    return heard in spellings
 
 
 def _spell(read, spelled):
     """Replace span: Latin spelling where the written side is Latin, the audio words everywhere else."""
     is_latin = [bool(LATIN.fullmatch(w)) for w in spelled]
     if all(is_latin):
-        return spelled if _pronunciation_fits(read, spelled) else read
+        if _pronunciation_fits(read, spelled):
+            return spelled
+        # A missing written word must not delete something the TTS says:
+        # "ét cộng" for written "S+" keeps CỘNG; "ét jay xi trên" keeps TRÊN.
+        for boundary in range(len(read)-1, 0, -1):
+            if _pronunciation_fits(read[:boundary], spelled):
+                return spelled + read[boundary:]
+            if _pronunciation_fits(read[boundary:], spelled):
+                return read[:boundary] + spelled
+        return read
     m = next(i for i, latin in enumerate(is_latin) if not latin)  # Latin prefix ('SJC' in 'SJC HÔM' vs 'ÉT GIÊ XÊ BỮA')
     n = next(i for i, latin in enumerate(reversed(is_latin)) if not latin)  # Latin suffix
     if m and not any(is_latin[m:]):

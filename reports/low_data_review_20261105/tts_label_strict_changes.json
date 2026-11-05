@@ -1,0 +1,555 @@
+{
+  "changed": 91,
+  "examples": [
+    {
+      "id": "train_0132_history_08_v01",
+      "spoken": "Giúp em bật tivi kênh ét cộng x-pót nha.",
+      "old": "GIÚP EM BẬT TIVI KÊNH S SPORT NHA",
+      "new": "GIÚP EM BẬT TIVI KÊNH ÉT CỘNG X PÓT NHA"
+    },
+    {
+      "id": "train_0132_history_08_v02",
+      "spoken": "Mở giúp em tivi kênh ét cộng x-pót nhé.",
+      "old": "MỞ GIÚP EM TIVI KÊNH S SPORT NHÉ",
+      "new": "MỞ GIÚP EM TIVI KÊNH ÉT CỘNG X PÓT NHÉ"
+    },
+    {
+      "id": "train_0132_history_08_v03",
+      "spoken": "Hãy bật tivi chuyển sang kênh ét cộng x-pót đi.",
+      "old": "HÃY BẬT TIVI CHUYỂN SANG KÊNH S SPORT ĐI",
+      "new": "HÃY BẬT TIVI CHUYỂN SANG KÊNH ÉT CỘNG X PÓT ĐI"
+    },
+    {
+      "id": "train_0132_history_08_v04",
+      "spoken": "Bạn bật tivi sang kênh ét cộng x-pót giúp mình nha.",
+      "old": "BẠN BẬT TIVI SANG KÊNH S SPORT GIÚP MÌNH NHA",
+      "new": "BẠN BẬT TIVI SANG KÊNH ÉT CỘNG X PÓT GIÚP MÌNH NHA"
+    },
+    {
+      "id": "train_0132_history_08_v05",
+      "spoken": "Bật giùm em tivi kênh ét cộng x-pót với ạ.",
+      "old": "BẬT GIÙM EM TIVI KÊNH S SPORT VỚI Ạ",
+      "new": "BẬT GIÙM EM TIVI KÊNH ÉT CỘNG X PÓT VỚI Ạ"
+    },
+    {
+      "id": "train_0132_history_08_v06",
+      "spoken": "Mở hộ em tivi kênh ét cộng x-pót với.",
+      "old": "MỞ HỘ EM TIVI KÊNH S SPORT VỚI",
+      "new": "MỞ HỘ EM TIVI KÊNH ÉT CỘNG X PÓT VỚI"
+    },
+    {
+      "id": "train_0132_history_08_v07",
+      "spoken": "Làm ơn bật tivi kênh ét cộng x-pót cho em nhé.",
+      "old": "LÀM ƠN BẬT TIVI KÊNH S SPORT CHO EM NHÉ",
+      "new": "LÀM ƠN BẬT TIVI KÊNH ÉT CỘNG X PÓT CHO EM NHÉ"
+    },
+    {
+      "id": "train_0132_history_08_v08",
+      "spoken": "Giúp tôi bật tivi kênh ét cộng x-pót đi.",
+      "old": "GIÚP TÔI BẬT TIVI KÊNH S SPORT ĐI",
+      "new": "GIÚP TÔI BẬT TIVI KÊNH ÉT CỘNG X PÓT ĐI"
+    },
+    {
+      "id": "train_0132_history_08_v09",
+      "spoken": "Bật tivi kênh ét cộng x-pót lên hộ em nha.",
+      "old": "BẬT TIVI KÊNH S SPORT LÊN HỘ EM NHA",
+      "new": "BẬT TIVI KÊNH ÉT CỘNG X PÓT LÊN HỘ EM NHA"
+    },
+    {
+      "id": "train_0132_history_08_v10",
+      "spoken": "Nhờ bạn bật tivi kênh ét cộng x-pót giùm tôi.",
+      "old": "NHỜ BẠN BẬT TIVI KÊNH S SPORT GIÙM TÔI",
+      "new": "NHỜ BẠN BẬT TIVI KÊNH ÉT CỘNG X PÓT GIÙM TÔI"
+    },
+    {
+      "id": "train_0196_history_00_v01",
+      "spoken": "Cho mình hỏi giá bán ra của vàng S Sờ Giê Cê trong ngày hôm nay là bao nhiêu vậy?",
+      "old": "CHO MÌNH HỎI GIÁ BÁN RA CỦA VÀNG SJC TRONG NGÀY HÔM NAY LÀ BAO NHIÊU VẬY",
+      "new": "CHO MÌNH HỎI GIÁ BÁN RA CỦA VÀNG S SJC TRONG NGÀY HÔM NAY LÀ BAO NHIÊU VẬY"
+    },
+    {
+      "id": "train_0196_history_00_v02",
+      "spoken": "Hôm nay giá vàng S Sờ Giê Cê chiều bán ra được niêm yết mức bao nhiêu?",
+      "old": "HÔM NAY GIÁ VÀNG SJC CHIỀU BÁN RA ĐƯỢC NIÊM YẾT MỨC BAO NHIÊU",
+      "new": "HÔM NAY GIÁ VÀNG S SJC CHIỀU BÁN RA ĐƯỢC NIÊM YẾT MỨC BAO NHIÊU"
+    },
+    {
+      "id": "train_0196_history_00_v03",
+      "spoken": "Bạn kiểm tra giúp mình xem giá bán ra của vàng S Sờ Giê Cê hôm nay thế nào?",
+      "old": "BẠN KIỂM TRA GIÚP MÌNH XEM GIÁ BÁN RA CỦA VÀNG SJC HÔM NAY THẾ NÀO",
+      "new": "BẠN KIỂM TRA GIÚP MÌNH XEM GIÁ BÁN RA CỦA VÀNG S SJC HÔM NAY THẾ NÀO"
+    },
+    {
+      "id": "train_0196_history_00_v04",
+      "spoken": "Thế giá vàng S Sờ Giê Cê lúc bán ra hôm nay tính đến lúc này là mấy?",
+      "old": "THẾ GIÁ VÀNG SJC LÚC BÁN RA HÔM NAY TÍNH ĐẾN LÚC NÀY LÀ MẤY",
+      "new": "THẾ GIÁ VÀNG S SJC LÚC BÁN RA HÔM NAY TÍNH ĐẾN LÚC NÀY LÀ MẤY"
+    },
+    {
+      "id": "train_0196_history_00_v05",
+      "spoken": "Tính tới thời điểm hiện tại thì vàng S Sờ Giê Cê bán ra có giá là bao nhiêu?",
+      "old": "TÍNH TỚI THỜI ĐIỂM HIỆN TẠI THÌ VÀNG SJC BÁN RA CÓ GIÁ LÀ BAO NHIÊU",
+      "new": "TÍNH TỚI THỜI ĐIỂM HIỆN TẠI THÌ VÀNG S SJC BÁN RA CÓ GIÁ LÀ BAO NHIÊU"
+    },
+    {
+      "id": "train_0196_history_00_v06",
+      "spoken": "Cho tôi biết mức giá bán ra hiện tại của vàng S Sờ Giê Cê hôm nay đi.",
+      "old": "CHO TÔI BIẾT MỨC GIÁ BÁN RA HIỆN TẠI CỦA VÀNG SJC HÔM NAY ĐI",
+      "new": "CHO TÔI BIẾT MỨC GIÁ BÁN RA HIỆN TẠI CỦA VÀNG S SJC HÔM NAY ĐI"
+    },
+    {
+      "id": "train_0196_history_00_v07",
+      "spoken": "Cập nhật giúp tôi biểu đồ giá vàng S Sờ Giê Cê bán ra trong ngày hôm nay.",
+      "old": "CẬP NHẬT GIÚP TÔI BIỂU ĐỒ GIÁ VÀNG SJC BÁN RA TRONG NGÀY HÔM NAY",
+      "new": "CẬP NHẬT GIÚP TÔI BIỂU ĐỒ GIÁ VÀNG S SJC BÁN RA TRONG NGÀY HÔM NAY"
+    },
+    {
+      "id": "train_0196_history_00_v08",
+      "spoken": "Hôm nay mức giá bán ra của vàng S Sờ Giê Cê là bao nhiêu vậy?",
+      "old": "HÔM NAY MỨC GIÁ BÁN RA CỦA VÀNG SJC LÀ BAO NHIÊU VẬY",
+      "new": "HÔM NAY MỨC GIÁ BÁN RA CỦA VÀNG S SJC LÀ BAO NHIÊU VẬY"
+    },
+    {
+      "id": "train_0196_history_00_v09",
+      "spoken": "Xin cho biết giá bán ra của loại vàng S Sờ Giê Cê cập nhật trong ngày hôm nay.",
+      "old": "XIN CHO BIẾT GIÁ BÁN RA CỦA LOẠI VÀNG SJC CẬP NHẬT TRONG NGÀY HÔM NAY",
+      "new": "XIN CHO BIẾT GIÁ BÁN RA CỦA LOẠI VÀNG S SJC CẬP NHẬT TRONG NGÀY HÔM NAY"
+    },
+    {
+      "id": "train_0196_history_00_v10",
+      "spoken": "Trị giá vàng S Sờ Giê Cê bán ra trong phiên hôm nay là bao nhiêu thế?",
+      "old": "TRỊ GIÁ VÀNG SJC BÁN RA TRONG PHIÊN HÔM NAY LÀ BAO NHIÊU THẾ",
+      "new": "TRỊ GIÁ VÀNG S SJC BÁN RA TRONG PHIÊN HÔM NAY LÀ BAO NHIÊU THẾ"
+    },
+    {
+      "id": "train_0236_history_02_v01",
+      "spoken": "Hãy chuyển tivi sang kênh ét cộng sport cho tôi với.",
+      "old": "HÃY CHUYỂN TIVI SANG KÊNH S SPORT CHO TÔI VỚI",
+      "new": "HÃY CHUYỂN TIVI SANG KÊNH S CỘNG SPORT CHO TÔI VỚI"
+    },
+    {
+      "id": "train_0236_history_02_v02",
+      "spoken": "Bật tivi kênh ét cộng sport giùm tôi nhé.",
+      "old": "BẬT TIVI KÊNH S SPORT GIÙM TÔI NHÉ",
+      "new": "BẬT TIVI KÊNH S CỘNG SPORT GIÙM TÔI NHÉ"
+    },
+    {
+      "id": "train_0236_history_02_v03",
+      "spoken": "Giúp tôi chuyển tivi sang kênh ét cộng sport.",
+      "old": "GIÚP TÔI CHUYỂN TIVI SANG KÊNH S SPORT",
+      "new": "GIÚP TÔI CHUYỂN TIVI SANG KÊNH S CỘNG SPORT"
+    },
+    {
+      "id": "train_0236_history_02_v04",
+      "spoken": "Đang xem tivi chuyển dùm tôi sang kênh ét cộng sport với.",
+      "old": "ĐANG XEM TIVI CHUYỂN DÙM TÔI SANG KÊNH S SPORT VỚI",
+      "new": "ĐANG XEM TIVI CHUYỂN DÙM TÔI SANG KÊNH S CỘNG SPORT VỚI"
+    },
+    {
+      "id": "train_0236_history_02_v05",
+      "spoken": "Mở giúp tôi kênh tivi ét cộng sport nhé.",
+      "old": "MỞ GIÚP TÔI KÊNH TIVI S SPORT NHÉ",
+      "new": "MỞ GIÚP TÔI KÊNH TIVI S CỘNG SPORT NHÉ"
+    },
+    {
+      "id": "train_0236_history_02_v06",
+      "spoken": "Chuyển tivi sang kênh ét cộng sport giúp tôi.",
+      "old": "CHUYỂN TIVI SANG KÊNH S SPORT GIÚP TÔI",
+      "new": "CHUYỂN TIVI SANG KÊNH S CỘNG SPORT GIÚP TÔI"
+    },
+    {
+      "id": "train_0236_history_02_v07",
+      "spoken": "Hãy mở tivi kênh ét cộng sport giùm tôi đi.",
+      "old": "HÃY MỞ TIVI KÊNH S SPORT GIÙM TÔI ĐI",
+      "new": "HÃY MỞ TIVI KÊNH S CỘNG SPORT GIÙM TÔI ĐI"
+    },
+    {
+      "id": "train_0236_history_02_v08",
+      "spoken": "Cho tôi xem kênh ét cộng sport trên tivi nhé.",
+      "old": "CHO TÔI XEM KÊNH S SPORT TRÊN TIVI NHÉ",
+      "new": "CHO TÔI XEM KÊNH S CỘNG SPORT TRÊN TIVI NHÉ"
+    },
+    {
+      "id": "train_0236_history_02_v09",
+      "spoken": "Chuyển kênh ét cộng sport trên tivi giùm tôi nhé.",
+      "old": "CHUYỂN KÊNH S SPORT TRÊN TIVI GIÙM TÔI NHÉ",
+      "new": "CHUYỂN KÊNH S CỘNG SPORT TRÊN TIVI GIÙM TÔI NHÉ"
+    },
+    {
+      "id": "train_0236_history_02_v10",
+      "spoken": "Tôi muốn mở tivi kênh ét cộng sport.",
+      "old": "TÔI MUỐN MỞ TIVI KÊNH S SPORT",
+      "new": "TÔI MUỐN MỞ TIVI KÊNH S CỘNG SPORT"
+    },
+    {
+      "id": "train_0276_last_v01",
+      "spoken": "Đặt cho tôi xe bốn chỗ từ công ty đi công viên chiều nay, đón sớm hơn giờ hẹn bốn mươi lăm phút và nhắc tôi cầm theo láp tóp trước khi xe đến mười lăm phút.",
+      "old": "ĐẶT CHO TÔI XE BỐN CHỖ TỪ CÔNG TY ĐI CÔNG VIÊN CHIỀU NAY ĐÓN SỚM HƠN GIỜ HẸN BỐN MƯƠI LĂM PHÚT VÀ NHẮC TÔI CẦM THEO LAPTOP TRƯỚC KHI XE ĐẾN MƯỜI LĂM PHÚT",
+      "new": "ĐẶT CHO TÔI XE BỐN CHỖ TỪ CÔNG TY ĐI CÔNG VIÊN CHIỀU NAY ĐÓN SỚM HƠN GIỜ HẸN BỐN MƯƠI LĂM PHÚT VÀ NHẮC TÔI CẦM THEO LÁP TÓP TRƯỚC KHI XE ĐẾN MƯỜI LĂM PHÚT"
+    },
+    {
+      "id": "train_0276_last_v02",
+      "spoken": "Chiều nay đặt xe bốn chỗ từ công ty tới chỗ hẹn ở công viên, đón sớm bốn mươi lăm phút, đồng thời nhắc tôi mang láp tóp trước giờ xe đón mười lăm phút.",
+      "old": "CHIỀU NAY ĐẶT XE BỐN CHỖ TỪ CÔNG TY TỚI CHỖ HẸN Ở CÔNG VIÊN ĐÓN SỚM BỐN MƯƠI LĂM PHÚT ĐỒNG THỜI NHẮC TÔI MANG LAPTOP TRƯỚC GIỜ XE ĐÓN MƯỜI LĂM PHÚT",
+      "new": "CHIỀU NAY ĐẶT XE BỐN CHỖ TỪ CÔNG TY TỚI CHỖ HẸN Ở CÔNG VIÊN ĐÓN SỚM BỐN MƯƠI LĂM PHÚT ĐỒNG THỜI NHẮC TÔI MANG LÁP TÓP TRƯỚC GIỜ XE ĐÓN MƯỜI LĂM PHÚT"
+    },
+    {
+      "id": "train_0276_last_v03",
+      "spoken": "Tôi muốn đặt ô tô bốn chỗ từ công ty đi chơi công viên chiều nay, đón sớm bốn mươi lăm phút so với hẹn, nhớ nhắc tôi đem láp tóp trước mười lăm phút lúc xe đón.",
+      "old": "TÔI MUỐN ĐẶT Ô TÔ BỐN CHỖ TỪ CÔNG TY ĐI CHƠI CÔNG VIÊN CHIỀU NAY ĐÓN SỚM BỐN MƯƠI LĂM PHÚT SO VỚI HẸN NHỚ NHẮC TÔI ĐEM LAPTOP TRƯỚC MƯỜI LĂM PHÚT LÚC XE ĐÓN",
+      "new": "TÔI MUỐN ĐẶT Ô TÔ BỐN CHỖ TỪ CÔNG TY ĐI CHƠI CÔNG VIÊN CHIỀU NAY ĐÓN SỚM BỐN MƯƠI LĂM PHÚT SO VỚI HẸN NHỚ NHẮC TÔI ĐEM LÁP TÓP TRƯỚC MƯỜI LĂM PHÚT LÚC XE ĐÓN"
+    },
+    {
+      "id": "train_0276_last_v04",
+      "spoken": "Đặt giúp tôi một chiếc xe bốn chỗ từ công ty đến công viên chiều nay, đón sớm bốn mươi lăm phút so với giờ hẹn và nhắc tôi mang láp tóp trước mười lăm phút.",
+      "old": "ĐẶT GIÚP TÔI MỘT CHIẾC XE BỐN CHỖ TỪ CÔNG TY ĐẾN CÔNG VIÊN CHIỀU NAY ĐÓN SỚM BỐN MƯƠI LĂM PHÚT SO VỚI GIỜ HẸN VÀ NHẮC TÔI MANG LAPTOP TRƯỚC MƯỜI LĂM PHÚT",
+      "new": "ĐẶT GIÚP TÔI MỘT CHIẾC XE BỐN CHỖ TỪ CÔNG TY ĐẾN CÔNG VIÊN CHIỀU NAY ĐÓN SỚM BỐN MƯƠI LĂM PHÚT SO VỚI GIỜ HẸN VÀ NHẮC TÔI MANG LÁP TÓP TRƯỚC MƯỜI LĂM PHÚT"
+    },
+    {
+      "id": "train_0276_last_v05",
+      "spoken": "Chiều nay đặt xe bốn chỗ từ công ty tới chỗ hẹn công viên, đón trước giờ hẹn bốn mươi lăm phút, rồi nhắc tôi mang láp tóp trước lúc xe đón mười lăm phút nhé.",
+      "old": "CHIỀU NAY ĐẶT XE BỐN CHỖ TỪ CÔNG TY TỚI CHỖ HẸN CÔNG VIÊN ĐÓN TRƯỚC GIỜ HẸN BỐN MƯƠI LĂM PHÚT RỒI NHẮC TÔI MANG LAPTOP TRƯỚC LÚC XE ĐÓN MƯỜI LĂM PHÚT NHÉ",
+      "new": "CHIỀU NAY ĐẶT XE BỐN CHỖ TỪ CÔNG TY TỚI CHỖ HẸN CÔNG VIÊN ĐÓN TRƯỚC GIỜ HẸN BỐN MƯƠI LĂM PHÚT RỒI NHẮC TÔI MANG LÁP TÓP TRƯỚC LÚC XE ĐÓN MƯỜI LĂM PHÚT NHÉ"
+    },
+    {
+      "id": "train_0276_last_v06",
+      "spoken": "Đặt xe bốn chỗ từ công ty đi công viên chiều nay, đón sớm bốn mươi lăm phút so với giờ hẹn, và nhắc tôi mang láp tóp trước khi xe đón mười lăm phút.",
+      "old": "ĐẶT XE BỐN CHỖ TỪ CÔNG TY ĐI CÔNG VIÊN CHIỀU NAY ĐÓN SỚM BỐN MƯƠI LĂM PHÚT SO VỚI GIỜ HẸN VÀ NHẮC TÔI MANG LAPTOP TRƯỚC KHI XE ĐÓN MƯỜI LĂM PHÚT",
+      "new": "ĐẶT XE BỐN CHỖ TỪ CÔNG TY ĐI CÔNG VIÊN CHIỀU NAY ĐÓN SỚM BỐN MƯƠI LĂM PHÚT SO VỚI GIỜ HẸN VÀ NHẮC TÔI MANG LÁP TÓP TRƯỚC KHI XE ĐÓN MƯỜI LĂM PHÚT"
+    },
+    {
+      "id": "train_0276_last_v07",
+      "spoken": "Chiều nay đặt cho tôi ô tô bốn chỗ đi từ công ty tới chỗ hẹn công viên, đón sớm hơn bốn mươi lăm phút, nhắc tôi mang láp tóp trước lúc xe đến mười lăm phút.",
+      "old": "CHIỀU NAY ĐẶT CHO TÔI Ô TÔ BỐN CHỖ ĐI TỪ CÔNG TY TỚI CHỖ HẸN CÔNG VIÊN ĐÓN SỚM HƠN BỐN MƯƠI LĂM PHÚT NHẮC TÔI MANG LAPTOP TRƯỚC LÚC XE ĐẾN MƯỜI LĂM PHÚT",
+      "new": "CHIỀU NAY ĐẶT CHO TÔI Ô TÔ BỐN CHỖ ĐI TỪ CÔNG TY TỚI CHỖ HẸN CÔNG VIÊN ĐÓN SỚM HƠN BỐN MƯƠI LĂM PHÚT NHẮC TÔI MANG LÁP TÓP TRƯỚC LÚC XE ĐẾN MƯỜI LĂM PHÚT"
+    },
+    {
+      "id": "train_0276_last_v08",
+      "spoken": "Hãy đặt một chiếc xe bốn chỗ từ công ty tới công viên chiều nay, đón sớm bốn mươi lăm phút so với hẹn, rồi nhắc tôi đem láp tóp trước mười lăm phút khi xe đón.",
+      "old": "HÃY ĐẶT MỘT CHIẾC XE BỐN CHỖ TỪ CÔNG TY TỚI CÔNG VIÊN CHIỀU NAY ĐÓN SỚM BỐN MƯƠI LĂM PHÚT SO VỚI HẸN RỒI NHẮC TÔI ĐEM LAPTOP TRƯỚC MƯỜI LĂM PHÚT KHI XE ĐÓN",
+      "new": "HÃY ĐẶT MỘT CHIẾC XE BỐN CHỖ TỪ CÔNG TY TỚI CÔNG VIÊN CHIỀU NAY ĐÓN SỚM BỐN MƯƠI LĂM PHÚT SO VỚI HẸN RỒI NHẮC TÔI ĐEM LÁP TÓP TRƯỚC MƯỜI LĂM PHÚT KHI XE ĐÓN"
+    },
+    {
+      "id": "train_0276_last_v09",
+      "spoken": "Đặt ô tô bốn chỗ đi từ công ty đến chỗ hẹn ở công viên chiều nay, đón sớm bốn mươi lăm phút, nhớ nhắc tôi mang láp tóp trước mười lăm phút lúc xe đón.",
+      "old": "ĐẶT Ô TÔ BỐN CHỖ ĐI TỪ CÔNG TY ĐẾN CHỖ HẸN Ở CÔNG VIÊN CHIỀU NAY ĐÓN SỚM BỐN MƯƠI LĂM PHÚT NHỚ NHẮC TÔI MANG LAPTOP TRƯỚC MƯỜI LĂM PHÚT LÚC XE ĐÓN",
+      "new": "ĐẶT Ô TÔ BỐN CHỖ ĐI TỪ CÔNG TY ĐẾN CHỖ HẸN Ở CÔNG VIÊN CHIỀU NAY ĐÓN SỚM BỐN MƯƠI LĂM PHÚT NHỚ NHẮC TÔI MANG LÁP TÓP TRƯỚC MƯỜI LĂM PHÚT LÚC XE ĐÓN"
+    },
+    {
+      "id": "train_0276_last_v10",
+      "spoken": "Tôi cần đặt xe bốn chỗ từ công ty tới công viên chiều nay, đón sớm hơn giờ hẹn bốn mươi lăm phút và nhắc tôi cầm láp tóp trước mười lăm phút khi xe đón.",
+      "old": "TÔI CẦN ĐẶT XE BỐN CHỖ TỪ CÔNG TY TỚI CÔNG VIÊN CHIỀU NAY ĐÓN SỚM HƠN GIỜ HẸN BỐN MƯƠI LĂM PHÚT VÀ NHẮC TÔI CẦM LAPTOP TRƯỚC MƯỜI LĂM PHÚT KHI XE ĐÓN",
+      "new": "TÔI CẦN ĐẶT XE BỐN CHỖ TỪ CÔNG TY TỚI CÔNG VIÊN CHIỀU NAY ĐÓN SỚM HƠN GIỜ HẸN BỐN MƯƠI LĂM PHÚT VÀ NHẮC TÔI CẦM LÁP TÓP TRƯỚC MƯỜI LĂM PHÚT KHI XE ĐÓN"
+    },
+    {
+      "id": "train_0293_last_v01",
+      "spoken": "Nếu ngày mai mà mưa thì dời lịch chạy bộ sáng mai muộn lại hai tiếng, rồi nhắn É sờ mờ cho Minh báo giờ mới, còn không mưa thì thôi.",
+      "old": "NẾU NGÀY MAI MÀ MƯA THÌ DỜI LỊCH CHẠY BỘ SÁNG MAI MUỘN LẠI HAI TIẾNG RỒI NHẮN SMS CHO MINH BÁO GIỜ MỚI CÒN KHÔNG MƯA THÌ THÔI",
+      "new": "NẾU NGÀY MAI MÀ MƯA THÌ DỜI LỊCH CHẠY BỘ SÁNG MAI MUỘN LẠI HAI TIẾNG RỒI NHẮN É SỜ MỜ CHO MINH BÁO GIỜ MỚI CÒN KHÔNG MƯA THÌ THÔI"
+    },
+    {
+      "id": "train_0293_last_v02",
+      "spoken": "Hãy dời giờ chạy bộ sáng mai muộn hơn hai tiếng và nhắn É sờ mờ cho Minh về giờ mới nếu mai mưa, không mưa thì cứ giữ nguyên.",
+      "old": "HÃY DỜI GIỜ CHẠY BỘ SÁNG MAI MUỘN HƠN HAI TIẾNG VÀ NHẮN SMS CHO MINH VỀ GIỜ MỚI NẾU MAI MƯA KHÔNG MƯA THÌ CỨ GIỮ NGUYÊN",
+      "new": "HÃY DỜI GIỜ CHẠY BỘ SÁNG MAI MUỘN HƠN HAI TIẾNG VÀ NHẮN É SỜ MỜ CHO MINH VỀ GIỜ MỚI NẾU MAI MƯA KHÔNG MƯA THÌ CỨ GIỮ NGUYÊN"
+    },
+    {
+      "id": "train_0293_last_v03",
+      "spoken": "Mai nếu trời mưa thì dời việc chạy bộ sáng mai lùi lại hai tiếng, nhắn É sờ mờ báo Minh giờ mới, không mưa thì bỏ qua.",
+      "old": "MAI NẾU TRỜI MƯA THÌ DỜI VIỆC CHẠY BỘ SÁNG MAI LÙI LẠI HAI TIẾNG NHẮN SMS BÁO MINH GIỜ MỚI KHÔNG MƯA THÌ BỎ QUA",
+      "new": "MAI NẾU TRỜI MƯA THÌ DỜI VIỆC CHẠY BỘ SÁNG MAI LÙI LẠI HAI TIẾNG NHẮN É SỜ MỜ BÁO MINH GIỜ MỚI KHÔNG MƯA THÌ BỎ QUA"
+    },
+    {
+      "id": "train_0293_last_v04",
+      "spoken": "Nhắn É sờ mờ cho Minh giờ mới và dời chạy bộ sáng mai muộn hai tiếng nếu mai mưa, còn nếu không mưa thì thôi.",
+      "old": "NHẮN SMS CHO MINH GIỜ MỚI VÀ DỜI CHẠY BỘ SÁNG MAI MUỘN HAI TIẾNG NẾU MAI MƯA CÒN NẾU KHÔNG MƯA THÌ THÔI",
+      "new": "NHẮN É SỜ MỜ CHO MINH GIỜ MỚI VÀ DỜI CHẠY BỘ SÁNG MAI MUỘN HAI TIẾNG NẾU MAI MƯA CÒN NẾU KHÔNG MƯA THÌ THÔI"
+    },
+    {
+      "id": "train_0293_last_v05",
+      "spoken": "Nếu mai có mưa thì dời lịch chạy bộ sáng mai muộn hai tiếng rồi nhắn É sờ mờ cho Minh giờ mới, không mưa thì không cần.",
+      "old": "NẾU MAI CÓ MƯA THÌ DỜI LỊCH CHẠY BỘ SÁNG MAI MUỘN HAI TIẾNG RỒI NHẮN SMS CHO MINH GIỜ MỚI KHÔNG MƯA THÌ KHÔNG CẦN",
+      "new": "NẾU MAI CÓ MƯA THÌ DỜI LỊCH CHẠY BỘ SÁNG MAI MUỘN HAI TIẾNG RỒI NHẮN É SỜ MỜ CHO MINH GIỜ MỚI KHÔNG MƯA THÌ KHÔNG CẦN"
+    },
+    {
+      "id": "train_0293_last_v06",
+      "spoken": "Nếu mai mưa thì dời chạy bộ sáng mai muộn hai tiếng, nhắn É sờ mờ cho Minh giờ mới, không mưa thì thôi.",
+      "old": "NẾU MAI MƯA THÌ DỜI CHẠY BỘ SÁNG MAI MUỘN HAI TIẾNG NHẮN SMS CHO MINH GIỜ MỚI KHÔNG MƯA THÌ THÔI",
+      "new": "NẾU MAI MƯA THÌ DỜI CHẠY BỘ SÁNG MAI MUỘN HAI TIẾNG NHẮN É SỜ MỜ CHO MINH GIỜ MỚI KHÔNG MƯA THÌ THÔI"
+    },
+    {
+      "id": "train_0293_last_v07",
+      "spoken": "Dời lịch chạy bộ sáng mai muộn hai tiếng và nhắn É sờ mờ cho Minh giờ mới nếu ngày mai mưa, không mưa thì thôi.",
+      "old": "DỜI LỊCH CHẠY BỘ SÁNG MAI MUỘN HAI TIẾNG VÀ NHẮN SMS CHO MINH GIỜ MỚI NẾU NGÀY MAI MƯA KHÔNG MƯA THÌ THÔI",
+      "new": "DỜI LỊCH CHẠY BỘ SÁNG MAI MUỘN HAI TIẾNG VÀ NHẮN É SỜ MỜ CHO MINH GIỜ MỚI NẾU NGÀY MAI MƯA KHÔNG MƯA THÌ THÔI"
+    },
+    {
+      "id": "train_0293_last_v08",
+      "spoken": "Nếu mai mưa thì hãy nhắn É sờ mờ cho Minh giờ mới và dời chạy bộ sáng mai muộn hai tiếng, không mưa thì thôi.",
+      "old": "NẾU MAI MƯA THÌ HÃY NHẮN SMS CHO MINH GIỜ MỚI VÀ DỜI CHẠY BỘ SÁNG MAI MUỘN HAI TIẾNG KHÔNG MƯA THÌ THÔI",
+      "new": "NẾU MAI MƯA THÌ HÃY NHẮN É SỜ MỜ CHO MINH GIỜ MỚI VÀ DỜI CHẠY BỘ SÁNG MAI MUỘN HAI TIẾNG KHÔNG MƯA THÌ THÔI"
+    },
+    {
+      "id": "train_0293_last_v09",
+      "spoken": "Mai nếu mưa thì dời chạy bộ sáng mai muộn hai tiếng, nhắn É sờ mờ cho Minh giờ mới, không mưa thì thôi.",
+      "old": "MAI NẾU MƯA THÌ DỜI CHẠY BỘ SÁNG MAI MUỘN HAI TIẾNG NHẮN SMS CHO MINH GIỜ MỚI KHÔNG MƯA THÌ THÔI",
+      "new": "MAI NẾU MƯA THÌ DỜI CHẠY BỘ SÁNG MAI MUỘN HAI TIẾNG NHẮN É SỜ MỜ CHO MINH GIỜ MỚI KHÔNG MƯA THÌ THÔI"
+    },
+    {
+      "id": "train_0293_last_v10",
+      "spoken": "Nhắn É sờ mờ cho Minh giờ mới và dời chạy bộ sáng mai muộn hai tiếng nếu mai mưa, không mưa thì thôi.",
+      "old": "NHẮN SMS CHO MINH GIỜ MỚI VÀ DỜI CHẠY BỘ SÁNG MAI MUỘN HAI TIẾNG NẾU MAI MƯA KHÔNG MƯA THÌ THÔI",
+      "new": "NHẮN É SỜ MỜ CHO MINH GIỜ MỚI VÀ DỜI CHẠY BỘ SÁNG MAI MUỘN HAI TIẾNG NẾU MAI MƯA KHÔNG MƯA THÌ THÔI"
+    },
+    {
+      "id": "train_0297_last_v01",
+      "spoken": "Hãy tắt đèn ở phòng làm việc rồi nhắn tin sê mờ sờ cho Lan bảo mang giúp cái sạc nhé.",
+      "old": "HÃY TẮT ĐÈN Ở PHÒNG LÀM VIỆC RỒI NHẮN TIN SMS CHO LAN BẢO MANG GIÚP CÁI SẠC NHÉ",
+      "new": "HÃY TẮT ĐÈN Ở PHÒNG LÀM VIỆC RỒI NHẮN TIN SÊ MỜ SỜ CHO LAN BẢO MANG GIÚP CÁI SẠC NHÉ"
+    },
+    {
+      "id": "train_0297_last_v02",
+      "spoken": "Nhắn sê mờ sờ cho Lan là nhớ mang hộ cái sạc, tiện thể tắt luôn đèn phòng làm việc đi.",
+      "old": "NHẮN SMS CHO LAN LÀ NHỚ MANG HỘ CÁI SẠC TIỆN THỂ TẮT LUÔN ĐÈN PHÒNG LÀM VIỆC ĐI",
+      "new": "NHẮN SÊ MỜ SỜ CHO LAN LÀ NHỚ MANG HỘ CÁI SẠC TIỆN THỂ TẮT LUÔN ĐÈN PHÒNG LÀM VIỆC ĐI"
+    },
+    {
+      "id": "train_0297_last_v03",
+      "spoken": "Tắt giúp tôi đèn phòng làm việc rồi gửi một cái sê mờ sờ cho Lan nhắc mang theo sạc.",
+      "old": "TẮT GIÚP TÔI ĐÈN PHÒNG LÀM VIỆC RỒI GỬI MỘT CÁI SMS CHO LAN NHẮC MANG THEO SẠC",
+      "new": "TẮT GIÚP TÔI ĐÈN PHÒNG LÀM VIỆC RỒI GỬI MỘT CÁI SÊ MỜ SỜ CHO LAN NHẮC MANG THEO SẠC"
+    },
+    {
+      "id": "train_0297_last_v04",
+      "spoken": "Cho tôi tắt đèn phòng làm việc và nhắn sê mờ sờ cho Lan dặn mang hộ cái sạc.",
+      "old": "CHO TÔI TẮT ĐÈN PHÒNG LÀM VIỆC VÀ NHẮN SMS CHO LAN DẶN MANG HỘ CÁI SẠC",
+      "new": "CHO TÔI TẮT ĐÈN PHÒNG LÀM VIỆC VÀ NHẮN SÊ MỜ SỜ CHO LAN DẶN MANG HỘ CÁI SẠC"
+    },
+    {
+      "id": "train_0297_last_v05",
+      "spoken": "Đèn phòng làm việc tắt đi rồi nhắn sê mờ sờ cho Lan bảo nhớ cầm theo cái sạc nhé.",
+      "old": "ĐÈN PHÒNG LÀM VIỆC TẮT ĐI RỒI NHẮN SMS CHO LAN BẢO NHỚ CẦM THEO CÁI SẠC NHÉ",
+      "new": "ĐÈN PHÒNG LÀM VIỆC TẮT ĐI RỒI NHẮN SÊ MỜ SỜ CHO LAN BẢO NHỚ CẦM THEO CÁI SẠC NHÉ"
+    },
+    {
+      "id": "train_0297_last_v06",
+      "spoken": "Tắt đèn phòng làm việc đi, sau đó nhắn sê mờ sờ cho Lan là nhớ mang hộ cái sạc nhé.",
+      "old": "TẮT ĐÈN PHÒNG LÀM VIỆC ĐI SAU ĐÓ NHẮN SMS CHO LAN LÀ NHỚ MANG HỘ CÁI SẠC NHÉ",
+      "new": "TẮT ĐÈN PHÒNG LÀM VIỆC ĐI SAU ĐÓ NHẮN SÊ MỜ SỜ CHO LAN LÀ NHỚ MANG HỘ CÁI SẠC NHÉ"
+    },
+    {
+      "id": "train_0297_last_v07",
+      "spoken": "Hãy tắt đèn phòng làm việc rồi gửi sê mờ sờ cho Lan dặn mang hộ tôi cái sạc.",
+      "old": "HÃY TẮT ĐÈN PHÒNG LÀM VIỆC RỒI GỬI SMS CHO LAN DẶN MANG HỘ TÔI CÁI SẠC",
+      "new": "HÃY TẮT ĐÈN PHÒNG LÀM VIỆC RỒI GỬI SÊ MỜ SỜ CHO LAN DẶN MANG HỘ TÔI CÁI SẠC"
+    },
+    {
+      "id": "train_0297_last_v08",
+      "spoken": "Nhắn sê mờ sờ cho Lan bảo nhớ mang hộ cái sạc rồi tắt đèn phòng làm việc đi.",
+      "old": "NHẮN SMS CHO LAN BẢO NHỚ MANG HỘ CÁI SẠC RỒI TẮT ĐÈN PHÒNG LÀM VIỆC ĐI",
+      "new": "NHẮN SÊ MỜ SỜ CHO LAN BẢO NHỚ MANG HỘ CÁI SẠC RỒI TẮT ĐÈN PHÒNG LÀM VIỆC ĐI"
+    },
+    {
+      "id": "train_0297_last_v09",
+      "spoken": "Tắt đèn phòng làm việc và nhắn một tin sê mờ sờ cho Lan là nhớ mang hộ sạc nhé.",
+      "old": "TẮT ĐÈN PHÒNG LÀM VIỆC VÀ NHẮN MỘT TIN SMS CHO LAN LÀ NHỚ MANG HỘ SẠC NHÉ",
+      "new": "TẮT ĐÈN PHÒNG LÀM VIỆC VÀ NHẮN MỘT TIN SÊ MỜ SỜ CHO LAN LÀ NHỚ MANG HỘ SẠC NHÉ"
+    },
+    {
+      "id": "train_0297_last_v10",
+      "spoken": "Bạn tắt đèn phòng làm việc đi rồi nhắn sê mờ sờ cho Lan nhắc mang hộ cái sạc.",
+      "old": "BẠN TẮT ĐÈN PHÒNG LÀM VIỆC ĐI RỒI NHẮN SMS CHO LAN NHẮC MANG HỘ CÁI SẠC",
+      "new": "BẠN TẮT ĐÈN PHÒNG LÀM VIỆC ĐI RỒI NHẮN SÊ MỜ SỜ CHO LAN NHẮC MANG HỘ CÁI SẠC"
+    },
+    {
+      "id": "train_0308_history_10_v01",
+      "spoken": "Cho tôi chuyển qua kênh ét cộng sport.",
+      "old": "CHO TÔI CHUYỂN QUA KÊNH S SPORT",
+      "new": "CHO TÔI CHUYỂN QUA KÊNH S CỘNG SPORT"
+    },
+    {
+      "id": "train_0308_history_10_v02",
+      "spoken": "Mở kênh ét cộng sport lên giúp tôi với.",
+      "old": "MỞ KÊNH S SPORT LÊN GIÚP TÔI VỚI",
+      "new": "MỞ KÊNH S CỘNG SPORT LÊN GIÚP TÔI VỚI"
+    },
+    {
+      "id": "train_0308_history_10_v03",
+      "spoken": "Tôi muốn xem kênh ét cộng sport.",
+      "old": "TÔI MUỐN XEM KÊNH S SPORT",
+      "new": "TÔI MUỐN XEM KÊNH S CỘNG SPORT"
+    },
+    {
+      "id": "train_0308_history_10_v04",
+      "spoken": "Hãy chuyển kênh sang ét cộng sport nhé.",
+      "old": "HÃY CHUYỂN KÊNH SANG S SPORT NHÉ",
+      "new": "HÃY CHUYỂN KÊNH SANG S CỘNG SPORT NHÉ"
+    },
+    {
+      "id": "train_0308_history_10_v05",
+      "spoken": "Đổi sang kênh ét cộng sport giúp tôi.",
+      "old": "ĐỔI SANG KÊNH S SPORT GIÚP TÔI",
+      "new": "ĐỔI SANG KÊNH S CỘNG SPORT GIÚP TÔI"
+    },
+    {
+      "id": "train_0308_history_10_v06",
+      "spoken": "Chuyển sang kênh ét cộng sport.",
+      "old": "CHUYỂN SANG KÊNH S SPORT",
+      "new": "CHUYỂN SANG KÊNH S CỘNG SPORT"
+    },
+    {
+      "id": "train_0308_history_10_v07",
+      "spoken": "Mở kênh ét cộng sport cho tôi.",
+      "old": "MỞ KÊNH S SPORT CHO TÔI",
+      "new": "MỞ KÊNH S CỘNG SPORT CHO TÔI"
+    },
+    {
+      "id": "train_0308_history_10_v08",
+      "spoken": "Hãy bật ét cộng sport lên.",
+      "old": "HÃY BẬT S SPORT LÊN",
+      "new": "HÃY BẬT S CỘNG SPORT LÊN"
+    },
+    {
+      "id": "train_0308_history_10_v09",
+      "spoken": "Switch sang kênh ét cộng sport đi.",
+      "old": "SWITCH SANG KÊNH S SPORT ĐI",
+      "new": "SWITCH SANG KÊNH S CỘNG SPORT ĐI"
+    },
+    {
+      "id": "train_0308_history_10_v10",
+      "spoken": "Chọn kênh ét cộng sport nhé.",
+      "old": "CHỌN KÊNH S SPORT NHÉ",
+      "new": "CHỌN KÊNH S CỘNG SPORT NHÉ"
+    },
+    {
+      "id": "train_0339_last_v01",
+      "spoken": "Nếu giá vàng ét jay xi trên bán ra hôm nay vượt một trăm hai mươi bảy triệu thì chín giờ sáng mai nhắc chị bán vàng, còn không thì chuyển hai triệu từ tài khoản thanh toán sang cho Nguyễn Thị Lan để góp mua vàng.",
+      "old": "NẾU GIÁ VÀNG SJC BÁN RA HÔM NAY VƯỢT MỘT TRĂM HAI MƯƠI BẢY TRIỆU THÌ CHÍN GIỜ SÁNG MAI NHẮC CHỊ BÁN VÀNG CÒN KHÔNG THÌ CHUYỂN HAI TRIỆU TỪ TÀI KHOẢN THANH TOÁN SANG CHO NGUYỄN THỊ LAN ĐỂ GÓP MUA VÀNG",
+      "new": "NẾU GIÁ VÀNG SJC TRÊN BÁN RA HÔM NAY VƯỢT MỘT TRĂM HAI MƯƠI BẢY TRIỆU THÌ CHÍN GIỜ SÁNG MAI NHẮC CHỊ BÁN VÀNG CÒN KHÔNG THÌ CHUYỂN HAI TRIỆU TỪ TÀI KHOẢN THANH TOÁN SANG CHO NGUYỄN THỊ LAN ĐỂ GÓP MUA VÀNG"
+    },
+    {
+      "id": "train_0349_history_02_v01",
+      "spoken": "Mở kênh ét cộng sport lên cho tôi.",
+      "old": "MỞ KÊNH S SPORT LÊN CHO TÔI",
+      "new": "MỞ KÊNH S CỘNG SPORT LÊN CHO TÔI"
+    },
+    {
+      "id": "train_0349_history_02_v02",
+      "spoken": "Cho tôi xem kênh ét cộng sport.",
+      "old": "CHO TÔI XEM KÊNH S SPORT",
+      "new": "CHO TÔI XEM KÊNH S CỘNG SPORT"
+    },
+    {
+      "id": "train_0349_history_02_v03",
+      "spoken": "Hãy chuyển qua kênh ét cộng sport nhé.",
+      "old": "HÃY CHUYỂN QUA KÊNH S SPORT NHÉ",
+      "new": "HÃY CHUYỂN QUA KÊNH S CỘNG SPORT NHÉ"
+    },
+    {
+      "id": "train_0349_history_02_v04",
+      "spoken": "Bật kênh ét cộng sport đi.",
+      "old": "BẬT KÊNH S SPORT ĐI",
+      "new": "BẬT KÊNH S CỘNG SPORT ĐI"
+    },
+    {
+      "id": "train_0349_history_02_v05",
+      "spoken": "Chuyển kênh ét cộng sport giúp tôi với.",
+      "old": "CHUYỂN KÊNH S SPORT GIÚP TÔI VỚI",
+      "new": "CHUYỂN KÊNH S CỘNG SPORT GIÚP TÔI VỚI"
+    },
+    {
+      "id": "train_0349_history_02_v06",
+      "spoken": "Chuyển sang kênh ét cộng sport.",
+      "old": "CHUYỂN SANG KÊNH S SPORT",
+      "new": "CHUYỂN SANG KÊNH S CỘNG SPORT"
+    },
+    {
+      "id": "train_0349_history_02_v07",
+      "spoken": "Tôi muốn xem ét cộng sport.",
+      "old": "TÔI MUỐN XEM S SPORT",
+      "new": "TÔI MUỐN XEM S CỘNG SPORT"
+    },
+    {
+      "id": "train_0349_history_02_v08",
+      "spoken": "Thay đổi kênh sang ét cộng sport.",
+      "old": "THAY ĐỔI KÊNH SANG S SPORT",
+      "new": "THAY ĐỔI KÊNH SANG S CỘNG SPORT"
+    },
+    {
+      "id": "train_0349_history_02_v09",
+      "spoken": "Chọn kênh ét cộng sport đi.",
+      "old": "CHỌN KÊNH S SPORT ĐI",
+      "new": "CHỌN KÊNH S CỘNG SPORT ĐI"
+    },
+    {
+      "id": "train_0349_history_02_v10",
+      "spoken": "Chuyển tới kênh ét cộng sport ngay.",
+      "old": "CHUYỂN TỚI KÊNH S SPORT NGAY",
+      "new": "CHUYỂN TỚI KÊNH S CỘNG SPORT NGAY"
+    },
+    {
+      "id": "train_0354_last_v01",
+      "spoken": "Đặt giúp tôi xe bốn chỗ từ công ty đến chỗ đá bóng chiều nay, đón sớm hơn ba mươi phút và nhắc tôi đem theo lạp tóp trước khi xe đến mười lăm phút.",
+      "old": "ĐẶT GIÚP TÔI XE BỐN CHỖ TỪ CÔNG TY ĐẾN CHỖ ĐÁ BÓNG CHIỀU NAY ĐÓN SỚM HƠN BA MƯƠI PHÚT VÀ NHẮC TÔI ĐEM THEO LAPTOP TRƯỚC KHI XE ĐẾN MƯỜI LĂM PHÚT",
+      "new": "ĐẶT GIÚP TÔI XE BỐN CHỖ TỪ CÔNG TY ĐẾN CHỖ ĐÁ BÓNG CHIỀU NAY ĐÓN SỚM HƠN BA MƯƠI PHÚT VÀ NHẮC TÔI ĐEM THEO LẠP TÓP TRƯỚC KHI XE ĐẾN MƯỜI LĂM PHÚT"
+    },
+    {
+      "id": "train_0354_last_v02",
+      "spoken": "Chiều nay tôi đi đá bóng, hãy gọi ô tô bốn chỗ từ công ty tới đó, đón trước giờ hẹn ba mươi phút rồi nhắc tôi lấy lạp tóp trước lúc xe đón mười lăm phút nhé.",
+      "old": "CHIỀU NAY TÔI ĐI ĐÁ BÓNG HÃY GỌI Ô TÔ BỐN CHỖ TỪ CÔNG TY TỚI ĐÓ ĐÓN TRƯỚC GIỜ HẸN BA MƯƠI PHÚT RỒI NHẮC TÔI LẤY LAPTOP TRƯỚC LÚC XE ĐÓN MƯỜI LĂM PHÚT NHÉ",
+      "new": "CHIỀU NAY TÔI ĐI ĐÁ BÓNG HÃY GỌI Ô TÔ BỐN CHỖ TỪ CÔNG TY TỚI ĐÓ ĐÓN TRƯỚC GIỜ HẸN BA MƯƠI PHÚT RỒI NHẮC TÔI LẤY LẠP TÓP TRƯỚC LÚC XE ĐÓN MƯỜI LĂM PHÚT NHÉ"
+    },
+    {
+      "id": "train_0354_last_v03",
+      "spoken": "Gọi cho tôi một chiếc xe bốn chỗ đi từ công ty đến điểm hẹn đá bóng chiều nay, đón trước ba mươi phút và đừng quên nhắc tôi mang lạp tóp trước mười lăm phút khi xe tới.",
+      "old": "GỌI CHO TÔI MỘT CHIẾC XE BỐN CHỖ ĐI TỪ CÔNG TY ĐẾN ĐIỂM HẸN ĐÁ BÓNG CHIỀU NAY ĐÓN TRƯỚC BA MƯƠI PHÚT VÀ ĐỪNG QUÊN NHẮC TÔI MANG LAPTOP TRƯỚC MƯỜI LĂM PHÚT KHI XE TỚI",
+      "new": "GỌI CHO TÔI MỘT CHIẾC XE BỐN CHỖ ĐI TỪ CÔNG TY ĐẾN ĐIỂM HẸN ĐÁ BÓNG CHIỀU NAY ĐÓN TRƯỚC BA MƯƠI PHÚT VÀ ĐỪNG QUÊN NHẮC TÔI MANG LẠP TÓP TRƯỚC MƯỜI LĂM PHÚT KHI XE TỚI"
+    },
+    {
+      "id": "train_0354_last_v04",
+      "spoken": "Đặt xe ô tô bốn chỗ từ công ty đi đá bóng chiều nay, yêu cầu đón trước giờ hẹn ba mươi phút, kèm theo lời nhắc mang lạp tóp trước mười lăm phút lúc xe đón.",
+      "old": "ĐẶT XE Ô TÔ BỐN CHỖ TỪ CÔNG TY ĐI ĐÁ BÓNG CHIỀU NAY YÊU CẦU ĐÓN TRƯỚC GIỜ HẸN BA MƯƠI PHÚT KÈM THEO LỜI NHẮC MANG LAPTOP TRƯỚC MƯỜI LĂM PHÚT LÚC XE ĐÓN",
+      "new": "ĐẶT XE Ô TÔ BỐN CHỖ TỪ CÔNG TY ĐI ĐÁ BÓNG CHIỀU NAY YÊU CẦU ĐÓN TRƯỚC GIỜ HẸN BA MƯƠI PHÚT KÈM THEO LỜI NHẮC MANG LẠP TÓP TRƯỚC MƯỜI LĂM PHÚT LÚC XE ĐÓN"
+    },
+    {
+      "id": "train_0354_last_v05",
+      "spoken": "Tôi cần xe bốn chỗ từ công ty đến chỗ hẹn đá bóng chiều nay, đón trước ba mươi phút, sau đó nhắc tôi mang lạp tóp trước khi xe đón mười lăm phút.",
+      "old": "TÔI CẦN XE BỐN CHỖ TỪ CÔNG TY ĐẾN CHỖ HẸN ĐÁ BÓNG CHIỀU NAY ĐÓN TRƯỚC BA MƯƠI PHÚT SAU ĐÓ NHẮC TÔI MANG LAPTOP TRƯỚC KHI XE ĐÓN MƯỜI LĂM PHÚT",
+      "new": "TÔI CẦN XE BỐN CHỖ TỪ CÔNG TY ĐẾN CHỖ HẸN ĐÁ BÓNG CHIỀU NAY ĐÓN TRƯỚC BA MƯƠI PHÚT SAU ĐÓ NHẮC TÔI MANG LẠP TÓP TRƯỚC KHI XE ĐÓN MƯỜI LĂM PHÚT"
+    },
+    {
+      "id": "train_0354_last_v06",
+      "spoken": "Đặt xe bốn chỗ từ công ty tới chỗ hẹn đá bóng chiều nay, đón trước giờ hẹn ba mươi phút và nhắc tôi mang lạp tóp trước lúc xe đón mười lăm phút.",
+      "old": "ĐẶT XE BỐN CHỖ TỪ CÔNG TY TỚI CHỖ HẸN ĐÁ BÓNG CHIỀU NAY ĐÓN TRƯỚC GIỜ HẸN BA MƯƠI PHÚT VÀ NHẮC TÔI MANG LAPTOP TRƯỚC LÚC XE ĐÓN MƯỜI LĂM PHÚT",
+      "new": "ĐẶT XE BỐN CHỖ TỪ CÔNG TY TỚI CHỖ HẸN ĐÁ BÓNG CHIỀU NAY ĐÓN TRƯỚC GIỜ HẸN BA MƯƠI PHÚT VÀ NHẮC TÔI MANG LẠP TÓP TRƯỚC LÚC XE ĐÓN MƯỜI LĂM PHÚT"
+    },
+    {
+      "id": "train_0354_last_v07",
+      "spoken": "Hãy gọi ô tô bốn chỗ từ công ty đến điểm hẹn đá bóng chiều nay, đón sớm ba mươi phút, rồi đặt nhắc nhở mang lạp tóp trước mười lăm phút khi xe đón.",
+      "old": "HÃY GỌI Ô TÔ BỐN CHỖ TỪ CÔNG TY ĐẾN ĐIỂM HẸN ĐÁ BÓNG CHIỀU NAY ĐÓN SỚM BA MƯƠI PHÚT RỒI ĐẶT NHẮC NHỞ MANG LAPTOP TRƯỚC MƯỜI LĂM PHÚT KHI XE ĐÓN",
+      "new": "HÃY GỌI Ô TÔ BỐN CHỖ TỪ CÔNG TY ĐẾN ĐIỂM HẸN ĐÁ BÓNG CHIỀU NAY ĐÓN SỚM BA MƯƠI PHÚT RỒI ĐẶT NHẮC NHỞ MANG LẠP TÓP TRƯỚC MƯỜI LĂM PHÚT KHI XE ĐÓN"
+    },
+    {
+      "id": "train_0354_last_v08",
+      "spoken": "Gọi xe bốn chỗ từ công ty đi đá bóng chiều nay, đón trước giờ hẹn ba mươi phút, rồi nhắc tôi chuẩn bị lạp tóp trước mười lăm phút lúc xe đón.",
+      "old": "GỌI XE BỐN CHỖ TỪ CÔNG TY ĐI ĐÁ BÓNG CHIỀU NAY ĐÓN TRƯỚC GIỜ HẸN BA MƯƠI PHÚT RỒI NHẮC TÔI CHUẨN BỊ LAPTOP TRƯỚC MƯỜI LĂM PHÚT LÚC XE ĐÓN",
+      "new": "GỌI XE BỐN CHỖ TỪ CÔNG TY ĐI ĐÁ BÓNG CHIỀU NAY ĐÓN TRƯỚC GIỜ HẸN BA MƯƠI PHÚT RỒI NHẮC TÔI CHUẨN BỊ LẠP TÓP TRƯỚC MƯỜI LĂM PHÚT LÚC XE ĐÓN"
+    },
+    {
+      "id": "train_0354_last_v09",
+      "spoken": "Chiều nay đi đá bóng, đặt cho tôi ô tô bốn chỗ từ công ty, đón trước ba mươi phút, và nhắc tôi mang theo lạp tóp trước mười lăm phút khi xe đến đón.",
+      "old": "CHIỀU NAY ĐI ĐÁ BÓNG ĐẶT CHO TÔI Ô TÔ BỐN CHỖ TỪ CÔNG TY ĐÓN TRƯỚC BA MƯƠI PHÚT VÀ NHẮC TÔI MANG THEO LAPTOP TRƯỚC MƯỜI LĂM PHÚT KHI XE ĐẾN ĐÓN",
+      "new": "CHIỀU NAY ĐI ĐÁ BÓNG ĐẶT CHO TÔI Ô TÔ BỐN CHỖ TỪ CÔNG TY ĐÓN TRƯỚC BA MƯƠI PHÚT VÀ NHẮC TÔI MANG THEO LẠP TÓP TRƯỚC MƯỜI LĂM PHÚT KHI XE ĐẾN ĐÓN"
+    },
+    {
+      "id": "train_0354_last_v10",
+      "spoken": "Đặt một chiếc bốn chỗ từ công ty tới chỗ hẹn đá bóng chiều nay, đón trước ba mươi phút, đồng thời nhắc tôi cầm lạp tóp trước khi xe đón mười lăm phút.",
+      "old": "ĐẶT MỘT CHIẾC BỐN CHỖ TỪ CÔNG TY TỚI CHỖ HẸN ĐÁ BÓNG CHIỀU NAY ĐÓN TRƯỚC BA MƯƠI PHÚT ĐỒNG THỜI NHẮC TÔI CẦM LAPTOP TRƯỚC KHI XE ĐÓN MƯỜI LĂM PHÚT",
+      "new": "ĐẶT MỘT CHIẾC BỐN CHỖ TỪ CÔNG TY TỚI CHỖ HẸN ĐÁ BÓNG CHIỀU NAY ĐÓN TRƯỚC BA MƯƠI PHÚT ĐỒNG THỜI NHẮC TÔI CẦM LẠP TÓP TRƯỚC KHI XE ĐÓN MƯỜI LĂM PHÚT"
+    }
+  ],
+  "unknown_targets": {
+    "gipformer": 0,
+    "zipformer": 0
+  }
+}

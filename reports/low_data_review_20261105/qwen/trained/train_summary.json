@@ -1,0 +1,53 @@
+{
+  "train_records": 2,
+  "train_skipped_too_long": {},
+  "valid_records": 2,
+  "train_tasks": {
+    "normalize": 2
+  },
+  "max_tokens": 351,
+  "target_tokens": 68,
+  "base_model": "outputs/claude_review_20261105/tiny_qwen_base",
+  "lora": {
+    "r": 16,
+    "alpha": 32,
+    "dropout": 0.05,
+    "groups": "attention,linear_attention,mlp",
+    "rslora": true,
+    "dora": false
+  },
+  "neftune_alpha": 5.0,
+  "early_stopping_patience": 1,
+  "best_eval_loss": 12.427543640136719,
+  "generation_stop_ids": [
+    248046,
+    248044
+  ],
+  "log_history": [
+    {
+      "eval_loss": 12.429710388183594,
+      "eval_runtime": 0.2854,
+      "eval_samples_per_second": 7.008,
+      "eval_steps_per_second": 7.008,
+      "epoch": 0.5,
+      "step": 1
+    },
+    {
+      "eval_loss": 12.427543640136719,
+      "eval_runtime": 0.2865,
+      "eval_samples_per_second": 6.982,
+      "eval_steps_per_second": 6.982,
+      "epoch": 1.0,
+      "step": 2
+    },
+    {
+      "train_runtime": 1.2226,
+      "train_samples_per_second": 1.636,
+      "train_steps_per_second": 1.636,
+      "total_flos": 1133761008.0,
+      "train_loss": 12.462459564208984,
+      "epoch": 1.0,
+      "step": 2
+    }
+  ]
+}

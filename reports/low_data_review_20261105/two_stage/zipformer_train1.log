@@ -1,0 +1,20 @@
+/home/pc/zalo_ai_challenge_claude_review_20261105/.review-deps/icefall/icefall/utils.py:1659: SyntaxWarning: invalid escape sequence '\d'
+  """
+/home/pc/zalo_ai_challenge_claude_review_20261105/.review-deps/icefall/egs/librispeech/ASR/zipformer/scaling.py:1309: FutureWarning: `torch.cuda.amp.custom_fwd(args...)` is deprecated. Please use `torch.amp.custom_fwd(args..., device_type='cuda')` instead.
+  @custom_fwd
+/home/pc/zalo_ai_challenge_claude_review_20261105/.review-deps/icefall/egs/librispeech/ASR/zipformer/scaling.py:1318: FutureWarning: `torch.cuda.amp.custom_bwd(args...)` is deprecated. Please use `torch.amp.custom_bwd(args..., device_type='cuda')` instead.
+  @custom_bwd
+/home/pc/zalo_ai_challenge_claude_review_20261105/.review-deps/icefall/egs/librispeech/ASR/zipformer/scaling.py:1515: FutureWarning: `torch.cuda.amp.custom_fwd(args...)` is deprecated. Please use `torch.amp.custom_fwd(args..., device_type='cuda')` instead.
+  @custom_fwd
+/home/pc/zalo_ai_challenge_claude_review_20261105/.review-deps/icefall/egs/librispeech/ASR/zipformer/scaling.py:1554: FutureWarning: `torch.cuda.amp.custom_bwd(args...)` is deprecated. Please use `torch.amp.custom_bwd(args..., device_type='cuda')` instead.
+  @custom_bwd
+2026-11-05 15:23:21,148 Loaded zipformer: {"checkpoint": "models/zipformer-150M-6000h/jit_script.pt", "config": {"num_encoder_layers": "2,2,4,5,4,2", "downsampling_factor": "1,2,4,8,4,2", "encoder_dim": "192,256,512,768,512,256", "feedforward_dim": "512,768,1536,2048,1536,768", "num_heads": "4,4,4,8,4,4", "query_head_dim": "32,32,32,32,32,32", "value_head_dim": "12,12,12,12,12,12", "pos_head_dim": "4,4,4,4,4,4", "pos_dim": 48, "cnn_module_kernel": "31,31,15,15,15,31", "encoder_unmasked_dim": "192,192,256,320,256,192", "causal": false, "decoder_dim": 512, "context_size": 2, "joiner_dim": 512, "use_transducer": true, "use_ctc": true, "use_attention_decoder": false}, "jit_attributes": {"downsampling_factor": "1,2,4,8,4,2", "encoder_dim": "192,256,512,768,512,256", "encoder_unmasked_dim": "192,192,256,320,256,192", "num_encoder_layers": "2,2,4,5,4,2", "query_head_dim": "32,32,32,32,32,32", "value_head_dim": "12,12,12,12,12,12", "num_heads": "4,4,4,8,4,4", "cnn_module_kernel": "31,31,15,15,15,31", "causal": false}, "unexpected_keys": [], "check": {"encoder_max_abs_diff": 3.0994415283203125e-06, "encoder_scale": 1.62641179561615, "decoder_max_abs_diff": 0.0}}
+2026-11-05 15:23:21,223 LoRA on 171 projections; {'total_parameters': 154448762, 'trainable_parameters': 1010688, 'trainable_percent': 0.654}
+2026-11-05 15:23:21,231 num_frame_masks: 25, max_frames_mask_fraction: 0.375
+2026-11-05 15:23:22,706 Before fine-tuning: {'epoch': 0, 'loss_per_frame': 0.14506577673853407, 'wer_percent': 5.128, 'words': 39}
+2026-11-05 15:23:22,707 Epoch 1 training mix: {'real': 2, 'real_copies': 0, 'tts': 0, 'tts_pool': 0, 'tts_reverberated': 0, 'real_share_percent': 100.0, 'ratio_unit': 'utterances', 'real_seconds': 6.245, 'tts_seconds': 0.0, 'real_share_seconds_percent': 100.0, 'tts_over_duration_budget': 0, 'duration_cycle_epochs': 0}
+2026-11-05 15:23:23,538 epoch 1 batch 1 loss/frame 0.4226 {'simple': 0.3215, 'pruned': 0.1501, 'ctc': 0.1673, 'cr': 0.3917} lr 2.27e-02
+2026-11-05 15:23:27,525 epoch 1 batch 2 loss/frame 0.4230 {'simple': 0.313, 'pruned': 0.1263, 'ctc': 0.1788, 'cr': 0.5226} lr 2.29e-02
+2026-11-05 15:23:28,728 Epoch 1: {'epoch': 1, 'train_loss_per_frame': 0.42296704820766573, 'seconds': 4.8, 'batches': 2, 'skipped_nonfinite': 0, 'fp16_overflows': 0, 'loss_per_frame': 0.1450657397026383, 'wer_percent': 5.128, 'words': 39}
+2026-11-05 15:23:28,740 Best validation WER 5.128% (before fine-tuning 5.128%)
+2026-11-05 15:23:28,740 No epoch beat the original model on validation; keep the original checkpoint

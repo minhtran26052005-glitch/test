@@ -1,0 +1,22 @@
+{
+  "note": "Explicit text pronunciation mappings reviewed in the train-generated hints. Matching is exact after normalization; this is not audio QC. Do not add similar names/drugs by edit distance. Words outside a matched span must be retained.",
+  "readings": {
+    "ADAM ROBERTS": ["A ĐẠM RỐP BỚT", "Á ĐAM RÔ BỚT"],
+    "BOOK": ["BÚC"],
+    "JULIA PARKER": ["CHU LI A PÁC KHƠ", "JU LI A PA KƠ"],
+    "ZALO": ["DA LÔ", "GIA LÔ"],
+    "LAURA EVANS": ["LO RA Ê VẦN", "LÔ RA Ê VÂN"],
+    "NINA FOSTER": ["NI NA FỐT STƠ", "NI NA PHỐT TƠ"],
+    "OK": ["O KÊ", "Ô KÊ"],
+    "PIZZA": ["PÍT ZA"],
+    "SPORT": ["PỐT", "X PÓT"],
+    "RON": ["RỜ Ô N", "RÒN"],
+    "SET TV": ["SÉT TI VI"],
+    "SET ALARM": ["SÉT Ờ LAM"],
+    "SJC": ["SỜ JÊ CÊ", "SỜ JỜ CÊ", "SỜ JỜ CỜ", "ÉT GI XÊ"],
+    "SMS": ["ÉT M ÉT"],
+    "TAXI": ["TẮC XI"],
+    "ERIC COLLINS": ["Ê RIC CÔ LIN", "Ê RÍCH CÔ LIN"],
+    "ALARM": ["Ờ LAM"]
+  }
+}

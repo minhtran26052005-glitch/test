@@ -1,5 +1,7 @@
 # Train ASR và Qwen với ít dữ liệu, một domain: nghiên cứu và công thức cho LifeMate
 
+> **Đã kiểm chứng lại trên máy, 05/11/2026:** xem [báo cáo đối chiếu nguồn và test thật](LOW_DATA_RESEARCH_REVIEW_20261105.md). Đã đọc PDF gốc cho các kết luận chính. Tỉ lệ 2:1, ngưỡng 40 giọng và LR 0.045 đều phụ thuộc thiết lập; không phải quy luật chung. Hotwords có thể làm hỏng câu dù không đổi trọng số. Code bổ sung giới hạn TTS theo số giây, xoay vòng pool, cache QC theo nội dung và kiểm tra export đủ ba nhánh transducer.
+
 Câu hỏi: hai ASR (GipFormer 68M RNN-T, ZipFormer-150M CR-CTC) và Qwen3.5-4B đều đã học rất nhiều dữ liệu. Ta chỉ có
 vài nghìn câu trong miền thi. Làm sao để model học được miền thi mà không lệch, không quên và không học vẹt?
 
@@ -16,17 +18,16 @@ Hạn chế về nguồn được ghi ở mục 8.
 
 1. **Chưa train ASR vội; thử giải mã có thiên vị (contextual biasing) trước.** Lỗi khó học nhất bằng ít data là từ
    hiếm: mã, thương hiệu, từ mượn (SJC, ZALO, SMS, MEETING…). Cách sửa là `modified_beam_search` + hotwords của
-   sherpa-onnx: không đổi trọng số, nên không thể lệch ở phần còn lại.
+   sherpa-onnx: không đổi trọng số, nhưng vẫn có thể làm sai các câu khác do đổi điểm giải mã.
    - Danh sách lấy từ split fit phủ được 73/136 (Gip) và 66/126 (Zip) lần nghe sai loại từ này trên validation.
-     Đây là trần lý thuyết, chưa phải kết quả decode.
+     Đây là độ phủ của danh sách, chưa phải tỉ lệ sửa được hoặc một chặn trên cho hiệu quả decode.
    - Cách chạy: `./run_finetune.sh hotwords`.
 2. **Nếu train ASR thì dùng LoRA nhỏ, chọn checkpoint trên validation (chỉ audio thật).** Sau đó nội suy trọng số giữa
    model gốc và model đã train (`--scale`, kiểu WiSE-FT), chọn hệ số trên validation, chỉ chấm test một lần.
    - Khi audio thật chỉ vài giờ và phần lớn là TTS (mục 3.6): mỗi epoch cho TTS khoảng 1–2 lần số câu thật, lấy tập TTS
      mới mỗi epoch để dùng hết kho. Tăng biến thiên âm học cho TTS.
-   - Cách an toàn nhất: `./run_finetune.sh asr2`. Encoder chỉ học từ audio thật; TTS chỉ dạy joint network.
-   - **Đã sửa một lỗi:** lr mặc định cũ 0.0045 là lr của full fine-tune. Với LoRA dưới ScaledAdam, adapter gần như
-     không học. Mặc định nay là 0.045 như recipe `zipformer_lora` của icefall (mục 3.2).
+   - Một nhánh cần so sánh: `./run_finetune.sh asr2`. Encoder chỉ cập nhật từ audio gốc; TTS dạy joint network. Li et al. cập nhật cả prediction + joint, nên chưa phải cùng phương pháp.
+   - LR mặc định nay là 0.045 theo parser recipe `zipformer_lora`; usage của chính recipe cũng có 0.0045. Mô phỏng ma trận ủng hộ thử LR cao hơn, chưa chứng minh nguyên nhân model ASR không cải thiện.
 3. **Đo đúng chỗ ít data tác động.** Ngoài WER, cần xem:
    - recall và false alarm của từ ngoại/mã;
    - số câu "sửa được" và số câu "làm hỏng";
@@ -45,7 +46,7 @@ Hạn chế về nguồn được ghi ở mục 8.
 
 | Phần | Số liệu (đã có trong repo) |
 | --- | --- |
-| ASR, audio thật | fit / validation / test: 3.558 / 649 / 829 câu, gồm cả lượt user trong history. Khoảng 14 từ mỗi câu, nên fit vào khoảng vài giờ (ước lượng, chưa đo thời lượng) |
+| ASR, audio gốc | fit / validation / test: 3.558 / 649 / 829 câu, gồm cả history; đo bằng header WAV: **4,805 / 0,918 / 1,106 giờ** |
 | ASR, TTS | 7.496 yêu cầu (3.748 mỗi model) và 790 câu agent viết tay; chỉ dùng sau QC (`*_qc.jsonl`) |
 | WER gốc trên 5.036 audio train | Gip 15,24%, Zip 14,0% |
 | Agent | 1.545 mẫu: fit / validation / test là 1.066 / 231 / 248. State match test hiện là 26,6–29,0% tuỳ cấu hình ASR |
@@ -176,23 +177,19 @@ Vậy là:
 | `--speed-perturb` | Bật | Tăng biến thể với giá rẻ (0,9 / 1,1); các recipe icefall đều dùng |
 | TTS | `--max-tts-ratio 1` (mặc định, theo từng epoch). Chạy mốc `--max-tts-ratio 0` trước | Mục 3.4 và 3.6 |
 
-**Lỗi lr đã sửa.** Mặc định cũ `--base-lr 0.0045` là lr của *full* fine-tune trong tutorial icefall (1/10 lr gốc). Với
-LoRA dưới ScaledAdam, mức này quá nhỏ:
+**Điều chỉnh LR cần xác nhận bằng ASR.** Parser LoRA recipe mặc định 0.045, nhưng usage ở đầu chính file đó vẫn ghi 0.0045. Với LoRA khởi tạo B = 0, ScaledAdam có thể cập nhật chậm ở LR thấp:
 
 - ScaledAdam nhân mỗi bước với max(RMS(tham số), 1e-5).
 - `lora_B` bắt đầu bằng 0, nên mỗi bước nó lớn lên nhiều nhất khoảng (1 + lr) lần.
 
-`scripts/scaled_adam_lora_lr_check.py` tự cài lại quy tắc bước đó (không chạy code icefall) và cho LoRA học một cập nhật
-hạng thấp trong 720 bước, cỡ 15 epoch của split fit:
+`scripts/scaled_adam_lora_lr_check.py` có bản quy tắc đơn giản và tuỳ chọn optimizer icefall thật, cho LoRA học một cập nhật hạng thấp trong 720 bước minh hoạ. Không quy đổi 720 bước này thành số epoch ASR:
 
 | lr | rms(B) | Phần cập nhật cần học còn thiếu |
 | --- | --- | --- |
 | 0.0045 | ~4e-5 | ~99% |
 | 0.045 | ~6e-4 | ~5% |
 
-Tức là với mặc định cũ, adapter gần như không đổi model: hoặc không epoch nào hơn model gốc, hoặc hơn chỉ do nhiễu.
-Mặc định nay là 0.045, đúng recipe LoRA và adapter của icefall. Với `--optimizer adamw` mặc định là 5e-4: Adam cập nhật theo giá trị tuyệt đối, nên
-B = 0 không bị kẹt.
+Đã chạy lại bài fit ma trận với ScaledAdam thật: sai số cập nhật còn khoảng 97,97% ở 0.0045 và 4,92% ở 0.045. Đây không phải đo độ chính xác ASR. Không thể từ đó kết luận mọi lần không cải thiện đều do LR hoặc loại trừ lỗi data. Mặc định 0.045 là một ứng viên cần chọn trên validation; AdamW mặc định 5e-4 có quy tắc cập nhật khác.
 
 **Chạy hai lần rồi so.** Lần đầu chỉ audio thật; lần sau thêm TTS đã qua QC. Chỉ giữ TTS nếu validation tốt hơn *và*
 số câu bị làm hỏng không tăng.
@@ -237,9 +234,9 @@ giảm độ trôi (WiSE-FT, mục 2).
   - Chỉ dùng dữ liệu tổng hợp thì vẫn còn khoảng cách lớn ([Hilmes et al. 2024](https://arxiv.org/abs/2407.17997)).
   - Lợi ích của TTS phụ thuộc kiến trúc và rõ nhất với AED ([Rossenbach et al. 2021](https://arxiv.org/abs/2104.05379?context=cs)).
     Model của ta là transducer, nên kỳ vọng vừa phải.
-- **Đa dạng text quan trọng hơn đa dạng giọng.** Có nghiên cứu thấy tăng giọng bằng voice conversion không hiệu quả
+- **Text và âm học đều cần kiểm tra.** Có nghiên cứu thấy tăng giọng bằng voice conversion không hiệu quả
   ([2204.00618](https://arxiv.org/pdf/2204.00618), [2406.07090](https://arxiv.org/html/2406.07090v2),
-  [2410.16726](https://export.arxiv.org/pdf/2410.16726)). Vì vậy câu diễn đạt lại đa dạng đáng giá hơn nhân bản giọng.
+  [2410.16726](https://export.arxiv.org/pdf/2410.16726)); kết quả không đồng nhất giữa corpus/architecture. Không kết luận luôn ưu tiên text hơn mọi biến thiên giọng.
 - **Repo đã làm:**
   - nhãn TTS theo đúng chữ được đọc;
   - hai ASR nghe lại (QC);
@@ -277,22 +274,23 @@ Quy tắc: chọn mọi thứ (điểm hotword, epoch, scale, TTS ratio) trên *
 | --- | --- |
 | Ít data thật + TTS có giúp không | Có, kể cả rất ít. Với 24 phút audio có nhãn, TTS giảm WER tương đối tới 25,5%; self-training trên audio chưa nhãn giảm tới 20,5% ([Bartelds et al. 2023](https://aclanthology.org/2023.acl-long.42)). TTS train từ chính data ASR rồi đem tăng cường cũng cải thiện ([Laptev et al. 2020](https://arxiv.com/abs/2005.07157)) |
 | Có trần không | Có. TTS mở rộng cả đa dạng từ vựng lẫn âm học nhưng lợi ích có giới hạn, và model train bằng giọng tổng hợp vẫn kém xa model train bằng giọng người ([Rosenberg et al. 2019](https://arxiv.org/pdf/1909.11699); [Hilmes et al. 2024](https://arxiv.org/abs/2407.17997)) |
-| Tỉ lệ thật : TTS | 1:1 cho kết quả tốt cả trong và ngoài miền ([IEEE](https://ieeexplore.ieee.org/document/11252042/)). Lợi ích lớn nhất khi data thật dưới 1 giờ; chững lại khi TTS vượt khoảng 2 lần data thật ([LREC 2026](https://aclanthology.org/2026.lrec-1.442/)). Lượng TTS ngang data thật là hiệu quả chi phí ([2410.16726](https://arxiv.org/pdf/2410.16726)). Một nghiên cứu được LREC 2026 dẫn lại dùng 168 phút TTS với 24 phút thật (khoảng 7:1) vẫn có lợi, nhưng đó là mức cực ít data |
-| Bao nhiêu giọng | Số giọng chững lại sớm, khoảng 40 giọng trong một nghiên cứu clone giọng cho ASR trẻ em ([2611.03050](https://arxiv.org/abs/2611.03050)). Đa dạng text quan trọng hơn đa dạng giọng ([2410.16726](https://arxiv.org/pdf/2410.16726)). TTS ít biến thiên thì nhanh bão hoà |
+| Tỉ lệ thật : TTS | 1:1 được ủng hộ trong abstract [IEEE](https://xplorestaging.ieee.org/document/11252042), chưa kiểm tra đủ bảng thực nghiệm. LREC 2026 §3.3 có **hai** chế độ: cố định tập TTS tốt nhất ở 7:1, đổi câu TTS tốt nhất ở 2:1; đều dùng 1 giờ tiếng Frisian, XLS-R + XTTS, 2.000 bước. Không suy ra giới hạn 2:1 cho mọi model. Bài 2410.16726 thử các tập 200–3.700 giờ, khác quy mô của repo |
+| Bao nhiêu giọng | Ngưỡng khoảng 40 là kết quả Whisper-small/OmniVoice, tiếng trẻ em Anh; không áp trực tiếp cho Gip/Zip. Bài đó nhấn mạnh đa dạng âm học trên cùng transcript, còn 2410.16726 nhấn mạnh text trong thí nghiệm CosyVoice khác. 753 đoạn tham chiếu không xác nhận có 753 người nói |
 | Khoảng cách phân phối | Synt++ lọc mẫu TTS (rejection sampling) và tách thống kê batch-norm cho thật/TTS, giảm tới 13% lỗi ASR tương đối so với dùng TTS thô ([Synt++](https://machinelearning.apple.com/research/utilizing-imperfect-synthetic)). Zipformer dùng BiasNorm, không có thống kê batch, nên chỉ phần lọc áp dụng được; repo đã có QC hai ASR |
 | Cho TTS dạy phần nào | Với RNN-T, chỉnh prediction + joint network bằng TTS sinh từ text miền đích thắng cả sửa chính tả và LM rescoring, không thêm chi phí khi chạy ([Li et al. 2020](https://arxiv.org/pdf/2007.15188)) |
 
 **Vì sao không để TTS dạy encoder.** TTS là nguồn tốt cho *từ* (SJC, ZALO, tên thuốc, cách nói trong miền) nhưng là
-nguồn xấu cho *âm học*: giọng clone vẫn mang dấu vết vocoder và cùng một kênh "sạch". Nếu TTS chiếm phần lớn gradient
+nguồn âm học có thể lệch: giọng clone có thể mang dấu vết vocoder/kênh sạch. Nếu TTS chiếm phần lớn gradient
 của encoder, model có thể học "kênh TTS" thay vì học nghe. Encoder là nơi học âm học; joint network là nơi chấm điểm
-từng token. Vì vậy công thức an toàn là để encoder chỉ học từ audio thật.
+từng token. Đóng băng encoder là một thí nghiệm hạn chế đường cập nhật, không bảo đảm toàn model không lệch và cũng có thể hạn chế sửa lỗi âm học.
 
 **Đã cài cho tình huống này:**
 
 | Tuỳ chọn | Tác dụng |
 | --- | --- |
 | `--max-tts-ratio R` | Nay áp **theo từng epoch**: tối đa R câu TTS cho mỗi câu thật của epoch đó (kể cả bản lặp). `-1` dùng hết |
-| Mặc định lấy tập TTS mới mỗi epoch (`--fixed-tts-subset` để giữ cách cũ) | Dùng hết kho TTS qua các epoch mà tỉ lệ thật trong mỗi epoch không đổi |
+| Xoay vòng một hoán vị TTS theo seed (`--fixed-tts-subset` để giữ cố định) | Tránh lấy mẫu độc lập làm một số câu không bao giờ được chọn; chế độ số giây báo các câu quá dài không vừa budget |
+| `--tts-ratio-unit seconds` | Giới hạn theo thời lượng sau speed perturb, log cả số câu và số giây; `asr2` mặc định dùng cách này. Lệnh train trực tiếp giữ mặc định `utterances` để tương thích |
 | `--real-repeat K` | Mỗi câu thật xuất hiện K lần mỗi epoch; bản lặp được đổi tốc độ 0,9 / 1,1 / 0,95 / 1,05 nên không trùng y hệt. Dùng khi muốn nhiều TTS hơn mà vẫn giữ tỉ lệ |
 | `--tts-speed-perturb`, `--tts-reverb-prob P` | Chỉ cho TTS: tốc độ ngẫu nhiên 0,9 / 1,0 / 1,1, và vang phòng mô phỏng của lhotse (không cần bộ RIR). Vang cần torchaudio; script thử trước khi train và báo rõ nếu thiếu |
 | `--lora-targets joiner` | LoRA chỉ ở joint network; encoder giữ nguyên. Với Zip, CR-CTC tự tắt vì không còn tham số nào trên đường đó |
@@ -304,16 +302,16 @@ từng token. Vì vậy công thức an toàn là để encoder chỉ học từ
 - TTS tối đa bằng hai lần số câu thật khác nhau.
 
 Với kho hiện tại (trước QC: Gip 4.538 câu, Zip 3.748 câu), như vậy là dùng toàn bộ kho mỗi epoch, và audio thật chiếm
-khoảng 61% (Gip) và 65% (Zip). Theo các nghiên cứu ở bảng trên, tăng TTS quá khoảng 2 lần data thật hiếm khi có lợi thêm.
+khoảng 61% (Gip) và 65% (Zip) **theo số lượt câu**, không phải số giờ hoặc lượng thông tin độc lập. Đây không phải bằng chứng đặt trần TTS ở 2 lần. `asr2` nay dùng duration budget; khi stage 1 không cải thiện, stage 2 vẫn có thể thử từ model gốc. Cần manifest TTS đã QC, không rỗng, trước khi chạy.
 
 **Gợi ý thêm (chưa cài):**
 
 - **Ưu tiên TTS "khó".** Nhóm `asr_learnable` dạy được nhiều. Nhóm `asr_already_right` chủ yếu thêm âm học TTS mà ít thêm
   từ. Khi phải cắt bớt TTS, nên ưu tiên nhóm đầu.
-- **Giọng clone:** vài chục giọng là đủ. Dồn công vào text đa dạng (câu diễn đạt lại, từ khó). Với câu chứa từ khó, đọc
+- **Giọng clone:** bắt đầu với một tập giọng đa dạng và đo saturation; chưa có ngưỡng chung cho tiếng Việt. Với câu chứa từ khó, có thể thử đọc
   bằng 2 giọng khác nhau. Clone ưu tiên giọng của các câu model nghe sai.
 - **Kiểm tra model có học "kênh TTS" không.** Giữ lại khoảng 5% câu TTS (theo seed) làm tập kiểm tra. Nếu WER trên TTS giữ
-  lại giảm mạnh mà validation thật không giảm, model đang học giọng tổng hợp chứ không học từ.
+  lại giảm mạnh mà validation gốc không giảm, đó là dấu hiệu lệch miền cần điều tra, chưa đủ xác định nguyên nhân.
 - **Mỗi giờ audio thật đáng giá hơn nhiều giờ TTS.** Nếu có thể, nhờ vài người đọc câu miền thi bằng điện thoại.
   Self-training trên audio thật chưa nhãn cũng có bằng chứng tốt (Bartelds et al.), nhưng public_test chỉ dùng được nếu
   luật thi cho phép.

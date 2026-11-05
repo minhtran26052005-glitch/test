@@ -1,0 +1,86 @@
+{
+  "bartelds2023": {
+    "url": "https://aclanthology.org/2023.acl-long.42.pdf",
+    "status": 200,
+    "bytes": 826664,
+    "sha256": "9cffb119e351d9611a3466e6fd3e8b74794ce0e5501b5a76bbfc3bcc824a0347",
+    "text_extracted": true
+  },
+  "hao2026": {
+    "url": "https://aclanthology.org/2026.lrec-1.442.pdf",
+    "status": 200,
+    "bytes": 686012,
+    "sha256": "4859536da9fa000f05a35c58d6affc07a95a54575778b1196133372b825d3e3a",
+    "text_extracted": true
+  },
+  "children2026": {
+    "url": "https://arxiv.org/pdf/2611.03050",
+    "status": 200,
+    "bytes": 208440,
+    "sha256": "ae5db429f07d9eedbeee1779ec7896896cc500b83e4903a2010740010b1d5125",
+    "text_extracted": true
+  },
+  "versatile2024": {
+    "url": "https://arxiv.org/pdf/2410.16726",
+    "status": 200,
+    "bytes": 342744,
+    "sha256": "a5f349c34f6485e1dd43beba4e9b4d7d7bcc68e3c1c470362148c47d2b6855a5",
+    "text_extracted": true
+  },
+  "li2020": {
+    "url": "https://arxiv.org/pdf/2007.15188",
+    "status": 200,
+    "bytes": 264256,
+    "sha256": "58642b9e6c0d5614abf57dd936c7f5cca41bc8409544ad329493ff532ec2a36a",
+    "text_extracted": true
+  },
+  "rosenberg2019": {
+    "url": "https://arxiv.org/pdf/1909.11699",
+    "status": 200,
+    "bytes": 164254,
+    "sha256": "6a716bdf57f7798ebe8aa40eb32ab0f2cf8f41291493299b3012da9892bd7e46",
+    "text_extracted": true
+  },
+  "hard_synth2024": {
+    "url": "https://arxiv.org/pdf/2411.13159",
+    "status": 200,
+    "bytes": 2436735,
+    "sha256": "50f3d2c3f06c8ce0c06dd028a29359228f4fc53b86fea713e030ae7c9ebf94aa",
+    "text_extracted": true
+  },
+  "laptev2020": {
+    "url": "https://arxiv.org/pdf/2005.07157",
+    "status": 200,
+    "bytes": 202641,
+    "sha256": "44ef4269d89ca5106b4ee8e1f066dea528d148448370261646f6a6451c1c47b1",
+    "text_extracted": true
+  },
+  "hilmes2024": {
+    "url": "https://arxiv.org/pdf/2407.17997",
+    "status": 200,
+    "bytes": 103695,
+    "sha256": "bee535ea4226411246514c8cf218d9bd03f857079e9239d39660eaf0e06f8af9",
+    "text_extracted": true
+  },
+  "damage_control2022": {
+    "url": "https://arxiv.org/pdf/2210.03255",
+    "status": 200,
+    "bytes": 364365,
+    "sha256": "0bfd50734d999ad2c3f7c37f64b78a9e63b8587776e9107be298e77cad3facd1",
+    "text_extracted": true
+  },
+  "wiseft2021": {
+    "url": "https://arxiv.org/pdf/2109.01903",
+    "status": 200,
+    "bytes": 2226747,
+    "sha256": "2c94c2d7741ecea77040176d3f01f65c06d789ddabb6934a67eb1f1b0e7c252a",
+    "text_extracted": true
+  },
+  "fireact2023": {
+    "url": "https://arxiv.org/pdf/2310.05915",
+    "status": 200,
+    "bytes": 785239,
+    "sha256": "f25210a50e197285f404c5a17e437fa93c21f3ab6a9db8687985b6d8613a773f",
+    "text_extracted": true
+  }
+}

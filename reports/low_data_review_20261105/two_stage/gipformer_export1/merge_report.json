@@ -1,0 +1,51 @@
+{
+  "model": "gipformer",
+  "base_model_dir": "models/gipformer1.5-68M-rnnt",
+  "lora": "outputs/low_data_review_20261105/two_stage/gipformer_stage1/lora-epoch-1.pt",
+  "scale": 1.0,
+  "merged_projections": 144,
+  "parameters": 69651511,
+  "merge_max_abs_diff": 1.9073486328125e-06,
+  "onnx_encoder_max_abs_diff": 1.7285346984863281e-06,
+  "merge_component_max_abs_diff": {
+    "encoder": 1.9073486328125e-06,
+    "decoder": 0.0,
+    "joiner": 2.288818359375e-05
+  },
+  "onnx_component_max_abs_diff": {
+    "encoder": 1.7285346984863281e-06,
+    "decoder": 1.0728836059570312e-06,
+    "joiner": 3.814697265625e-05
+  },
+  "adapter_epoch": 1,
+  "adapter_valid": {
+    "epoch": 1,
+    "train_loss_per_frame": 0.17226428945099978,
+    "seconds": 1.5,
+    "batches": 2,
+    "skipped_nonfinite": 0,
+    "fp16_overflows": 0,
+    "loss_per_frame": 0.12323821478291237,
+    "wer_percent": 2.564,
+    "words": 39
+  },
+  "model_config": {
+    "num_encoder_layers": "2,2,3,4,3,2",
+    "downsampling_factor": "1,2,4,8,4,2",
+    "encoder_dim": "192,256,384,512,384,256",
+    "feedforward_dim": "512,768,1024,1536,1024,768",
+    "num_heads": "4,4,4,8,4,4",
+    "query_head_dim": "32",
+    "value_head_dim": "12",
+    "pos_head_dim": "4,4,4,4,4,4",
+    "pos_dim": 48,
+    "cnn_module_kernel": "31,31,15,15,15,31",
+    "encoder_unmasked_dim": "192,192,256,256,256,192",
+    "decoder_dim": 512,
+    "context_size": 2,
+    "joiner_dim": 512,
+    "use_transducer": true,
+    "use_ctc": true,
+    "use_attention_decoder": false
+  }
+}

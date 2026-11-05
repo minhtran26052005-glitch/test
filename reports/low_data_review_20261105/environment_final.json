@@ -1,0 +1,15 @@
+{
+  "cuda_visible_devices": "",
+  "packages": {
+    "torch": "2.10.0+cu128",
+    "torchaudio": "2.10.0+cu128",
+    "k2": "1.24.4.dev20260306+cuda12.8.torch2.10.0",
+    "lhotse": "1.33.0",
+    "transformers": "5.21.0",
+    "peft": "0.21.2",
+    "sherpa-onnx": "1.12.40+cuda12.cudnn9"
+  },
+  "gpu_processes_after": "522957, /home/pc/venv_tsasr/bin/python, 24956 MiB",
+  "shared_environments_modified": false,
+  "reviewed_claude_commit": "0d0a2a4286758885972020a7a8a9b34ccf7e2890"
+}

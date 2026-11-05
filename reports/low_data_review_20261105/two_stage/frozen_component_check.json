@@ -1,0 +1,24 @@
+{
+  "gipformer": {
+    "changed_weights": {
+      "joiner.encoder_proj.weight": 7.450580596923828e-09,
+      "joiner.decoder_proj.weight": 7.450580596923828e-09,
+      "joiner.output_linear.weight": 1.4901161193847656e-08
+    },
+    "unchanged_encoder_and_decoder": true,
+    "parameters": 69651511,
+    "state_tensor_elements_including_buffers": 69651511,
+    "cuda_visible": false
+  },
+  "zipformer": {
+    "changed_weights": {
+      "joiner.encoder_proj.weight": 7.450580596923828e-09,
+      "joiner.decoder_proj.weight": 7.450580596923828e-09,
+      "joiner.output_linear.weight": 7.450580596923828e-09
+    },
+    "unchanged_encoder_and_decoder": true,
+    "parameters": 153438074,
+    "state_tensor_elements_including_buffers": 154050027,
+    "cuda_visible": false
+  }
+}

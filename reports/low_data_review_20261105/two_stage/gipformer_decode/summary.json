@@ -1,0 +1,49 @@
+{
+  "gipformer=models/gipformer1.5-68M-rnnt": {
+    "utterances": 1,
+    "labeled_words": 39,
+    "decoding": "greedy_search",
+    "wer_percent": 2.564,
+    "foreign_words": {
+      "said": 1,
+      "recall_percent": 0.0,
+      "false_alarms_per_100_utterances": 0.0
+    }
+  },
+  "gipformer=outputs/low_data_review_20261105/two_stage/gipformer_export1": {
+    "utterances": 1,
+    "labeled_words": 39,
+    "decoding": "greedy_search",
+    "wer_percent": 2.564,
+    "foreign_words": {
+      "said": 1,
+      "recall_percent": 0.0,
+      "false_alarms_per_100_utterances": 0.0
+    }
+  },
+  "gipformer=outputs/low_data_review_20261105/two_stage/gipformer_export2": {
+    "utterances": 1,
+    "labeled_words": 39,
+    "decoding": "greedy_search",
+    "wer_percent": 2.564,
+    "foreign_words": {
+      "said": 1,
+      "recall_percent": 0.0,
+      "false_alarms_per_100_utterances": 0.0
+    }
+  },
+  "drift_vs_first_model": {
+    "gipformer=outputs/low_data_review_20261105/two_stage/gipformer_export1": {
+      "changed_utterances_percent": 0.0,
+      "changed_words_per_100": 0.0,
+      "fixed_utterances": 0,
+      "broken_utterances": 0
+    },
+    "gipformer=outputs/low_data_review_20261105/two_stage/gipformer_export2": {
+      "changed_utterances_percent": 0.0,
+      "changed_words_per_100": 0.0,
+      "fixed_utterances": 0,
+      "broken_utterances": 0
+    }
+  }
+}

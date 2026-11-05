@@ -1,0 +1,14 @@
+{
+  "utterances": 5036,
+  "wer_gipformer": 15.24,
+  "wer_zipformer": 14.0,
+  "percent_all_wrong_identically": 11.72,
+  "percent_all_wer_ge_50": 1.85,
+  "categories_percent": {
+    "asr_already_right": 19.38,
+    "asr_learnable": 67.85,
+    "tts_failed": 1.85,
+    "tts_misread": 6.18,
+    "uncertain": 4.75
+  }
+}

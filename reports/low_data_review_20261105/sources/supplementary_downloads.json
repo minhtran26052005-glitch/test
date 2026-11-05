@@ -1,0 +1,42 @@
+{
+  "clmasr2023": {
+    "url": "https://arxiv.org/pdf/2310.16931",
+    "status": 200,
+    "bytes": 735485,
+    "sha256": "a43aef1f10096c52b8575e9a50085984fa9664e13927c1383995c0245b7676e9"
+  },
+  "ilme2020": {
+    "url": "https://arxiv.org/pdf/2011.01991",
+    "status": 200,
+    "bytes": 340935,
+    "sha256": "90b829db74121e04032c1a7c5b0400423941c91038b0951b694ac7e562d93ecf"
+  },
+  "lodr2022": {
+    "url": "https://www.isca-archive.org/interspeech_2022/zheng22c_interspeech.pdf",
+    "status": 200,
+    "bytes": 278325,
+    "sha256": "1a0fd18d31700a04cec4f22c97ceeceda60b8f18dca26808dab852862a50b0f7"
+  },
+  "german2023": {
+    "url": "https://www2.informatik.uni-hamburg.de/wtm/publications/2023/PW23/978-3-031-44195-0_40.pdf",
+    "status": 200,
+    "bytes": 1549768,
+    "sha256": "d71fb0038cace6c42aba409357e11c47401ce07e6912db4e31cd84a6853b04e9"
+  },
+  "amazon_oov": {
+    "url": "https://cdn.amazon.science/aa/d5/427d9f744eb9afb2935201d6f80b/using-synthetic-audio-to-improve-the-recognition-of-out-of-vocabulary-words-in-end-to-end-asr-systems.pdf",
+    "status": 200,
+    "bytes": 243258,
+    "sha256": "601e9860a70d7a47023fc6f7061af1670a4dfe37d4bd864ee822c9b2746849a4"
+  },
+  "lora_without_regret": {
+    "url": "https://thinkingmachines.ai/blog/lora/",
+    "status": 200,
+    "bytes": 257721
+  },
+  "trl_lora": {
+    "url": "https://huggingface.co/docs/trl/main/en/lora_without_regret",
+    "status": 200,
+    "bytes": 148879
+  }
+}

@@ -1,0 +1,22 @@
+/home/pc/zalo_ai_challenge_claude_review_20261105/.review-deps/icefall/icefall/utils.py:1659: SyntaxWarning: invalid escape sequence '\d'
+  """
+/home/pc/zalo_ai_challenge_claude_review_20261105/.review-deps/icefall/egs/librispeech/ASR/zipformer/scaling.py:1309: FutureWarning: `torch.cuda.amp.custom_fwd(args...)` is deprecated. Please use `torch.amp.custom_fwd(args..., device_type='cuda')` instead.
+  @custom_fwd
+/home/pc/zalo_ai_challenge_claude_review_20261105/.review-deps/icefall/egs/librispeech/ASR/zipformer/scaling.py:1318: FutureWarning: `torch.cuda.amp.custom_bwd(args...)` is deprecated. Please use `torch.amp.custom_bwd(args..., device_type='cuda')` instead.
+  @custom_bwd
+/home/pc/zalo_ai_challenge_claude_review_20261105/.review-deps/icefall/egs/librispeech/ASR/zipformer/scaling.py:1515: FutureWarning: `torch.cuda.amp.custom_fwd(args...)` is deprecated. Please use `torch.amp.custom_fwd(args..., device_type='cuda')` instead.
+  @custom_fwd
+/home/pc/zalo_ai_challenge_claude_review_20261105/.review-deps/icefall/egs/librispeech/ASR/zipformer/scaling.py:1554: FutureWarning: `torch.cuda.amp.custom_bwd(args...)` is deprecated. Please use `torch.amp.custom_bwd(args..., device_type='cuda')` instead.
+  @custom_bwd
+2026-11-05 15:23:54,282 Loaded zipformer: {"checkpoint": "outputs/low_data_review_20261105/two_stage/zipformer_export1/jit_script.pt", "config": {"num_encoder_layers": "2,2,4,5,4,2", "downsampling_factor": "1,2,4,8,4,2", "encoder_dim": "192,256,512,768,512,256", "feedforward_dim": "512,768,1536,2048,1536,768", "num_heads": "4,4,4,8,4,4", "query_head_dim": "32,32,32,32,32,32", "value_head_dim": "12,12,12,12,12,12", "pos_head_dim": "4,4,4,4,4,4", "pos_dim": 48, "cnn_module_kernel": "31,31,15,15,15,31", "encoder_unmasked_dim": "192,192,256,320,256,192", "causal": false, "decoder_dim": 512, "context_size": 2, "joiner_dim": 512, "use_transducer": true, "use_ctc": true, "use_attention_decoder": false}, "jit_attributes": {"downsampling_factor": "1,2,4,8,4,2", "encoder_dim": "192,256,512,768,512,256", "encoder_unmasked_dim": "192,192,256,320,256,192", "num_encoder_layers": "2,2,4,5,4,2", "query_head_dim": "32,32,32,32,32,32", "value_head_dim": "12,12,12,12,12,12", "num_heads": "4,4,4,8,4,4", "cnn_module_kernel": "31,31,15,15,15,31", "causal": false}, "unexpected_keys": [], "check": {"encoder_max_abs_diff": 2.7120113372802734e-06, "encoder_scale": 1.6264114379882812, "decoder_max_abs_diff": 0.0}}
+2026-11-05 15:23:54,288 Joiner-only LoRA: CR-CTC off (no trainable parameter on its path)
+2026-11-05 15:23:54,294 LoRA on 3 projections; {'total_parameters': 153457338, 'trainable_parameters': 19264, 'trainable_percent': 0.013}
+2026-11-05 15:23:55,940 Before fine-tuning: {'epoch': 0, 'loss_per_frame': 0.14506581377442987, 'wer_percent': 5.128, 'words': 39}
+2026-11-05 15:23:55,940 Epoch 1 training mix: {'real': 2, 'real_copies': 2, 'tts': 2, 'tts_pool': 2, 'tts_reverberated': 2, 'real_share_percent': 66.7, 'ratio_unit': 'seconds', 'real_seconds': 13.185, 'tts_seconds': 6.939, 'real_share_seconds_percent': 65.5, 'tts_over_duration_budget': 0, 'duration_cycle_epochs': 1}
+/home/pc/venv/lib/python3.12/site-packages/lhotse/dataset/sampling/dynamic_bucketing.py:148: UserWarning: You are using DynamicBucketingSampler with an eagerly read CutSet. You won't see any memory/speed benefits with that setup. Either use 'CutSet.from_jsonl_lazy' to read the CutSet lazily, or use a BucketingSampler instead.
+  warnings.warn(
+2026-11-05 15:23:56,945 epoch 1 batch 1 loss/frame 0.2156 {'simple': 0.2577, 'pruned': 0.0679, 'ctc': 0.0941} lr 2.27e-02
+2026-11-05 15:23:58,020 name=None, attn_weights_entropy = tensor([3.2389, 4.9590, 5.4411, 2.7892])
+2026-11-05 15:23:58,082 Epoch 1: {'epoch': 1, 'train_loss_per_frame': 0.21557329945355297, 'seconds': 1.0, 'batches': 1, 'skipped_nonfinite': 0, 'fp16_overflows': 0, 'loss_per_frame': 0.14506580142913128, 'wer_percent': 5.128, 'words': 39}
+2026-11-05 15:23:58,102 Best validation WER 5.128% (before fine-tuning 5.128%)
+2026-11-05 15:23:58,102 No epoch beat the original model on validation; keep the original checkpoint

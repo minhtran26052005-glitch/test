@@ -6,9 +6,10 @@
 
 LoRA placement/initialisation/optimiser follow icefall egs/librispeech/ASR/zipformer_lora (see asr_lora/lora.py):
 only lora_A/lora_B train, the base network runs in eval mode, ScaledAdam + Eden with base lr 0.045 (the
-zipformer_lora/finetune.py default). 0.0045 is icefall's *full* fine-tuning lr; it is too small for LoRA under
-ScaledAdam, whose step is scaled by max(RMS(param), 1e-5): lora_B starts at zero, so it grows by about a factor
-(1 + lr) per step at most, which at 0.0045 leaves the adapter near zero after a few hundred steps of a small set.
+zipformer_lora/finetune.py parser default). That recipe also shows 0.0045 in its usage examples.
+ScaledAdam scales updates by parameter RMS, so zero-initialized LoRA B can grow slowly. Matrix-fit experiments
+support testing a higher learning rate, but do not establish the best rate or the cause of ASR errors.
+Select the learning rate on validation; see docs/LOW_DATA_RESEARCH_REVIEW_20261105.md.
 
 Needs a CUDA machine with icefall (pinned commit in asr_lora/models.py), k2, lhotse, sentencepiece:
 
@@ -46,8 +47,10 @@ def get_parser():
                         help='per epoch, at most this many TTS utterances per real one (counting --real-repeat copies); -1 = all TTS')
     parser.add_argument('--real-repeat', type=int, default=1,
                         help='each real utterance this many times per epoch, copies speed-perturbed (few hours of real speech next to much TTS)')
+    parser.add_argument('--tts-ratio-unit', choices=['utterances', 'seconds'], default='utterances',
+                        help='unit of --max-tts-ratio; seconds bounds audio exposure, utterances keeps the earlier count-based behavior')
     parser.add_argument('--fixed-tts-subset', action='store_true',
-                        help='same TTS subset every epoch (default: a fresh subset per epoch, so the whole pool is used)')
+                        help='same TTS subset every epoch (default: cycle through a seeded permutation of the pool)')
     parser.add_argument('--tts-speed-perturb', action='store_true', help='random speed 0.9/1.0/1.1 for TTS utterances, per epoch')
     parser.add_argument('--tts-reverb-prob', type=float, default=0.0, help='share of TTS utterances given simulated room reverberation')
     parser.add_argument('--allow-unchecked-tts', action='store_true', help='accept TTS manifests not filtered by qc_tts_asr.py')
@@ -171,12 +174,16 @@ def validate(model, params, sp, loader, device, args, greedy_search_batch, amp):
                 features = batch['inputs'].to(device)
                 lengths = batch['supervisions']['num_frames'].to(device)
                 encoder_out, encoder_out_lens = model.forward_encoder(features, lengths)
+            if not torch.isfinite(loss).all() or not torch.isfinite(encoder_out).all():
+                raise RuntimeError('Non-finite validation loss or encoder output; refusing to report WER')
             hyps = greedy_search_batch(model=model, encoder_out=encoder_out.float(), encoder_out_lens=encoder_out_lens)
             for reference, tokens in zip(batch['supervisions']['text'], hyps):
                 e, n = word_errors(reference, sp.decode(tokens))
                 errors, words = errors + e, words + n
             loss_sum, frames_sum = loss_sum + float(loss), frames_sum + frames
-    return {'loss_per_frame': loss_sum / max(frames_sum, 1), 'wer_percent': round(100 * errors / max(words, 1), 3), 'words': words}
+    if frames_sum <= 0 or words <= 0:
+        raise RuntimeError('Validation is empty or contains no reference words')
+    return {'loss_per_frame': loss_sum / frames_sum, 'wer_percent': round(100 * errors / words, 3), 'words': words}
 
 
 def main():
@@ -235,7 +242,7 @@ def main():
 
     def train_loader_for(epoch):
         cuts, mix = epoch_cuts(train_cuts, train_records, epoch, args.real_repeat, args.max_tts_ratio, args.seed,
-                               not args.fixed_tts_subset, args.tts_speed_perturb, args.tts_reverb_prob)
+                               not args.fixed_tts_subset, args.tts_speed_perturb, args.tts_reverb_prob, args.tts_ratio_unit)
         logging.info('Epoch %d training mix: %s', epoch, mix)
         return dataloader(cuts, args.max_duration, True, preset['spec_augment_in_dataset'] or not params.use_cr_ctc,
                           args.num_workers, args.speed_perturb, args.seed + epoch)

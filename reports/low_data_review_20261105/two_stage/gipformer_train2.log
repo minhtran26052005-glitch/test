@@ -1,0 +1,20 @@
+/home/pc/zalo_ai_challenge_claude_review_20261105/.review-deps/icefall/icefall/utils.py:1659: SyntaxWarning: invalid escape sequence '\d'
+  """
+/home/pc/zalo_ai_challenge_claude_review_20261105/.review-deps/icefall/egs/librispeech/ASR/zipformer/scaling.py:1309: FutureWarning: `torch.cuda.amp.custom_fwd(args...)` is deprecated. Please use `torch.amp.custom_fwd(args..., device_type='cuda')` instead.
+  @custom_fwd
+/home/pc/zalo_ai_challenge_claude_review_20261105/.review-deps/icefall/egs/librispeech/ASR/zipformer/scaling.py:1318: FutureWarning: `torch.cuda.amp.custom_bwd(args...)` is deprecated. Please use `torch.amp.custom_bwd(args..., device_type='cuda')` instead.
+  @custom_bwd
+/home/pc/zalo_ai_challenge_claude_review_20261105/.review-deps/icefall/egs/librispeech/ASR/zipformer/scaling.py:1515: FutureWarning: `torch.cuda.amp.custom_fwd(args...)` is deprecated. Please use `torch.amp.custom_fwd(args..., device_type='cuda')` instead.
+  @custom_fwd
+/home/pc/zalo_ai_challenge_claude_review_20261105/.review-deps/icefall/egs/librispeech/ASR/zipformer/scaling.py:1554: FutureWarning: `torch.cuda.amp.custom_bwd(args...)` is deprecated. Please use `torch.amp.custom_bwd(args..., device_type='cuda')` instead.
+  @custom_bwd
+2026-11-05 15:23:00,525 Loaded gipformer: {"checkpoint": "outputs/low_data_review_20261105/two_stage/gipformer_export1/model.pt", "config": {"num_encoder_layers": "2,2,3,4,3,2", "downsampling_factor": "1,2,4,8,4,2", "encoder_dim": "192,256,384,512,384,256", "feedforward_dim": "512,768,1024,1536,1024,768", "num_heads": "4,4,4,8,4,4", "query_head_dim": "32", "value_head_dim": "12", "pos_head_dim": "4,4,4,4,4,4", "pos_dim": 48, "cnn_module_kernel": "31,31,15,15,15,31", "encoder_unmasked_dim": "192,192,256,256,256,192", "decoder_dim": 512, "context_size": 2, "joiner_dim": 512, "use_transducer": true, "use_ctc": true, "use_attention_decoder": false}, "unexpected_keys": []}
+2026-11-05 15:23:00,531 LoRA on 3 projections; {'total_parameters': 69669751, 'trainable_parameters': 18240, 'trainable_percent': 0.026}
+2026-11-05 15:23:01,836 Before fine-tuning: {'epoch': 0, 'loss_per_frame': 0.12323828885470393, 'wer_percent': 2.564, 'words': 39}
+2026-11-05 15:23:01,837 Epoch 1 training mix: {'real': 2, 'real_copies': 2, 'tts': 2, 'tts_pool': 2, 'tts_reverberated': 2, 'real_share_percent': 66.7, 'ratio_unit': 'seconds', 'real_seconds': 13.185, 'tts_seconds': 6.939, 'real_share_seconds_percent': 65.5, 'tts_over_duration_budget': 0, 'duration_cycle_epochs': 1}
+/home/pc/venv/lib/python3.12/site-packages/lhotse/dataset/sampling/dynamic_bucketing.py:148: UserWarning: You are using DynamicBucketingSampler with an eagerly read CutSet. You won't see any memory/speed benefits with that setup. Either use 'CutSet.from_jsonl_lazy' to read the CutSet lazily, or use a BucketingSampler instead.
+  warnings.warn(
+2026-11-05 15:23:02,558 epoch 1 batch 1 loss/frame 0.3153 {'simple': 0.2907, 'pruned': 0.1363, 'ctc': 0.1681} lr 2.27e-02
+2026-11-05 15:23:03,324 Epoch 1: {'epoch': 1, 'train_loss_per_frame': 0.3152669777433236, 'seconds': 0.7, 'batches': 1, 'skipped_nonfinite': 0, 'fp16_overflows': 0, 'loss_per_frame': 0.12323831354530113, 'wer_percent': 2.564, 'words': 39}
+2026-11-05 15:23:03,329 Best validation WER 2.564% (before fine-tuning 2.564%)
+2026-11-05 15:23:03,329 No epoch beat the original model on validation; keep the original checkpoint

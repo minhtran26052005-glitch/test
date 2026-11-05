@@ -4,6 +4,7 @@ Features are 80-dim kaldi fbank computed on the fly (lhotse FbankConfig defaults
 high_freq -400), the same front end sherpa-onnx uses at inference.
 """
 import json
+import math
 import random
 from pathlib import Path
 
@@ -37,7 +38,6 @@ def check_tts_reviewed(paths, allow_unchecked=False):
             if line.strip() and json.loads(line).get('source') == 'tts':
                 raise ValueError(f'{path} contains TTS audio that was not checked: run qc_tts_asr.py and train on its '
                                  '*_qc.jsonl, or pass --allow-unchecked-tts')
-            break
 
 
 def cap_tts(records, max_ratio, seed=42):
@@ -57,28 +57,59 @@ TTS_SPEEDS = (0.9, 1.0, 1.1)
 
 
 def epoch_cuts(cuts, records, epoch, real_repeat=1, max_tts_ratio=1.0, seed=42, resample_tts=True,
-               tts_speed=False, tts_reverb_prob=0.0):
+               tts_speed=False, tts_reverb_prob=0.0, ratio_unit='utterances'):
     """Training cuts of one epoch when real speech is a few hours and TTS is most of the data.
 
     Real: every utterance `real_repeat` times; copies are speed-perturbed (0.9, 1.1, 0.95, 1.05, ...) so they
     are not identical. TTS: at most max_tts_ratio x (real cuts of the epoch), all of it when < 0; with
-    resample_tts a fresh subset each epoch (seed + epoch), so the whole QC-passed pool is used over the epochs
-    at a constant real share. tts_speed / tts_reverb_prob add a random speed (0.9 / 1.0 / 1.1) and simulated room
+    resample_tts cycles through a seeded permutation of the pool. With ratio_unit='seconds', disjoint groups
+    fit a duration budget; slowest allowed speed is budgeted before augmentation. Overlong cuts are reported.
+    The duration budget controls audio exposure, not the fraction of gradient contributed by TTS.
+    tts_speed / tts_reverb_prob add a random speed (0.9 / 1.0 / 1.1) and simulated room
     reverberation to TTS only, so cloned voices do not all carry one clean synthetic channel.
     Returns (CutSet, mix counts)."""
     from lhotse import CutSet
     if real_repeat < 1:
         raise ValueError('--real-repeat must be >= 1')
+    if not math.isfinite(max_tts_ratio) or not 0 <= tts_reverb_prob <= 1:
+        raise ValueError('TTS ratio must be finite and reverb probability must be in [0, 1]')
+    if ratio_unit not in {'utterances', 'seconds'}:
+        raise ValueError('TTS ratio unit must be utterances or seconds')
     source = {record['id']: record.get('source') for record in records}  # to_cuts: recording id = record id
     real = [cut for cut in cuts if source[cut.recording_id] != 'tts']
     tts = [cut for cut in cuts if source[cut.recording_id] == 'tts']
-    rng = random.Random(f'{seed}:{epoch if resample_tts else 0}')
     out = list(real)
     for k in range(1, real_repeat):
         factor = REPEAT_SPEEDS[(k - 1) % len(REPEAT_SPEEDS)]
         out += [cut.perturb_speed(factor).with_id(f'{cut.id}#r{k}') for cut in real]
-    budget = len(tts) if max_tts_ratio < 0 else min(len(tts), int(max_tts_ratio * len(out)))
-    chosen = sorted(rng.sample(range(len(tts)), budget))
+    real_seconds = sum(cut.duration for cut in out)
+    order = list(range(len(tts)))
+    random.Random(f'{seed}:tts-pool').shuffle(order)
+    epoch_index = max(epoch - 1, 0) if resample_tts else 0
+    oversized = 0
+    groups = []
+    if max_tts_ratio < 0:
+        chosen = order
+    elif ratio_unit == 'utterances':
+        budget = min(len(tts), int(max_tts_ratio * len(out)))
+        start = epoch_index * budget % max(len(tts), 1)
+        chosen = (order[start:] + order[:start])[:budget]
+    else:
+        budget_seconds = max_tts_ratio * real_seconds
+        group, seconds = [], 0.0
+        for index in order:
+            bound = tts[index].duration / (min(TTS_SPEEDS) if tts_speed else 1.0)
+            if bound > budget_seconds:
+                oversized += 1
+                continue
+            if group and seconds + bound > budget_seconds:
+                groups.append(group)
+                group, seconds = [], 0.0
+            group.append(index)
+            seconds += bound
+        if group:
+            groups.append(group)
+        chosen = groups[epoch_index % len(groups)] if groups else []
     augment = random.Random(f'{seed}:augment:{epoch}')
     reverberated = 0
     for index in chosen:
@@ -90,8 +121,12 @@ def epoch_cuts(cuts, records, epoch, real_repeat=1, max_tts_ratio=1.0, seed=42, 
             cut = cut.reverb_rir(None, room_rng_seed=augment.randrange(2 ** 31), source_rng_seed=augment.randrange(2 ** 31))
             reverberated += 1
         out.append(cut)
-    mix = {'real': len(real), 'real_copies': len(out) - len(real) - budget, 'tts': budget, 'tts_pool': len(tts),
-           'tts_reverberated': reverberated, 'real_share_percent': round(100 * (len(out) - budget) / max(len(out), 1), 1)}
+    tts_seconds = sum(cut.duration for cut in out[len(out)-len(chosen):]) if chosen else 0.0
+    mix = {'real': len(real), 'real_copies': len(out) - len(real) - len(chosen), 'tts': len(chosen), 'tts_pool': len(tts),
+           'tts_reverberated': reverberated, 'real_share_percent': round(100 * (len(out) - len(chosen)) / max(len(out), 1), 1),
+           'ratio_unit': ratio_unit, 'real_seconds': round(real_seconds, 3), 'tts_seconds': round(tts_seconds, 3),
+           'real_share_seconds_percent': round(100 * real_seconds / max(real_seconds + tts_seconds, 1e-9), 1),
+           'tts_over_duration_budget': oversized, 'duration_cycle_epochs': len(groups)}
     return CutSet.from_cuts(out), mix
 
 

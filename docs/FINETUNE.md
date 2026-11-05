@@ -128,7 +128,11 @@ Hai model đã học hàng nghìn giờ; mấy nghìn câu trong miền thi có 
 
 Khi train:
 
-- **Audio thật luôn chiếm đa số:** `--max-tts-ratio 1` (mặc định), tức tối đa một câu TTS cho mỗi câu thật, lấy mẫu cố định theo seed. Nên chạy trước một lần chỉ audio thật (`--max-tts-ratio 0`) làm mốc, rồi mới thêm TTS.
+- **Tỉ lệ thật/TTS giữ cố định trong từng epoch:** `--max-tts-ratio 1` (mặc định), tức mỗi epoch tối đa một câu TTS cho mỗi câu thật.
+  - Mỗi epoch lấy một tập TTS mới, nên dùng hết kho TTS qua các epoch; `--fixed-tts-subset` giữ cách cũ.
+  - Khi audio thật chỉ vài giờ còn TTS nhiều, `--real-repeat 2` lặp audio thật (bản lặp đổi tốc độ) để dùng được nhiều TTS hơn mà vẫn giữ tỉ lệ.
+  - Nên chạy trước một lần chỉ audio thật (`--max-tts-ratio 0`) làm mốc, rồi mới thêm TTS.
+- **Cho TTS dạy từ, không dạy âm học:** `./run_finetune.sh asr2 gipformer` (hoặc `zipformer`). Encoder chỉ học audio thật; giai đoạn 2 chỉ chỉnh joint network trên thật + TTS, có `--tts-speed-perturb` và vang phòng mô phỏng (`--tts-reverb-prob`, cần torchaudio). Xem [mục 3.6](RESEARCH_LOW_DATA_DOMAIN_FINETUNE.md#36-khi-audio-thật-chỉ-vài-giờ-phần-còn-lại-là-tts-clone-giọng).
 - **Chọn epoch trên audio thật:** validation chỉ gồm audio thật. Không epoch nào tốt hơn model gốc thì không có `lora-best.pt` và không export.
 - LoRA giữ nguyên trọng số gốc; chỉ khoảng 1% tham số được học, lr theo icefall. Batch không hữu hạn vượt 5% thì dừng.
 
@@ -146,7 +150,8 @@ Bằng chứng và lộ trình đầy đủ: [RESEARCH_LOW_DATA_DOMAIN_FINETUNE.
 | --- | --- | --- |
 | Hotwords, không train | `./run_finetune.sh hotwords` | Danh sách theo model từ split fit (`outputs/asr_hotwords/`); so greedy, beam và beam + hotword trên validation. Bật trong pipeline: `GIPFORMER_DECODING=modified_beam_search GIPFORMER_HOTWORDS=outputs/asr_hotwords/gipformer.txt` (tương tự `ZIPFORMER_*`) |
 | Nội suy adapter ASR | `./run_finetune.sh scales gipformer` | Merge 1,0 / 0,7 / 0,5 lần cập nhật LoRA (`LORA_SCALES`), so trên validation, chọn rồi mới chấm test |
-| LoRA joint network | `train_asr_lora.py --lora-joiner` | Thí nghiệm riêng; đổi mọi output nên xem drift |
+| LoRA joint network | `train_asr_lora.py --lora-joiner` (thêm joiner vào encoder) hoặc `--lora-targets joiner` (chỉ joiner) | Thí nghiệm riêng; đổi mọi output nên xem drift |
+| Vài giờ thật + nhiều TTS | `./run_finetune.sh asr2 gipformer` | Encoder chỉ học audio thật, TTS chỉ dạy joint network; `REAL_REPEAT`, `MAX_TTS_RATIO`, `TTS_REVERB_PROB` |
 | Qwen | `QWEN_ARGS="--early-stopping-patience 3"` (tuỳ chọn `--neftune-alpha 5`, `--use-rslora`, `--use-dora`); `merge_qwen_lora.py --scale 0.7` | Chọn theo state match validation |
 | Rejection sampling | `build_agent_sft.py --source self:RUN_DIR …` | Quỹ đạo đúng do chính model tạo, devkit kiểm lại, chỉ mẫu fit; bỏ quỹ đạo trùng; `--max-trajectories-per-sample` |
 | Kiểm định | `compare_benchmark_runs.py` → `mcnemar_exact_p` | 248 mẫu test: cần tăng ròng khoảng 5–6,5 điểm khi có 10–20 mẫu bị làm hỏng |

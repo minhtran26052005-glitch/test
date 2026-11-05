@@ -23,6 +23,7 @@ ROOT = Path(__file__).resolve().parents[1]
 HAS_TORCH = importlib.util.find_spec('torch') is not None
 HAS_PEFT = HAS_TORCH and importlib.util.find_spec('peft') is not None
 HAS_SPM = importlib.util.find_spec('sentencepiece') is not None
+HAS_LHOTSE = all(importlib.util.find_spec(m) is not None for m in ('lhotse', 'soundfile', 'numpy'))
 
 
 class DecodingOptionTests(unittest.TestCase):
@@ -202,6 +203,33 @@ class LoraScaleTests(unittest.TestCase):
         self.assertIsNone(args.base_lr)  # resolved per optimizer in main()
         self.assertTrue(args.lora_joiner)
 
+    def test_joiner_only_targets(self):
+        import torch.nn as nn
+        from asr_lora.lora import add_lora, lora_targets
+
+        class FeedforwardModule(nn.Module):
+            def __init__(self):
+                super().__init__()
+                self.in_proj, self.out_proj = nn.Linear(4, 4), nn.Linear(4, 4)
+
+        class Joiner(nn.Module):
+            def __init__(self):
+                super().__init__()
+                self.encoder_proj, self.decoder_proj, self.output_linear = nn.Linear(4, 4), nn.Linear(4, 4), nn.Linear(4, 9)
+
+        class Model(nn.Module):
+            def __init__(self):
+                super().__init__()
+                self.encoder, self.joiner = FeedforwardModule(), Joiner()
+
+        wrapped = add_lora(Model(), 2, 4.0, 0.0, *lora_targets({'targets': 'joiner'}))
+        self.assertEqual(sorted(wrapped), ['joiner.decoder_proj', 'joiner.encoder_proj', 'joiner.output_linear'])
+        from train_asr_lora import get_parser
+        args = get_parser().parse_args(['--model', 'zipformer', '--model-dir', 'm', '--train-manifest', 't', '--valid-manifest', 'v',
+                                        '--exp-dir', 'e', '--lora-targets', 'joiner', '--real-repeat', '3', '--tts-speed-perturb',
+                                        '--tts-reverb-prob', '0.3'])
+        self.assertEqual((args.lora_targets, args.real_repeat, args.tts_reverb_prob, args.fixed_tts_subset), ('joiner', 3, 0.3, False))
+
     def test_joiner_is_opt_in_and_saved_in_the_config(self):
         import torch.nn as nn
         from asr_lora.lora import LoRALinear, add_lora, lora_targets
@@ -261,6 +289,61 @@ class QwenMergeScaleTests(unittest.TestCase):
         dora = get_peft_model(Tiny(), LoraConfig(r=2, lora_alpha=4, target_modules=['proj'], use_dora=True))
         with self.assertRaises(ValueError):
             scale_adapter(dora, 0.5)
+
+
+@unittest.skipUnless(HAS_LHOTSE, 'lhotse/soundfile not installed')
+class EpochMixTests(unittest.TestCase):
+    """Few hours of real speech next to much TTS: real share per epoch, fresh TTS subsets, TTS-only augmentation."""
+
+    def setUp(self):
+        import numpy as np
+        import soundfile
+        from asr_lora.data import to_cuts
+        self.tmp = tempfile.TemporaryDirectory()
+        self.records = []
+        for i in range(9):
+            path = Path(self.tmp.name) / f'{i}.wav'
+            soundfile.write(str(path), (0.1 * np.random.RandomState(i).randn(16000)).astype('float32'), 16000)
+            self.records.append({'id': f'{"r" if i < 3 else "t"}{i}', 'audio': str(path), 'text': 'BẬT ĐÈN',
+                                 'source': 'train_audio' if i < 3 else 'tts'})
+        self.cuts = to_cuts(self.records)
+
+    def tearDown(self):
+        self.tmp.cleanup()
+
+    def test_real_share_and_resampling(self):
+        from asr_lora.data import epoch_cuts
+        cuts, mix = epoch_cuts(self.cuts, self.records, 1, real_repeat=2, max_tts_ratio=0.5, seed=1)
+        self.assertEqual((mix['real'], mix['real_copies'], mix['tts'], mix['tts_pool'], mix['real_share_percent']), (3, 3, 3, 6, 66.7))
+        ids = [c.id for c in cuts]
+        self.assertEqual(len(ids), len(set(ids)))
+        copy = next(c for c in cuts if c.id.endswith('#r1'))
+        self.assertAlmostEqual(copy.duration, 1 / 0.9, places=2)  # the second copy is the 0.9x speed version
+        self.assertEqual(copy.load_audio().shape, (1, 17778))
+        tts_ids = lambda epoch, resample=True: sorted(c.id for c in epoch_cuts(self.cuts, self.records, epoch, 2, 0.5, 1, resample)[0]
+                                                      if c.id.startswith('t'))
+        self.assertGreater(len({tuple(tts_ids(e)) for e in range(6)}), 1)  # a fresh TTS subset per epoch
+        self.assertEqual(len({tuple(tts_ids(e, False)) for e in range(6)}), 1)
+        self.assertEqual(epoch_cuts(self.cuts, self.records, 0, 1, -1)[1]['tts'], 6)
+        self.assertEqual(epoch_cuts(self.cuts, self.records, 0, 1, 0)[1]['tts'], 0)
+        with self.assertRaises(ValueError):
+            epoch_cuts(self.cuts, self.records, 0, 0)
+
+    def test_tts_only_augmentation(self):
+        from asr_lora.data import epoch_cuts
+        cuts, mix = epoch_cuts(self.cuts, self.records, 3, 1, -1, seed=2, tts_speed=True, tts_reverb_prob=1.0)
+        self.assertEqual(mix['tts_reverberated'], 6)
+        tts = [c for c in cuts if c.id.startswith('t')]
+        self.assertTrue(all('_rvb' in c.id for c in tts))
+        self.assertFalse(any('_rvb' in c.id or '_sp' in c.id for c in cuts if c.id.startswith('r')))
+        reverberated = epoch_cuts(self.cuts, self.records, 3, 1, -1, seed=2, tts_reverb_prob=1.0)[0]
+        try:
+            audio = next(c for c in reverberated if c.id.startswith('t')).load_audio()  # simulated RIR, no RIR corpus needed
+        except RuntimeError as error:
+            if 'torchaudio' in str(error):
+                self.skipTest('this lhotse build needs torchaudio for the transform (icefall machines have it)')
+            raise
+        self.assertEqual(audio.shape, (1, 16000))
 
 
 FAKE_DEVKIT = '''

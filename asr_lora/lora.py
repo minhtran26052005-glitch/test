@@ -32,7 +32,10 @@ JOINER_TARGETS = {'Joiner': ('encoder_proj', 'decoder_proj', 'output_linear')}
 
 
 def lora_targets(config):
-    """(targets, scope) of a saved lora_config, so export re-creates exactly the trained wrapping."""
+    """(targets, scope) of a saved lora_config, so export re-creates exactly the trained wrapping.
+    targets 'joiner' adapts the joint network only (second stage of the real-encoder / TTS-joiner recipe)."""
+    if config['targets'] == 'joiner':
+        return dict(JOINER_TARGETS), ('joiner.',)
     targets = dict(DEFAULT_TARGETS if config['targets'] == 'icefall' else EXTENDED_TARGETS)
     if config.get('joiner'):
         return {**targets, **JOINER_TARGETS}, ('encoder.', 'joiner.')

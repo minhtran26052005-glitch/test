@@ -43,7 +43,13 @@ def get_parser():
     parser.add_argument('--icefall-dir', default='~/.cache/icefall')
     parser.add_argument('--train-manifest', action='append', required=True)
     parser.add_argument('--max-tts-ratio', type=float, default=1.0,
-                        help='at most this many TTS utterances per real one (real speech stays the majority); -1 = no cap')
+                        help='per epoch, at most this many TTS utterances per real one (counting --real-repeat copies); -1 = all TTS')
+    parser.add_argument('--real-repeat', type=int, default=1,
+                        help='each real utterance this many times per epoch, copies speed-perturbed (few hours of real speech next to much TTS)')
+    parser.add_argument('--fixed-tts-subset', action='store_true',
+                        help='same TTS subset every epoch (default: a fresh subset per epoch, so the whole pool is used)')
+    parser.add_argument('--tts-speed-perturb', action='store_true', help='random speed 0.9/1.0/1.1 for TTS utterances, per epoch')
+    parser.add_argument('--tts-reverb-prob', type=float, default=0.0, help='share of TTS utterances given simulated room reverberation')
     parser.add_argument('--allow-unchecked-tts', action='store_true', help='accept TTS manifests not filtered by qc_tts_asr.py')
     parser.add_argument('--valid-manifest', action='append', required=True)
     parser.add_argument('--audio-root', default='.')
@@ -51,8 +57,9 @@ def get_parser():
     parser.add_argument('--lora-r', type=int, default=16)
     parser.add_argument('--lora-alpha', type=float, default=32.0)
     parser.add_argument('--lora-dropout', type=float, default=0.05)
-    parser.add_argument('--lora-targets', choices=['icefall', 'extended'], default='icefall',
-                        help='icefall: attention in_proj + feed-forward (zipformer_lora); extended: + nonlin attention, conv, attn out_proj')
+    parser.add_argument('--lora-targets', choices=['icefall', 'extended', 'joiner'], default='icefall',
+                        help='icefall: attention in_proj + feed-forward (zipformer_lora); extended: + nonlin attention, conv, attn out_proj; '
+                             'joiner: joint network only (encoder untouched; TTS then teaches only the token mapping)')
     parser.add_argument('--lora-joiner', action='store_true',
                         help='also adapt the joint network (encoder_proj, decoder_proj, output_linear): rare-word scoring, more drift')
     parser.add_argument('--num-epochs', type=int, default=15)
@@ -187,7 +194,7 @@ def main():
     train = setup_icefall(args.icefall_dir)
     from beam_search import greedy_search_batch  # icefall zipformer recipe
     from optim import Eden, ScaledAdam
-    from asr_lora.data import cap_tts, check_tts_reviewed, dataloader, read_manifests, to_cuts
+    from asr_lora.data import check_tts_reviewed, dataloader, epoch_cuts, read_manifests, to_cuts
 
     override = json.loads(args.model_config) if args.model_config else None
     model, params, report = load_model(train, args.model, args.model_dir, override)
@@ -197,6 +204,11 @@ def main():
     if preset['use_cr_ctc'] and not params.use_ctc:
         logging.warning('Checkpoint has no CTC head: CR-CTC disabled, training with RNN-T only')
     params.update(time_mask_ratio=args.time_mask_ratio, attention_decoder_loss_scale=0.8)
+    if args.lora_targets == 'joiner' and params.use_cr_ctc:
+        params.use_cr_ctc = False  # CTC/CR losses only reach the frozen encoder; SpecAugment moves to the dataset
+        logging.info('Joiner-only LoRA: CR-CTC off (no trainable parameter on its path)')
+    if args.lora_joiner and args.lora_targets == 'joiner':
+        raise SystemExit('--lora-joiner adds the joiner to encoder targets; use it or --lora-targets joiner, not both')
     config = {'r': args.lora_r, 'alpha': args.lora_alpha, 'dropout': args.lora_dropout, 'targets': args.lora_targets,
               'joiner': args.lora_joiner}
     targets, scope = lora_targets(config)
@@ -208,12 +220,25 @@ def main():
     sp.load(str(Path(args.model_dir) / 'bpe.model'))
 
     check_tts_reviewed(args.train_manifest, args.allow_unchecked_tts)
-    train_records, mix = cap_tts(read_manifests(args.train_manifest, args.audio_root, target_model=args.model), args.max_tts_ratio, args.seed)
-    logging.info('Training mix: %s', mix)
+    train_records = read_manifests(args.train_manifest, args.audio_root, target_model=args.model)
     train_cuts = to_cuts(train_records)
     valid_cuts = to_cuts(read_manifests(args.valid_manifest, args.audio_root))
-    train_loader = dataloader(train_cuts, args.max_duration, True, preset['spec_augment_in_dataset'] or not params.use_cr_ctc,
-                              args.num_workers, args.speed_perturb, args.seed)
+
+    if args.tts_reverb_prob > 0:  # fail now, not in a dataloader worker mid-epoch
+        probe = next((c for c in train_cuts if any(r['id'] == c.recording_id and r.get('source') == 'tts' for r in train_records)), None)
+        if probe is not None:
+            try:
+                probe.reverb_rir(None, room_rng_seed=0, source_rng_seed=0).load_audio()
+            except Exception as error:  # noqa: BLE001 - lhotse's simulated RIR needs torchaudio
+                raise SystemExit(f'--tts-reverb-prob needs lhotse simulated reverberation, which failed here: {error}. '
+                                 'Install torchaudio in this environment or pass --tts-reverb-prob 0') from error
+
+    def train_loader_for(epoch):
+        cuts, mix = epoch_cuts(train_cuts, train_records, epoch, args.real_repeat, args.max_tts_ratio, args.seed,
+                               not args.fixed_tts_subset, args.tts_speed_perturb, args.tts_reverb_prob)
+        logging.info('Epoch %d training mix: %s', epoch, mix)
+        return dataloader(cuts, args.max_duration, True, preset['spec_augment_in_dataset'] or not params.use_cr_ctc,
+                          args.num_workers, args.speed_perturb, args.seed + epoch)
     valid_loader = dataloader(valid_cuts, args.max_duration, False, False, args.num_workers)
     spec_augment = train.get_spec_augment(params) if params.use_cr_ctc else None
 
@@ -237,6 +262,7 @@ def main():
     for epoch in range(1, args.num_epochs + 1):
         if scheduler:
             scheduler.step_epoch(epoch - 1)
+        train_loader = train_loader_for(epoch)
         train_loader.sampler.set_epoch(epoch)
         set_lora_train_mode(model)
         started, seen_frames, seen_loss = time.time(), 0, 0.0

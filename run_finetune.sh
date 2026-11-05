@@ -7,6 +7,8 @@
 #   ./run_finetune.sh gipformer   LoRA RNN-T fine-tune, export, test-split WER vs the base model
 #   ./run_finetune.sh zipformer   LoRA CR-CTC + CTC + RNN-T fine-tune, export, test-split WER vs the base model
 #   ./run_finetune.sh scales KIND merge 1.0/0.7/0.5 of the trained ASR adapter (LORA_SCALES), compare on validation
+#   ./run_finetune.sh asr2 KIND   few hours of real speech + much TTS: encoder LoRA on real audio only, then joiner-only
+#                                 LoRA on real (REAL_REPEAT copies) + TTS (speed/reverb), compared on validation
 #   ./run_finetune.sh qwen        LoRA SFT of Qwen3.5-4B on agent + normalizer records, merge to bf16
 # Afterwards point run.sh at the exported dirs (GIPFORMER_MODEL_PATH / ZIPFORMER_MODEL_PATH / LLM_MODEL_PATH) and
 # rerun the agent benchmark with the same AGENT_* flags used to build the SFT data; compare on split=test only.
@@ -79,6 +81,33 @@ case "${1:-}" in
       models+=(--model "$kind=${dir}-lora-s$scale")
     done
     "$PYTHON_BIN" eval_asr_onnx.py --manifest outputs/asr_finetune/validation.jsonl "${models[@]}" --out "outputs/asr_lora/$kind/scales_validation"
+    ;;
+  asr2)
+    # TTS teaches words, not acoustics: it never updates the encoder (adapting only prediction/joint networks with TTS
+    # is the customization result of Li et al. 2020); see docs/RESEARCH_LOW_DATA_DOMAIN_FINETUNE.md section 3.6.
+    kind="${2:-}"; [[ "$kind" == gipformer || "$kind" == zipformer ]] || { echo 'usage: ./run_finetune.sh asr2 gipformer|zipformer' >&2; exit 1; }
+    dir="$GIP_DIR"; batch=(); [[ "$kind" == zipformer ]] && { dir="$ZIP_DIR"; batch=(--max-duration 200); }
+    "$PYTHON_BIN" train_asr_lora.py --model "$kind" --model-dir "$dir" --icefall-dir "$ICEFALL_DIR" ${batch[@]+"${batch[@]}"} \
+      --train-manifest outputs/asr_finetune/train.jsonl --max-tts-ratio 0 --speed-perturb \
+      --valid-manifest outputs/asr_finetune/validation.jsonl --exp-dir "outputs/asr_lora/${kind}_real"
+    if [[ ! -f "outputs/asr_lora/${kind}_real/lora-best.pt" ]]; then
+      echo "Stage 1 (real audio) did not beat the base $kind; keeping the base model."; exit 0
+    fi
+    "$PYTHON_BIN" export_asr_lora.py --model "$kind" --model-dir "$dir" --icefall-dir "$ICEFALL_DIR" \
+      --lora "outputs/asr_lora/${kind}_real/lora-best.pt" --out-dir "${dir}-lora-real"
+    "$PYTHON_BIN" train_asr_lora.py --model "$kind" --model-dir "${dir}-lora-real" --icefall-dir "$ICEFALL_DIR" ${batch[@]+"${batch[@]}"} \
+      "${ASR_TRAIN[@]}" --lora-targets joiner --real-repeat "${REAL_REPEAT:-2}" --max-tts-ratio "${MAX_TTS_RATIO:-1}" \
+      --tts-speed-perturb --tts-reverb-prob "${TTS_REVERB_PROB:-0.3}" \
+      --valid-manifest outputs/asr_finetune/validation.jsonl --exp-dir "outputs/asr_lora/${kind}_joiner"
+    models=(--model "$kind=$dir" --model "$kind=${dir}-lora-real")
+    if [[ -f "outputs/asr_lora/${kind}_joiner/lora-best.pt" ]]; then
+      "$PYTHON_BIN" export_asr_lora.py --model "$kind" --model-dir "${dir}-lora-real" --icefall-dir "$ICEFALL_DIR" \
+        --lora "outputs/asr_lora/${kind}_joiner/lora-best.pt" --out-dir "${dir}-lora-2stage"
+      models+=(--model "$kind=${dir}-lora-2stage")
+    else
+      echo "Stage 2 (joiner on real + TTS) did not beat stage 1; ${dir}-lora-real is the candidate."
+    fi
+    "$PYTHON_BIN" eval_asr_onnx.py --manifest outputs/asr_finetune/validation.jsonl "${models[@]}" --out "outputs/asr_lora/${kind}_2stage_validation"
     ;;
   gipformer)
     need "$GIP_DIR/model.pt" "huggingface-cli download g-group-ai-lab/gipformer1.5-68M-rnnt model.pt bpe.model --local-dir $GIP_DIR"

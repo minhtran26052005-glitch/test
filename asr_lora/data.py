@@ -52,6 +52,49 @@ def cap_tts(records, max_ratio, seed=42):
     return kept, {'real': len(real), 'tts': len(keep), 'tts_dropped': len(tts) - len(keep)}
 
 
+REPEAT_SPEEDS = (0.9, 1.1, 0.95, 1.05)  # speed of the 2nd, 3rd, ... copy of a real utterance in one epoch
+TTS_SPEEDS = (0.9, 1.0, 1.1)
+
+
+def epoch_cuts(cuts, records, epoch, real_repeat=1, max_tts_ratio=1.0, seed=42, resample_tts=True,
+               tts_speed=False, tts_reverb_prob=0.0):
+    """Training cuts of one epoch when real speech is a few hours and TTS is most of the data.
+
+    Real: every utterance `real_repeat` times; copies are speed-perturbed (0.9, 1.1, 0.95, 1.05, ...) so they
+    are not identical. TTS: at most max_tts_ratio x (real cuts of the epoch), all of it when < 0; with
+    resample_tts a fresh subset each epoch (seed + epoch), so the whole QC-passed pool is used over the epochs
+    at a constant real share. tts_speed / tts_reverb_prob add a random speed (0.9 / 1.0 / 1.1) and simulated room
+    reverberation to TTS only, so cloned voices do not all carry one clean synthetic channel.
+    Returns (CutSet, mix counts)."""
+    from lhotse import CutSet
+    if real_repeat < 1:
+        raise ValueError('--real-repeat must be >= 1')
+    source = {record['id']: record.get('source') for record in records}  # to_cuts: recording id = record id
+    real = [cut for cut in cuts if source[cut.recording_id] != 'tts']
+    tts = [cut for cut in cuts if source[cut.recording_id] == 'tts']
+    rng = random.Random(f'{seed}:{epoch if resample_tts else 0}')
+    out = list(real)
+    for k in range(1, real_repeat):
+        factor = REPEAT_SPEEDS[(k - 1) % len(REPEAT_SPEEDS)]
+        out += [cut.perturb_speed(factor).with_id(f'{cut.id}#r{k}') for cut in real]
+    budget = len(tts) if max_tts_ratio < 0 else min(len(tts), int(max_tts_ratio * len(out)))
+    chosen = sorted(rng.sample(range(len(tts)), budget))
+    augment = random.Random(f'{seed}:augment:{epoch}')
+    reverberated = 0
+    for index in chosen:
+        cut = tts[index]
+        factor = augment.choice(TTS_SPEEDS) if tts_speed else 1.0
+        if factor != 1.0:
+            cut = cut.perturb_speed(factor)
+        if augment.random() < tts_reverb_prob:
+            cut = cut.reverb_rir(None, room_rng_seed=augment.randrange(2 ** 31), source_rng_seed=augment.randrange(2 ** 31))
+            reverberated += 1
+        out.append(cut)
+    mix = {'real': len(real), 'real_copies': len(out) - len(real) - budget, 'tts': budget, 'tts_pool': len(tts),
+           'tts_reverberated': reverberated, 'real_share_percent': round(100 * (len(out) - budget) / max(len(out), 1), 1)}
+    return CutSet.from_cuts(out), mix
+
+
 def to_cuts(records, sample_rate=16000):
     from lhotse import CutSet, Recording, RecordingSet, SupervisionSegment, SupervisionSet
     recordings, supervisions = [], []

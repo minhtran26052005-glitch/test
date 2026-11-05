@@ -3,10 +3,11 @@
 Câu hỏi: hai ASR (GipFormer 68M RNN-T, ZipFormer-150M CR-CTC) và Qwen3.5-4B đều đã học rất nhiều dữ liệu. Ta chỉ có
 vài nghìn câu trong miền thi. Làm sao để model học được miền thi mà không lệch, không quên và không học vẹt?
 
-Tài liệu gồm ba phần: bằng chứng từ các công trình đã công bố, cách áp vào số liệu của repo, và các tuỳ chọn đã cài
-trong commit này. Các tuỳ chọn mới mặc định tắt. Có hai mặc định thay đổi:
+Tài liệu gồm ba phần: bằng chứng từ các công trình đã công bố, cách áp vào số liệu của repo, và các tuỳ chọn đã cài.
+Các tuỳ chọn mới mặc định tắt. Có ba mặc định thay đổi:
 
 - lr LoRA ASR, sửa lỗi ở mục 3.2;
+- tập TTS được lấy mới mỗi epoch, mục 3.6;
 - bỏ quỹ đạo trùng khi build SFT, mục 4.1.
 
 Hạn chế về nguồn được ghi ở mục 8.
@@ -19,9 +20,11 @@ Hạn chế về nguồn được ghi ở mục 8.
    - Danh sách lấy từ split fit phủ được 73/136 (Gip) và 66/126 (Zip) lần nghe sai loại từ này trên validation.
      Đây là trần lý thuyết, chưa phải kết quả decode.
    - Cách chạy: `./run_finetune.sh hotwords`.
-2. **Nếu train ASR thì dùng LoRA nhỏ, audio thật chiếm đa số, chọn checkpoint trên validation.** Sau đó nội suy trọng
-   số giữa model gốc và model đã train (`--scale`, kiểu WiSE-FT), chọn hệ số trên validation, chỉ chấm test một lần.
-   TTS chỉ là phần bổ sung đã qua QC, không vượt số câu thật. Đã có `--max-tts-ratio 1`.
+2. **Nếu train ASR thì dùng LoRA nhỏ, chọn checkpoint trên validation (chỉ audio thật).** Sau đó nội suy trọng số giữa
+   model gốc và model đã train (`--scale`, kiểu WiSE-FT), chọn hệ số trên validation, chỉ chấm test một lần.
+   - Khi audio thật chỉ vài giờ và phần lớn là TTS (mục 3.6): mỗi epoch cho TTS khoảng 1–2 lần số câu thật, lấy tập TTS
+     mới mỗi epoch để dùng hết kho. Tăng biến thiên âm học cho TTS.
+   - Cách an toàn nhất: `./run_finetune.sh asr2`. Encoder chỉ học từ audio thật; TTS chỉ dạy joint network.
    - **Đã sửa một lỗi:** lr mặc định cũ 0.0045 là lr của full fine-tune. Với LoRA dưới ScaledAdam, adapter gần như
      không học. Mặc định nay là 0.045 như recipe `zipformer_lora` của icefall (mục 3.2).
 3. **Đo đúng chỗ ít data tác động.** Ngoài WER, cần xem:
@@ -171,7 +174,7 @@ Vậy là:
 | lr | ScaledAdam **0.045** (mặc định của icefall `zipformer_lora/finetune.py` và tutorial adapter). Commit này sửa mặc định cũ 0.0045; xem phần ngay dưới bảng | Nếu `broken_utterances` tăng nhanh qua các epoch, thử 0.02 |
 | Số epoch | Tối đa 15, giữ epoch tốt nhất theo WER validation (đã có) | Dừng theo audio thật, không theo TTS |
 | `--speed-perturb` | Bật | Tăng biến thể với giá rẻ (0,9 / 1,1); các recipe icefall đều dùng |
-| TTS | `--max-tts-ratio 1` (mặc định). Chạy mốc `--max-tts-ratio 0` trước | Mục 3.4 |
+| TTS | `--max-tts-ratio 1` (mặc định, theo từng epoch). Chạy mốc `--max-tts-ratio 0` trước | Mục 3.4 và 3.6 |
 
 **Lỗi lr đã sửa.** Mặc định cũ `--base-lr 0.0045` là lr của *full* fine-tune trong tutorial icefall (1/10 lr gốc). Với
 LoRA dưới ScaledAdam, mức này quá nhỏ:
@@ -256,6 +259,64 @@ giảm độ trôi (WiSE-FT, mục 2).
 | `changed_words_per_100` | Độ trôi trên public_test không nhãn |
 
 Quy tắc: chọn mọi thứ (điểm hotword, epoch, scale, TTS ratio) trên **validation**; test chỉ để báo cáo lần cuối.
+
+### 3.6 Khi audio thật chỉ vài giờ, phần còn lại là TTS clone giọng
+
+Đây là tình huống của repo:
+
+- **Audio thật:** 3.558 câu fit, cỡ vài giờ.
+- **TTS:** 7.496 câu từ 229 seed, clone từ 753 đoạn giọng thật của train; thêm 790 câu agent từ 382 đoạn giọng.
+- **Cách chọn seed:** theo nội dung ASR làm hỏng ([khảo sát](../outputs/asr_datagen_targets/KHAO_SAT_DE_GEN_DATA.md)),
+  và giọng clone là giọng của chính seed. Đây gần đúng công thức Hard-Synth: LLM viết lại câu, rồi clone giọng của các
+  câu model nghe sai, để bù phần âm học hiếm trong data ([Hard-Synth](https://arxiv.org/abs/2411.13159)). Hard-Synth
+  báo giảm WER tương đối 6,5% / 4,4% trên LibriSpeech dev/test-other và hiệu quả về lượng data.
+
+**Bằng chứng cho trường hợp "ít thật, nhiều TTS":**
+
+| Câu hỏi | Kết quả đã công bố |
+| --- | --- |
+| Ít data thật + TTS có giúp không | Có, kể cả rất ít. Với 24 phút audio có nhãn, TTS giảm WER tương đối tới 25,5%; self-training trên audio chưa nhãn giảm tới 20,5% ([Bartelds et al. 2023](https://aclanthology.org/2023.acl-long.42)). TTS train từ chính data ASR rồi đem tăng cường cũng cải thiện ([Laptev et al. 2020](https://arxiv.com/abs/2005.07157)) |
+| Có trần không | Có. TTS mở rộng cả đa dạng từ vựng lẫn âm học nhưng lợi ích có giới hạn, và model train bằng giọng tổng hợp vẫn kém xa model train bằng giọng người ([Rosenberg et al. 2019](https://arxiv.org/pdf/1909.11699); [Hilmes et al. 2024](https://arxiv.org/abs/2407.17997)) |
+| Tỉ lệ thật : TTS | 1:1 cho kết quả tốt cả trong và ngoài miền ([IEEE](https://ieeexplore.ieee.org/document/11252042/)). Lợi ích lớn nhất khi data thật dưới 1 giờ; chững lại khi TTS vượt khoảng 2 lần data thật ([LREC 2026](https://aclanthology.org/2026.lrec-1.442/)). Lượng TTS ngang data thật là hiệu quả chi phí ([2410.16726](https://arxiv.org/pdf/2410.16726)). Một nghiên cứu được LREC 2026 dẫn lại dùng 168 phút TTS với 24 phút thật (khoảng 7:1) vẫn có lợi, nhưng đó là mức cực ít data |
+| Bao nhiêu giọng | Số giọng chững lại sớm, khoảng 40 giọng trong một nghiên cứu clone giọng cho ASR trẻ em ([2611.03050](https://arxiv.org/abs/2611.03050)). Đa dạng text quan trọng hơn đa dạng giọng ([2410.16726](https://arxiv.org/pdf/2410.16726)). TTS ít biến thiên thì nhanh bão hoà |
+| Khoảng cách phân phối | Synt++ lọc mẫu TTS (rejection sampling) và tách thống kê batch-norm cho thật/TTS, giảm tới 13% lỗi ASR tương đối so với dùng TTS thô ([Synt++](https://machinelearning.apple.com/research/utilizing-imperfect-synthetic)). Zipformer dùng BiasNorm, không có thống kê batch, nên chỉ phần lọc áp dụng được; repo đã có QC hai ASR |
+| Cho TTS dạy phần nào | Với RNN-T, chỉnh prediction + joint network bằng TTS sinh từ text miền đích thắng cả sửa chính tả và LM rescoring, không thêm chi phí khi chạy ([Li et al. 2020](https://arxiv.org/pdf/2007.15188)) |
+
+**Vì sao không để TTS dạy encoder.** TTS là nguồn tốt cho *từ* (SJC, ZALO, tên thuốc, cách nói trong miền) nhưng là
+nguồn xấu cho *âm học*: giọng clone vẫn mang dấu vết vocoder và cùng một kênh "sạch". Nếu TTS chiếm phần lớn gradient
+của encoder, model có thể học "kênh TTS" thay vì học nghe. Encoder là nơi học âm học; joint network là nơi chấm điểm
+từng token. Vì vậy công thức an toàn là để encoder chỉ học từ audio thật.
+
+**Đã cài cho tình huống này:**
+
+| Tuỳ chọn | Tác dụng |
+| --- | --- |
+| `--max-tts-ratio R` | Nay áp **theo từng epoch**: tối đa R câu TTS cho mỗi câu thật của epoch đó (kể cả bản lặp). `-1` dùng hết |
+| Mặc định lấy tập TTS mới mỗi epoch (`--fixed-tts-subset` để giữ cách cũ) | Dùng hết kho TTS qua các epoch mà tỉ lệ thật trong mỗi epoch không đổi |
+| `--real-repeat K` | Mỗi câu thật xuất hiện K lần mỗi epoch; bản lặp được đổi tốc độ 0,9 / 1,1 / 0,95 / 1,05 nên không trùng y hệt. Dùng khi muốn nhiều TTS hơn mà vẫn giữ tỉ lệ |
+| `--tts-speed-perturb`, `--tts-reverb-prob P` | Chỉ cho TTS: tốc độ ngẫu nhiên 0,9 / 1,0 / 1,1, và vang phòng mô phỏng của lhotse (không cần bộ RIR). Vang cần torchaudio; script thử trước khi train và báo rõ nếu thiếu |
+| `--lora-targets joiner` | LoRA chỉ ở joint network; encoder giữ nguyên. Với Zip, CR-CTC tự tắt vì không còn tham số nào trên đường đó |
+| `./run_finetune.sh asr2 KIND` | Giai đoạn 1: LoRA encoder chỉ trên audio thật, có speed perturb. Giai đoạn 2: từ model giai đoạn 1, LoRA joiner trên thật (`REAL_REPEAT`, mặc định 2) + TTS (`MAX_TTS_RATIO`, mặc định 1; speed; `TTS_REVERB_PROB`, mặc định 0,3). Cuối cùng chấm model gốc / giai đoạn 1 / giai đoạn 2 trên validation |
+
+`--real-repeat 2 --max-tts-ratio 1` cho mỗi epoch:
+
+- ít nhất 50% là audio thật (bản gốc + bản 0,9×);
+- TTS tối đa bằng hai lần số câu thật khác nhau.
+
+Với kho hiện tại (trước QC: Gip 4.538 câu, Zip 3.748 câu), như vậy là dùng toàn bộ kho mỗi epoch, và audio thật chiếm
+khoảng 61% (Gip) và 65% (Zip). Theo các nghiên cứu ở bảng trên, tăng TTS quá khoảng 2 lần data thật hiếm khi có lợi thêm.
+
+**Gợi ý thêm (chưa cài):**
+
+- **Ưu tiên TTS "khó".** Nhóm `asr_learnable` dạy được nhiều. Nhóm `asr_already_right` chủ yếu thêm âm học TTS mà ít thêm
+  từ. Khi phải cắt bớt TTS, nên ưu tiên nhóm đầu.
+- **Giọng clone:** vài chục giọng là đủ. Dồn công vào text đa dạng (câu diễn đạt lại, từ khó). Với câu chứa từ khó, đọc
+  bằng 2 giọng khác nhau. Clone ưu tiên giọng của các câu model nghe sai.
+- **Kiểm tra model có học "kênh TTS" không.** Giữ lại khoảng 5% câu TTS (theo seed) làm tập kiểm tra. Nếu WER trên TTS giữ
+  lại giảm mạnh mà validation thật không giảm, model đang học giọng tổng hợp chứ không học từ.
+- **Mỗi giờ audio thật đáng giá hơn nhiều giờ TTS.** Nếu có thể, nhờ vài người đọc câu miền thi bằng điện thoại.
+  Self-training trên audio thật chưa nhãn cũng có bằng chứng tốt (Bartelds et al.), nhưng public_test chỉ dùng được nếu
+  luật thi cho phép.
 
 ## 4. Qwen3.5-4B: công thức
 
@@ -395,7 +456,7 @@ Hệ quả: chọn cấu hình trên validation (231 mẫu), xác nhận một l
 | --- | --- | --- |
 | A | `./run_finetune.sh hotwords` (CPU, không train) | Validation: WER, recall từ ngoại, false alarm, câu làm hỏng. Nếu có lợi, bật `*_DECODING`/`*_HOTWORDS` và benchmark agent trên validation |
 | B | `./run_finetune.sh tts`, rồi `qc`, rồi nghe `listen_sample.csv` | Tỉ lệ bị loại so với mức 12,8% trên giọng thật |
-| C | Train ASR LoRA hai lần: chỉ audio thật (`--max-tts-ratio 0`), rồi thật + TTS. Sau đó `./run_finetune.sh scales gipformer` (và `zipformer`) | Validation; giữ bản có câu làm hỏng thấp và drift public_test nhỏ |
+| C | `./run_finetune.sh asr2 gipformer` (và `zipformer`). So thêm với cách một giai đoạn (`./run_finetune.sh gipformer`, thật + TTS cùng lúc). Sau đó `./run_finetune.sh scales …` cho bản tốt nhất | Validation; giữ bản có câu làm hỏng thấp và drift public_test nhỏ |
 | D | Qwen SFT v1 trên data hiện có, `QWEN_ARGS="--early-stopping-patience 3"`; merge 1,0 và 0,7 | State match validation |
 | E | RFT: 4 lượt lấy mẫu, build với `self:`, SFT v2 từ model gốc | State match validation; McNemar so với v1 |
 | F | Chấm test một lần cho cấu hình cuối, kèm `mcnemar_exact_p` | Báo cáo |
@@ -406,7 +467,8 @@ Hệ quả: chọn cấu hình trên validation (231 mẫu), xác nhận một l
 | --- | --- |
 | Train hoặc chọn tham số trên test, hay train trên public_test | Chọn trên validation; public_test chỉ để đo drift |
 | Lấy danh sách hotword từ validation hoặc test | Chỉ từ split fit (`build_hotwords.py` đã làm vậy) |
-| Cho TTS nhiều hơn audio thật, dùng TTS chưa QC, gán nhãn TTS theo chữ viết | `--max-tts-ratio` ≤ 1, `*_qc.jsonl`, nhãn theo chữ được đọc |
+| Để TTS chiếm gần hết mỗi epoch (hơn khoảng 2 lần số câu thật), dùng TTS chưa QC, gán nhãn TTS theo chữ viết | `--max-tts-ratio` 1–2 theo epoch (có thể kèm `--real-repeat`), `*_qc.jsonl`, nhãn theo chữ được đọc |
+| Để TTS dạy encoder khi audio thật chỉ vài giờ | `./run_finetune.sh asr2`: encoder chỉ học audio thật, TTS chỉ dạy joint network |
 | Full fine-tune lr lớn nhiều epoch, không dừng sớm | LoRA, chọn epoch theo WER validation trên audio thật |
 | Chọn epoch theo loss trên TTS | Validation chỉ gồm audio thật (đã vậy) |
 | Boost từ thông dụng (NHẮN, HỌP) bằng hotword | Để lỗi nhầm động từ lệnh cho LoRA trên audio thật và bước chuẩn hoá |
@@ -422,6 +484,7 @@ Hệ quả: chọn cấu hình trên validation (231 mẫu), xác nhận một l
 | `eval_asr_onnx.py` | Decode riêng cho mỗi `--model …@…`; chỉ số `foreign_words` | — |
 | `asr_lora/lora.py`, `export_asr_lora.py`, `train_asr_lora.py` | `scale_lora` / `--scale`; `--lora-joiner` (lưu trong `lora_config`, export dựng lại đúng). **Sửa lr mặc định của ScaledAdam: 0.0045 → 0.045** (AdamW: 5e-4) | Scale 1, không joiner |
 | `scripts/scaled_adam_lora_lr_check.py` | Kiểm tra lr ở trên, chỉ cần torch | — |
+| `asr_lora/data.py` (`epoch_cuts`), `train_asr_lora.py` | Trộn thật/TTS theo epoch: `--real-repeat`, TTS mới mỗi epoch (`--fixed-tts-subset`), `--tts-speed-perturb`, `--tts-reverb-prob`; `--lora-targets joiner`; bước `asr2` trong `run_finetune.sh` | Tỉ lệ 1, lặp 1, không tăng cường; lấy TTS mới mỗi epoch |
 | `run_finetune.sh` | Bước `hotwords` và `scales KIND` | — |
 | `train_qwen_lora.py` | `--neftune-alpha`, `--use-rslora`, `--use-dora`, `--early-stopping-patience` | Tắt |
 | `merge_qwen_lora.py` | `--scale` (chỉ LoRA thường) | 1 |
